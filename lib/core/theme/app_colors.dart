@@ -1,28 +1,38 @@
 import 'package:flutter/material.dart';
 
-/// Paleta base do GymRank. Tema escuro por padrão, com acentos vibrantes
-/// para gamificação (XP, níveis, conquistas).
+/// Paleta do GymRank: preto profundo com um único acento amarelo/âmbar
+/// (estilo fitness premium, dark). Monocromático + um acento = visual
+/// limpo e profissional; o amarelo carrega a energia de gamificação.
 abstract final class AppColors {
-  static const Color background = Color(0xFF0B0D12);
-  static const Color surface = Color(0xFF15181F);
-  static const Color surfaceElevated = Color(0xFF1E222B);
+  // Fundos e superfícies (escala de cinza, sem tons quentes).
+  static const Color background = Color(0xFF000000);
+  static const Color surface = Color(0xFF121212);
+  static const Color surfaceElevated = Color(0xFF1C1C1E);
+  static const Color divider = Color(0xFF262626);
 
-  static const Color primary = Color(0xFF6C5CE7);
-  static const Color primaryVariant = Color(0xFF4834D4);
-  static const Color secondary = Color(0xFF00E5A0);
+  // Acento único.
+  static const Color primary = Color(0xFFFFD60A);
+  static const Color primaryVariant = Color(0xFFE6B800);
+  static const Color secondary = Color(0xFFFFD60A);
 
-  static const Color gold = Color(0xFFFFC542);
-  static const Color silver = Color(0xFFB8C0CC);
+  /// Cor de conteúdo sobre o amarelo (botões, chips): preto para contraste.
+  static const Color onPrimary = Color(0xFF0A0A0A);
+
+  // Pódio.
+  static const Color gold = Color(0xFFFFD60A);
+  static const Color silver = Color(0xFFC7C9CC);
   static const Color bronze = Color(0xFFCD7F32);
 
-  static const Color danger = Color(0xFFFF5C5C);
-  static const Color warning = Color(0xFFFFA94D);
-  static const Color success = Color(0xFF00E5A0);
+  // Semânticas.
+  static const Color danger = Color(0xFFFF453A);
+  static const Color warning = Color(0xFFFF9F0A);
+  static const Color success = Color(0xFF32D74B);
 
-  static const Color textPrimary = Color(0xFFF5F6FA);
-  static const Color textSecondary = Color(0xFFA0A4B8);
-  static const Color divider = Color(0xFF262A35);
+  // Texto.
+  static const Color textPrimary = Color(0xFFFFFFFF);
+  static const Color textSecondary = Color(0xFF9A9A9A);
 
-  static const List<Color> xpGradient = [primary, Color(0xFF00D2FF)];
-  static const List<Color> streakGradient = [Color(0xFFFF6B6B), gold];
+  // Gradientes de destaque (XP, sequência).
+  static const List<Color> xpGradient = [primary, Color(0xFFFF8A00)];
+  static const List<Color> streakGradient = [Color(0xFFFF6B35), primary];
 }

@@ -45,6 +45,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Spacer(),
+              Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  color: AppColors.primary,
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: const Icon(
+                  Icons.bolt,
+                  color: AppColors.onPrimary,
+                  size: 38,
+                ),
+              ),
+              const SizedBox(height: 20),
               Text('GymRank', style: AppTextStyles.displayLarge),
               const SizedBox(height: 8),
               Text(

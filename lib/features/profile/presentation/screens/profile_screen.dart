@@ -98,11 +98,29 @@ class _ProfileHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CircleAvatar(
-          radius: 32,
-          backgroundColor: AppColors.surfaceElevated,
-          backgroundImage: user.photoUrl != null ? NetworkImage(user.photoUrl!) : null,
-          child: user.photoUrl == null ? const Icon(Icons.person, size: 32) : null,
+        Container(
+          padding: const EdgeInsets.all(3),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: const LinearGradient(
+              colors: AppColors.streakGradient,
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: CircleAvatar(
+            radius: 36,
+            backgroundColor: AppColors.background,
+            child: CircleAvatar(
+              radius: 33,
+              backgroundColor: AppColors.surfaceElevated,
+              backgroundImage:
+                  user.photoUrl != null ? NetworkImage(user.photoUrl!) : null,
+              child: user.photoUrl == null
+                  ? const Icon(Icons.person, size: 34, color: AppColors.textSecondary)
+                  : null,
+            ),
+          ),
         ),
         const SizedBox(width: 16),
         Expanded(
@@ -110,7 +128,24 @@ class _ProfileHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(user.name, style: AppTextStyles.headline),
+              const SizedBox(height: 2),
               Text('@${user.username}', style: AppTextStyles.bodyMuted),
+              const SizedBox(height: 8),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  'Nível ${user.level}',
+                  style: AppTextStyles.caption.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
