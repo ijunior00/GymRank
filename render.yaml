@@ -11,7 +11,6 @@ services:
     plan: free
     buildCommand: bash scripts/render_build.sh
     staticPublishPath: build/web
-    pullRequestPreviewsEnabled: false
     routes:
       # SPA fallback: every path serves index.html so Flutter's router
       # handles it client-side.
