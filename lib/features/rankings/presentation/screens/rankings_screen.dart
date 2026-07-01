@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gymrank/core/theme/app_colors.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
+import 'package:gymrank/core/widgets/entrance.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_providers.dart';
 import 'package:gymrank/features/rankings/domain/entities/ranking_entry_entity.dart';
 import 'package:gymrank/features/rankings/presentation/controllers/ranking_providers.dart';
@@ -63,7 +64,10 @@ class _RankingsScreenState extends ConsumerState<RankingsScreen> {
                   padding: const EdgeInsets.all(16),
                   itemCount: list.length,
                   separatorBuilder: (_, __) => const SizedBox(height: 8),
-                  itemBuilder: (context, i) => _RankingTile(entry: list[i]),
+                  itemBuilder: (context, i) => Entrance(
+                    delay: Duration(milliseconds: 45 * i),
+                    child: _RankingTile(entry: list[i]),
+                  ),
                 );
               },
             ),

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gymrank/core/theme/app_colors.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
 import 'package:gymrank/core/utils/date_formatter.dart';
+import 'package:gymrank/core/widgets/entrance.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_providers.dart';
 import 'package:gymrank/features/social_feed/domain/entities/post_entity.dart';
 import 'package:gymrank/features/social_feed/presentation/controllers/feed_providers.dart';
@@ -27,7 +28,10 @@ class FeedScreen extends ConsumerWidget {
             padding: const EdgeInsets.all(16),
             itemCount: list.length,
             separatorBuilder: (_, __) => const SizedBox(height: 12),
-            itemBuilder: (context, i) => _PostCard(post: list[i]),
+            itemBuilder: (context, i) => Entrance(
+              delay: Duration(milliseconds: 70 * i),
+              child: _PostCard(post: list[i]),
+            ),
           );
         },
       ),

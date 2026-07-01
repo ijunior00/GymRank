@@ -71,53 +71,87 @@ GoRouter appRouter(Ref ref) {
       GoRoute(
         path: '/checkin',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const CheckInScreen(),
+        pageBuilder: (context, state) => _fadeSlide(state, const CheckInScreen()),
       ),
       GoRoute(
         path: '/workout/new',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const LogWorkoutScreen(),
+        pageBuilder: (context, state) =>
+            _fadeSlide(state, const LogWorkoutScreen()),
       ),
       GoRoute(
         path: '/body-measurement',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const BodyMeasurementScreen(),
+        pageBuilder: (context, state) =>
+            _fadeSlide(state, const BodyMeasurementScreen()),
       ),
       GoRoute(
         path: '/progress-photos',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const ProgressPhotoScreen(),
+        pageBuilder: (context, state) =>
+            _fadeSlide(state, const ProgressPhotoScreen()),
       ),
       GoRoute(
         path: '/achievements',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const AchievementsScreen(),
+        pageBuilder: (context, state) =>
+            _fadeSlide(state, const AchievementsScreen()),
       ),
       GoRoute(
         path: '/friends',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const FriendsScreen(),
+        pageBuilder: (context, state) => _fadeSlide(state, const FriendsScreen()),
       ),
       GoRoute(
         path: '/notifications',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const NotificationsScreen(),
+        pageBuilder: (context, state) =>
+            _fadeSlide(state, const NotificationsScreen()),
       ),
       GoRoute(
         path: '/championships',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const ChampionshipsScreen(),
+        pageBuilder: (context, state) =>
+            _fadeSlide(state, const ChampionshipsScreen()),
       ),
       GoRoute(
         path: '/rewards',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const MyRewardsScreen(),
+        pageBuilder: (context, state) => _fadeSlide(state, const MyRewardsScreen()),
       ),
       GoRoute(
         path: '/gym-admin',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const GymAdminDashboardScreen(),
+        pageBuilder: (context, state) =>
+            _fadeSlide(state, const GymAdminDashboardScreen()),
       ),
     ],
+  );
+}
+
+/// Transição padrão das telas empurradas: fade + leve deslize de baixo,
+/// dando fluidez à navegação.
+CustomTransitionPage<void> _fadeSlide(GoRouterState state, Widget child) {
+  return CustomTransitionPage<void>(
+    key: state.pageKey,
+    transitionDuration: const Duration(milliseconds: 320),
+    reverseTransitionDuration: const Duration(milliseconds: 240),
+    child: child,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      final curved = CurvedAnimation(
+        parent: animation,
+        curve: Curves.easeOutCubic,
+      );
+      return FadeTransition(
+        opacity: curved,
+        child: SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0, 0.06),
+            end: Offset.zero,
+          ).animate(curved),
+          child: child,
+        ),
+      );
+    },
   );
 }

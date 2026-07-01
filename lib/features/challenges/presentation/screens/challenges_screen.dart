@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gymrank/core/constants/app_constants.dart';
 import 'package:gymrank/core/theme/app_colors.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
+import 'package:gymrank/core/widgets/entrance.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_providers.dart';
 import 'package:gymrank/features/challenges/domain/entities/challenge_entity.dart';
 import 'package:gymrank/features/challenges/presentation/controllers/challenge_providers.dart';
@@ -27,7 +28,10 @@ class ChallengesScreen extends ConsumerWidget {
             padding: const EdgeInsets.all(16),
             itemCount: list.length,
             separatorBuilder: (_, __) => const SizedBox(height: 12),
-            itemBuilder: (context, i) => _ChallengeCard(challenge: list[i]),
+            itemBuilder: (context, i) => Entrance(
+              delay: Duration(milliseconds: 70 * i),
+              child: _ChallengeCard(challenge: list[i]),
+            ),
           );
         },
       ),
