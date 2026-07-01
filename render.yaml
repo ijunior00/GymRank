@@ -1,0 +1,20 @@
+# Render blueprint for the GymRank UI PREVIEW (demo mode).
+#
+# This deploys lib/main_demo.dart: the full app running on in-memory fake
+# data, no Firebase, no backend. Use it to validate UI/navigation only.
+# The production app (lib/main.dart) needs a real Firebase project and is
+# NOT what this blueprint builds.
+services:
+  - type: web
+    name: gymrank-preview
+    runtime: static
+    plan: free
+    buildCommand: bash scripts/render_build.sh
+    staticPublishPath: build/web
+    pullRequestPreviewsEnabled: false
+    routes:
+      # SPA fallback: every path serves index.html so Flutter's router
+      # handles it client-side.
+      - type: rewrite
+        source: /*
+        destination: /index.html
