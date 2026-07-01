@@ -7,7 +7,7 @@ part 'result.freezed.dart';
 /// [Result] em vez de lançar exceptions, forçando tratamento explícito
 /// de erro na camada de apresentação.
 @freezed
-class Result<T> with _$Result<T> {
+sealed class Result<T> with _$Result<T> {
   const factory Result.success(T data) = Success<T>;
   const factory Result.failure(Failure failure) = ResultFailure<T>;
 }

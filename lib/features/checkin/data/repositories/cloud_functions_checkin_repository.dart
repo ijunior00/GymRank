@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_functions/cloud_functions.dart';
+import 'package:cloud_functions/cloud_functions.dart' hide Result;
 import 'package:gymrank/core/error/failure.dart';
 import 'package:gymrank/core/error/result.dart';
 import 'package:gymrank/features/checkin/domain/entities/checkin_entity.dart';

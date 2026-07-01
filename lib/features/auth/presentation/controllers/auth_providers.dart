@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gymrank/core/di/firebase_providers.dart';
+import 'package:gymrank/core/error/result.dart';
 import 'package:gymrank/features/auth/data/repositories/firebase_auth_repository.dart';
 import 'package:gymrank/features/auth/domain/repositories/auth_repository.dart';
 import 'package:gymrank/features/profile/domain/entities/user_entity.dart';

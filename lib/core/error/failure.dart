@@ -6,7 +6,7 @@ part 'failure.freezed.dart';
 /// (FirebaseException, SocketException, etc). Repositórios traduzem
 /// exceptions concretas para [Failure] antes de retornar ao domínio.
 @freezed
-class Failure with _$Failure {
+sealed class Failure with _$Failure {
   const factory Failure.network() = NetworkFailure;
   const factory Failure.unauthenticated() = UnauthenticatedFailure;
   const factory Failure.permissionDenied() = PermissionDeniedFailure;

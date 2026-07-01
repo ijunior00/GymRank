@@ -17,7 +17,6 @@ abstract final class AppTheme {
       brightness: Brightness.dark,
       colorScheme: colorScheme,
       scaffoldBackgroundColor: AppColors.background,
-      fontFamily: 'Inter',
       dividerColor: AppColors.divider,
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,

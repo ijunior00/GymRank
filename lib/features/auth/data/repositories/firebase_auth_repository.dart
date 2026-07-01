@@ -180,7 +180,11 @@ class FirebaseAuthRepository implements AuthRepository {
 
   @override
   Future<void> signOut() async {
-    await GoogleSignIn().signOut().catchError((_) {});
+    try {
+      await GoogleSignIn().signOut();
+    } catch (_) {
+      // Usuário pode não ter autenticado via Google; ignora e prossegue.
+    }
     await _auth.signOut();
   }
 
