@@ -8,7 +8,6 @@ services:
   - type: web
     name: gymrank-preview
     runtime: static
-    plan: free
     buildCommand: bash scripts/render_build.sh
     staticPublishPath: build/web
     routes:
