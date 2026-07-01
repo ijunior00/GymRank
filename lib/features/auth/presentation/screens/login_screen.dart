@@ -1,0 +1,136 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gymrank/core/theme/app_colors.dart';
+import 'package:gymrank/core/theme/app_text_styles.dart';
+import 'package:gymrank/features/auth/presentation/controllers/auth_controller.dart';
+
+class LoginScreen extends ConsumerStatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _handleResult() async {
+    if (!mounted) return;
+    final state = ref.read(authControllerProvider);
+    state.whenOrNull(
+      error: (failure, _) => ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(failure.toString())),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isLoading = ref.watch(authControllerProvider).isLoading;
+
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Spacer(),
+              Text('GymRank', style: AppTextStyles.displayLarge),
+              const SizedBox(height: 8),
+              Text(
+                'Evolua. Compita. Conquiste.',
+                style: AppTextStyles.bodyMuted,
+              ),
+              const SizedBox(height: 40),
+              TextField(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(hintText: 'E-mail'),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(hintText: 'Senha'),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: isLoading
+                    ? null
+                    : () async {
+                        await ref
+                            .read(authControllerProvider.notifier)
+                            .signInWithEmail(
+                              _emailController.text.trim(),
+                              _passwordController.text,
+                            );
+                        await _handleResult();
+                      },
+                child: isLoading
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Text('Entrar'),
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  const Expanded(child: Divider(color: AppColors.divider)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Text('ou continue com', style: AppTextStyles.caption),
+                  ),
+                  const Expanded(child: Divider(color: AppColors.divider)),
+                ],
+              ),
+              const SizedBox(height: 12),
+              OutlinedButton.icon(
+                onPressed: isLoading
+                    ? null
+                    : () async {
+                        await ref
+                            .read(authControllerProvider.notifier)
+                            .signInWithGoogle();
+                        await _handleResult();
+                      },
+                icon: const Icon(Icons.g_mobiledata),
+                label: const Text('Google'),
+              ),
+              const SizedBox(height: 8),
+              OutlinedButton.icon(
+                onPressed: isLoading
+                    ? null
+                    : () async {
+                        await ref
+                            .read(authControllerProvider.notifier)
+                            .signInWithApple();
+                        await _handleResult();
+                      },
+                icon: const Icon(Icons.apple),
+                label: const Text('Apple'),
+              ),
+              const Spacer(),
+              TextButton(
+                onPressed: () => context.push('/signup'),
+                child: const Text('Criar uma conta'),
+              ),
+              const SizedBox(height: 12),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

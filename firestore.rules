@@ -1,0 +1,188 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function callerDoc() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function callerRole() {
+      return isSignedIn() ? callerDoc().role : null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && callerRole() == 'adminGlobal';
+    }
+
+    function isGymStaffOf(gymId) {
+      return isSignedIn() &&
+        (callerRole() == 'academia' || callerRole() == 'personal') &&
+        callerDoc().gymId == gymId;
+    }
+
+    // Campos que só podem ser alterados pelo backend (Cloud Functions com
+    // Admin SDK, que ignora estas regras). Impede que o cliente forje XP,
+    // nível ou Gym Score.
+    function onlyProfileFieldsChanged() {
+      let unchangeable = ['xpTotal', 'xpCurrentSeason', 'level', 'gymScore',
+        'currentStreakDays', 'longestStreakDays', 'lastCheckInAt', 'role',
+        'plan', 'createdAt'];
+      return !unchangeable.toSet().hasAny(request.resource.data.diff(resource.data).affectedKeys());
+    }
+
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId) && onlyProfileFieldsChanged();
+      allow delete: if false;
+
+      match /achievements/{code} {
+        allow read: if isSignedIn();
+        allow write: if false; // Cloud Functions only
+      }
+
+      match /fcmTokens/{token} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    match /gyms/{gymId} {
+      allow read: if isSignedIn();
+      allow create, update: if isGymStaffOf(gymId) || isAdmin();
+      allow delete: if isAdmin();
+
+      match /stats/{statId} {
+        allow read: if isGymStaffOf(gymId) || isAdmin();
+        allow write: if false; // Cloud Functions only
+      }
+
+      match /checkins/{checkInId} {
+        allow read: if isOwner(resource.data.userId) || isGymStaffOf(gymId);
+        allow write: if false; // Cloud Function validateCheckIn only
+      }
+    }
+
+    match /workouts/{workoutId} {
+      allow read: if isSignedIn();
+      allow create: if isOwner(request.resource.data.userId);
+      allow update, delete: if isOwner(resource.data.userId);
+    }
+
+    match /body_measurements/{measurementId} {
+      allow read: if isSignedIn();
+      allow create: if isOwner(request.resource.data.userId);
+      allow update, delete: if false; // histórico imutável
+    }
+
+    match /progress_photos/{photoId} {
+      allow read: if isSignedIn();
+      allow create: if isOwner(request.resource.data.userId);
+      allow update: if false;
+      allow delete: if isOwner(resource.data.userId);
+    }
+
+    match /posts/{postId} {
+      allow read: if isSignedIn();
+      allow create: if isOwner(request.resource.data.userId);
+      allow update: if isOwner(resource.data.userId) &&
+        request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['text']);
+      allow delete: if isOwner(resource.data.userId) || isAdmin();
+
+      match /likes/{userId} {
+        allow read: if isSignedIn();
+        allow create, delete: if isOwner(userId);
+      }
+
+      match /comments/{commentId} {
+        allow read: if isSignedIn();
+        allow create: if isOwner(request.resource.data.userId);
+        allow delete: if isOwner(resource.data.userId) || isAdmin();
+        allow update: if false;
+      }
+    }
+
+    match /friendships/{friendshipId} {
+      allow read: if isSignedIn() &&
+        (resource.data.requesterId == request.auth.uid ||
+         resource.data.addresseeId == request.auth.uid);
+      allow create: if isOwner(request.resource.data.requesterId);
+      allow update: if isSignedIn() &&
+        (resource.data.requesterId == request.auth.uid ||
+         resource.data.addresseeId == request.auth.uid);
+      allow delete: if false;
+    }
+
+    match /challenges/{challengeId} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isGymStaffOf(request.resource.data.gymId) || isAdmin();
+
+      match /participants/{userId} {
+        allow read: if isSignedIn();
+        // Cliente só cria a inscrição inicial; progresso e conclusão são
+        // calculados por Cloud Functions a partir de dados de origem
+        // confiável (check-ins, treinos), nunca auto-declarados.
+        allow create: if isOwner(userId) &&
+          request.resource.data.currentValue == 0 &&
+          request.resource.data.completed == false;
+        allow update, delete: if false;
+      }
+    }
+
+    match /championships/{championshipId} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isGymStaffOf(request.resource.data.gymId) || isAdmin();
+    }
+
+    match /rewards/{rewardId} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isGymStaffOf(request.resource.data.gymId) || isAdmin();
+
+      match /grants/{grantId} {
+        allow read: if isOwner(resource.data.userId) || isAdmin();
+        allow write: if false; // Cloud Functions only
+      }
+    }
+
+    match /rankings/{rankingId} {
+      allow read: if isSignedIn();
+      allow write: if false; // Cloud Functions only
+
+      match /entries/{userId} {
+        allow read: if isSignedIn();
+        allow write: if false;
+      }
+    }
+
+    match /notifications/{notificationId} {
+      allow read: if isOwner(resource.data.userId);
+      allow update: if isOwner(resource.data.userId) &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+      allow create, delete: if false; // Cloud Functions only
+    }
+
+    match /gym_score_history/{entryId} {
+      allow read: if isOwner(resource.data.userId);
+      allow write: if false; // Cloud Functions only
+    }
+
+    match /seasons/{seasonId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+
+      match /results/{userId} {
+        allow read: if isSignedIn();
+        allow write: if false; // Cloud Function seasonReset only
+      }
+    }
+  }
+}
