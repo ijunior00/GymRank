@@ -14,6 +14,9 @@
   PDFs de dieta e macros; o app organiza, versiona e acompanha, com um
   papel próprio (`nutriologo`) para ela subir e revisar os planos. Isso
   resolve também a questão regulatória do item 4.8.
+- **Mobile first: ~80% do uso será no celular**, inclusive o painel da
+  treinadora. Toda tela nasce para 360 px de largura e uma mão; web e
+  desktop são bônus, não alvo de layout.
 - **MVP começou** pelo pivô `gyms → coaches`, pelos papéis
   `alumno / coach / nutriologo` e pelo painel da treinadora (código de
   convite, indicadores, lista de alunos com situação, ficha com plano,
@@ -490,8 +493,10 @@ por aluno dono, treinadora e nutricionista vinculada.
    (camiseta, sessão presencial, kit).
 7. Ela topa uma **lista de espera / turmas** desde o início, ou quer
    entrada aberta?
-8. Plataforma prioritária: **Android + iOS + web**? (Web para o painel
-   dela é quase obrigatório.)
+8. ~~Plataforma prioritária~~ **Respondido: celular (~80% do uso).**
+   Android + iOS primeiro; o painel dela também é pensado para o
+   celular. Web fica como bônus para o dia em que ela quiser uma tela
+   grande.
 9. Quais **cards** ela mais quer ver circulando: antes/depois, PR,
    streak, ranking?
 10. Que dados dos alunos ela já tem em PDF/Word para servir de amostra

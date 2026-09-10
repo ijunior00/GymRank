@@ -64,18 +64,17 @@ class _CoachDashboardScreenState extends ConsumerState<CoachDashboardScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(coach.valueOrNull?.name ?? 'Panel de coach'),
-        actions: [
-          IconButton(
-            tooltip: 'Código de invitación',
-            icon: const Icon(Icons.qr_code_2),
-            onPressed: coach.valueOrNull == null
-                ? null
-                : () => _showInviteSheet(context, coach.valueOrNull!),
-          ),
-        ],
       ),
+      // Ação principal na zona do polegar: 80% do uso é no celular.
+      floatingActionButton: coach.valueOrNull == null
+          ? null
+          : FloatingActionButton.extended(
+              onPressed: () => _showInviteSheet(context, coach.valueOrNull!),
+              icon: const Icon(Icons.person_add_alt_1),
+              label: const Text('Invitar'),
+            ),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 4, 16, 32),
+        padding: const EdgeInsets.fromLTRB(16, 4, 16, 96),
         children: [
           if (coach.valueOrNull != null)
             Entrance(child: _InviteCard(coach: coach.valueOrNull!)),
@@ -369,37 +368,43 @@ class _StatsGrid extends StatelessWidget {
 
     final items = [
       ('Alumnos activos', '${stats?.activeStudents ?? active.length}'),
-      ('Entrenaron hoy', stats == null ? '—' : '${stats!.workoutsToday}'),
-      ('Entrenos esta semana',
-          stats == null ? '—' : '${stats!.workoutsThisWeek}'),
-      ('Nuevos este mes', stats == null ? '—' : '${stats!.newStudentsThisMonth}'),
       ('En riesgo', '${stats?.inactiveStudents7d ?? atRisk}'),
+      ('Entrenaron hoy', stats == null ? '—' : '${stats!.workoutsToday}'),
+      ('Entrenos (7 días)', stats == null ? '—' : '${stats!.workoutsThisWeek}'),
+      ('Nuevos este mes', stats == null ? '—' : '${stats!.newStudentsThisMonth}'),
       (
         'Retención',
         stats == null ? '—' : '${(stats!.retentionRate * 100).toStringAsFixed(0)}%'
       ),
     ];
 
+    // Duas colunas: em telas de 360 px cada tile fica com ~165 px, o que
+    // cabe número grande + rótulo em uma linha sem espremer.
     return GridView.count(
-      crossAxisCount: 3,
+      crossAxisCount: 2,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       crossAxisSpacing: 10,
       mainAxisSpacing: 10,
-      childAspectRatio: 1.05,
+      childAspectRatio: 1.9,
       children: [
         for (final (label, value) in items)
           Card(
             child: Padding(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(value,
                       style: AppTextStyles.displayLarge.copyWith(fontSize: 24)),
-                  const SizedBox(height: 4),
-                  Text(label, style: AppTextStyles.caption, maxLines: 2),
+                  const SizedBox(height: 2),
+                  Text(
+                    label,
+                    style: AppTextStyles.caption,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ],
               ),
             ),

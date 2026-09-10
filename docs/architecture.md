@@ -78,6 +78,23 @@ as regras permitem ao aluno nesse caminho.
 A feature vive em `lib/features/coach_panel/` e segue as mesmas três
 camadas das demais.
 
+## Mobile first
+
+Cerca de 80% do uso será no celular — inclusive o painel da treinadora.
+Regras que valem para toda tela nova:
+
+- Ações principais na zona do polegar (FAB, botões no rodapé, bottom
+  sheets), nunca só no canto superior da AppBar.
+- Uma coluna por padrão; grades no máximo com duas colunas em largura de
+  360 px, e rótulos que cabem em uma linha.
+- Listas com tiles de toque generoso (≥ 48 px) e chips de filtro em
+  rolagem horizontal, em vez de tabelas.
+- Formulários em bottom sheet que respeitam o teclado
+  (`MediaQuery.viewInsetsOf`).
+- Web/desktop é um bônus (Flutter Web já compila), não o alvo do
+  layout. Se algum dia valer a pena, a adaptação é por `LayoutBuilder`
+  nas telas do painel, sem trocar a arquitetura.
+
 ## Idioma
 
 O app é lançado para o México e toda a interface está em espanhol

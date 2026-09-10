@@ -23,25 +23,7 @@ class ClientDetailScreen extends ConsumerWidget {
     final client = ref.watch(clientDetailProvider(userId)).valueOrNull;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(user.valueOrNull?.name ?? 'Alumno'),
-        actions: [
-          if (client != null)
-            PopupMenuButton<ClientStatus>(
-              tooltip: 'Cambiar estado',
-              initialValue: client.status,
-              onSelected: (status) => _updateClient(
-                context,
-                ref,
-                client.copyWith(status: status),
-              ),
-              itemBuilder: (context) => [
-                for (final s in ClientStatus.values)
-                  PopupMenuItem(value: s, child: Text(s.labelEs)),
-              ],
-            ),
-        ],
-      ),
+      appBar: AppBar(title: Text(user.valueOrNull?.name ?? 'Alumno')),
       body: user.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text('Error: $e')),
@@ -62,6 +44,13 @@ class ClientDetailScreen extends ConsumerWidget {
                 onEdit: client == null
                     ? null
                     : () => _showPlanSheet(context, ref, client),
+                onStatusChanged: client == null
+                    ? null
+                    : (status) => _updateClient(
+                          context,
+                          ref,
+                          client.copyWith(status: status),
+                        ),
               ),
               const SizedBox(height: 16),
               _MeasurementsCard(userId: userId),
@@ -198,10 +187,15 @@ class _StatsRow extends StatelessWidget {
 }
 
 class _PlanCard extends StatelessWidget {
-  const _PlanCard({required this.view, required this.onEdit});
+  const _PlanCard({
+    required this.view,
+    required this.onEdit,
+    required this.onStatusChanged,
+  });
 
   final CoachStudentView view;
   final VoidCallback? onEdit;
+  final ValueChanged<ClientStatus>? onStatusChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -235,14 +229,53 @@ class _PlanCard extends StatelessWidget {
           ? null
           : TextButton(onPressed: onEdit, child: const Text('Editar')),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          // Estado do aluno como controle segmentado, dentro do cartão e
+          // ao alcance do polegar (em vez de um menu no canto superior).
+          if (client != null && onStatusChanged != null) ...[
+            SegmentedButton<ClientStatus>(
+              segments: const [
+                ButtonSegment(
+                  value: ClientStatus.activo,
+                  label: Text('Activo'),
+                ),
+                ButtonSegment(
+                  value: ClientStatus.pausado,
+                  label: Text('En pausa'),
+                ),
+                ButtonSegment(
+                  value: ClientStatus.inactivo,
+                  label: Text('Inactivo'),
+                ),
+              ],
+              selected: {client.status},
+              showSelectedIcon: false,
+              onSelectionChanged: (selection) =>
+                  onStatusChanged!(selection.first),
+              style: const ButtonStyle(
+                visualDensity: VisualDensity.compact,
+                tapTargetSize: MaterialTapTargetSize.padded,
+              ),
+            ),
+            const SizedBox(height: 10),
+          ],
           for (final (label, value) in rows)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 5),
               child: Row(
                 children: [
-                  Expanded(child: Text(label, style: AppTextStyles.bodyMuted)),
-                  Text(value, style: AppTextStyles.body),
+                  Text(label, style: AppTextStyles.bodyMuted),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      value,
+                      style: AppTextStyles.body,
+                      textAlign: TextAlign.end,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ],
               ),
             ),

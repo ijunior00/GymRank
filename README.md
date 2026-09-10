@@ -3,7 +3,8 @@
 App do método de uma personal trainer no México. A treinadora é a dona
 da conta: gerencia seus alunos no painel, e os alunos treinam, registram
 a evolução e competem dentro da comunidade dela. Interface 100% em
-espanhol (es-MX).
+espanhol (es-MX) e **mobile first**: cerca de 80% do uso é no celular,
+inclusive o painel da treinadora.
 
 Evoluiu do scaffold original de gamificação para academias (B2B2C); o
 histórico e a direção de produto estão em
