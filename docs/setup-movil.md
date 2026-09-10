@@ -29,7 +29,7 @@ por projeto e um deles carrega chaves). Os três nascem de um comando só:
 ```bash
 dart pub global activate flutterfire_cli
 flutterfire configure \
-  --project=<id-do-projeto-firebase> \
+  --project=gymrank-e1c0d \
   --platforms=android,ios \
   --android-package-name=com.gymrank.app \
   --ios-bundle-id=com.gymrank.app

@@ -69,17 +69,28 @@ export PATH="$PATH:$HOME/.pub-cache/bin"
 
 ## 4. Conectar o repo ao projeto
 
+O projeto já está apontado no `.firebaserc` versionado:
+
+```json
+{ "projects": { "default": "gymrank-e1c0d" } }
+```
+
+Ou seja, `firebase use --add` não é necessário, e nenhum `firebase deploy`
+vai parar no projeto errado por engano. (O ID do projeto é público — o que
+tem chave é o `firebase_options.dart`, esse sim fora do git.)
+
 Na raiz do repositório:
 
 ```bash
-firebase use --add        # escolha o projeto; cria .firebaserc (não versionado)
-
 flutterfire configure \
-  --project=<seu-project-id> \
-  --platforms=android,ios,web \
+  --project=gymrank-e1c0d \
+  --platforms=android,ios \
   --android-package-name=com.gymrank.app \
   --ios-bundle-id=com.gymrank.app
 ```
+
+Acrescente `,web` à lista quando for ligar o PWA (ver
+`docs/setup-web-pwa.md`).
 
 Isto gera de uma vez os três arquivos que **não** estão no git (são por
 projeto e um deles carrega chaves):
@@ -93,8 +104,6 @@ E adiciona o plugin `com.google.gms.google-services` ao Gradle. É por
 isso que ele **não** está declarado à mão em
 `android/app/build.gradle.kts`: sem o JSON ao lado, ele quebra a
 compilação. Deixe o `flutterfire` colocar os dois juntos.
-
-Tire o `web` da lista se por ora só quiser os apps.
 
 ## 5. Subir regras, índices e functions
 

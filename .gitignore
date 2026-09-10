@@ -72,10 +72,13 @@ app.*.map.json
 **/ios/Runner/GeneratedPluginRegistrant.*
 
 # Firebase
+# Estes carregam chaves e são gerados por `flutterfire configure`:
 lib/firebase_options.dart
 google-services.json
 GoogleService-Info.plist
-.firebaserc
+# .firebaserc NÃO entra aqui de propósito: só nomeia o projeto (que é
+# público) e versioná-lo garante que um `firebase deploy` nunca suba as
+# regras para o projeto errado.
 functions/node_modules/
 functions/lib/
 
