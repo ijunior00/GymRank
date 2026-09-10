@@ -92,14 +92,15 @@ código de convite na primeira abertura do painel.
 
 ## Setup
 
-Os arquivos `.g.dart`/`.freezed.dart` **não** são versionados e os
-projetos nativos (`android/`, `ios/`) ainda não existem. Para rodar:
+Os projetos nativos `android/` e `ios/` estão versionados e configurados
+(app id `com.gymrank.app`, es-MX, só retrato, splash violeta, permissões
+de câmera/galeria em espanhol). Os arquivos `.g.dart`/`.freezed.dart` e
+os de configuração do Firebase **não** são versionados:
 
 ```bash
-flutter create --org com.gymrank --project-name gymrank --platforms android,ios .
 flutter pub get
 dart run build_runner build --delete-conflicting-outputs
-flutterfire configure   # gera lib/firebase_options.dart
+flutterfire configure    # firebase_options.dart + google-services.json + GoogleService-Info.plist
 flutter run
 ```
 
@@ -108,6 +109,16 @@ Preview sem Firebase (dados fake, usuária demo é a treinadora):
 ```bash
 flutter run -t lib/main_demo.dart
 ```
+
+Testes das regras puras (níveis, 1RM, treino do dia, leitura dos planos):
+
+```bash
+flutter test
+```
+
+O passo a passo completo até a Play Store e a App Store — assinatura,
+chave APNs, capacidades do `Runner.entitlements`, ícones — está em
+`docs/setup-movil.md`.
 
 ## Planos: PDF/Word → revisão → publicação
 
@@ -213,3 +224,9 @@ embaixadores e cor da marca escolhida por ela.
 Do Pilar 6 ficaram de fora, por dependerem de decisões dela e de
 hospedagem: página pública com lista de espera, turmas com vagas
 limitadas e depoimentos aprovados.
+
+Os projetos nativos iOS e Android estão criados e configurados
+(`com.gymrank.app`), com o push finalmente ligado de ponta a ponta:
+permissão, registro do token em `users/{uid}/fcmTokens`, renovação,
+remoção no logout e abertura da tela pelo `deepLink` da notificação.
+Compilação e verificação de cada plataforma: `docs/setup-movil.md`.

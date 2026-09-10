@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Paleta violeta del app (ver lib/core/theme/app_colors.dart). -->
+<resources>
+    <!-- AppColors.background -->
+    <color name="launch_background">#FF0B0710</color>
+    <!-- AppColors.primary: tinte de las notificaciones -->
+    <color name="notification_color">#FFA855F7</color>
+</resources>

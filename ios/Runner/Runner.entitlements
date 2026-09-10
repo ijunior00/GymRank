@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	    Capacidades que el app necesita. Las dos tienen que estar activadas en
+	    el App ID del portal de Apple Developer (o Xcode las activa solo, con
+	    firma automática y una cuenta de pago); si no, la firma falla.
+	    Ver docs/setup-movil.md.
+
+	    aps-environment: notificaciones push (Firebase Cloud Messaging).
+	    Xcode lo cambia a "production" al archivar para la App Store.
+	-->
+	<key>aps-environment</key>
+	<string>development</string>
+	<!--
+	    Sign in with Apple: obligatorio en la App Store porque el app también
+	    ofrece iniciar sesión con Google.
+	-->
+	<key>com.apple.developer.applesignin</key>
+	<array>
+		<string>Default</string>
+	</array>
+</dict>
+</plist>

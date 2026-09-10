@@ -23,6 +23,7 @@ import 'package:gymrank/features/coach_panel/presentation/controllers/coach_pane
 import 'package:gymrank/features/friendship/presentation/controllers/friendship_providers.dart';
 import 'package:gymrank/features/gamification/presentation/controllers/achievement_providers.dart';
 import 'package:gymrank/features/notifications/presentation/controllers/notification_providers.dart';
+import 'package:gymrank/features/notifications/presentation/controllers/push_registration.dart';
 import 'package:gymrank/features/meal_log/presentation/controllers/meal_log_providers.dart';
 import 'package:gymrank/features/plans/presentation/controllers/plan_providers.dart';
 import 'package:gymrank/features/profile/presentation/controllers/user_repository_provider.dart';
@@ -71,6 +72,9 @@ Future<void> main() async {
             .overrideWithValue(FakeWorkoutSessionRepository()),
         mealLogRepositoryProvider.overrideWithValue(FakeMealLogRepository()),
         shareRepositoryProvider.overrideWithValue(FakeShareRepository()),
+        // O preview roda sem Firebase: nada de FirebaseMessaging.
+        pushRegistrationProvider
+            .overrideWith((ref) => PushRegistration.disabled(ref)),
       ],
       child: const GymRankDemoApp(),
     ),

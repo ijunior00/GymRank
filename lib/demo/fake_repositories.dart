@@ -297,6 +297,13 @@ class FakeNotificationRepository implements NotificationRepository {
     required String token,
   }) async =>
       const Result.success(null);
+
+  @override
+  Future<Result<void>> removeDeviceToken({
+    required String userId,
+    required String token,
+  }) async =>
+      const Result.success(null);
 }
 
 class FakeAchievementRepository implements AchievementRepository {

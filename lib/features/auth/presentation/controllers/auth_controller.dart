@@ -5,6 +5,7 @@ import 'package:gymrank/core/error/failure.dart';
 import 'package:gymrank/core/error/result.dart';
 import 'package:gymrank/features/auth/domain/repositories/auth_repository.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_providers.dart';
+import 'package:gymrank/features/notifications/presentation/controllers/push_registration.dart';
 
 part 'auth_controller.g.dart';
 
@@ -37,7 +38,13 @@ class AuthController extends _$AuthController {
     () => ref.read(authRepositoryProvider).completeSignUp(uid: uid, data: data),
   );
 
-  Future<void> signOut() => ref.read(authRepositoryProvider).signOut();
+  /// Solta o token FCM antes de sair: depois do `signOut` as regras do
+  /// Firestore já não deixam apagá-lo, e o aparelho continuaria
+  /// recebendo os pushes de quem saiu.
+  Future<void> signOut() async {
+    await ref.read(pushRegistrationProvider).releaseToken();
+    await ref.read(authRepositoryProvider).signOut();
+  }
 
   Future<Failure?> _run<T>(Future<Result<T>> Function() action) async {
     state = const AsyncLoading();

@@ -6,6 +6,7 @@ import 'package:gymrank/core/constants/app_constants.dart';
 import 'package:gymrank/core/l10n/app_locale.dart';
 import 'package:gymrank/core/router/app_router.dart';
 import 'package:gymrank/core/theme/app_theme.dart';
+import 'package:gymrank/features/notifications/presentation/controllers/push_registration.dart';
 import 'package:gymrank/firebase_options.dart';
 
 Future<void> main() async {
@@ -23,6 +24,10 @@ class GymRankApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(appRouterProvider);
+
+    // Só ler já basta: o provider fica vivo enquanto o app estiver de pé
+    // e acompanha login/logout para registrar e apagar o token FCM.
+    ref.watch(pushRegistrationProvider);
 
     return MaterialApp.router(
       title: 'GymRank',

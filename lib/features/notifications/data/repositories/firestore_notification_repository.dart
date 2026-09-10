@@ -61,4 +61,22 @@ class FirestoreNotificationRepository implements NotificationRepository {
       return Result.failure(Failure.unexpected(e.message ?? e.code));
     }
   }
+
+  @override
+  Future<Result<void>> removeDeviceToken({
+    required String userId,
+    required String token,
+  }) async {
+    try {
+      await _firestore
+          .collection('users')
+          .doc(userId)
+          .collection('fcmTokens')
+          .doc(token)
+          .delete();
+      return const Result.success(null);
+    } on FirebaseException catch (e) {
+      return Result.failure(Failure.unexpected(e.message ?? e.code));
+    }
+  }
 }

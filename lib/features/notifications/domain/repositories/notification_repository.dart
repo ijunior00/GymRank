@@ -12,4 +12,11 @@ abstract interface class NotificationRepository {
     required String userId,
     required String token,
   });
+
+  /// Apaga o token ao sair da conta: sem isso o aparelho continuaria
+  /// recebendo os pushes de quem saiu.
+  Future<Result<void>> removeDeviceToken({
+    required String userId,
+    required String token,
+  });
 }
