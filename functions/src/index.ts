@@ -12,3 +12,5 @@ export { seasonReset } from './seasons/seasonReset';
 export { recalculateCoachDashboard } from './coach/recalculateCoachDashboard';
 export { onClientCreated } from './coach/onClientCreated';
 export { recalculateRankings } from './rankings/recalculateRankings';
+export { parseDocument } from './plans/parseDocument';
+export { onPlanPublished } from './plans/onPlanPublished';

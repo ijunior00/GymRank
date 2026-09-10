@@ -60,7 +60,7 @@ class HomeDashboardScreen extends ConsumerWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Retos activos', style: AppTextStyles.title),
+                      const Text('Retos activos', style: AppTextStyles.title),
                       GestureDetector(
                         onTap: () => context.go('/challenges'),
                         child: Text(
@@ -129,7 +129,7 @@ class _CoachPanelCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Panel de coach', style: AppTextStyles.title),
+                    const Text('Panel de coach', style: AppTextStyles.title),
                     const SizedBox(height: 2),
                     Text(
                       coach == null
@@ -198,8 +198,8 @@ class _HeroHeader extends StatelessWidget {
                       style: AppTextStyles.displayLarge.copyWith(fontSize: 30),
                     ),
                     const SizedBox(width: 6),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 5),
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 5),
                       child: Text('Gym Score', style: AppTextStyles.caption),
                     ),
                   ],
@@ -339,9 +339,9 @@ class _QuickActionsBar extends StatelessWidget {
           children: [
             Expanded(
               child: _QuickAction(
-                icon: Icons.qr_code_scanner,
-                label: 'Check-in',
-                onTap: () => context.push('/checkin'),
+                icon: Icons.assignment_outlined,
+                label: 'Mi plan',
+                onTap: () => context.push('/plans'),
               ),
             ),
             Expanded(
@@ -349,6 +349,13 @@ class _QuickActionsBar extends StatelessWidget {
                 icon: Icons.fitness_center,
                 label: 'Entrenar',
                 onTap: () => context.push('/workout/new'),
+              ),
+            ),
+            Expanded(
+              child: _QuickAction(
+                icon: Icons.qr_code_scanner,
+                label: 'Check-in',
+                onTap: () => context.push('/checkin'),
               ),
             ),
             Expanded(

@@ -20,8 +20,10 @@
 - **MVP começou** pelo pivô `gyms → coaches`, pelos papéis
   `alumno / coach / nutriologo` e pelo painel da treinadora (código de
   convite, indicadores, lista de alunos com situação, ficha com plano,
-  cobro, progresso, treinos e notas privadas). Próximo passo: upload de
-  PDF/Word com revisão e publicação de planos (Pilar 2).
+  cobro, progresso, treinos e notas privadas). **Pilar 2 também está
+  feito**: upload de PDF/Word/foto, leitura por IA com esquema por tipo,
+  revisão editável, publicação versionada e "Mis planes" para o aluno.
+  Próximo passo: treino do dia executável a partir do plano (Pilar 3).
 
 ---
 

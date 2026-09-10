@@ -35,6 +35,7 @@ lib/
     auth/
     profile/
     coach_panel/            # painel da treinadora: alunos, ficha, código de convite
+    plans/                  # upload PDF/Word → leitura por IA → revisão → publicação
     body_measurement/
     progress_photo/
     workout/
@@ -106,6 +107,28 @@ Preview sem Firebase (dados fake, usuária demo é a treinadora):
 flutter run -t lib/main_demo.dart
 ```
 
+## Planos: PDF/Word → revisão → publicação
+
+1. Na ficha do aluno, a treinadora (ou a nutrióloga) toca em **Subir**,
+   escolhe o tipo (entrenamiento, dieta, macros, evaluación, otro) e o
+   arquivo (PDF, .docx ou foto, até 20 MB). Também dá para capturar à
+   mão.
+2. O arquivo vai para `Storage:documents/{coachId}/{userId}/…` e nasce
+   `documents/{docId}` com status `subido`.
+3. A Cloud Function `parseDocument` envia o arquivo ao Claude
+   (`claude-opus-5`, saída estruturada no esquema do tipo, ver
+   `functions/src/plans/planSchemas.ts`) e grava `listo` + `parsedPlan`,
+   com grau de confiança e avisos. Erros ficam em `error` com botão
+   "Reintentar".
+4. A treinadora abre **Revisar**: edita título, sessões/exercícios (ou
+   comidas/alimentos, metas de macros…), vê os avisos do leitor, alterna
+   para a "vista del alumno" e toca em **Publicar**.
+5. `plans/{planId}` recebe a nova versão (histórico em `versions/`), o
+   documento vira `publicado` e `onPlanPublished` notifica o aluno, que
+   vê tudo em **Mis planes**.
+
+Configuração necessária: `firebase functions:secrets:set ANTHROPIC_API_KEY`.
+
 ## Cloud Functions
 
 ```bash
@@ -118,7 +141,8 @@ firebase deploy --only functions
 Funções: `validateCheckIn`, `onWorkoutCreated` (XP + `lastWorkoutAt` do
 aluno), `onBodyMeasurementCreated`, `onProgressPhotoCreated`,
 `onFriendshipUpdated`, `recalculateGymScore`, `recalculateRankings`,
-`recalculateCoachDashboard`, `onClientCreated`, `seasonReset`.
+`recalculateCoachDashboard`, `onClientCreated`, `seasonReset`,
+`parseDocument`, `onPlanPublished`.
 
 ## Firestore & Storage Rules
 
@@ -141,5 +165,8 @@ MVP em andamento. Feito nesta etapa: pivô `gyms -> coaches`, papéis
 indicadores, lista de alunos com busca e situação, ficha do aluno com
 plano, cobro, progresso, treinos e notas privadas), vínculo por código
 no cadastro e no perfil, regras/índices/Storage atualizados, functions
-ajustadas e toda a interface em es-MX. Próximo: upload de PDF/Word com
-revisão e publicação de planos.
+ajustadas e toda a interface em es-MX. Também pronto: upload de
+PDF/Word/foto com leitura por IA, revisão editável no celular,
+publicação versionada e a tela "Mis planes" do aluno. Próximo: execução
+do treino do dia a partir do plano publicado (conclusão vale como
+check-in).

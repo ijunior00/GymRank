@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gymrank/core/error/result.dart';
 import 'package:gymrank/core/l10n/labels_es.dart';
 import 'package:gymrank/core/theme/app_colors.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
@@ -8,6 +9,7 @@ import 'package:gymrank/features/auth/presentation/controllers/auth_providers.da
 import 'package:gymrank/features/coach_panel/domain/entities/client_entity.dart';
 import 'package:gymrank/features/coach_panel/presentation/controllers/coach_panel_providers.dart';
 import 'package:gymrank/features/coach_panel/presentation/widgets/student_activity_chip.dart';
+import 'package:gymrank/features/plans/presentation/widgets/student_plans_card.dart';
 import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
 
 /// Ficha do aluno vista pela treinadora: perfil, situação, plano e
@@ -57,7 +59,7 @@ class ClientDetailScreen extends ConsumerWidget {
               const SizedBox(height: 16),
               _WorkoutsCard(userId: userId),
               const SizedBox(height: 16),
-              const _PlansPlaceholderCard(),
+              StudentPlansCard(userId: userId),
               const SizedBox(height: 16),
               _NotesCard(userId: userId),
             ],
@@ -280,8 +282,8 @@ class _PlanCard extends StatelessWidget {
               ),
             ),
           if (client == null)
-            Padding(
-              padding: const EdgeInsets.only(top: 8),
+            const Padding(
+              padding: EdgeInsets.only(top: 8),
               child: Text(
                 'Este alumno apunta a tu comunidad pero todavía no tiene '
                 'vínculo registrado. Pídele que entre con tu código.',
@@ -309,7 +311,7 @@ class _MeasurementsCard extends ConsumerWidget {
         error: (e, _) => Text('Error: $e', style: AppTextStyles.bodyMuted),
         data: (list) {
           if (list.isEmpty) {
-            return Text('Aún no hay medidas registradas.',
+            return const Text('Aún no hay medidas registradas.',
                 style: AppTextStyles.bodyMuted);
           }
           final first = list.first;
@@ -414,7 +416,7 @@ class _WorkoutsCard extends ConsumerWidget {
         error: (e, _) => Text('Error: $e', style: AppTextStyles.bodyMuted),
         data: (list) {
           if (list.isEmpty) {
-            return Text('Todavía no registra entrenamientos.',
+            return const Text('Todavía no registra entrenamientos.',
                 style: AppTextStyles.bodyMuted);
           }
           return Column(
@@ -443,31 +445,6 @@ class _WorkoutsCard extends ConsumerWidget {
             ],
           );
         },
-      ),
-    );
-  }
-}
-
-class _PlansPlaceholderCard extends StatelessWidget {
-  const _PlansPlaceholderCard();
-
-  @override
-  Widget build(BuildContext context) {
-    return _SectionCard(
-      title: 'Planes y documentos',
-      child: Row(
-        children: [
-          const Icon(Icons.upload_file_outlined, color: AppColors.textSecondary),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              'Próximamente: aquí subirás el PDF de la nutrióloga y el plan '
-              'de entrenamiento; el app los convierte en dieta, macros y '
-              'rutina para el alumno.',
-              style: AppTextStyles.bodyMuted,
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -555,7 +532,7 @@ class _NotesCardState extends ConsumerState<_NotesCard> {
             error: (e, _) => Text('Error: $e', style: AppTextStyles.bodyMuted),
             data: (list) {
               if (list.isEmpty) {
-                return Text('Sin notas todavía.', style: AppTextStyles.bodyMuted);
+                return const Text('Sin notas todavía.', style: AppTextStyles.bodyMuted);
               }
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -617,7 +594,7 @@ class _PlanFormState extends State<_PlanForm> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text('Plan y cobro', style: AppTextStyles.headline),
+          const Text('Plan y cobro', style: AppTextStyles.headline),
           const SizedBox(height: 16),
           TextField(
             controller: _plan,

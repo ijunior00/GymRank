@@ -77,6 +77,41 @@ Subcoleções:
   `validateCheckIn` a partir de um QR Code assinado (HMAC-SHA256 com
   `qrCodeSecret`, TTL de 30s) — o cliente nunca escreve aqui.
 
+## `documents/{docId}` (arquivos de plano)
+
+PDF, Word (.docx) ou foto enviados pela treinadora ou pela nutrióloga
+para um aluno.
+
+| Campo | Tipo | Notas |
+|---|---|---|
+| coachId, userId, uploadedBy | string | comunidade, aluno destino, quem enviou |
+| kind | string | `entrenamiento` \| `dieta` \| `macros` \| `evaluacion` \| `otro` |
+| fileName, storagePath, downloadUrl, contentType, sizeBytes | | arquivo em `Storage:documents/{coachId}/{userId}/…` |
+| status | string | `subido` → `procesando` → `listo` → `publicado`, ou `error` |
+| errorMessage | string? | preenchido em `error` |
+| parsedPlan | map? | **[CF]** saída estruturada do Claude no esquema do `kind` (functions/src/plans/planSchemas.ts) |
+| parsedAt, parserModel | | **[CF]** |
+| planId | string? | preenchido ao publicar |
+| createdAt, updatedAt | timestamp | |
+
+Fluxo: o app cria o documento com `subido`; `parseDocument` (trigger em
+`documents/{docId}`) baixa o arquivo, envia ao Claude (`claude-opus-5`,
+saída estruturada) e grava `listo` + `parsedPlan` ou `error`. A
+treinadora revisa e edita no app e publica; voltar o status para
+`subido` reprocessa. Requer o secret `ANTHROPIC_API_KEY` nas functions.
+
+## `plans/{planId}` (plano vigente por aluno e tipo)
+
+coachId, userId, kind, title, currentVersion, content (mapa no mesmo
+esquema de `parsedPlan`, já revisado), sourceDocumentId?, publishedAt,
+publishedBy, createdAt. **Um documento por (userId, kind)**: republicar
+incrementa `currentVersion` e sobrescreve `content`.
+
+Subcoleção `versions/{n}` (append-only): number, title, content,
+sourceDocumentId?, publishedAt, publishedBy, coachId, userId. Toda
+publicação grava uma cópia aqui; a treinadora vê o histórico. A Cloud
+Function `onPlanPublished` notifica o aluno (`planPublished`).
+
 ## `workouts/{workoutId}`
 
 userId, date, durationMinutes, muscleGroup, intensity, source (manual |
@@ -181,11 +216,12 @@ conquista permanente em `users/{uid}/achievements`).
 ## `notifications/{notificationId}`
 
 userId, type (workoutReminder | newChallenge | friendOvertook | newLevel
-| newAchievement | championshipEnded | rewardAvailable | newStudent),
-title, body, deepLink?, read, createdAt. Escrito por
+| newAchievement | championshipEnded | rewardAvailable | newStudent |
+planPublished), title, body, deepLink?, read, createdAt. Escrito por
 `dispatchNotification`, que também envia push via FCM para os tokens em
 `users/{uid}/fcmTokens/*`. O cliente só pode marcar como lida.
-`newStudent` é enviada à treinadora por `onClientCreated`.
+`newStudent` é enviada à treinadora por `onClientCreated`;
+`planPublished` ao aluno por `onPlanPublished`.
 
 ---
 

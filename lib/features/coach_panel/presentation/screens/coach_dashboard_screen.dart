@@ -87,8 +87,8 @@ class _CoachDashboardScreenState extends ConsumerState<CoachDashboardScreen> {
             ),
           ),
           const SizedBox(height: 24),
-          Entrance(
-            delay: const Duration(milliseconds: 140),
+          const Entrance(
+            delay: Duration(milliseconds: 140),
             child: Text('Alumnos', style: AppTextStyles.headline),
           ),
           const SizedBox(height: 12),
@@ -191,7 +191,7 @@ class _CoachDashboardScreenState extends ConsumerState<CoachDashboardScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('Tu código de invitación', style: AppTextStyles.headline),
+            const Text('Tu código de invitación', style: AppTextStyles.headline),
             const SizedBox(height: 8),
             Text(
               'Tus alumnos lo escriben al crear su cuenta o en Perfil → '
@@ -237,13 +237,13 @@ class _SetupPrompt extends StatelessWidget {
             const Icon(Icons.storefront_outlined,
                 size: 56, color: AppColors.primary),
             const SizedBox(height: 16),
-            Text(
+            const Text(
               'Configura tu marca',
               textAlign: TextAlign.center,
               style: AppTextStyles.headline,
             ),
             const SizedBox(height: 8),
-            Text(
+            const Text(
               'Antes de recibir alumnos, dale nombre a tu método y genera tu '
               'código de invitación. Toma menos de un minuto.',
               textAlign: TextAlign.center,

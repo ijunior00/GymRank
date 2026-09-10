@@ -21,6 +21,13 @@ service firebase.storage {
       return isSignedIn() && doc.role == 'coach' && ('coachId' in doc) && doc.coachId == coachId;
     }
 
+    // Treinadora ou nutrióloga parceira da mesma comunidade.
+    function isCoachStaffOf(coachId) {
+      let doc = callerDoc();
+      return isSignedIn() && (doc.role == 'coach' || doc.role == 'nutriologo') &&
+        ('coachId' in doc) && doc.coachId == coachId;
+    }
+
     function isImage() {
       return request.resource.contentType.matches('image/.*');
     }
@@ -53,12 +60,12 @@ service firebase.storage {
         request.resource.size < 5 * 1024 * 1024;
     }
 
-    // Documentos por aluno (PDF/Word de dieta, macros, treino). Lidos só
-    // pelo aluno dono e pela treinadora; escritos pela treinadora. A
-    // nutrióloga ganha escrita quando o fluxo de upload existir.
+    // Documentos por aluno (PDF/Word/foto de dieta, macros, treino). Lidos
+    // pelo aluno dono e pelo staff; escritos pela treinadora ou pela
+    // nutrióloga. A Cloud Function `parseDocument` lê via Admin SDK.
     match /documents/{coachId}/{userId}/{fileName} {
-      allow read: if isOwner(userId) || isCoachOf(coachId);
-      allow write: if isCoachOf(coachId) && isPlanDocument() &&
+      allow read: if isOwner(userId) || isCoachStaffOf(coachId);
+      allow write: if isCoachStaffOf(coachId) && isPlanDocument() &&
         request.resource.size < 20 * 1024 * 1024;
     }
 

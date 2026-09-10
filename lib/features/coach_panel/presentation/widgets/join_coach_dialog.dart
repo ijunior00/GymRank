@@ -75,7 +75,7 @@ class _JoinCoachDialogState extends ConsumerState<_JoinCoachDialog> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Escribe el código de 6 caracteres que te compartió tu coach.',
             style: AppTextStyles.bodyMuted,
           ),

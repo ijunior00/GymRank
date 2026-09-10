@@ -71,7 +71,7 @@ class _RingPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final center = size.center(Offset.zero);
     final radius = size.width / 2 - 6;
-    final stroke = 8.0;
+    const stroke = 8.0;
 
     final track = Paint()
       ..style = PaintingStyle.stroke

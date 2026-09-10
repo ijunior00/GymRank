@@ -2,6 +2,7 @@ import 'package:gymrank/core/constants/app_constants.dart';
 import 'package:gymrank/features/challenges/domain/entities/challenge_entity.dart';
 import 'package:gymrank/features/coach_panel/domain/entities/client_entity.dart';
 import 'package:gymrank/features/friendship/domain/entities/friendship_entity.dart';
+import 'package:gymrank/features/plans/domain/entities/plan_entity.dart';
 import 'package:gymrank/features/rankings/domain/entities/ranking_entry_entity.dart';
 import 'package:gymrank/features/rewards/domain/entities/reward_entity.dart';
 import 'package:gymrank/features/workout/domain/entities/workout_entity.dart';
@@ -128,6 +129,26 @@ extension RewardStatusLabelEs on RewardStatus {
         RewardStatus.granted => 'Otorgado',
         RewardStatus.redeemed => 'Canjeado',
         RewardStatus.expired => 'Vencido',
+      };
+}
+
+extension PlanKindLabelEs on PlanKind {
+  String get labelEs => switch (this) {
+        PlanKind.entrenamiento => 'Entrenamiento',
+        PlanKind.dieta => 'Alimentación',
+        PlanKind.macros => 'Macros',
+        PlanKind.evaluacion => 'Evaluación',
+        PlanKind.otro => 'Otro documento',
+      };
+}
+
+extension PlanDocumentStatusLabelEs on PlanDocumentStatus {
+  String get labelEs => switch (this) {
+        PlanDocumentStatus.subido => 'En cola',
+        PlanDocumentStatus.procesando => 'Leyendo…',
+        PlanDocumentStatus.listo => 'Listo para revisar',
+        PlanDocumentStatus.error => 'Error',
+        PlanDocumentStatus.publicado => 'Publicado',
       };
 }
 

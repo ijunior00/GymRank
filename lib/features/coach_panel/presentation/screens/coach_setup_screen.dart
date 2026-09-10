@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gymrank/core/constants/app_constants.dart';
+import 'package:gymrank/core/error/result.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_providers.dart';
 import 'package:gymrank/features/coach_panel/domain/entities/coach_entity.dart';
@@ -104,9 +105,9 @@ class _CoachSetupScreenState extends ConsumerState<CoachSetupScreen> {
           child: ListView(
             padding: const EdgeInsets.all(24),
             children: [
-              Text('¿Cómo se llama tu método?', style: AppTextStyles.headline),
+              const Text('¿Cómo se llama tu método?', style: AppTextStyles.headline),
               const SizedBox(height: 6),
-              Text(
+              const Text(
                 'Es el nombre que tus alumnos verán en todo el app.',
                 style: AppTextStyles.bodyMuted,
               ),

@@ -2,6 +2,7 @@
 // repositório, usadas por lib/main_demo.dart para rodar o app sem
 // Firebase. Ações de escrita são no-op que retornam sucesso.
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:gymrank/core/constants/app_constants.dart';
 import 'package:gymrank/core/error/result.dart';
@@ -24,6 +25,8 @@ import 'package:gymrank/features/gamification/domain/entities/achievement_entity
 import 'package:gymrank/features/gamification/domain/repositories/achievement_repository.dart';
 import 'package:gymrank/features/notifications/domain/entities/app_notification_entity.dart';
 import 'package:gymrank/features/notifications/domain/repositories/notification_repository.dart';
+import 'package:gymrank/features/plans/domain/entities/plan_entity.dart';
+import 'package:gymrank/features/plans/domain/repositories/plan_repository.dart';
 import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
 import 'package:gymrank/features/profile/domain/repositories/user_repository.dart';
 import 'package:gymrank/features/progress_photo/domain/entities/progress_photo_entity.dart';
@@ -47,25 +50,25 @@ class FakeAuthRepository implements AuthRepository {
 
   @override
   Future<Result<String>> signInWithGoogle() async =>
-      Result.success(DemoData.uid);
+      const Result.success(DemoData.uid);
 
   @override
   Future<Result<String>> signInWithApple() async =>
-      Result.success(DemoData.uid);
+      const Result.success(DemoData.uid);
 
   @override
   Future<Result<String>> signInWithEmail({
     required String email,
     required String password,
   }) async =>
-      Result.success(DemoData.uid);
+      const Result.success(DemoData.uid);
 
   @override
   Future<Result<String>> registerWithEmail({
     required String email,
     required String password,
   }) async =>
-      Result.success(DemoData.uid);
+      const Result.success(DemoData.uid);
 
   @override
   Future<Result<void>> sendPhoneVerificationCode(String phoneNumber) async =>
@@ -76,7 +79,7 @@ class FakeAuthRepository implements AuthRepository {
     required String verificationId,
     required String smsCode,
   }) async =>
-      Result.success(DemoData.uid);
+      const Result.success(DemoData.uid);
 
   @override
   Future<Result<bool>> isUsernameAvailable(String username) async =>
@@ -293,6 +296,117 @@ class FakeAchievementRepository implements AchievementRepository {
   @override
   Stream<List<UserAchievementEntity>> watchUnlocked(String userId) =>
       Stream.value(DemoData.achievements);
+}
+
+class FakePlanRepository implements PlanRepository {
+  @override
+  Future<Result<PlanDocumentEntity>> uploadDocument({
+    required String coachId,
+    required String userId,
+    required String uploadedBy,
+    required PlanKind kind,
+    required String fileName,
+    required Uint8List bytes,
+    required String contentType,
+  }) async {
+    final now = DateTime.now();
+    return Result.success(
+      PlanDocumentEntity(
+        id: 'demo-doc',
+        coachId: coachId,
+        userId: userId,
+        uploadedBy: uploadedBy,
+        kind: kind,
+        fileName: fileName,
+        storagePath: '',
+        downloadUrl: null,
+        contentType: contentType,
+        sizeBytes: bytes.length,
+        status: PlanDocumentStatus.subido,
+        errorMessage: null,
+        parsedPlan: null,
+        planId: null,
+        createdAt: now,
+        updatedAt: now,
+      ),
+    );
+  }
+
+  @override
+  Stream<List<PlanDocumentEntity>> watchDocuments(String userId) =>
+      Stream.value(
+        DemoData.documents.where((d) => d.userId == userId).toList(),
+      );
+
+  @override
+  Stream<PlanDocumentEntity?> watchDocument(String documentId) {
+    for (final d in DemoData.documents) {
+      if (d.id == documentId) return Stream.value(d);
+    }
+    return Stream.value(null);
+  }
+
+  @override
+  Future<Result<void>> retryDocument(String documentId) async =>
+      const Result.success(null);
+
+  @override
+  Future<Result<PlanEntity>> publish({
+    required String coachId,
+    required String userId,
+    required PlanKind kind,
+    required String title,
+    required Map<String, dynamic> content,
+    required String publishedBy,
+    String? sourceDocumentId,
+  }) async =>
+      Result.success(
+        PlanEntity(
+          id: 'demo-plan',
+          coachId: coachId,
+          userId: userId,
+          kind: kind,
+          title: title,
+          currentVersion: 1,
+          content: content,
+          sourceDocumentId: sourceDocumentId,
+          publishedAt: DateTime.now(),
+          publishedBy: publishedBy,
+        ),
+      );
+
+  @override
+  Stream<List<PlanEntity>> watchPlans(String userId) =>
+      Stream.value(DemoData.plans.where((p) => p.userId == userId).toList());
+
+  @override
+  Stream<PlanEntity?> watchPlan(String planId) {
+    for (final p in DemoData.plans) {
+      if (p.id == planId) return Stream.value(p);
+    }
+    return Stream.value(null);
+  }
+
+  @override
+  Stream<List<PlanVersionEntity>> watchVersions(String planId) {
+    for (final p in DemoData.plans) {
+      if (p.id == planId) {
+        return Stream.value([
+          for (var v = p.currentVersion; v >= 1; v--)
+            PlanVersionEntity(
+              number: v,
+              title: p.title,
+              content: p.content,
+              sourceDocumentId: p.sourceDocumentId,
+              publishedAt:
+                  p.publishedAt.subtract(Duration(days: 14 * (p.currentVersion - v))),
+              publishedBy: p.publishedBy,
+            ),
+        ]);
+      }
+    }
+    return Stream.value(const []);
+  }
 }
 
 class FakeCoachPanelRepository implements CoachPanelRepository {

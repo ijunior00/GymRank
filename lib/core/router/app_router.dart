@@ -17,6 +17,10 @@ import 'package:gymrank/features/coach_panel/presentation/screens/coach_setup_sc
 import 'package:gymrank/features/home/presentation/screens/app_shell_screen.dart';
 import 'package:gymrank/features/home/presentation/screens/home_dashboard_screen.dart';
 import 'package:gymrank/features/notifications/presentation/screens/notifications_screen.dart';
+import 'package:gymrank/features/plans/domain/entities/plan_entity.dart';
+import 'package:gymrank/features/plans/presentation/screens/my_plans_screen.dart';
+import 'package:gymrank/features/plans/presentation/screens/plan_detail_screen.dart';
+import 'package:gymrank/features/plans/presentation/screens/plan_review_screen.dart';
 import 'package:gymrank/features/profile/presentation/screens/profile_screen.dart';
 import 'package:gymrank/features/progress_photo/presentation/screens/progress_photo_screen.dart';
 import 'package:gymrank/features/rankings/presentation/screens/rankings_screen.dart';
@@ -140,6 +144,56 @@ GoRouter appRouter(Ref ref) {
             pageBuilder: (context, state) => _fadeSlide(
               state,
               ClientDetailScreen(userId: state.pathParameters['userId']!),
+            ),
+            routes: [
+              // Captura manual de um plano para o aluno (?kind=dieta…).
+              GoRoute(
+                path: 'plans/new',
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) => _fadeSlide(
+                  state,
+                  PlanReviewScreen(
+                    userId: state.pathParameters['userId']!,
+                    kind: PlanKind.values.asNameMap()[
+                            state.uri.queryParameters['kind'] ?? ''] ??
+                        PlanKind.entrenamiento,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          // Revisão do resultado do parser de um documento enviado.
+          GoRoute(
+            path: 'documents/:docId/review',
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => _fadeSlide(
+              state,
+              PlanReviewScreen(documentId: state.pathParameters['docId']!),
+            ),
+          ),
+          // Editar e republicar um plano vigente.
+          GoRoute(
+            path: 'plans/:planId/edit',
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => _fadeSlide(
+              state,
+              PlanReviewScreen(planId: state.pathParameters['planId']!),
+            ),
+          ),
+        ],
+      ),
+      // Planos publicados (aluno; a treinadora também abre daqui).
+      GoRoute(
+        path: '/plans',
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => _fadeSlide(state, const MyPlansScreen()),
+        routes: [
+          GoRoute(
+            path: ':planId',
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => _fadeSlide(
+              state,
+              PlanDetailScreen(planId: state.pathParameters['planId']!),
             ),
           ),
         ],

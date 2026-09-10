@@ -23,6 +23,7 @@ import 'package:gymrank/features/coach_panel/presentation/controllers/coach_pane
 import 'package:gymrank/features/friendship/presentation/controllers/friendship_providers.dart';
 import 'package:gymrank/features/gamification/presentation/controllers/achievement_providers.dart';
 import 'package:gymrank/features/notifications/presentation/controllers/notification_providers.dart';
+import 'package:gymrank/features/plans/presentation/controllers/plan_providers.dart';
 import 'package:gymrank/features/profile/presentation/controllers/user_repository_provider.dart';
 import 'package:gymrank/features/progress_photo/presentation/controllers/progress_photo_providers.dart';
 import 'package:gymrank/features/rankings/presentation/controllers/ranking_providers.dart';
@@ -62,6 +63,7 @@ Future<void> main() async {
             .overrideWithValue(FakeAchievementRepository()),
         coachPanelRepositoryProvider
             .overrideWithValue(FakeCoachPanelRepository()),
+        planRepositoryProvider.overrideWithValue(FakePlanRepository()),
       ],
       child: const GymRankDemoApp(),
     ),

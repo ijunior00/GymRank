@@ -112,6 +112,34 @@ service cloud.firestore {
       }
     }
 
+    // Arquivos (PDF/Word/foto) enviados pela treinadora ou nutrióloga para
+    // um aluno, com o resultado da leitura automática. O aluno vê os
+    // metadados; só o staff da comunidade cria/edita.
+    match /documents/{docId} {
+      allow read: if isSignedIn() &&
+        (isOwner(resource.data.userId) || isCoachStaffOf(resource.data.coachId));
+      allow create: if isCoachStaffOf(request.resource.data.coachId) &&
+        request.resource.data.uploadedBy == request.auth.uid &&
+        request.resource.data.status == 'subido';
+      allow update: if isCoachStaffOf(resource.data.coachId);
+      allow delete: if isCoachOf(resource.data.coachId) || isAdmin();
+    }
+
+    // Plano vigente de um aluno por tipo + histórico imutável de versões.
+    match /plans/{planId} {
+      allow read: if isSignedIn() &&
+        (isOwner(resource.data.userId) || isCoachStaffOf(resource.data.coachId));
+      allow create, update: if isCoachStaffOf(request.resource.data.coachId);
+      allow delete: if isCoachOf(resource.data.coachId) || isAdmin();
+
+      match /versions/{versionNumber} {
+        allow read: if isSignedIn() &&
+          (isOwner(resource.data.userId) || isCoachStaffOf(resource.data.coachId));
+        allow create: if isCoachStaffOf(request.resource.data.coachId);
+        allow update, delete: if false; // append-only
+      }
+    }
+
     match /workouts/{workoutId} {
       allow read: if isSignedIn();
       allow create: if isOwner(request.resource.data.userId);

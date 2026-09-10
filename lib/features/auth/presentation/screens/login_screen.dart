@@ -59,9 +59,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              Text('GymRank', style: AppTextStyles.displayLarge),
+              const Text('GymRank', style: AppTextStyles.displayLarge),
               const SizedBox(height: 8),
-              Text(
+              const Text(
                 'Progresa. Compite. Conquista.',
                 style: AppTextStyles.bodyMuted,
               ),
@@ -99,14 +99,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     : const Text('Iniciar sesión'),
               ),
               const SizedBox(height: 12),
-              Row(
+              const Row(
                 children: [
-                  const Expanded(child: Divider(color: AppColors.divider)),
+                  Expanded(child: Divider(color: AppColors.divider)),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    padding: EdgeInsets.symmetric(horizontal: 12),
                     child: Text('o continúa con', style: AppTextStyles.caption),
                   ),
-                  const Expanded(child: Divider(color: AppColors.divider)),
+                  Expanded(child: Divider(color: AppColors.divider)),
                 ],
               ),
               const SizedBox(height: 12),

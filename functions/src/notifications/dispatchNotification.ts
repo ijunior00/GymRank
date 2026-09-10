@@ -8,7 +8,8 @@ export type NotificationType =
   | 'newAchievement'
   | 'championshipEnded'
   | 'rewardAvailable'
-  | 'newStudent';
+  | 'newStudent'
+  | 'planPublished';
 
 interface NotificationInput {
   userId: string;

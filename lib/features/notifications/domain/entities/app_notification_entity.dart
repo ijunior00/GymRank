@@ -13,6 +13,9 @@ enum NotificationType {
 
   /// Para a treinadora: um aluno entrou com o código de convite.
   newStudent,
+
+  /// Para o aluno: a treinadora publicou (ou atualizou) um plano.
+  planPublished,
 }
 
 /// Documento canônico de `notifications/{notificationId}`, espelhado

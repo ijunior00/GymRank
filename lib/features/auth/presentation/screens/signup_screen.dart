@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gymrank/core/constants/app_constants.dart';
+import 'package:gymrank/core/error/result.dart';
 import 'package:gymrank/core/l10n/labels_es.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
 import 'package:gymrank/core/utils/date_formatter.dart';
@@ -147,7 +148,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
   List<Widget> _credentialsStep() {
     return [
-      Text('Tu cuenta', style: AppTextStyles.headline),
+      const Text('Tu cuenta', style: AppTextStyles.headline),
       const SizedBox(height: 16),
       TextFormField(
         controller: _emailController,
@@ -171,7 +172,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
   List<Widget> _profileStep() {
     return [
-      Text('Tu perfil', style: AppTextStyles.headline),
+      const Text('Tu perfil', style: AppTextStyles.headline),
       const SizedBox(height: 16),
       TextFormField(
         controller: _nameController,

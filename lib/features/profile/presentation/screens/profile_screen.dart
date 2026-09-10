@@ -59,7 +59,7 @@ class ProfileScreen extends ConsumerWidget {
                       children: [
                         _StatColumn(label: 'Gym Score', value: user.gymScore.toStringAsFixed(0)),
                         _StatColumn(label: 'XP total', value: '${user.xpTotal}'),
-                        _StatColumn(label: 'Amigos', value: '—'),
+                        const _StatColumn(label: 'Amigos', value: '—'),
                       ],
                     ),
                   ),
@@ -89,6 +89,13 @@ class ProfileScreen extends ConsumerWidget {
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () => showJoinCoachDialog(context, ref, userId: user.id),
                   ),
+                ListTile(
+                  leading: const Icon(Icons.assignment_outlined),
+                  title: const Text('Mis planes'),
+                  subtitle: const Text('Entrenamiento, alimentación y macros'),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => context.push('/plans'),
+                ),
                 ListTile(
                   leading: const Icon(Icons.timeline_outlined),
                   title: const Text('Progreso corporal'),

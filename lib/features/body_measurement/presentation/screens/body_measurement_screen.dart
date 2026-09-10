@@ -35,7 +35,7 @@ class BodyMeasurementScreen extends ConsumerWidget {
           return ListView(
             padding: const EdgeInsets.all(16),
             children: [
-              Text('Peso (kg)', style: AppTextStyles.title),
+              const Text('Peso (kg)', style: AppTextStyles.title),
               const SizedBox(height: 12),
               SizedBox(
                 height: 200,
@@ -62,7 +62,7 @@ class BodyMeasurementScreen extends ConsumerWidget {
                       ),
               ),
               const SizedBox(height: 24),
-              Text('Historial', style: AppTextStyles.title),
+              const Text('Historial', style: AppTextStyles.title),
               const SizedBox(height: 8),
               for (final entry in entries.reversed) _MeasurementTile(entry: entry),
             ],
@@ -89,7 +89,7 @@ class BodyMeasurementScreen extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('Nuevo registro', style: AppTextStyles.headline),
+            const Text('Nuevo registro', style: AppTextStyles.headline),
             const SizedBox(height: 16),
             TextField(
               controller: pesoController,

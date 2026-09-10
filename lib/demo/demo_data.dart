@@ -13,6 +13,7 @@ import 'package:gymrank/features/coach_panel/domain/entities/coach_entity.dart';
 import 'package:gymrank/features/friendship/domain/entities/friendship_entity.dart';
 import 'package:gymrank/features/gamification/domain/entities/achievement_entity.dart';
 import 'package:gymrank/features/notifications/domain/entities/app_notification_entity.dart';
+import 'package:gymrank/features/plans/domain/entities/plan_entity.dart';
 import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
 import 'package:gymrank/features/rankings/domain/entities/ranking_entry_entity.dart';
 import 'package:gymrank/features/rewards/domain/entities/reward_entity.dart';
@@ -538,6 +539,211 @@ abstract final class DemoData {
           addresseeId: uid,
           status: FriendshipStatus.pending,
           createdAt: _daysAgo(1),
+        ),
+      ];
+
+  // --- Planes y documentos ---------------------------------------------------
+
+  static Map<String, dynamic> get workoutPlanContent => {
+        'title': 'Fuerza · Bloque 1 (4 semanas)',
+        'summary': 'Tres sesiones por semana enfocadas en básicos.',
+        'weeksDuration': 4,
+        'days': [
+          {
+            'name': 'Día 1 · Pierna',
+            'focus': 'Cuádriceps y glúteo',
+            'exercises': [
+              {'name': 'Sentadilla con barra', 'sets': 4, 'reps': '6-8', 'load': 'RPE 8', 'restSeconds': 120, 'technique': null, 'notes': null},
+              {'name': 'Prensa 45°', 'sets': 3, 'reps': '10-12', 'load': null, 'restSeconds': 90, 'technique': null, 'notes': null},
+              {'name': 'Hip thrust', 'sets': 3, 'reps': '10', 'load': '60 kg', 'restSeconds': 90, 'technique': 'Pausa 1 s arriba', 'notes': null},
+              {'name': 'Extensión de pierna', 'sets': 3, 'reps': '15', 'load': null, 'restSeconds': 60, 'technique': 'Drop set en la última', 'notes': null},
+            ],
+            'notes': null,
+          },
+          {
+            'name': 'Día 2 · Empuje',
+            'focus': 'Pecho, hombro y tríceps',
+            'exercises': [
+              {'name': 'Press de banca', 'sets': 4, 'reps': '6-8', 'load': 'RPE 8', 'restSeconds': 120, 'technique': null, 'notes': null},
+              {'name': 'Press inclinado con mancuernas', 'sets': 3, 'reps': '10', 'load': null, 'restSeconds': 90, 'technique': null, 'notes': null},
+              {'name': 'Elevaciones laterales', 'sets': 4, 'reps': '15', 'load': null, 'restSeconds': 45, 'technique': null, 'notes': null},
+            ],
+            'notes': null,
+          },
+          {
+            'name': 'Día 3 · Tracción',
+            'focus': 'Espalda y bíceps',
+            'exercises': [
+              {'name': 'Peso muerto rumano', 'sets': 4, 'reps': '8', 'load': 'RPE 7', 'restSeconds': 120, 'technique': null, 'notes': null},
+              {'name': 'Jalón al pecho', 'sets': 3, 'reps': '10-12', 'load': null, 'restSeconds': 90, 'technique': null, 'notes': null},
+              {'name': 'Remo con mancuerna', 'sets': 3, 'reps': '12', 'load': null, 'restSeconds': 60, 'technique': null, 'notes': null},
+            ],
+            'notes': null,
+          },
+        ],
+        'generalNotes': 'Sube 2.5 kg cuando completes todas las series en el rango alto.',
+        'confidence': 'alta',
+        'warnings': <String>[],
+      };
+
+  static Map<String, dynamic> get dietPlanContent => {
+        'title': 'Plan de alimentación · Definición',
+        'summary': 'Cinco comidas, ~1,800 kcal, alto en proteína.',
+        'meals': [
+          {
+            'name': 'Desayuno',
+            'time': '7:30',
+            'items': [
+              {'food': 'Claras de huevo', 'quantity': '4 piezas', 'notes': null},
+              {'food': 'Avena', 'quantity': '40 g', 'notes': 'en agua o leche light'},
+              {'food': 'Plátano', 'quantity': '1 pieza', 'notes': null},
+            ],
+            'notes': null,
+          },
+          {
+            'name': 'Colación 1',
+            'time': '11:00',
+            'items': [
+              {'food': 'Yogur griego natural', 'quantity': '150 g', 'notes': null},
+              {'food': 'Nuez', 'quantity': '10 g', 'notes': null},
+            ],
+            'notes': null,
+          },
+          {
+            'name': 'Comida',
+            'time': '14:30',
+            'items': [
+              {'food': 'Pechuga de pollo', 'quantity': '150 g', 'notes': null},
+              {'food': 'Arroz cocido', 'quantity': '1 taza', 'notes': null},
+              {'food': 'Verduras al vapor', 'quantity': 'libre', 'notes': null},
+            ],
+            'notes': null,
+          },
+          {
+            'name': 'Cena',
+            'time': '20:00',
+            'items': [
+              {'food': 'Salmón o atún', 'quantity': '120 g', 'notes': null},
+              {'food': 'Ensalada', 'quantity': 'libre', 'notes': '1 cda de aceite de oliva'},
+            ],
+            'notes': null,
+          },
+        ],
+        'substitutions': [
+          'Pollo 150 g = pescado blanco 170 g = carne magra 130 g',
+          'Arroz 1 taza = papa 200 g = tortilla de maíz 2 piezas',
+        ],
+        'generalNotes': 'Agua: 2.5 L al día. Evitar bebidas azucaradas.',
+        'confidence': 'media',
+        'warnings': [
+          'La cantidad de aguacate en la comida estaba borrosa en el PDF; se omitió.',
+        ],
+      };
+
+  static List<PlanEntity> get plans => [
+        PlanEntity(
+          id: 'plan-u0-ent',
+          coachId: coachId,
+          userId: 'u0',
+          kind: PlanKind.entrenamiento,
+          title: 'Fuerza · Bloque 1 (4 semanas)',
+          currentVersion: 2,
+          content: workoutPlanContent,
+          sourceDocumentId: 'doc-u0-ent',
+          publishedAt: _daysAgo(3),
+          publishedBy: uid,
+        ),
+        PlanEntity(
+          id: 'plan-u0-dieta',
+          coachId: coachId,
+          userId: 'u0',
+          kind: PlanKind.dieta,
+          title: 'Plan de alimentación · Definición',
+          currentVersion: 1,
+          content: dietPlanContent,
+          sourceDocumentId: 'doc-u0-dieta',
+          publishedAt: _daysAgo(10),
+          publishedBy: uid,
+        ),
+        PlanEntity(
+          id: 'plan-coach-ent',
+          coachId: coachId,
+          userId: uid,
+          kind: PlanKind.entrenamiento,
+          title: 'Fuerza · Bloque 1 (4 semanas)',
+          currentVersion: 1,
+          content: workoutPlanContent,
+          sourceDocumentId: null,
+          publishedAt: _daysAgo(1),
+          publishedBy: uid,
+        ),
+      ];
+
+  static PlanDocumentEntity _document({
+    required String id,
+    required String userId,
+    required PlanKind kind,
+    required String fileName,
+    required PlanDocumentStatus status,
+    Map<String, dynamic>? parsedPlan,
+    String? errorMessage,
+    int hoursAgo = 2,
+  }) =>
+      PlanDocumentEntity(
+        id: id,
+        coachId: coachId,
+        userId: userId,
+        uploadedBy: uid,
+        kind: kind,
+        fileName: fileName,
+        storagePath: 'documents/$coachId/$userId/$fileName',
+        downloadUrl: null,
+        contentType: fileName.endsWith('.pdf')
+            ? 'application/pdf'
+            : 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        sizeBytes: 250000,
+        status: status,
+        errorMessage: errorMessage,
+        parsedPlan: parsedPlan,
+        planId: null,
+        createdAt: _hoursAgo(hoursAgo),
+        updatedAt: _hoursAgo(hoursAgo),
+      );
+
+  static List<PlanDocumentEntity> get documents => [
+        _document(
+          id: 'doc-u1-dieta',
+          userId: 'u1',
+          kind: PlanKind.dieta,
+          fileName: 'Plan_Fernanda_sep.pdf',
+          status: PlanDocumentStatus.listo,
+          parsedPlan: dietPlanContent,
+          hoursAgo: 1,
+        ),
+        _document(
+          id: 'doc-u2-ent',
+          userId: 'u2',
+          kind: PlanKind.entrenamiento,
+          fileName: 'Rutina_Diego.docx',
+          status: PlanDocumentStatus.procesando,
+        ),
+        _document(
+          id: 'doc-u3-macros',
+          userId: 'u3',
+          kind: PlanKind.macros,
+          fileName: 'macros_rafa.pdf',
+          status: PlanDocumentStatus.error,
+          errorMessage: 'El PDF está protegido con contraseña.',
+          hoursAgo: 5,
+        ),
+        _document(
+          id: 'doc-u0-ent',
+          userId: 'u0',
+          kind: PlanKind.entrenamiento,
+          fileName: 'Bloque1_Carlos.pdf',
+          status: PlanDocumentStatus.publicado,
+          parsedPlan: workoutPlanContent,
+          hoursAgo: 72,
         ),
       ];
 
