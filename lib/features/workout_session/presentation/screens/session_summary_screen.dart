@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gymrank/core/theme/app_colors.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
+import 'package:gymrank/features/sharing/domain/entities/share_card.dart';
+import 'package:gymrank/features/sharing/presentation/controllers/share_providers.dart';
+import 'package:gymrank/features/sharing/presentation/screens/share_card_screen.dart';
 import 'package:gymrank/features/workout_session/domain/entities/workout_session.dart';
 import 'package:gymrank/features/workout_session/presentation/controllers/workout_session_providers.dart';
 
@@ -26,9 +29,27 @@ class SessionSummaryScreen extends ConsumerWidget {
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-          child: ElevatedButton(
-            onPressed: () => context.go('/home'),
-            child: const Text('Listo'),
+          child: Row(
+            children: [
+              Expanded(
+                child: OutlinedButton.icon(
+                  onPressed: () {
+                    final session = async.valueOrNull;
+                    if (session == null) return;
+                    showShareCard(context, _cardFor(ref, session));
+                  },
+                  icon: const Icon(Icons.ios_share, size: 18),
+                  label: const Text('Compartir'),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () => context.go('/home'),
+                  child: const Text('Listo'),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -107,6 +128,34 @@ class SessionSummaryScreen extends ConsumerWidget {
       ),
     );
   }
+
+  /// Recorde manda no card; sem recorde, o próprio treino concluído.
+  static ShareCardData _cardFor(WidgetRef ref, WorkoutSessionEntity s) {
+    if (s.prs.isNotEmpty) {
+      final top = [...s.prs]
+        ..sort((a, b) => b.estimated1Rm.compareTo(a.estimated1Rm));
+      final pr = top.first;
+      return buildShareCard(
+        ref,
+        kind: ShareCardKind.record,
+        eyebrow: 'Récord personal',
+        value: '${_fmt(pr.load)} kg × ${pr.reps}',
+        caption: pr.exercise,
+      );
+    }
+    final minutes = ((s.durationSec ?? 0) / 60).round();
+    return buildShareCard(
+      ref,
+      kind: ShareCardKind.entrenamiento,
+      eyebrow: 'Entrenamiento completado',
+      value: s.dayName,
+      caption: '$minutes min · ${s.doneSets} series · '
+          '${_fmt(s.totalVolumeKg)} kg de volumen',
+    );
+  }
+
+  static String _fmt(double v) =>
+      v == v.roundToDouble() ? v.toStringAsFixed(0) : v.toStringAsFixed(1);
 
   static String _bestSet(SessionExercise ex) {
     final done = ex.sets.where((s) => s.done).toList();

@@ -10,7 +10,8 @@ export type NotificationType =
   | 'rewardAvailable'
   | 'newStudent'
   | 'planPublished'
-  | 'personalRecord';
+  | 'personalRecord'
+  | 'referralJoined';
 
 interface NotificationInput {
   userId: string;

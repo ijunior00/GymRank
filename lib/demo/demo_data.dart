@@ -18,6 +18,8 @@ import 'package:gymrank/features/plans/domain/entities/plan_entity.dart';
 import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
 import 'package:gymrank/features/rankings/domain/entities/ranking_entry_entity.dart';
 import 'package:gymrank/features/rewards/domain/entities/reward_entity.dart';
+import 'package:gymrank/features/sharing/domain/entities/share_card.dart';
+import 'package:gymrank/features/sharing/domain/repositories/share_repository.dart';
 import 'package:gymrank/features/social_feed/domain/entities/post_entity.dart';
 import 'package:gymrank/features/workout/domain/entities/workout_entity.dart';
 import 'package:gymrank/features/workout_session/domain/entities/workout_session.dart';
@@ -53,6 +55,8 @@ abstract final class DemoData {
         longestStreakDays: 88,
         lastCheckInAt: _hoursAgo(3),
         plan: SubscriptionPlan.premium,
+        referredBy: null,
+        referralCount: 0,
         createdAt: DateTime(2025, 9, 1),
       );
 
@@ -95,6 +99,7 @@ abstract final class DemoData {
     required int streak,
     required DateTime? lastCheckInAt,
     required int createdDaysAgo,
+    int referralCount = 0,
   }) =>
       UserEntity(
         id: id,
@@ -116,6 +121,8 @@ abstract final class DemoData {
         longestStreakDays: streak + 12,
         lastCheckInAt: lastCheckInAt,
         plan: SubscriptionPlan.free,
+        referredBy: null,
+        referralCount: referralCount,
         createdAt: _daysAgo(createdDaysAgo),
       );
 
@@ -132,6 +139,7 @@ abstract final class DemoData {
           streak: 31,
           lastCheckInAt: _hoursAgo(3),
           createdDaysAgo: 220,
+          referralCount: 3,
         ),
         _student(
           id: 'u1',
@@ -143,6 +151,7 @@ abstract final class DemoData {
           streak: 23,
           lastCheckInAt: _hoursAgo(5),
           createdDaysAgo: 160,
+          referralCount: 1,
         ),
         _student(
           id: 'u2',
@@ -833,6 +842,30 @@ abstract final class DemoData {
           status: PlanDocumentStatus.publicado,
           parsedPlan: workoutPlanContent,
           hoursAgo: 72,
+        ),
+      ];
+
+  static List<ShareEventEntity> get shares => [
+        ShareEventEntity(
+          id: 's1',
+          userId: 'u0',
+          userName: 'Carlos Núñez',
+          kind: ShareCardKind.record,
+          sharedAt: _hoursAgo(4),
+        ),
+        ShareEventEntity(
+          id: 's2',
+          userId: 'u1',
+          userName: 'Fernanda Ríos',
+          kind: ShareCardKind.racha,
+          sharedAt: _hoursAgo(20),
+        ),
+        ShareEventEntity(
+          id: 's3',
+          userId: 'u4',
+          userName: 'Ximena Castro',
+          kind: ShareCardKind.entrenamiento,
+          sharedAt: _daysAgo(2),
         ),
       ];
 

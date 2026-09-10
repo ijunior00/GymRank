@@ -6,6 +6,9 @@ import 'package:gymrank/core/theme/app_text_styles.dart';
 import 'package:gymrank/core/widgets/entrance.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_providers.dart';
 import 'package:gymrank/features/rankings/domain/entities/ranking_entry_entity.dart';
+import 'package:gymrank/features/sharing/domain/entities/share_card.dart';
+import 'package:gymrank/features/sharing/presentation/controllers/share_providers.dart';
+import 'package:gymrank/features/sharing/presentation/screens/share_card_screen.dart';
 import 'package:gymrank/features/rankings/presentation/controllers/ranking_providers.dart';
 
 class RankingsScreen extends ConsumerStatefulWidget {
@@ -85,6 +88,20 @@ class _RankingsScreenState extends ConsumerState<RankingsScreen> {
                           child: _RankingTile(
                             entry: list[i],
                             isMe: list[i].userId == user?.id,
+                            onShare: list[i].userId != user?.id
+                                ? null
+                                : () => showShareCard(
+                                      context,
+                                      buildShareCard(
+                                        ref,
+                                        kind: ShareCardKind.ranking,
+                                        eyebrow: _criteria.labelEs,
+                                        value: '#${list[i].position}',
+                                        caption: _scope == RankingScope.comunidad
+                                            ? 'en mi comunidad'
+                                            : 'en el ranking ${_scope.labelEs.toLowerCase()}',
+                                      ),
+                                    ),
                           ),
                         ),
                       );
@@ -150,10 +167,15 @@ class _ChipRow<T> extends StatelessWidget {
 }
 
 class _RankingTile extends StatelessWidget {
-  const _RankingTile({required this.entry, required this.isMe});
+  const _RankingTile({
+    required this.entry,
+    required this.isMe,
+    this.onShare,
+  });
 
   final RankingEntryEntity entry;
   final bool isMe;
+  final VoidCallback? onShare;
 
   @override
   Widget build(BuildContext context) {
@@ -177,9 +199,20 @@ class _RankingTile extends StatelessWidget {
           ),
         ),
         title: Text(isMe ? '${entry.userName} (tú)' : entry.userName),
-        trailing: Text(
-          entry.value.toStringAsFixed(0),
-          style: AppTextStyles.statValue,
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              entry.value.toStringAsFixed(0),
+              style: AppTextStyles.statValue,
+            ),
+            if (onShare != null)
+              IconButton(
+                tooltip: 'Compartir mi posición',
+                onPressed: onShare,
+                icon: const Icon(Icons.ios_share, size: 18),
+              ),
+          ],
         ),
       ),
     );

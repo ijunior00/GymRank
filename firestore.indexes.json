@@ -131,6 +131,14 @@
       ]
     },
     {
+      "collectionGroup": "share_cards",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "coachId", "order": "ASCENDING" },
+        { "fieldPath": "sharedAt", "order": "DESCENDING" }
+      ]
+    },
+    {
       "collectionGroup": "meal_logs",
       "queryScope": "COLLECTION",
       "fields": [

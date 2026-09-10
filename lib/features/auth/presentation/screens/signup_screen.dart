@@ -30,6 +30,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _heightController = TextEditingController();
   final _cityController = TextEditingController();
   final _inviteCodeController = TextEditingController();
+  final _referredByController = TextEditingController();
 
   DateTime? _birthDate;
   String _sex = 'feminino';
@@ -45,6 +46,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     _heightController.dispose();
     _cityController.dispose();
     _inviteCodeController.dispose();
+    _referredByController.dispose();
     super.dispose();
   }
 
@@ -76,6 +78,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         heightCm: double.tryParse(_heightController.text.replaceAll(',', '.')) ?? 0,
         city: _cityController.text.trim(),
         goal: _goal,
+        referredBy: _referredByController.text.trim().isEmpty
+            ? null
+            : _referredByController.text.trim(),
       ),
     );
     if (signUpFailure != null || !mounted) return;
@@ -252,6 +257,18 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           labelText: 'Código de tu coach (opcional)',
           hintText: 'ABC123',
           helperText: 'Si tu coach te compartió un código, escríbelo aquí.',
+        ),
+      ),
+      const SizedBox(height: 12),
+      TextFormField(
+        controller: _referredByController,
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9._@]')),
+        ],
+        decoration: const InputDecoration(
+          labelText: '¿Quién te invitó? (opcional)',
+          hintText: '@usuario',
+          helperText: 'Así le damos crédito a quien te trajo.',
         ),
       ),
     ];

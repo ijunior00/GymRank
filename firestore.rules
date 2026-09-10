@@ -50,7 +50,7 @@ service cloud.firestore {
     function onlyProfileFieldsChanged() {
       let unchangeable = ['xpTotal', 'xpCurrentSeason', 'level', 'gymScore',
         'currentStreakDays', 'longestStreakDays', 'lastCheckInAt', 'role',
-        'plan', 'createdAt'];
+        'plan', 'createdAt', 'referralCount', 'referredBy'];
       return !unchangeable.toSet().hasAny(request.resource.data.diff(resource.data).affectedKeys());
     }
 
@@ -156,6 +156,16 @@ service cloud.firestore {
           ['validated', 'validationReason', 'prs', 'countedForStreak', 'xpGranted',
            'userId', 'coachId', 'planId', 'startedAt', 'createdAt']);
       allow delete: if false;
+    }
+
+    // Card compartilhado por um aluno: alimenta o painel da treinadora
+    // com o que está circulando. Só o autor cria; ninguém edita depois.
+    match /share_cards/{cardId} {
+      allow read: if isSignedIn() &&
+        (isOwner(resource.data.userId) || isCoachStaffOf(resource.data.coachId));
+      allow create: if isOwner(request.resource.data.userId);
+      allow update: if false;
+      allow delete: if isOwner(resource.data.userId) || isAdmin();
     }
 
     // Refeição do plano marcada como hecha / cambiada / saltada.

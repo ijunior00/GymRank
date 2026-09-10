@@ -34,6 +34,8 @@ class UserDto {
       plan: SubscriptionPlan.values.byName(
         data['plan'] as String? ?? 'free',
       ),
+      referredBy: data['referredBy'] as String?,
+      referralCount: data['referralCount'] as int? ?? 0,
       createdAt: (data['createdAt'] as Timestamp).toDate(),
     );
   }
@@ -61,6 +63,8 @@ class UserDto {
           ? null
           : Timestamp.fromDate(entity.lastCheckInAt!),
       'plan': entity.plan.name,
+      'referredBy': entity.referredBy,
+      'referralCount': entity.referralCount,
       'createdAt': Timestamp.fromDate(entity.createdAt),
     };
   }

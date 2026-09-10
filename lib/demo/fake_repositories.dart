@@ -32,6 +32,8 @@ import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
 import 'package:gymrank/features/profile/domain/repositories/user_repository.dart';
 import 'package:gymrank/features/progress_photo/domain/entities/progress_photo_entity.dart';
 import 'package:gymrank/features/progress_photo/domain/repositories/progress_photo_repository.dart';
+import 'package:gymrank/features/sharing/domain/entities/share_card.dart';
+import 'package:gymrank/features/sharing/domain/repositories/share_repository.dart';
 import 'package:gymrank/features/rankings/domain/entities/ranking_entry_entity.dart';
 import 'package:gymrank/features/rankings/domain/repositories/ranking_repository.dart';
 import 'package:gymrank/features/rewards/domain/entities/reward_entity.dart';
@@ -436,6 +438,16 @@ class FakeMealLogRepository implements MealLogRepository {
     yield List.of(_logs);
     yield* _controller.stream;
   }
+}
+
+class FakeShareRepository implements ShareRepository {
+  @override
+  Future<Result<void>> recordShare(ShareCardKind kind) async =>
+      const Result.success(null);
+
+  @override
+  Stream<List<ShareEventEntity>> watchRecent(String coachId, {int limit = 15}) =>
+      Stream.value(DemoData.shares);
 }
 
 class FakePlanRepository implements PlanRepository {

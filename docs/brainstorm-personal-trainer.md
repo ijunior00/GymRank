@@ -26,7 +26,12 @@
   **Pilar 3 idem**: treino do dia gerado do plano, execução série a série
   com descanso, conclusão valendo como check-in (com validação, XP,
   sequência e recordes no backend) e marcação das refeições com adesão
-  semanal. Próximo passo: cards compartilháveis e indicação (Pilar 6).
+  semanal. **Do Pilar 6 está feito o núcleo**: cards compartilháveis
+  (recorde, racha, nível, treino, ranking) com a marca e o código dela,
+  programa de indicação com embaixadores no painel, e a cor da marca.
+  Continuam abertos, porque dependem de decisão dela e de hospedagem: a
+  página pública com lista de espera, as turmas com vagas limitadas e os
+  depoimentos aprovados.
 - **Identidade visual roxa**: acento violeta (#A855F7) sobre preto-ameixa,
   com gradientes violeta→índigo e fúcsia→violeta.
 

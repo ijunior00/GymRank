@@ -29,6 +29,13 @@ class UserEntity with _$UserEntity {
     required int longestStreakDays,
     required DateTime? lastCheckInAt,
     required SubscriptionPlan plan,
+
+    /// `username` de quem convidou este aluno, informado no cadastro.
+    /// Imutável depois de criado (ver firestore.rules).
+    required String? referredBy,
+
+    /// **[CF]** quantos alunos entraram indicados por este usuário.
+    required int referralCount,
     required DateTime createdAt,
   }) = _UserEntity;
 

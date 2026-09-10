@@ -5,10 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gymrank/core/constants/app_constants.dart';
 import 'package:gymrank/core/error/result.dart';
+import 'package:gymrank/core/theme/app_colors.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_providers.dart';
 import 'package:gymrank/features/coach_panel/domain/entities/coach_entity.dart';
 import 'package:gymrank/features/coach_panel/presentation/controllers/coach_panel_providers.dart';
+import 'package:gymrank/features/sharing/presentation/controllers/share_providers.dart';
 
 /// Primeiro acesso da treinadora: dá nome à marca/método e gera o código
 /// de convite. Só aparece para quem já tem o papel `coach` (atribuído
@@ -27,6 +29,18 @@ class _CoachSetupScreenState extends ConsumerState<CoachSetupScreen> {
   final _city = TextEditingController();
   final _instagram = TextEditingController();
   bool _saving = false;
+
+  /// Cor da marca: aparece nas imagens que os alunos compartilham.
+  String _brandColorHex = _brandColors.first.$2;
+
+  static const List<(String, String)> _brandColors = [
+    ('Violeta', '#A855F7'),
+    ('Fucsia', '#D946EF'),
+    ('Índigo', '#6366F1'),
+    ('Rosa', '#F43F5E'),
+    ('Esmeralda', '#10B981'),
+    ('Ámbar', '#F59E0B'),
+  ];
 
   static const _codeAlphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   static const _secretAlphabet =
@@ -68,7 +82,7 @@ class _CoachSetupScreenState extends ConsumerState<CoachSetupScreen> {
       city: _city.text.trim(),
       country: 'MX',
       logoUrl: null,
-      brandColorHex: null,
+      brandColorHex: _brandColorHex,
       instagramHandle: _instagram.text.trim().isEmpty
           ? null
           : _instagram.text.trim().replaceFirst('@', ''),
@@ -147,6 +161,27 @@ class _CoachSetupScreenState extends ConsumerState<CoachSetupScreen> {
                   prefixText: '@',
                 ),
               ),
+              const SizedBox(height: 20),
+              const Text('Color de tu marca', style: AppTextStyles.caption),
+              const SizedBox(height: 4),
+              const Text(
+                'Es el color de las imágenes que tus alumnos comparten.',
+                style: AppTextStyles.bodyMuted,
+              ),
+              const SizedBox(height: 10),
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  for (final (name, hex) in _brandColors)
+                    _ColorSwatch(
+                      name: name,
+                      hex: hex,
+                      selected: _brandColorHex == hex,
+                      onTap: () => setState(() => _brandColorHex = hex),
+                    ),
+                ],
+              ),
               const SizedBox(height: 28),
               ElevatedButton(
                 onPressed: _saving ? null : _submit,
@@ -160,6 +195,57 @@ class _CoachSetupScreenState extends ConsumerState<CoachSetupScreen> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Amostra de cor da marca, com estado selecionado visível sem depender
+/// só da cor (borda + check), para quem enxerga cor de forma diferente.
+class _ColorSwatch extends StatelessWidget {
+  const _ColorSwatch({
+    required this.name,
+    required this.hex,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String name;
+  final String hex;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = parseBrandColor(hex) ?? AppColors.primary;
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Semantics(
+        selected: selected,
+        label: name,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(
+                  color: selected ? AppColors.textPrimary : Colors.transparent,
+                  width: 2.5,
+                ),
+              ),
+              child: selected
+                  ? const Icon(Icons.check, color: Colors.white, size: 22)
+                  : null,
+            ),
+            const SizedBox(height: 4),
+            Text(name, style: AppTextStyles.caption),
+          ],
         ),
       ),
     );

@@ -10,7 +10,10 @@ import 'package:gymrank/features/auth/presentation/controllers/auth_providers.da
 import 'package:gymrank/features/coach_panel/domain/entities/client_entity.dart';
 import 'package:gymrank/features/coach_panel/domain/entities/coach_entity.dart';
 import 'package:gymrank/features/coach_panel/presentation/controllers/coach_panel_providers.dart';
+import 'package:gymrank/core/utils/date_formatter.dart';
 import 'package:gymrank/features/coach_panel/presentation/widgets/student_activity_chip.dart';
+import 'package:gymrank/features/sharing/domain/entities/share_card.dart';
+import 'package:gymrank/features/sharing/presentation/controllers/share_providers.dart';
 
 enum _Filter { todos, alDia, enRiesgo, sinActividad, pausados }
 
@@ -85,6 +88,11 @@ class _CoachDashboardScreenState extends ConsumerState<CoachDashboardScreen> {
               stats: stats,
               fallbackStudents: students.valueOrNull,
             ),
+          ),
+          const SizedBox(height: 16),
+          Entrance(
+            delay: const Duration(milliseconds: 110),
+            child: _MarketingCard(students: students.valueOrNull ?? const []),
           ),
           const SizedBox(height: 24),
           const Entrance(
@@ -412,6 +420,115 @@ class _StatsGrid extends StatelessWidget {
       ],
     );
   }
+}
+
+/// O que a comunidade está espalhando: cards compartilhados na semana e
+/// os alunos que mais trouxeram gente (embaixadores).
+class _MarketingCard extends ConsumerWidget {
+  const _MarketingCard({required this.students});
+
+  final List<CoachStudentView> students;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final shares = ref.watch(communitySharesProvider).valueOrNull ?? const [];
+    final ambassadors = [
+      for (final s in students)
+        if (s.user.referralCount > 0) s,
+    ]..sort((a, b) => b.user.referralCount.compareTo(a.user.referralCount));
+
+    if (shares.isEmpty && ambassadors.isEmpty) {
+      return const Card(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Difusión', style: AppTextStyles.title),
+              SizedBox(height: 4),
+              Text(
+                'Cuando tus alumnos compartan sus récords y rachas, verás '
+                'aquí qué está circulando y quién trae más gente.',
+                style: AppTextStyles.bodyMuted,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Text('Difusión', style: AppTextStyles.title),
+            if (shares.isNotEmpty) ...[
+              const SizedBox(height: 10),
+              const Text('Compartido hace poco', style: AppTextStyles.caption),
+              for (final s in shares.take(4))
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.ios_share,
+                          size: 15, color: AppColors.primary),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          '${s.userName} · ${_shareLabel(s.kind)}',
+                          style: AppTextStyles.body,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Text(DateFormatter.relative(s.sharedAt),
+                          style: AppTextStyles.caption),
+                    ],
+                  ),
+                ),
+            ],
+            if (ambassadors.isNotEmpty) ...[
+              const SizedBox(height: 12),
+              const Text('Embajadores', style: AppTextStyles.caption),
+              for (final a in ambassadors.take(3))
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.volunteer_activism,
+                          size: 15, color: AppColors.primary),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(a.user.name,
+                            style: AppTextStyles.body,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis),
+                      ),
+                      Text(
+                        a.user.referralCount == 1
+                            ? '1 invitado'
+                            : '${a.user.referralCount} invitados',
+                        style: AppTextStyles.caption,
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  static String _shareLabel(ShareCardKind kind) => switch (kind) {
+        ShareCardKind.record => 'récord',
+        ShareCardKind.racha => 'racha',
+        ShareCardKind.nivel => 'nivel',
+        ShareCardKind.entrenamiento => 'entrenamiento',
+        ShareCardKind.ranking => 'ranking',
+      };
 }
 
 class _StudentTile extends StatelessWidget {

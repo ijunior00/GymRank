@@ -149,6 +149,22 @@ Configuração necessária: `firebase functions:secrets:set ANTHROPIC_API_KEY`.
   para marcar "la hice", "la cambié" ou "me la salté". A adesão dos
   últimos 7 dias aparece na ficha do aluno no painel da treinadora.
 
+## Difusão: cards, indicação e marca
+
+- **Cards compartilháveis** em 9:16 (1080×1920), gerados no aparelho:
+  recorde, racha, nível, treino concluído e posição no ranking. Saem do
+  resumo da sessão, do perfil e do ranking. O card leva a marca da
+  treinadora (nome, @ e cor), o código de convite dela e o @ de quem
+  compartilhou, para o programa de indicação.
+- **Indicação**: no cadastro o novo aluno diz quem o convidou; a function
+  `onClientCreated` credita o embaixador com XP, soma no `referralCount`
+  e o avisa. O painel lista os embaixadores e os cards recentes em
+  "Difusión".
+- **Cor da marca**: escolhida no primeiro acesso da treinadora e aplicada
+  às imagens compartilhadas. A interface do app segue a paleta violeta do
+  sistema; a cor dela vale onde importa para o marketing, que é o que
+  circula fora do app.
+
 ## Cloud Functions
 
 ```bash
@@ -190,5 +206,10 @@ PDF/Word/foto com leitura por IA, revisão editável no celular,
 publicação versionada e a tela "Mis planes"; e o dia a dia do aluno
 (treino do dia executável, conclusão valendo como check-in com recordes
 automáticos, e marcação das refeições com adesão). A identidade visual é
-violeta escura (ver "Paleta" em `docs/architecture.md`). Próximo:
-cards compartilháveis de marcos e programa de indicação (Pilar 6).
+violeta escura (ver "Paleta" em `docs/architecture.md`). E a difusão:
+cards compartilháveis com a marca dela, programa de indicação com
+embaixadores e cor da marca escolhida por ela.
+
+Do Pilar 6 ficaram de fora, por dependerem de decisões dela e de
+hospedagem: página pública com lista de espera, turmas com vagas
+limitadas e depoimentos aprovados.

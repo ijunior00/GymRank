@@ -33,6 +33,8 @@ escritos pelo cliente — isso é reforçado em `firestore.rules`.
 | currentStreakDays / longestStreakDays | number | **[CF]** atualizado em `validateCheckIn` |
 | lastCheckInAt | timestamp? | **[CF]** check-in presencial por QR |
 | plan | string | free \| premium |
+| referredBy | string? | `username` de quem indicou, digitado no cadastro. Imutável depois |
+| referralCount | number | **[CF]** quantos alunos entraram por indicação deste usuário |
 | createdAt | timestamp | |
 
 Subcoleções: `achievements/{code}` (**[CF]** apenas), `fcmTokens/{token}`.
@@ -147,6 +149,19 @@ Refeição do plano marcada pelo aluno: userId, coachId, planId, date
 de duplicar. A adesão dos últimos 7 dias é calculada no cliente
 (`hecha` = 1, `cambiada` = 0,5, `saltada` = 0) e aparece na ficha do
 aluno no painel.
+
+## `share_cards/{cardId}`
+
+Um card que o aluno compartilhou: userId, userName, coachId, type
+(`record` | `racha` | `nivel` | `entrenamiento` | `ranking`), sharedAt.
+Criado pelo próprio autor logo após abrir o compartilhamento; ninguém
+edita depois. Alimenta o bloco "Difusión" do painel da treinadora, que
+mostra o que está circulando e quem são os embaixadores (por
+`users.referralCount`).
+
+A imagem em si não é armazenada: é gerada no aparelho a 1080×1920 e
+entregue ao sistema de compartilhamento, o que evita custo de Storage e
+qualquer moderação de conteúdo do nosso lado.
 
 ## `workouts/{workoutId}`
 

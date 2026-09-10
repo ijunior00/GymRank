@@ -15,6 +15,7 @@ class SignUpData {
     required this.heightCm,
     required this.city,
     required this.goal,
+    this.referredBy,
   });
 
   final String name;
@@ -24,6 +25,9 @@ class SignUpData {
   final double heightCm;
   final String city;
   final UserGoal goal;
+
+  /// `username` de quem indicou (programa de indicação), sem o "@".
+  final String? referredBy;
 }
 
 abstract interface class AuthRepository {

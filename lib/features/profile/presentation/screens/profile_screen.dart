@@ -8,6 +8,9 @@ import 'package:gymrank/features/auth/presentation/controllers/auth_providers.da
 import 'package:gymrank/features/coach_panel/presentation/controllers/coach_panel_providers.dart';
 import 'package:gymrank/features/coach_panel/presentation/widgets/join_coach_dialog.dart';
 import 'package:gymrank/features/gamification/presentation/widgets/level_progress_card.dart';
+import 'package:gymrank/features/sharing/domain/entities/share_card.dart';
+import 'package:gymrank/features/sharing/presentation/controllers/share_providers.dart';
+import 'package:gymrank/features/sharing/presentation/screens/share_card_screen.dart';
 import 'package:gymrank/features/gamification/presentation/widgets/streak_card.dart';
 import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
 
@@ -64,6 +67,8 @@ class ProfileScreen extends ConsumerWidget {
                     ),
                   ),
                 ),
+                const SizedBox(height: 16),
+                _ShareAndInviteCard(user: user),
                 const SizedBox(height: 16),
                 // Vínculo com a treinadora: painel (coach), nome da coach
                 // (aluno vinculado) ou entrada por código (aluno solto).
@@ -133,6 +138,88 @@ class ProfileScreen extends ConsumerWidget {
                 ),
               ],
             ),
+    );
+  }
+}
+
+/// Marketing na mão do aluno: compartilhar a racha ou o nível e ver
+/// quantas pessoas já entraram por indicação dele.
+class _ShareAndInviteCard extends ConsumerWidget {
+  const _ShareAndInviteCard({required this.user});
+
+  final UserEntity user;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final coach = ref.watch(currentCoachProvider).valueOrNull;
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                const Expanded(
+                  child: Text('Comparte tu progreso',
+                      style: AppTextStyles.title),
+                ),
+                if (user.referralCount > 0)
+                  Text('${user.referralCount} invitados',
+                      style: AppTextStyles.caption
+                          .copyWith(color: AppColors.primary)),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Text(
+              coach == null
+                  ? 'Presume tu racha y tu nivel con una imagen lista para '
+                      'historias.'
+                  : 'Cada imagen lleva la marca de ${coach.name} y el código '
+                      '${coach.inviteCode} para que te sigan.',
+              style: AppTextStyles.bodyMuted,
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: () => showShareCard(
+                      context,
+                      buildShareCard(
+                        ref,
+                        kind: ShareCardKind.racha,
+                        eyebrow: 'Mi racha',
+                        value: '${user.currentStreakDays} días',
+                        caption: 'entrenando sin parar',
+                      ),
+                    ),
+                    icon: const Icon(Icons.local_fire_department, size: 18),
+                    label: const Text('Racha'),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: () => showShareCard(
+                      context,
+                      buildShareCard(
+                        ref,
+                        kind: ShareCardKind.nivel,
+                        eyebrow: 'Mi nivel',
+                        value: 'Nivel ${user.level}',
+                        caption: '${user.xpTotal} XP acumulados',
+                      ),
+                    ),
+                    icon: const Icon(Icons.military_tech, size: 18),
+                    label: const Text('Nivel'),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

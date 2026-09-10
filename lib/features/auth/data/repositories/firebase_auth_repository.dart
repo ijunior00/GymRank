@@ -175,6 +175,8 @@ class FirebaseAuthRepository implements AuthRepository {
       longestStreakDays: 0,
       lastCheckInAt: null,
       plan: SubscriptionPlan.free,
+      referredBy: data.referredBy?.replaceFirst('@', '').trim().toLowerCase(),
+      referralCount: 0,
       createdAt: DateTime.now(),
     );
     return _userRepository.create(user);

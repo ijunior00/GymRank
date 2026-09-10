@@ -29,6 +29,7 @@ import 'package:gymrank/features/profile/presentation/controllers/user_repositor
 import 'package:gymrank/features/progress_photo/presentation/controllers/progress_photo_providers.dart';
 import 'package:gymrank/features/rankings/presentation/controllers/ranking_providers.dart';
 import 'package:gymrank/features/rewards/presentation/controllers/reward_providers.dart';
+import 'package:gymrank/features/sharing/presentation/controllers/share_providers.dart';
 import 'package:gymrank/features/social_feed/presentation/controllers/feed_providers.dart';
 import 'package:gymrank/features/workout/presentation/controllers/workout_providers.dart';
 import 'package:gymrank/features/workout_session/presentation/controllers/workout_session_providers.dart';
@@ -69,6 +70,7 @@ Future<void> main() async {
         workoutSessionRepositoryProvider
             .overrideWithValue(FakeWorkoutSessionRepository()),
         mealLogRepositoryProvider.overrideWithValue(FakeMealLogRepository()),
+        shareRepositoryProvider.overrideWithValue(FakeShareRepository()),
       ],
       child: const GymRankDemoApp(),
     ),

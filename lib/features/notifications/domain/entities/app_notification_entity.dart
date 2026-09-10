@@ -19,6 +19,9 @@ enum NotificationType {
 
   /// Para o aluno: recorde pessoal detectado ao concluir uma sessão.
   personalRecord,
+
+  /// Para o embaixador: alguém entrou usando a indicação dele.
+  referralJoined,
 }
 
 /// Documento canônico de `notifications/{notificationId}`, espelhado
