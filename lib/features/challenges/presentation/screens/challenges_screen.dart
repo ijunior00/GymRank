@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gymrank/core/constants/app_constants.dart';
+import 'package:gymrank/core/l10n/labels_es.dart';
 import 'package:gymrank/core/theme/app_colors.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
 import 'package:gymrank/core/widgets/entrance.dart';
@@ -16,13 +17,13 @@ class ChallengesScreen extends ConsumerWidget {
     final challenges = ref.watch(activeChallengesProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Desafios')),
+      appBar: AppBar(title: const Text('Retos')),
       body: challenges.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text('Erro: $e')),
+        error: (e, _) => Center(child: Text('Error: $e')),
         data: (list) {
           if (list.isEmpty) {
-            return const Center(child: Text('Nenhum desafio ativo no momento.'));
+            return const Center(child: Text('No hay retos activos por ahora.'));
           }
           return ListView.separated(
             padding: const EdgeInsets.all(16),
@@ -84,7 +85,7 @@ class _ChallengeCard extends ConsumerWidget {
                         challengeId: challenge.id,
                         userId: uid,
                       ),
-              child: const Text('Participar'),
+              child: const Text('Unirme al reto'),
             ),
           ],
         ),
@@ -107,7 +108,7 @@ class _ScopeBadge extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
-        scope.name,
+        scope.labelEs,
         style: AppTextStyles.caption.copyWith(color: AppColors.primary),
       ),
     );

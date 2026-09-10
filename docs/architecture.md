@@ -55,6 +55,38 @@ autenticado (shell com bottom navigation). Reconstruir o router inteiro
 navegação em cada mudança de auth se tornar perceptível, migrar para um
 `Listenable` que só dispara no evento de login/logout.
 
+## Papéis e o painel da treinadora
+
+`UserRole` tem quatro valores: `alumno` (único papel que o cadastro
+cria), `coach` (a treinadora dona de `coaches/{coachId}`), `nutriologo`
+(nutrióloga parceira, leitura da comunidade e, futuramente, escrita da
+parte alimentar) e `adminGlobal`. A promoção para `coach`/`nutriologo`
+é feita fora do app (console do Firebase ou script com Admin SDK) — o
+cliente nunca grava `role`.
+
+Fluxo da treinadora: com `role: coach` e `coachId == null`, o painel
+(`/coach`) mostra a tela de configuração, que cria `coaches/{id}` e
+aponta `users/{uid}.coachId` para ele na mesma batch. A partir daí ela
+tem o código de convite, a lista de alunos (`users where coachId == …`
+combinada com `coaches/{id}/clients`) e a ficha de cada aluno.
+
+Fluxo do aluno: digita o código no cadastro ou em Perfil → "Unirme a mi
+coach". O `CoachPanelRepository.joinCoach` grava `coachId` no perfil e
+cria `clients/{uid}` com status `activo` — as duas únicas escritas que
+as regras permitem ao aluno nesse caminho.
+
+A feature vive em `lib/features/coach_panel/` e segue as mesmas três
+camadas das demais.
+
+## Idioma
+
+O app é lançado para o México e toda a interface está em espanhol
+(es-MX), com strings inline nas telas e rótulos de enums centralizados
+em `lib/core/l10n/labels_es.dart`. `MaterialApp` fixa `Locale('es',
+'MX')` com os delegates de `flutter_localizations`, e `main.dart`
+inicializa os dados de data do `intl` para `es_MX`. Comentários de
+código continuam em português (idioma do time).
+
 ## Anti-fraude na gamificação
 
 Nenhum valor de gamificação (XP, nível, Gym Score, sequência,
@@ -68,9 +100,9 @@ de um evento de origem confiável:
 - Progresso de desafio: só avança via `incrementChallengeProgress`,
   chamada a partir de check-ins e treinos — nunca de um valor enviado
   pelo cliente.
-- Gym Score, rankings, stats do painel da academia: recalculados
+- Gym Score, rankings, stats do painel da treinadora: recalculados
   periodicamente por jobs agendados (`recalculateGymScore`,
-  `recalculateRankings`, `recalculateGymDashboard`) e apenas lidos pelo
+  `recalculateRankings`, `recalculateCoachDashboard`) e apenas lidos pelo
   cliente.
 
 ## Offline-first (próximos passos)

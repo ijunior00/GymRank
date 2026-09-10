@@ -62,20 +62,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               Text('GymRank', style: AppTextStyles.displayLarge),
               const SizedBox(height: 8),
               Text(
-                'Evolua. Compita. Conquiste.',
+                'Progresa. Compite. Conquista.',
                 style: AppTextStyles.bodyMuted,
               ),
               const SizedBox(height: 40),
               TextField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(hintText: 'E-mail'),
+                decoration: const InputDecoration(hintText: 'Correo electrónico'),
               ),
               const SizedBox(height: 12),
               TextField(
                 controller: _passwordController,
                 obscureText: true,
-                decoration: const InputDecoration(hintText: 'Senha'),
+                decoration: const InputDecoration(hintText: 'Contraseña'),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
@@ -96,7 +96,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         width: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : const Text('Entrar'),
+                    : const Text('Iniciar sesión'),
               ),
               const SizedBox(height: 12),
               Row(
@@ -104,7 +104,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   const Expanded(child: Divider(color: AppColors.divider)),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Text('ou continue com', style: AppTextStyles.caption),
+                    child: Text('o continúa con', style: AppTextStyles.caption),
                   ),
                   const Expanded(child: Divider(color: AppColors.divider)),
                 ],
@@ -138,7 +138,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               const Spacer(),
               TextButton(
                 onPressed: () => context.push('/signup'),
-                child: const Text('Criar uma conta'),
+                child: const Text('Crear cuenta'),
               ),
               const SizedBox(height: 12),
             ],

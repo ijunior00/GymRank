@@ -12,13 +12,13 @@ class NotificationsScreen extends ConsumerWidget {
     final notifications = ref.watch(myNotificationsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Notificações')),
+      appBar: AppBar(title: const Text('Notificaciones')),
       body: notifications.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text('Erro: $e')),
+        error: (e, _) => Center(child: Text('Error: $e')),
         data: (list) {
           if (list.isEmpty) {
-            return const Center(child: Text('Nenhuma notificação.'));
+            return const Center(child: Text('Aún no hay notificaciones.'));
           }
           return ListView.builder(
             itemCount: list.length,

@@ -2,9 +2,15 @@
 // Firebase — usado no deploy de teste do Render para validar UI e
 // navegação. O app real sempre inicia por lib/main.dart.
 //
+// O usuário demo é a própria treinadora (papel `coach`), para que o
+// painel da coach seja navegável no preview.
+//
 // Build: flutter build web --release -t lib/main_demo.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:gymrank/core/constants/app_constants.dart';
+import 'package:gymrank/core/l10n/app_locale.dart';
 import 'package:gymrank/core/router/app_router.dart';
 import 'package:gymrank/core/theme/app_theme.dart';
 import 'package:gymrank/demo/fake_repositories.dart';
@@ -13,9 +19,9 @@ import 'package:gymrank/features/body_measurement/presentation/controllers/body_
 import 'package:gymrank/features/challenges/presentation/controllers/challenge_providers.dart';
 import 'package:gymrank/features/championships/presentation/controllers/championship_providers.dart';
 import 'package:gymrank/features/checkin/presentation/controllers/checkin_providers.dart';
+import 'package:gymrank/features/coach_panel/presentation/controllers/coach_panel_providers.dart';
 import 'package:gymrank/features/friendship/presentation/controllers/friendship_providers.dart';
 import 'package:gymrank/features/gamification/presentation/controllers/achievement_providers.dart';
-import 'package:gymrank/features/gym_admin/presentation/controllers/gym_admin_providers.dart';
 import 'package:gymrank/features/notifications/presentation/controllers/notification_providers.dart';
 import 'package:gymrank/features/profile/presentation/controllers/user_repository_provider.dart';
 import 'package:gymrank/features/progress_photo/presentation/controllers/progress_photo_providers.dart';
@@ -24,7 +30,9 @@ import 'package:gymrank/features/rewards/presentation/controllers/reward_provide
 import 'package:gymrank/features/social_feed/presentation/controllers/feed_providers.dart';
 import 'package:gymrank/features/workout/presentation/controllers/workout_providers.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting(AppConstants.localeTag);
   runApp(
     ProviderScope(
       // Substitui cada repositório concreto (Firebase) por um fake
@@ -52,7 +60,8 @@ void main() {
             .overrideWithValue(FakeNotificationRepository()),
         achievementRepositoryProvider
             .overrideWithValue(FakeAchievementRepository()),
-        gymAdminRepositoryProvider.overrideWithValue(FakeGymAdminRepository()),
+        coachPanelRepositoryProvider
+            .overrideWithValue(FakeCoachPanelRepository()),
       ],
       child: const GymRankDemoApp(),
     ),
@@ -71,6 +80,9 @@ class GymRankDemoApp extends ConsumerWidget {
       theme: AppTheme.dark,
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.dark,
+      locale: appLocale,
+      supportedLocales: appSupportedLocales,
+      localizationsDelegates: appLocalizationsDelegates,
       routerConfig: router,
     );
   }

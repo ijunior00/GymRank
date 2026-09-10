@@ -11,7 +11,9 @@ part 'season_entity.freezed.dart';
 class SeasonEntity with _$SeasonEntity {
   const factory SeasonEntity({
     required String id,
-    required String? gymId,
+
+    /// `null` = temporada global da plataforma.
+    required String? coachId,
     required int number,
     required SeasonDuration duration,
     required DateTime startsAt,

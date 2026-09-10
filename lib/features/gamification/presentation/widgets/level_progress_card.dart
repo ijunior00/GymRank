@@ -24,7 +24,7 @@ class LevelProgressCard extends StatelessWidget {
               children: [
                 const Icon(Icons.military_tech, color: AppColors.gold),
                 const SizedBox(width: 6),
-                Text('Nível ${user.level}', style: AppTextStyles.title),
+                Text('Nivel ${user.level}', style: AppTextStyles.title),
               ],
             ),
             const SizedBox(height: 12),
@@ -38,7 +38,7 @@ class LevelProgressCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            Text('$xpToNext XP para o próximo nível', style: AppTextStyles.caption),
+            Text('$xpToNext XP para el siguiente nivel', style: AppTextStyles.caption),
           ],
         ),
       ),

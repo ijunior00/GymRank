@@ -19,19 +19,34 @@ service cloud.firestore {
       return isSignedIn() ? callerDoc().role : null;
     }
 
+    function callerCoachId() {
+      let doc = callerDoc();
+      return ('coachId' in doc) ? doc.coachId : null;
+    }
+
     function isAdmin() {
       return isSignedIn() && callerRole() == 'adminGlobal';
     }
 
-    function isGymStaffOf(gymId) {
-      return isSignedIn() &&
-        (callerRole() == 'academia' || callerRole() == 'personal') &&
-        callerDoc().gymId == gymId;
+    // A treinadora dona de `coaches/{coachId}`: papel `coach` e o próprio
+    // perfil apontando para esse painel.
+    function isCoachOf(coachId) {
+      return isSignedIn() && callerRole() == 'coach' && callerCoachId() == coachId;
+    }
+
+    // Nutrióloga parceira vinculada ao mesmo painel (leitura da comunidade;
+    // a parte alimentar ganha regras próprias quando existir).
+    function isNutriologoOf(coachId) {
+      return isSignedIn() && callerRole() == 'nutriologo' && callerCoachId() == coachId;
+    }
+
+    function isCoachStaffOf(coachId) {
+      return isCoachOf(coachId) || isNutriologoOf(coachId) || isAdmin();
     }
 
     // Campos que só podem ser alterados pelo backend (Cloud Functions com
     // Admin SDK, que ignora estas regras). Impede que o cliente forje XP,
-    // nível ou Gym Score.
+    // nível, Gym Score ou o próprio papel.
     function onlyProfileFieldsChanged() {
       let unchangeable = ['xpTotal', 'xpCurrentSeason', 'level', 'gymScore',
         'currentStreakDays', 'longestStreakDays', 'lastCheckInAt', 'role',
@@ -41,7 +56,9 @@ service cloud.firestore {
 
     match /users/{userId} {
       allow read: if isSignedIn();
-      allow create: if isOwner(userId);
+      // Todo cadastro nasce como alumno; coach/nutriologo/adminGlobal são
+      // atribuídos fora do app (console ou script com Admin SDK).
+      allow create: if isOwner(userId) && request.resource.data.role == 'alumno';
       allow update: if isOwner(userId) && onlyProfileFieldsChanged();
       allow delete: if false;
 
@@ -55,18 +72,42 @@ service cloud.firestore {
       }
     }
 
-    match /gyms/{gymId} {
+    match /coaches/{coachId} {
       allow read: if isSignedIn();
-      allow create, update: if isGymStaffOf(gymId) || isAdmin();
+      // A própria treinadora cria seu perfil de marca uma única vez (o
+      // papel `coach` já precisa existir no perfil dela).
+      allow create: if isSignedIn() &&
+        callerRole() == 'coach' &&
+        callerCoachId() == null &&
+        request.resource.data.ownerUserId == request.auth.uid;
+      allow update: if isCoachOf(coachId) || isAdmin();
       allow delete: if isAdmin();
 
       match /stats/{statId} {
-        allow read: if isGymStaffOf(gymId) || isAdmin();
+        allow read: if isCoachStaffOf(coachId);
         allow write: if false; // Cloud Functions only
       }
 
+      // Vínculo aluno <-> treinadora.
+      match /clients/{userId} {
+        allow read: if isOwner(userId) || isCoachStaffOf(coachId);
+        // O aluno entra pelo código de convite (sempre como `activo`); a
+        // treinadora pode cadastrar manualmente.
+        allow create: if isCoachOf(coachId) || isAdmin() ||
+          (isOwner(userId) &&
+            request.resource.data.userId == userId &&
+            request.resource.data.coachId == coachId &&
+            request.resource.data.status == 'activo');
+        allow update, delete: if isCoachOf(coachId) || isAdmin();
+
+        // Notas privadas da treinadora: o aluno nunca lê.
+        match /notes/{noteId} {
+          allow read, create, update, delete: if isCoachOf(coachId) || isAdmin();
+        }
+      }
+
       match /checkins/{checkInId} {
-        allow read: if isOwner(resource.data.userId) || isGymStaffOf(gymId);
+        allow read: if isOwner(resource.data.userId) || isCoachStaffOf(coachId);
         allow write: if false; // Cloud Function validateCheckIn only
       }
     }
@@ -124,7 +165,8 @@ service cloud.firestore {
 
     match /challenges/{challengeId} {
       allow read: if isSignedIn();
-      allow create, update, delete: if isGymStaffOf(request.resource.data.gymId) || isAdmin();
+      allow create, update: if isCoachOf(request.resource.data.coachId) || isAdmin();
+      allow delete: if isCoachOf(resource.data.coachId) || isAdmin();
 
       match /participants/{userId} {
         allow read: if isSignedIn();
@@ -140,12 +182,14 @@ service cloud.firestore {
 
     match /championships/{championshipId} {
       allow read: if isSignedIn();
-      allow create, update, delete: if isGymStaffOf(request.resource.data.gymId) || isAdmin();
+      allow create, update: if isCoachOf(request.resource.data.coachId) || isAdmin();
+      allow delete: if isCoachOf(resource.data.coachId) || isAdmin();
     }
 
     match /rewards/{rewardId} {
       allow read: if isSignedIn();
-      allow create, update, delete: if isGymStaffOf(request.resource.data.gymId) || isAdmin();
+      allow create, update: if isCoachOf(request.resource.data.coachId) || isAdmin();
+      allow delete: if isCoachOf(resource.data.coachId) || isAdmin();
 
       match /grants/{grantId} {
         allow read: if isOwner(resource.data.userId) || isAdmin();

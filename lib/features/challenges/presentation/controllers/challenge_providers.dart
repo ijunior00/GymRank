@@ -10,6 +10,6 @@ final challengeRepositoryProvider = Provider<ChallengeRepository>((ref) {
 });
 
 final activeChallengesProvider = StreamProvider<List<ChallengeEntity>>((ref) {
-  final gymId = ref.watch(currentUserProvider).valueOrNull?.gymId;
-  return ref.watch(challengeRepositoryProvider).watchActive(gymId: gymId);
+  final coachId = ref.watch(currentUserProvider).valueOrNull?.coachId;
+  return ref.watch(challengeRepositoryProvider).watchActive(coachId: coachId);
 });

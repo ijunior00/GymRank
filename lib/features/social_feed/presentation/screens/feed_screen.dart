@@ -16,13 +16,13 @@ class FeedScreen extends ConsumerWidget {
     final posts = ref.watch(feedPostsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Feed')),
+      appBar: AppBar(title: const Text('Comunidad')),
       body: posts.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text('Erro: $e')),
+        error: (e, _) => Center(child: Text('Error: $e')),
         data: (list) {
           if (list.isEmpty) {
-            return const Center(child: Text('Nenhuma novidade ainda.'));
+            return const Center(child: Text('Aún no hay novedades.'));
           }
           return ListView.separated(
             padding: const EdgeInsets.all(16),
@@ -165,10 +165,10 @@ class _PostTypeBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final (IconData icon, String label) = switch (type) {
-      PostType.levelUp => (Icons.military_tech, 'Nível'),
-      PostType.streakMilestone => (Icons.local_fire_department, 'Sequência'),
-      PostType.personalRecord => (Icons.bolt, 'Recorde'),
-      PostType.challengeCompleted => (Icons.flag, 'Desafio'),
+      PostType.levelUp => (Icons.military_tech, 'Nivel'),
+      PostType.streakMilestone => (Icons.local_fire_department, 'Racha'),
+      PostType.personalRecord => (Icons.bolt, 'Récord'),
+      PostType.challengeCompleted => (Icons.flag, 'Reto'),
       PostType.xpMilestone => (Icons.star, 'XP'),
       PostType.custom => (Icons.chat_bubble_outline, ''),
     };

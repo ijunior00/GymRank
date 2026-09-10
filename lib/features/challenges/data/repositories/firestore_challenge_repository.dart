@@ -14,11 +14,11 @@ class FirestoreChallengeRepository implements ChallengeRepository {
       _firestore.collection('challenges');
 
   @override
-  Stream<List<ChallengeEntity>> watchActive({String? gymId}) {
+  Stream<List<ChallengeEntity>> watchActive({String? coachId}) {
     Query<Map<String, dynamic>> query =
         _collection.where('isActive', isEqualTo: true);
-    if (gymId != null) {
-      query = query.where('gymId', whereIn: [gymId, null]);
+    if (coachId != null) {
+      query = query.where('coachId', whereIn: [coachId, null]);
     }
     return query.snapshots().map((s) => s.docs.map(_fromSnapshot).toList());
   }
@@ -71,7 +71,7 @@ class FirestoreChallengeRepository implements ChallengeRepository {
     final data = doc.data()!;
     return ChallengeEntity(
       id: doc.id,
-      gymId: data['gymId'] as String?,
+      coachId: data['coachId'] as String?,
       title: data['title'] as String,
       description: data['description'] as String,
       scope: ChallengeScope.values.byName(data['scope'] as String),

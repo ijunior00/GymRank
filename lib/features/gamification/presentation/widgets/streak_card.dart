@@ -20,14 +20,14 @@ class StreakCard extends StatelessWidget {
               children: [
                 Icon(Icons.local_fire_department, color: AppColors.warning),
                 SizedBox(width: 6),
-                Text('Sequência', style: AppTextStyles.title),
+                Text('Racha', style: AppTextStyles.title),
               ],
             ),
             const SizedBox(height: 12),
-            Text('${user.currentStreakDays} dias', style: AppTextStyles.statValue),
+            Text('${user.currentStreakDays} días', style: AppTextStyles.statValue),
             const SizedBox(height: 4),
             Text(
-              'Recorde: ${user.longestStreakDays} dias',
+              'Récord: ${user.longestStreakDays} días',
               style: AppTextStyles.caption,
             ),
           ],

@@ -47,12 +47,12 @@ export async function grantXp(userId: string, amount: number): Promise<void> {
     authorName: result.name,
     authorPhotoUrl: result.photoUrl,
     type: 'levelUp',
-    text: `${result.name} subiu para o nível ${result.newLevel}!`,
+    text: `¡${result.name} subió al nivel ${result.newLevel}!`,
   });
   await dispatchNotification({
     userId,
     type: 'newLevel',
-    title: 'Novo nível!',
-    body: `Você alcançou o nível ${result.newLevel}.`,
+    title: '¡Nuevo nivel!',
+    body: `Llegaste al nivel ${result.newLevel}.`,
   });
 }

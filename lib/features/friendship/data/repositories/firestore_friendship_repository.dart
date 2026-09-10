@@ -36,7 +36,7 @@ class FirestoreFriendshipRepository implements FriendshipRepository {
       final addresseeId = userQuery.docs.first.id;
       if (addresseeId == requesterId) {
         return const Result.failure(
-          Failure.validation('Você não pode adicionar a si mesmo.'),
+          Failure.validation('No puedes agregarte a ti mismo.'),
         );
       }
       final id = _pairId(requesterId, addresseeId);

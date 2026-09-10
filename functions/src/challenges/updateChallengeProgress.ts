@@ -64,7 +64,7 @@ export async function incrementChallengeProgress(
       authorName: (userData?.name as string) ?? '',
       authorPhotoUrl: (userData?.photoUrl as string | null) ?? null,
       type: 'challengeCompleted',
-      text: `${userData?.name} concluiu o desafio "${challenge.title}"!`,
+      text: `¡${userData?.name} completó el reto "${challenge.title}"!`,
     });
   }
 }

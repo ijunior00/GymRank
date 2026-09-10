@@ -1,11 +1,12 @@
 {
-    "name": "gymrank",
-    "short_name": "gymrank",
+    "name": "GymRank",
+    "short_name": "GymRank",
+    "lang": "es-MX",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#000000",
+    "theme_color": "#FFD60A",
+    "description": "Entrena con tu coach, sigue tu progreso y compite con tu comunidad.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

@@ -9,6 +9,8 @@ import 'package:gymrank/core/widgets/level_ring.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_providers.dart';
 import 'package:gymrank/features/challenges/domain/entities/challenge_entity.dart';
 import 'package:gymrank/features/challenges/presentation/controllers/challenge_providers.dart';
+import 'package:gymrank/features/coach_panel/domain/entities/coach_entity.dart';
+import 'package:gymrank/features/coach_panel/presentation/controllers/coach_panel_providers.dart';
 import 'package:gymrank/features/gamification/domain/usecases/level_calculator.dart';
 import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
 
@@ -19,12 +21,14 @@ class HomeDashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(currentUserProvider).valueOrNull;
     final challenges = ref.watch(activeChallengesProvider).valueOrNull ?? [];
+    final coach = ref.watch(currentCoachProvider).valueOrNull;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Olá, ${user?.name.split(' ').first ?? ''} 👋'),
+        title: Text('Hola, ${user?.name.split(' ').first ?? ''} 👋'),
         actions: [
           IconButton(
+            tooltip: 'Notificaciones',
             icon: const Icon(Icons.notifications_none),
             onPressed: () => context.push('/notifications'),
           ),
@@ -35,7 +39,11 @@ class HomeDashboardScreen extends ConsumerWidget {
           : ListView(
               padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
               children: [
-                Entrance(child: _HeroHeader(user: user)),
+                if (user.isStaff) ...[
+                  Entrance(child: _CoachPanelCard(coach: coach)),
+                  const SizedBox(height: 16),
+                ],
+                Entrance(child: _HeroHeader(user: user, coach: coach)),
                 const SizedBox(height: 20),
                 Entrance(
                   delay: const Duration(milliseconds: 90),
@@ -52,7 +60,7 @@ class HomeDashboardScreen extends ConsumerWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Desafios ativos', style: AppTextStyles.title),
+                      Text('Retos activos', style: AppTextStyles.title),
                       GestureDetector(
                         onTap: () => context.go('/challenges'),
                         child: Text(
@@ -70,7 +78,7 @@ class HomeDashboardScreen extends ConsumerWidget {
                 if (challenges.isEmpty)
                   const _EmptyState(
                     icon: Icons.flag_outlined,
-                    message: 'Nenhum desafio ativo no momento.',
+                    message: 'No hay retos activos por ahora.',
                   )
                 else
                   EntranceList(
@@ -89,10 +97,63 @@ class HomeDashboardScreen extends ConsumerWidget {
   }
 }
 
+/// Atalho para o painel, só para quem tem papel de staff (coach,
+/// nutrióloga, admin).
+class _CoachPanelCard extends StatelessWidget {
+  const _CoachPanelCard({required this.coach});
+
+  final CoachEntity? coach;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: InkWell(
+        onTap: () => context.push('/coach'),
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: AppColors.primary,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(Icons.dashboard_customize,
+                    color: AppColors.onPrimary),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Panel de coach', style: AppTextStyles.title),
+                    const SizedBox(height: 2),
+                    Text(
+                      coach == null
+                          ? 'Configura tu marca y genera tu código'
+                          : '${coach!.name} · ${coach!.studentCount} alumnos',
+                      style: AppTextStyles.caption,
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.chevron_right, color: AppColors.textSecondary),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _HeroHeader extends StatelessWidget {
-  const _HeroHeader({required this.user});
+  const _HeroHeader({required this.user, required this.coach});
 
   final UserEntity user;
+  final CoachEntity? coach;
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +183,7 @@ class _HeroHeader extends StatelessWidget {
           LevelRing(
             progress: progress,
             centerLabel: '${user.level}',
-            caption: 'NÍVEL',
+            caption: 'NIVEL',
           ),
           const SizedBox(width: 18),
           Expanded(
@@ -145,9 +206,16 @@ class _HeroHeader extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Faltam $xpToNext XP para o nível ${user.level + 1}',
+                  'Te faltan $xpToNext XP para el nivel ${user.level + 1}',
                   style: AppTextStyles.bodyMuted,
                 ),
+                if (!user.isStaff && coach != null) ...[
+                  const SizedBox(height: 4),
+                  Text(
+                    'Entrenas con ${coach!.name}',
+                    style: AppTextStyles.caption.copyWith(color: AppColors.primary),
+                  ),
+                ],
                 const SizedBox(height: 12),
                 Row(
                   children: [
@@ -156,7 +224,7 @@ class _HeroHeader extends StatelessWidget {
                     const SizedBox(width: 4),
                     AnimatedCountText(
                       user.currentStreakDays,
-                      suffix: ' dias',
+                      suffix: ' días',
                       style: AppTextStyles.body.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
@@ -190,11 +258,11 @@ class _HighlightsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = [
-      (Icons.local_fire_department, '${user.currentStreakDays}', 'Sequência'),
-      (Icons.military_tech, '${user.level}', 'Nível'),
+      (Icons.local_fire_department, '${user.currentStreakDays}', 'Racha'),
+      (Icons.military_tech, '${user.level}', 'Nivel'),
       (Icons.speed, user.gymScore.toStringAsFixed(0), 'Gym Score'),
-      (Icons.emoji_events, '7', 'Conquistas'),
-      (Icons.workspace_premium, user.isPremium ? 'PRO' : 'Free', 'Plano'),
+      (Icons.emoji_events, '7', 'Logros'),
+      (Icons.workspace_premium, user.isPremium ? 'PRO' : 'Gratis', 'Plan'),
     ];
     return SizedBox(
       height: 96,
@@ -279,14 +347,14 @@ class _QuickActionsBar extends StatelessWidget {
             Expanded(
               child: _QuickAction(
                 icon: Icons.fitness_center,
-                label: 'Treino',
+                label: 'Entrenar',
                 onTap: () => context.push('/workout/new'),
               ),
             ),
             Expanded(
               child: _QuickAction(
                 icon: Icons.monitor_weight_outlined,
-                label: 'Evolução',
+                label: 'Progreso',
                 onTap: () => context.push('/body-measurement'),
               ),
             ),

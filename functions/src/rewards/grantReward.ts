@@ -37,8 +37,8 @@ export async function grantReward(params: {
   await dispatchNotification({
     userId: params.userId,
     type: 'rewardAvailable',
-    title: 'Você ganhou uma recompensa!',
-    body: 'Confira sua nova recompensa no app.',
+    title: '¡Ganaste un premio!',
+    body: 'Revisa tu nuevo premio en el app.',
     deepLink: '/rewards',
   });
 }

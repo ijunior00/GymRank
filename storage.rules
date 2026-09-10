@@ -11,8 +11,27 @@ service firebase.storage {
       return isSignedIn() && request.auth.uid == userId;
     }
 
+    function callerDoc() {
+      return firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data;
+    }
+
+    // Treinadora dona de `coaches/{coachId}` (mesma regra do Firestore).
+    function isCoachOf(coachId) {
+      let doc = callerDoc();
+      return isSignedIn() && doc.role == 'coach' && ('coachId' in doc) && doc.coachId == coachId;
+    }
+
     function isImage() {
       return request.resource.contentType.matches('image/.*');
+    }
+
+    // PDF, Word (.docx) ou imagem: os formatos aceitos para planos de
+    // treino/dieta enviados pela treinadora ou pela nutrióloga.
+    function isPlanDocument() {
+      return request.resource.contentType == 'application/pdf' ||
+        request.resource.contentType ==
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+        isImage();
     }
 
     match /progress_photos/{userId}/{fileName} {
@@ -27,10 +46,20 @@ service firebase.storage {
         request.resource.size < 5 * 1024 * 1024;
     }
 
-    match /gym_assets/{gymId}/{fileName} {
+    // Logo e imagens da marca da treinadora.
+    match /coach_assets/{coachId}/{fileName} {
       allow read: if isSignedIn();
-      allow write: if isSignedIn() && isImage() &&
+      allow write: if isCoachOf(coachId) && isImage() &&
         request.resource.size < 5 * 1024 * 1024;
+    }
+
+    // Documentos por aluno (PDF/Word de dieta, macros, treino). Lidos só
+    // pelo aluno dono e pela treinadora; escritos pela treinadora. A
+    // nutrióloga ganha escrita quando o fluxo de upload existir.
+    match /documents/{coachId}/{userId}/{fileName} {
+      allow read: if isOwner(userId) || isCoachOf(coachId);
+      allow write: if isCoachOf(coachId) && isPlanDocument() &&
+        request.resource.size < 20 * 1024 * 1024;
     }
 
     match /reward_images/{rewardId}/{fileName} {

@@ -15,18 +15,18 @@ class BodyMeasurementScreen extends ConsumerWidget {
     final history = ref.watch(bodyMeasurementHistoryProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Evolução corporal')),
+      appBar: AppBar(title: const Text('Progreso corporal')),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showAddSheet(context, ref),
         child: const Icon(Icons.add),
       ),
       body: history.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text('Erro: $e')),
+        error: (e, _) => Center(child: Text('Error: $e')),
         data: (entries) {
           if (entries.isEmpty) {
             return const Center(
-              child: Text('Adicione seu primeiro registro para começar.'),
+              child: Text('Agrega tu primer registro para comenzar.'),
             );
           }
           final weights = entries
@@ -40,7 +40,7 @@ class BodyMeasurementScreen extends ConsumerWidget {
               SizedBox(
                 height: 200,
                 child: weights.length < 2
-                    ? const Center(child: Text('Dados insuficientes para o gráfico'))
+                    ? const Center(child: Text('Datos insuficientes para la gráfica'))
                     : LineChart(
                         LineChartData(
                           gridData: const FlGridData(show: false),
@@ -62,7 +62,7 @@ class BodyMeasurementScreen extends ConsumerWidget {
                       ),
               ),
               const SizedBox(height: 24),
-              Text('Histórico', style: AppTextStyles.title),
+              Text('Historial', style: AppTextStyles.title),
               const SizedBox(height: 8),
               for (final entry in entries.reversed) _MeasurementTile(entry: entry),
             ],
@@ -89,7 +89,7 @@ class BodyMeasurementScreen extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('Novo registro', style: AppTextStyles.headline),
+            Text('Nuevo registro', style: AppTextStyles.headline),
             const SizedBox(height: 16),
             TextField(
               controller: pesoController,
@@ -100,7 +100,7 @@ class BodyMeasurementScreen extends ConsumerWidget {
             TextField(
               controller: gorduraController,
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
-              decoration: const InputDecoration(hintText: '% de gordura'),
+              decoration: const InputDecoration(hintText: '% de grasa'),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
@@ -118,7 +118,7 @@ class BodyMeasurementScreen extends ConsumerWidget {
                     );
                 if (context.mounted) Navigator.of(context).pop();
               },
-              child: const Text('Salvar'),
+              child: const Text('Guardar'),
             ),
           ],
         ),
@@ -138,7 +138,7 @@ class _MeasurementTile extends StatelessWidget {
       contentPadding: EdgeInsets.zero,
       title: Text(
         '${entry.pesoKg?.toStringAsFixed(1) ?? '-'} kg'
-        '${entry.percentualGordura != null ? ' · ${entry.percentualGordura!.toStringAsFixed(1)}% gordura' : ''}',
+        '${entry.percentualGordura != null ? ' · ${entry.percentualGordura!.toStringAsFixed(1)}% grasa' : ''}',
       ),
       subtitle: Text(
         '${entry.recordedAt.day}/${entry.recordedAt.month}/${entry.recordedAt.year}',

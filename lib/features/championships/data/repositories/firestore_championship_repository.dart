@@ -8,17 +8,17 @@ class FirestoreChampionshipRepository implements ChampionshipRepository {
   final FirebaseFirestore _firestore;
 
   @override
-  Stream<List<ChampionshipEntity>> watchByGym(String gymId) {
+  Stream<List<ChampionshipEntity>> watchByCoach(String coachId) {
     return _firestore
         .collection('championships')
-        .where('gymId', isEqualTo: gymId)
+        .where('coachId', isEqualTo: coachId)
         .orderBy('startsAt', descending: true)
         .snapshots()
         .map((s) => s.docs.map((doc) {
               final data = doc.data();
               return ChampionshipEntity(
                 id: doc.id,
-                gymId: data['gymId'] as String,
+                coachId: data['coachId'] as String,
                 name: data['name'] as String,
                 description: data['description'] as String,
                 startsAt: (data['startsAt'] as Timestamp).toDate(),

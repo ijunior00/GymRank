@@ -23,7 +23,7 @@ class CloudFunctionsCheckInRepository implements CheckInRepository {
         CheckInEntity(
           id: data['checkInId'] as String,
           userId: data['userId'] as String,
-          gymId: data['gymId'] as String,
+          coachId: data['coachId'] as String,
           checkedInAt: DateTime.parse(data['checkedInAt'] as String),
           xpGranted: data['xpGranted'] as int,
           countedForStreak: data['countedForStreak'] as bool,
@@ -32,9 +32,10 @@ class CloudFunctionsCheckInRepository implements CheckInRepository {
     } on FirebaseFunctionsException catch (e) {
       return Result.failure(switch (e.code) {
         'already-exists' => const Failure.conflict(
-            'Você já fez check-in recentemente nesta academia.',
+            'Ya hiciste check-in hace poco.',
           ),
-        'invalid-argument' => const Failure.validation('QR Code inválido ou expirado.'),
+        'invalid-argument' =>
+          const Failure.validation('Código QR inválido o vencido.'),
         'unauthenticated' => const Failure.unauthenticated(),
         _ => Failure.unexpected(e.message ?? e.code),
       });
@@ -54,7 +55,7 @@ class CloudFunctionsCheckInRepository implements CheckInRepository {
               return CheckInEntity(
                 id: doc.id,
                 userId: data['userId'] as String,
-                gymId: data['gymId'] as String,
+                coachId: data['coachId'] as String,
                 checkedInAt: (data['checkedInAt'] as Timestamp).toDate(),
                 xpGranted: data['xpGranted'] as int,
                 countedForStreak: data['countedForStreak'] as bool,

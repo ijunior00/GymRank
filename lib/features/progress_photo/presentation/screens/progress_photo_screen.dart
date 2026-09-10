@@ -23,7 +23,7 @@ class ProgressPhotoScreen extends ConsumerWidget {
       length: ProgressPhotoCategory.values.length,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Fotos de evolução'),
+          title: const Text('Fotos de progreso'),
           bottom: TabBar(
             tabs: ProgressPhotoCategory.values
                 .map((c) => Tab(text: c.label))
@@ -36,13 +36,13 @@ class ProgressPhotoScreen extends ConsumerWidget {
         ),
         body: photos.when(
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (e, _) => Center(child: Text('Erro: $e')),
+          error: (e, _) => Center(child: Text('Error: $e')),
           data: (all) => TabBarView(
             children: ProgressPhotoCategory.values.map((category) {
               final items =
                   all.where((p) => p.category == category).toList();
               if (items.isEmpty) {
-                return const Center(child: Text('Nenhuma foto ainda.'));
+                return const Center(child: Text('Aún no hay fotos.'));
               }
               return GridView.builder(
                 padding: const EdgeInsets.all(12),
@@ -114,7 +114,7 @@ class _PhotoTile extends StatelessWidget {
 extension on ProgressPhotoCategory {
   String get label => switch (this) {
     ProgressPhotoCategory.frente => 'Frente',
-    ProgressPhotoCategory.costas => 'Costas',
+    ProgressPhotoCategory.costas => 'Espalda',
     ProgressPhotoCategory.perfil => 'Perfil',
   };
 }

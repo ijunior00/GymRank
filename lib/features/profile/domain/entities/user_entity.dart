@@ -15,7 +15,10 @@ class UserEntity with _$UserEntity {
     required String sex,
     required double heightCm,
     required String city,
-    required String? gymId,
+
+    /// Para o aluno: a treinadora que o acompanha (`coaches/{coachId}`).
+    /// Para a treinadora/nutrióloga: o próprio painel. `null` sem vínculo.
+    required String? coachId,
     required UserGoal goal,
     required UserRole role,
     required int level,
@@ -31,8 +34,16 @@ class UserEntity with _$UserEntity {
 
   const UserEntity._();
 
-  bool get isGymStaff =>
-      role == UserRole.academia || role == UserRole.adminGlobal;
+  bool get isCoach => role == UserRole.coach;
+
+  bool get isNutriologo => role == UserRole.nutriologo;
+
+  /// Quem tem acesso ao painel da comunidade (treinadora, nutrióloga ou
+  /// administração da plataforma).
+  bool get isStaff =>
+      role == UserRole.coach ||
+      role == UserRole.nutriologo ||
+      role == UserRole.adminGlobal;
 
   bool get isPremium => plan == SubscriptionPlan.premium;
 }

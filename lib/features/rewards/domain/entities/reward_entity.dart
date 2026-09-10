@@ -13,14 +13,14 @@ enum RewardType {
 
 enum RewardStatus { available, granted, redeemed, expired }
 
-/// Documento canônico de `rewards/{rewardId}`, cadastrado por uma
-/// academia e distribuído automaticamente pelo sistema ao vencedor de um
-/// desafio ou campeonato (ver functions/src/rewards/grantReward.ts).
+/// Documento canônico de `rewards/{rewardId}`, cadastrado pela
+/// treinadora e distribuído automaticamente pelo sistema ao vencedor de um
+/// desafio ou torneio (ver functions/src/rewards/grantReward.ts).
 @freezed
 class RewardEntity with _$RewardEntity {
   const factory RewardEntity({
     required String id,
-    required String gymId,
+    required String coachId,
     required String name,
     required String? imageUrl,
     required RewardType type,

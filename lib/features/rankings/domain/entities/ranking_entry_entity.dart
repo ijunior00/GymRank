@@ -2,7 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'ranking_entry_entity.freezed.dart';
 
-enum RankingScope { academia, amigos, cidade, nacional }
+/// `comunidad` = alunos da mesma treinadora (`scopeId` = coachId).
+enum RankingScope { comunidad, amigos, ciudad, nacional }
 
 enum RankingCriteria { consistencia, evolucao, xp, gymScore }
 

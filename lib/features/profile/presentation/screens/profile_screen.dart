@@ -5,6 +5,8 @@ import 'package:gymrank/core/theme/app_colors.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_providers.dart';
+import 'package:gymrank/features/coach_panel/presentation/controllers/coach_panel_providers.dart';
+import 'package:gymrank/features/coach_panel/presentation/widgets/join_coach_dialog.dart';
 import 'package:gymrank/features/gamification/presentation/widgets/level_progress_card.dart';
 import 'package:gymrank/features/gamification/presentation/widgets/streak_card.dart';
 import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
@@ -15,17 +17,20 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(currentUserProvider).valueOrNull;
+    final coach = ref.watch(currentCoachProvider).valueOrNull;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Perfil'),
         actions: [
-          if (user?.isGymStaff ?? false)
+          if (user?.isStaff ?? false)
             IconButton(
-              icon: const Icon(Icons.admin_panel_settings_outlined),
-              onPressed: () => context.push('/gym-admin'),
+              tooltip: 'Panel de coach',
+              icon: const Icon(Icons.dashboard_customize_outlined),
+              onPressed: () => context.push('/coach'),
             ),
           IconButton(
+            tooltip: 'Cerrar sesión',
             icon: const Icon(Icons.logout),
             onPressed: () => ref.read(authControllerProvider.notifier).signOut(),
           ),
@@ -53,35 +58,71 @@ class ProfileScreen extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         _StatColumn(label: 'Gym Score', value: user.gymScore.toStringAsFixed(0)),
-                        _StatColumn(label: 'XP Total', value: '${user.xpTotal}'),
+                        _StatColumn(label: 'XP total', value: '${user.xpTotal}'),
                         _StatColumn(label: 'Amigos', value: '—'),
                       ],
                     ),
                   ),
                 ),
                 const SizedBox(height: 16),
+                // Vínculo com a treinadora: painel (coach), nome da coach
+                // (aluno vinculado) ou entrada por código (aluno solto).
+                if (user.isStaff)
+                  ListTile(
+                    leading: const Icon(Icons.dashboard_customize_outlined),
+                    title: const Text('Panel de coach'),
+                    subtitle: Text(coach?.name ?? 'Configura tu marca'),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () => context.push('/coach'),
+                  )
+                else if (user.coachId != null)
+                  ListTile(
+                    leading: const Icon(Icons.verified_outlined, color: AppColors.primary),
+                    title: const Text('Tu coach'),
+                    subtitle: Text(coach?.name ?? 'Cargando…'),
+                  )
+                else
+                  ListTile(
+                    leading: const Icon(Icons.group_add_outlined),
+                    title: const Text('Unirme a mi coach'),
+                    subtitle: const Text('Escribe el código que te compartió'),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () => showJoinCoachDialog(context, ref, userId: user.id),
+                  ),
                 ListTile(
                   leading: const Icon(Icons.timeline_outlined),
-                  title: const Text('Evolução corporal'),
+                  title: const Text('Progreso corporal'),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () => context.push('/body-measurement'),
                 ),
                 ListTile(
                   leading: const Icon(Icons.photo_library_outlined),
-                  title: const Text('Fotos de evolução'),
+                  title: const Text('Fotos de progreso'),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () => context.push('/progress-photos'),
                 ),
                 ListTile(
                   leading: const Icon(Icons.emoji_events_outlined),
-                  title: const Text('Conquistas'),
+                  title: const Text('Logros'),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () => context.push('/achievements'),
                 ),
                 ListTile(
+                  leading: const Icon(Icons.people_outline),
+                  title: const Text('Amigos'),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => context.push('/friends'),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.card_giftcard_outlined),
+                  title: const Text('Mis premios'),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => context.push('/rewards'),
+                ),
+                ListTile(
                   leading: const Icon(Icons.workspace_premium_outlined),
-                  title: const Text('Assinatura Premium'),
-                  trailing: Text(user.isPremium ? 'Ativo' : 'Gratuito', style: AppTextStyles.caption),
+                  title: const Text('Suscripción Premium'),
+                  trailing: Text(user.isPremium ? 'Activa' : 'Gratis', style: AppTextStyles.caption),
                 ),
               ],
             ),
@@ -100,9 +141,9 @@ class _ProfileHeader extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.all(3),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            gradient: const LinearGradient(
+            gradient: LinearGradient(
               colors: AppColors.streakGradient,
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -139,7 +180,7 @@ class _ProfileHeader extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
-                  'Nível ${user.level}',
+                  'Nivel ${user.level}',
                   style: AppTextStyles.caption.copyWith(
                     color: AppColors.primary,
                     fontWeight: FontWeight.w700,

@@ -5,6 +5,21 @@
 > trainer que quer ser referência regional e, depois, nacional, com
 > atendimento 100% online possível.
 
+## Decisões já tomadas
+
+- **Mercado: México.** Toda a interface em espanhol do México (es-MX),
+  locale fixo `es_MX`, unidades métricas, Pix e afins saem do radar e
+  entram os meios de pagamento locais (ver 4.3).
+- **Nutrição: já existe nutrióloga parceira.** É ela quem produz os
+  PDFs de dieta e macros; o app organiza, versiona e acompanha, com um
+  papel próprio (`nutriologo`) para ela subir e revisar os planos. Isso
+  resolve também a questão regulatória do item 4.8.
+- **MVP começou** pelo pivô `gyms → coaches`, pelos papéis
+  `alumno / coach / nutriologo` e pelo painel da treinadora (código de
+  convite, indicadores, lista de alunos com situação, ficha com plano,
+  cobro, progresso, treinos e notas privadas). Próximo passo: upload de
+  PDF/Word com revisão e publicação de planos (Pilar 2).
+
 ---
 
 ## 1. A missão em uma frase
@@ -292,10 +307,10 @@ O ponto que diferencia este app de um "app de treino".
 
 - Planos: mensal, trimestral, semestral; online / presencial / híbrido;
   add-ons (avaliação extra, consulta).
-- Pagamento: Pix, cartão recorrente, boleto — via Stripe, Mercado Pago
-  ou Asaas (Asaas e Mercado Pago têm Pix recorrente e boleto fáceis no
-  Brasil). Cupons, período de teste, cobrança automática, aviso de
-  inadimplência, bloqueio suave (vê o app, não recebe treino novo).
+- Pagamento (México): cartão recorrente, SPEI, OXXO Pay e Mercado Pago
+  — via Stripe MX, Conekta ou Mercado Pago. Cupons, período de teste,
+  cobrança automática, aviso de inadimplência, bloqueio suave (vê o app,
+  não recebe treino novo). Preços em MXN.
 - Contratos e termos aceitos no app (com registro de data/IP).
 - Nota fiscal (integração futura).
 - Relatório financeiro no painel.
@@ -350,12 +365,13 @@ O ponto que diferencia este app de um "app de treino".
 
 - **LGPD**: consentimento explícito para fotos, para uso em marketing
   (separado!), exportação e exclusão de dados, política de privacidade.
-- **Prescrição de dieta no Brasil é ato privativo de nutricionista**
-  (Lei 8.234/91). Recomendação: o app não "prescreve"; ele **organiza e
-  acompanha** a dieta enviada por uma nutricionista parceira (perfil
-  `nutricionista` com acesso à parte alimentar) ou pelo próprio aluno.
-  Ela orienta hábitos e metas gerais. Vale confirmar com o CREF/CRN
-  local, mas modelar o papel de nutricionista desde já evita retrabalho.
+- **Prescrição de dieta é ato de nutrióloga(o)** também no México
+  (cédula profissional; a Ley General de Salud e as NOMs de nutrição
+  tratam o tema). Como já existe nutrióloga parceira, o app **organiza e
+  acompanha** a dieta que ela envia (perfil `nutriologo` com acesso à
+  parte alimentar) e a treinadora orienta hábitos e metas gerais. Vale
+  confirmar o enquadramento com a própria nutrióloga, mas o papel já
+  está modelado.
 - Fotos de progresso privadas por padrão; público só com opt-in por
   foto.
 - Regras do Storage para PDFs/Word: leitura só pela treinadora e pelo

@@ -3,7 +3,9 @@ import 'package:gymrank/core/error/result.dart';
 import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
 
 /// Dados coletados no cadastro (ver spec "Autenticação" no README do
-/// produto). `phone`/`email` dependem do método de login escolhido.
+/// produto). `phone`/`email` dependem do método de login escolhido. O
+/// vínculo com a treinadora (código de convite) é feito logo após o
+/// cadastro pelo `CoachPanelRepository`, não aqui.
 class SignUpData {
   const SignUpData({
     required this.name,
@@ -13,7 +15,6 @@ class SignUpData {
     required this.heightCm,
     required this.city,
     required this.goal,
-    this.gymId,
   });
 
   final String name;
@@ -23,7 +24,6 @@ class SignUpData {
   final double heightCm;
   final String city;
   final UserGoal goal;
-  final String? gymId;
 }
 
 abstract interface class AuthRepository {

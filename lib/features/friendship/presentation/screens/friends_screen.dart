@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gymrank/core/l10n/labels_es.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_providers.dart';
 import 'package:gymrank/features/friendship/domain/entities/friendship_entity.dart';
 import 'package:gymrank/features/friendship/presentation/controllers/friendship_providers.dart';
@@ -19,10 +20,10 @@ class FriendsScreen extends ConsumerWidget {
       ),
       body: friendships.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text('Erro: $e')),
+        error: (e, _) => Center(child: Text('Error: $e')),
         data: (list) {
           if (list.isEmpty) {
-            return const Center(child: Text('Adicione amigos por username.'));
+            return const Center(child: Text('Agrega amigos por nombre de usuario.'));
           }
           return ListView.builder(
             padding: const EdgeInsets.all(16),
@@ -42,10 +43,10 @@ class FriendsScreen extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Adicionar amigo'),
+        title: const Text('Agregar amigo'),
         content: TextField(
           controller: controller,
-          decoration: const InputDecoration(hintText: '@username'),
+          decoration: const InputDecoration(hintText: '@usuario'),
         ),
         actions: [
           TextButton(
@@ -88,7 +89,7 @@ class _FriendshipTile extends ConsumerWidget {
       child: ListTile(
         leading: const Icon(Icons.person_outline),
         title: Text(otherUserId),
-        subtitle: Text(friendship.status.name),
+        subtitle: Text(friendship.status.labelEs),
         trailing: isIncomingPending
             ? Row(
                 mainAxisSize: MainAxisSize.min,

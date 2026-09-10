@@ -10,6 +10,9 @@ enum NotificationType {
   newAchievement,
   championshipEnded,
   rewardAvailable,
+
+  /// Para a treinadora: um aluno entrou com o código de convite.
+  newStudent,
 }
 
 /// Documento canônico de `notifications/{notificationId}`, espelhado

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gymrank/core/l10n/labels_es.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_providers.dart';
 import 'package:gymrank/features/workout/domain/entities/workout_entity.dart';
 import 'package:gymrank/features/workout/presentation/controllers/workout_providers.dart';
@@ -39,7 +40,7 @@ class _LogWorkoutScreenState extends ConsumerState<LogWorkoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Registrar treino')),
+      appBar: AppBar(title: const Text('Registrar entrenamiento')),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -47,21 +48,21 @@ class _LogWorkoutScreenState extends ConsumerState<LogWorkoutScreen> {
             initialValue: _group,
             decoration: const InputDecoration(labelText: 'Grupo muscular'),
             items: MuscleGroup.values
-                .map((g) => DropdownMenuItem(value: g, child: Text(g.name)))
+                .map((g) => DropdownMenuItem(value: g, child: Text(g.labelEs)))
                 .toList(),
             onChanged: (v) => setState(() => _group = v ?? _group),
           ),
           const SizedBox(height: 12),
           DropdownButtonFormField<WorkoutIntensity>(
             initialValue: _intensity,
-            decoration: const InputDecoration(labelText: 'Intensidade'),
+            decoration: const InputDecoration(labelText: 'Intensidad'),
             items: WorkoutIntensity.values
-                .map((i) => DropdownMenuItem(value: i, child: Text(i.name)))
+                .map((i) => DropdownMenuItem(value: i, child: Text(i.labelEs)))
                 .toList(),
             onChanged: (v) => setState(() => _intensity = v ?? _intensity),
           ),
           const SizedBox(height: 12),
-          Text('Duração: $_minutes min'),
+          Text('Duración: $_minutes min'),
           Slider(
             value: _minutes.toDouble(),
             min: 10,
@@ -79,7 +80,7 @@ class _LogWorkoutScreenState extends ConsumerState<LogWorkoutScreen> {
                     width: 20,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
-                : const Text('Salvar treino'),
+                : const Text('Guardar entrenamiento'),
           ),
         ],
       ),

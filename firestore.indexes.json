@@ -4,7 +4,7 @@
       "collectionGroup": "users",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "gymId", "order": "ASCENDING" },
+        { "fieldPath": "coachId", "order": "ASCENDING" },
         { "fieldPath": "role", "order": "ASCENDING" }
       ]
     },
@@ -45,14 +45,14 @@
       "queryScope": "COLLECTION",
       "fields": [
         { "fieldPath": "isActive", "order": "ASCENDING" },
-        { "fieldPath": "gymId", "order": "ASCENDING" }
+        { "fieldPath": "coachId", "order": "ASCENDING" }
       ]
     },
     {
       "collectionGroup": "championships",
       "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "gymId", "order": "ASCENDING" },
+        { "fieldPath": "coachId", "order": "ASCENDING" },
         { "fieldPath": "startsAt", "order": "DESCENDING" }
       ]
     },

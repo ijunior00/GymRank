@@ -9,8 +9,10 @@ final championshipRepositoryProvider = Provider<ChampionshipRepository>((ref) {
   return FirestoreChampionshipRepository(ref.watch(firestoreProvider));
 });
 
-final gymChampionshipsProvider = StreamProvider<List<ChampionshipEntity>>((ref) {
-  final gymId = ref.watch(currentUserProvider).valueOrNull?.gymId;
-  if (gymId == null) return Stream.value(const []);
-  return ref.watch(championshipRepositoryProvider).watchByGym(gymId);
+/// Torneios da comunidade da treinadora do usuário logado.
+final communityChampionshipsProvider =
+    StreamProvider<List<ChampionshipEntity>>((ref) {
+  final coachId = ref.watch(currentUserProvider).valueOrNull?.coachId;
+  if (coachId == null) return Stream.value(const []);
+  return ref.watch(championshipRepositoryProvider).watchByCoach(coachId);
 });

@@ -2,7 +2,9 @@ import 'package:gymrank/core/error/result.dart';
 import 'package:gymrank/features/challenges/domain/entities/challenge_entity.dart';
 
 abstract interface class ChallengeRepository {
-  Stream<List<ChallengeEntity>> watchActive({String? gymId});
+  /// Desafios ativos da comunidade da treinadora ([coachId]) mais os
+  /// globais (`coachId == null`).
+  Stream<List<ChallengeEntity>> watchActive({String? coachId});
 
   Future<Result<void>> join({
     required String challengeId,

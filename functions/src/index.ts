@@ -9,5 +9,6 @@ export {
 
 export { recalculateGymScore } from './gamification/recalculateGymScore';
 export { seasonReset } from './seasons/seasonReset';
-export { recalculateGymDashboard } from './gym/recalculateGymDashboard';
+export { recalculateCoachDashboard } from './coach/recalculateCoachDashboard';
+export { onClientCreated } from './coach/onClientCreated';
 export { recalculateRankings } from './rankings/recalculateRankings';

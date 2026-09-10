@@ -6,8 +6,8 @@ import 'package:gymrank/core/theme/app_colors.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
 import 'package:gymrank/features/checkin/presentation/controllers/checkin_providers.dart';
 
-/// Escaneia o QR Code exclusivo da academia e envia para validação no
-/// backend (evita fraude via token rotativo, ver
+/// Escaneia o QR Code do atendimento presencial da treinadora e envia
+/// para validação no backend (evita fraude via token rotativo, ver
 /// functions/src/checkin/validateCheckIn.ts).
 class CheckInScreen extends ConsumerStatefulWidget {
   const CheckInScreen({super.key});
@@ -31,7 +31,7 @@ class _CheckInScreenState extends ConsumerState<CheckInScreen> {
     result.when(
       success: (checkIn) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Check-in confirmado! +${checkIn.xpGranted} XP')),
+          SnackBar(content: Text('¡Check-in listo! +${checkIn.xpGranted} XP')),
         );
         Navigator.of(context).pop();
       },
@@ -64,7 +64,7 @@ class _CheckInScreenState extends ConsumerState<CheckInScreen> {
               child: Text(
                 _processing
                     ? 'Validando check-in...'
-                    : 'Aponte a câmera para o QR Code da academia',
+                    : 'Apunta la cámara al código QR de tu coach',
                 textAlign: TextAlign.center,
                 style: AppTextStyles.body,
               ),

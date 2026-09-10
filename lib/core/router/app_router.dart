@@ -11,7 +11,9 @@ import 'package:gymrank/features/championships/presentation/screens/championship
 import 'package:gymrank/features/checkin/presentation/screens/checkin_screen.dart';
 import 'package:gymrank/features/friendship/presentation/screens/friends_screen.dart';
 import 'package:gymrank/features/gamification/presentation/screens/achievements_screen.dart';
-import 'package:gymrank/features/gym_admin/presentation/screens/gym_admin_dashboard_screen.dart';
+import 'package:gymrank/features/coach_panel/presentation/screens/client_detail_screen.dart';
+import 'package:gymrank/features/coach_panel/presentation/screens/coach_dashboard_screen.dart';
+import 'package:gymrank/features/coach_panel/presentation/screens/coach_setup_screen.dart';
 import 'package:gymrank/features/home/presentation/screens/app_shell_screen.dart';
 import 'package:gymrank/features/home/presentation/screens/home_dashboard_screen.dart';
 import 'package:gymrank/features/notifications/presentation/screens/notifications_screen.dart';
@@ -119,11 +121,28 @@ GoRouter appRouter(Ref ref) {
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => _fadeSlide(state, const MyRewardsScreen()),
       ),
+      // Painel da treinadora (papel `coach`).
       GoRoute(
-        path: '/gym-admin',
+        path: '/coach',
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) =>
-            _fadeSlide(state, const GymAdminDashboardScreen()),
+            _fadeSlide(state, const CoachDashboardScreen()),
+        routes: [
+          GoRoute(
+            path: 'setup',
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) =>
+                _fadeSlide(state, const CoachSetupScreen()),
+          ),
+          GoRoute(
+            path: 'clients/:userId',
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => _fadeSlide(
+              state,
+              ClientDetailScreen(userId: state.pathParameters['userId']!),
+            ),
+          ),
+        ],
       ),
     ],
   );

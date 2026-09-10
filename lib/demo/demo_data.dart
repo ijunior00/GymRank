@@ -1,13 +1,17 @@
 // PREVIEW/DEMO ONLY. Dados fake usados pelo entrypoint lib/main_demo.dart
 // para permitir navegar o app inteiro sem Firebase (deploy de teste no
 // Render). Nada aqui é usado pelo app real (lib/main.dart).
+//
+// O usuário demo é a treinadora (papel `coach`) da comunidade "Método VF",
+// com oito alunas/alunos em situações diferentes para exercitar o painel.
 import 'package:gymrank/core/constants/app_constants.dart';
 import 'package:gymrank/features/body_measurement/domain/entities/body_measurement_entity.dart';
 import 'package:gymrank/features/challenges/domain/entities/challenge_entity.dart';
 import 'package:gymrank/features/championships/domain/entities/championship_entity.dart';
+import 'package:gymrank/features/coach_panel/domain/entities/client_entity.dart';
+import 'package:gymrank/features/coach_panel/domain/entities/coach_entity.dart';
 import 'package:gymrank/features/friendship/domain/entities/friendship_entity.dart';
 import 'package:gymrank/features/gamification/domain/entities/achievement_entity.dart';
-import 'package:gymrank/features/gym_admin/domain/entities/gym_entity.dart';
 import 'package:gymrank/features/notifications/domain/entities/app_notification_entity.dart';
 import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
 import 'package:gymrank/features/rankings/domain/entities/ranking_entry_entity.dart';
@@ -16,76 +20,282 @@ import 'package:gymrank/features/social_feed/domain/entities/post_entity.dart';
 import 'package:gymrank/features/workout/domain/entities/workout_entity.dart';
 
 abstract final class DemoData {
-  static const String uid = 'demo-user';
-  static const String gymId = 'gym-1';
+  static const String uid = 'demo-coach';
+  static const String coachId = 'coach-1';
 
   static DateTime _daysAgo(int d) =>
       DateTime.now().subtract(Duration(days: d));
 
+  static DateTime _hoursAgo(int h) =>
+      DateTime.now().subtract(Duration(hours: h));
+
+  /// A treinadora logada no demo.
   static UserEntity get user => UserEntity(
         id: uid,
-        name: 'Marina Duarte',
-        username: 'marina.d',
+        name: 'Valeria Fuentes',
+        username: 'vale.fuentes',
         photoUrl: null,
-        birthDate: DateTime(1996, 4, 12),
+        birthDate: DateTime(1993, 6, 2),
         sex: 'feminino',
-        heightCm: 168,
-        city: 'São Paulo',
-        gymId: gymId,
-        goal: UserGoal.hipertrofia,
-        role: UserRole.aluno,
-        level: 14,
-        xpTotal: 12850,
-        xpCurrentSeason: 3120,
-        gymScore: 812,
-        currentStreakDays: 23,
-        longestStreakDays: 41,
-        lastCheckInAt: DateTime.now().subtract(const Duration(hours: 5)),
+        heightCm: 165,
+        city: 'Ciudad de México',
+        coachId: coachId,
+        goal: UserGoal.performance,
+        role: UserRole.coach,
+        level: 21,
+        xpTotal: 24900,
+        xpCurrentSeason: 4120,
+        gymScore: 934,
+        currentStreakDays: 41,
+        longestStreakDays: 88,
+        lastCheckInAt: _hoursAgo(3),
         plan: SubscriptionPlan.premium,
         createdAt: DateTime(2025, 9, 1),
       );
 
-  static GymEntity get gym => GymEntity(
-        id: gymId,
-        name: 'IronHouse Vila Mariana',
-        city: 'São Paulo',
+  static CoachEntity get coach => CoachEntity(
+        id: coachId,
+        ownerUserId: uid,
+        name: 'Método VF',
+        tagline: 'Fuerza, constancia y comunidad',
+        city: 'Ciudad de México',
+        country: 'MX',
         logoUrl: null,
-        brandColorHex: '#6C5CE7',
+        brandColorHex: '#FFD60A',
+        instagramHandle: 'metodovf',
+        inviteCode: 'VF2026',
         qrCodeSecret: 'demo-secret',
         plan: SubscriptionPlan.premium,
-        studentCount: 342,
-        activeChallengeCount: 4,
-        createdAt: DateTime(2024, 1, 10),
+        studentCount: 8,
+        activeChallengeCount: 3,
+        createdAt: DateTime(2025, 9, 1),
       );
 
-  static GymDashboardStats get gymStats => GymDashboardStats(
-        totalStudents: 342,
-        checkInsToday: 87,
-        checkInsThisWeek: 512,
-        newStudentsThisMonth: 28,
-        inactiveStudents30d: 19,
-        retentionRate: 0.91,
+  static CoachDashboardStats get coachStats => CoachDashboardStats(
+        totalStudents: 8,
+        activeStudents: 7,
+        workoutsToday: 3,
+        workoutsThisWeek: 21,
+        newStudentsThisMonth: 2,
+        inactiveStudents7d: 2,
+        retentionRate: 0.86,
         calculatedAt: DateTime.now(),
       );
+
+  static UserEntity _student({
+    required String id,
+    required String name,
+    required String username,
+    required String city,
+    required UserGoal goal,
+    required int level,
+    required int streak,
+    required DateTime? lastCheckInAt,
+    required int createdDaysAgo,
+  }) =>
+      UserEntity(
+        id: id,
+        name: name,
+        username: username,
+        photoUrl: null,
+        birthDate: DateTime(1996, 4, 12),
+        sex: 'feminino',
+        heightCm: 168,
+        city: city,
+        coachId: coachId,
+        goal: goal,
+        role: UserRole.alumno,
+        level: level,
+        xpTotal: level * 600,
+        xpCurrentSeason: level * 150,
+        gymScore: (level * 42).clamp(0, 1000).toDouble(),
+        currentStreakDays: streak,
+        longestStreakDays: streak + 12,
+        lastCheckInAt: lastCheckInAt,
+        plan: SubscriptionPlan.free,
+        createdAt: _daysAgo(createdDaysAgo),
+      );
+
+  /// Alunas/alunos vinculados à treinadora, cobrindo todos os estados do
+  /// painel: al día, en riesgo, sin actividad, sin registros e en pausa.
+  static List<UserEntity> get students => [
+        _student(
+          id: 'u0',
+          name: 'Carlos Núñez',
+          username: 'carlos.n',
+          city: 'Ciudad de México',
+          goal: UserGoal.hipertrofia,
+          level: 20,
+          streak: 31,
+          lastCheckInAt: _hoursAgo(3),
+          createdDaysAgo: 220,
+        ),
+        _student(
+          id: 'u1',
+          name: 'Fernanda Ríos',
+          username: 'fer.rios',
+          city: 'Ciudad de México',
+          goal: UserGoal.emagrecimento,
+          level: 14,
+          streak: 23,
+          lastCheckInAt: _hoursAgo(5),
+          createdDaysAgo: 160,
+        ),
+        _student(
+          id: 'u2',
+          name: 'Diego Prado',
+          username: 'diego.p',
+          city: 'Guadalajara',
+          goal: UserGoal.performance,
+          level: 12,
+          streak: 9,
+          lastCheckInAt: _daysAgo(1),
+          createdDaysAgo: 120,
+        ),
+        _student(
+          id: 'u3',
+          name: 'Rafael Sosa',
+          username: 'rafa.sosa',
+          city: 'Monterrey',
+          goal: UserGoal.saude,
+          level: 9,
+          streak: 0,
+          lastCheckInAt: _daysAgo(6),
+          createdDaysAgo: 90,
+        ),
+        _student(
+          id: 'u4',
+          name: 'Ximena Castro',
+          username: 'xime.c',
+          city: 'Ciudad de México',
+          goal: UserGoal.emagrecimento,
+          level: 11,
+          streak: 4,
+          lastCheckInAt: _daysAgo(2),
+          createdDaysAgo: 75,
+        ),
+        _student(
+          id: 'u5',
+          name: 'Andrés Martínez',
+          username: 'andres.mtz',
+          city: 'Puebla',
+          goal: UserGoal.hipertrofia,
+          level: 7,
+          streak: 0,
+          lastCheckInAt: _daysAgo(16),
+          createdDaysAgo: 60,
+        ),
+        _student(
+          id: 'u6',
+          name: 'Paola Rocha',
+          username: 'pao.rocha',
+          city: 'Ciudad de México',
+          goal: UserGoal.saude,
+          level: 5,
+          streak: 2,
+          lastCheckInAt: _daysAgo(3),
+          createdDaysAgo: 20,
+        ),
+        _student(
+          id: 'u7',
+          name: 'Luis Herrera',
+          username: 'luis.h',
+          city: 'Ciudad de México',
+          goal: UserGoal.reabilitacao,
+          level: 3,
+          streak: 0,
+          lastCheckInAt: null,
+          createdDaysAgo: 6,
+        ),
+      ];
+
+  static UserEntity? studentById(String id) {
+    for (final s in students) {
+      if (s.id == id) return s;
+    }
+    return null;
+  }
+
+  static List<ClientEntity> get clients {
+    const plans = [
+      'Elite',
+      'Online mensual',
+      'Presencial 3x',
+      'Online mensual',
+      'Online trimestral',
+      'Online mensual',
+      null,
+      'Online mensual',
+    ];
+    final list = students;
+    return [
+      for (var i = 0; i < list.length; i++)
+        ClientEntity(
+          userId: list[i].id,
+          coachId: coachId,
+          status: list[i].id == 'u7'
+              ? ClientStatus.pausado
+              : ClientStatus.activo,
+          planName: plans[i],
+          startedAt: list[i].createdAt,
+          nextPaymentAt: plans[i] == null
+              ? null
+              : DateTime.now().add(Duration(days: 3 + i * 4)),
+          tags: const [],
+          lastWorkoutAt: list[i].lastCheckInAt,
+          createdAt: list[i].createdAt,
+        ),
+    ];
+  }
+
+  static List<CoachNoteEntity> notes(String userId) {
+    if (userId == 'u0') {
+      return [
+        CoachNoteEntity(
+          id: 'n1',
+          authorId: uid,
+          text: 'Subir carga en sentadilla a 100 kg la próxima semana.',
+          createdAt: _daysAgo(2),
+        ),
+        CoachNoteEntity(
+          id: 'n2',
+          authorId: uid,
+          text: 'Molestia leve en hombro derecho; evitar press militar.',
+          createdAt: _daysAgo(9),
+        ),
+      ];
+    }
+    if (userId == 'u3') {
+      return [
+        CoachNoteEntity(
+          id: 'n3',
+          authorId: uid,
+          text: 'Lleva 6 días sin entrenar. Mandarle audio hoy.',
+          createdAt: _daysAgo(1),
+        ),
+      ];
+    }
+    return const [];
+  }
 
   static List<RankingEntryEntity> rankings(
     RankingScope scope,
     RankingCriteria criteria,
   ) {
     final names = [
-      ('Carlos Nunes', 934.0),
-      ('Marina Duarte', 812.0),
-      ('Beatriz Lima', 798.0),
-      ('João Prado', 771.0),
-      ('Rafael Sousa', 690.0),
-      ('Aline Castro', 654.0),
-      ('Diego Martins', 610.0),
-      ('Priscila Rocha', 587.0),
+      ('Carlos Núñez', 934.0, 'u0'),
+      ('Valeria Fuentes', 812.0, uid),
+      ('Fernanda Ríos', 798.0, 'u1'),
+      ('Diego Prado', 771.0, 'u2'),
+      ('Ximena Castro', 690.0, 'u4'),
+      ('Rafael Sosa', 654.0, 'u3'),
+      ('Andrés Martínez', 610.0, 'u5'),
+      ('Paola Rocha', 587.0, 'u6'),
     ];
     return [
       for (var i = 0; i < names.length; i++)
         RankingEntryEntity(
-          userId: names[i].$1 == 'Marina Duarte' ? uid : 'u$i',
+          userId: names[i].$3,
           userName: names[i].$1,
           userPhotoUrl: null,
           position: i + 1,
@@ -102,10 +312,10 @@ abstract final class DemoData {
   static List<ChallengeEntity> get challenges => [
         ChallengeEntity(
           id: 'c1',
-          gymId: gymId,
-          title: 'Julho Imparável',
-          description: 'Treine 20 dias neste mês e garanta XP em dobro.',
-          scope: ChallengeScope.academia,
+          coachId: coachId,
+          title: 'Septiembre imparable',
+          description: 'Entrena 20 días este mes y gana XP doble.',
+          scope: ChallengeScope.comunidad,
           period: ChallengePeriod.mensal,
           metric: ChallengeMetric.diasTreinados,
           targetValue: 20,
@@ -113,15 +323,16 @@ abstract final class DemoData {
           endsAt: DateTime.now().add(const Duration(days: 20)),
           xpReward: 500,
           rewardId: 'r1',
-          participantCount: 128,
+          participantCount: 8,
           isActive: true,
           createdAt: _daysAgo(12),
         ),
         ChallengeEntity(
           id: 'c2',
-          gymId: null,
-          title: 'Desafio 100 km',
-          description: 'Acumule 100 km de corrida/esteira no trimestre.',
+          coachId: null,
+          title: 'Reto 100 km',
+          description:
+              'Acumula 100 km de carrera o caminadora en el trimestre.',
           scope: ChallengeScope.regional,
           period: ChallengePeriod.mensal,
           metric: ChallengeMetric.distanciaKm,
@@ -136,9 +347,9 @@ abstract final class DemoData {
         ),
         ChallengeEntity(
           id: 'c3',
-          gymId: gymId,
-          title: 'Semana do Foco',
-          description: 'Faça 5 check-ins esta semana.',
+          coachId: coachId,
+          title: 'Semana de enfoque',
+          description: 'Completa 5 entrenamientos esta semana.',
           scope: ChallengeScope.individual,
           period: ChallengePeriod.semanal,
           metric: ChallengeMetric.checkIns,
@@ -147,7 +358,7 @@ abstract final class DemoData {
           endsAt: DateTime.now().add(const Duration(days: 5)),
           xpReward: 200,
           rewardId: null,
-          participantCount: 64,
+          participantCount: 6,
           isActive: true,
           createdAt: _daysAgo(2),
         ),
@@ -156,29 +367,30 @@ abstract final class DemoData {
   static List<ChampionshipEntity> get championships => [
         ChampionshipEntity(
           id: 'ch1',
-          gymId: gymId,
-          name: 'Copa IronHouse — Temporada 3',
-          description: 'Maior Gym Score da unidade leva o pódio e prêmios.',
+          coachId: coachId,
+          name: 'Copa Método VF · Temporada 3',
+          description:
+              'El mayor Gym Score de la comunidad se lleva el podio y premios.',
           startsAt: _daysAgo(15),
           endsAt: DateTime.now().add(const Duration(days: 15)),
           criteria: ChampionshipCriteria.maiorGymScore,
           rewardIds: ['r1', 'r2'],
-          participantCount: 210,
+          participantCount: 8,
           isFinished: false,
           createdAt: _daysAgo(16),
         ),
         ChampionshipEntity(
           id: 'ch2',
-          gymId: gymId,
-          name: 'Verão em Forma 2026',
-          description: 'Quem fez mais check-ins no verão.',
-          startsAt: DateTime(2026, 1, 1),
-          endsAt: DateTime(2026, 3, 31),
+          coachId: coachId,
+          name: 'Verano en forma 2026',
+          description: 'Quien hizo más check-ins durante el verano.',
+          startsAt: DateTime(2026, 6, 1),
+          endsAt: DateTime(2026, 8, 31),
           criteria: ChampionshipCriteria.maisCheckIns,
           rewardIds: ['r3'],
-          participantCount: 298,
+          participantCount: 7,
           isFinished: true,
-          createdAt: DateTime(2025, 12, 20),
+          createdAt: DateTime(2026, 5, 20),
         ),
       ];
 
@@ -186,10 +398,10 @@ abstract final class DemoData {
         PostEntity(
           id: 'p1',
           userId: 'u0',
-          authorName: 'Carlos Nunes',
+          authorName: 'Carlos Núñez',
           authorPhotoUrl: null,
           type: PostType.levelUp,
-          text: 'Carlos subiu para o nível 20! 🔥',
+          text: '¡Carlos subió al nivel 20! 🔥',
           imageUrl: null,
           likeCount: 42,
           commentCount: 6,
@@ -198,11 +410,11 @@ abstract final class DemoData {
         ),
         PostEntity(
           id: 'p2',
-          userId: 'u2',
-          authorName: 'Beatriz Lima',
+          userId: 'u1',
+          authorName: 'Fernanda Ríos',
           authorPhotoUrl: null,
           type: PostType.challengeCompleted,
-          text: 'Beatriz concluiu o desafio "Semana do Foco"!',
+          text: '¡Fernanda completó el reto "Semana de enfoque"!',
           imageUrl: null,
           likeCount: 31,
           commentCount: 3,
@@ -212,10 +424,10 @@ abstract final class DemoData {
         PostEntity(
           id: 'p3',
           userId: uid,
-          authorName: 'Marina Duarte',
+          authorName: 'Valeria Fuentes',
           authorPhotoUrl: null,
           type: PostType.streakMilestone,
-          text: 'Marina completou 23 dias de sequência! 💪',
+          text: '¡Valeria lleva 41 días de racha! 💪',
           imageUrl: null,
           likeCount: 58,
           commentCount: 9,
@@ -224,11 +436,11 @@ abstract final class DemoData {
         ),
         PostEntity(
           id: 'p4',
-          userId: 'u3',
-          authorName: 'João Prado',
+          userId: 'u2',
+          authorName: 'Diego Prado',
           authorPhotoUrl: null,
           type: PostType.personalRecord,
-          text: 'João bateu recorde no supino: 110kg!',
+          text: '¡Diego rompió su récord en press de banca: 110 kg!',
           imageUrl: null,
           likeCount: 77,
           commentCount: 12,
@@ -258,10 +470,10 @@ abstract final class DemoData {
         AppNotificationEntity(
           id: 'n1',
           userId: uid,
-          type: NotificationType.friendOvertook,
-          title: 'Carlos ultrapassou você!',
-          body: 'Ele está 122 pontos à frente no ranking da academia.',
-          deepLink: '/rankings',
+          type: NotificationType.newStudent,
+          title: 'Nuevo alumno',
+          body: 'Luis Herrera se unió a Método VF con tu código.',
+          deepLink: '/coach/clients/u7',
           read: false,
           createdAt: DateTime.now().subtract(const Duration(hours: 1)),
         ),
@@ -269,8 +481,8 @@ abstract final class DemoData {
           id: 'n2',
           userId: uid,
           type: NotificationType.newChallenge,
-          title: 'Novo desafio disponível',
-          body: '"Semana do Foco" começou. Participe!',
+          title: 'Nuevo reto disponible',
+          body: '"Semana de enfoque" ya empezó. ¡Únete!',
           deepLink: '/challenges',
           read: false,
           createdAt: DateTime.now().subtract(const Duration(hours: 8)),
@@ -279,8 +491,8 @@ abstract final class DemoData {
           id: 'n3',
           userId: uid,
           type: NotificationType.newAchievement,
-          title: 'Conquista desbloqueada 🏅',
-          body: 'Você entrou no Top 10 da temporada!',
+          title: 'Logro desbloqueado 🏅',
+          body: 'Entraste al Top 10 de la temporada.',
           deepLink: '/achievements',
           read: true,
           createdAt: _daysAgo(1),

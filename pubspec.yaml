@@ -1,8 +1,8 @@
 name: gymrank
 description: >
-  GymRank - plataforma de gamificação e competição para academias.
-  Aplicativo mobile em Flutter + Firebase, modelo B2B2C, focado em
-  retenção de alunos através de desafios, rankings e evolução social.
+  GymRank - app do método de uma personal trainer (México, es-MX):
+  painel da treinadora, treino e dieta dos alunos, marcos de evolução,
+  competição e comunidade. Flutter + Firebase.
 publish_to: "none"
 version: 0.1.0+1
 
@@ -11,6 +11,8 @@ environment:
 
 dependencies:
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
   cupertino_icons: ^1.0.8
 

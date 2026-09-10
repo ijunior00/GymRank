@@ -23,13 +23,25 @@ abstract final class AppConstants {
   // Check-in
   static const Duration checkInCooldown = Duration(hours: 6);
   static const Duration qrCodeTokenTtl = Duration(seconds: 30);
+
+  // Painel da coach: a partir de quantos dias sem atividade o aluno é
+  // sinalizado como "em risco" e como "sem atividade".
+  static const int studentAtRiskAfterDays = 5;
+  static const int studentInactiveAfterDays = 14;
+
+  /// Locale único do produto (app lançado para o México).
+  static const String localeTag = 'es_MX';
 }
 
 enum UserGoal { emagrecimento, hipertrofia, performance, saude, reabilitacao }
 
-enum UserRole { aluno, personal, academia, adminGlobal }
+/// Papéis do produto. `alumno` é o padrão no cadastro; `coach` (a
+/// treinadora dona da conta), `nutriologo` (nutrióloga parceira, acesso à
+/// parte alimentar) e `adminGlobal` são atribuídos fora do app
+/// (console/script), nunca pelo próprio usuário — ver firestore.rules.
+enum UserRole { alumno, coach, nutriologo, adminGlobal }
 
-enum ChallengeScope { individual, equipe, academia, regional }
+enum ChallengeScope { individual, equipo, comunidad, regional }
 
 enum ChallengePeriod { semanal, mensal }
 

@@ -5,7 +5,7 @@ interface RankableUser {
   id: string;
   name: string;
   photoUrl: string | null;
-  gymId: string | null;
+  coachId: string | null;
   city: string | null;
   value: number;
 }
@@ -17,9 +17,9 @@ const CRITERIA_FIELD: Record<string, string> = {
 
 /**
  * Materializa `rankings/{scope}_{criteria}_{scopeId}/entries` para leitura
- * direta e barata pelo cliente. Rodar via scheduler (aqui a cada hora)
- * evita agregações custosas em tempo real quando a base crescer para
- * milhões de usuários.
+ * direta e barata pelo cliente. Escopos: `nacional` (global), `comunidad`
+ * (alunos da mesma treinadora, scopeId = coachId) e `ciudad`. Rodar via
+ * scheduler evita agregações custosas em tempo real quando a base crescer.
  */
 export const recalculateRankings = onSchedule('every 1 hours', async () => {
   const usersSnap = await db.collection('users').get();
@@ -29,7 +29,7 @@ export const recalculateRankings = onSchedule('every 1 hours', async () => {
       id: doc.id,
       name: data.name as string,
       photoUrl: (data.photoUrl as string | null) ?? null,
-      gymId: (data.gymId as string | null) ?? null,
+      coachId: (data.coachId as string | null) ?? null,
       city: (data.city as string | null) ?? null,
       value: 0,
     };
@@ -40,16 +40,16 @@ export const recalculateRankings = onSchedule('every 1 hours', async () => {
 
     await writeRanking('nacional', 'global', criteria, rankBy(usersSnap, field));
 
-    const byGym = groupBy(users, (u) => u.gymId);
-    for (const [gymId, group] of byGym) {
-      if (!gymId) continue;
-      await writeRanking('academia', gymId, criteria, rankGroup(group, usersSnap, field));
+    const byCoach = groupBy(users, (u) => u.coachId);
+    for (const [coachId, group] of byCoach) {
+      if (!coachId) continue;
+      await writeRanking('comunidad', coachId, criteria, rankGroup(group, usersSnap, field));
     }
 
     const byCity = groupBy(users, (u) => u.city);
     for (const [city, group] of byCity) {
       if (!city) continue;
-      await writeRanking('cidade', city, criteria, rankGroup(group, usersSnap, field));
+      await writeRanking('ciudad', city, criteria, rankGroup(group, usersSnap, field));
     }
   }
 });

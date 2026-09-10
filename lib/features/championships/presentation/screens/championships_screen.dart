@@ -8,16 +8,16 @@ class ChampionshipsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final championships = ref.watch(gymChampionshipsProvider);
+    final championships = ref.watch(communityChampionshipsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Campeonatos')),
+      appBar: AppBar(title: const Text('Torneos')),
       body: championships.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text('Erro: $e')),
+        error: (e, _) => Center(child: Text('Error: $e')),
         data: (list) {
           if (list.isEmpty) {
-            return const Center(child: Text('Nenhum campeonato cadastrado.'));
+            return const Center(child: Text('Aún no hay torneos en tu comunidad.'));
           }
           return ListView.separated(
             padding: const EdgeInsets.all(16),
@@ -29,7 +29,7 @@ class ChampionshipsScreen extends ConsumerWidget {
                 child: ListTile(
                   title: Text(c.name, style: AppTextStyles.title),
                   subtitle: Text(c.description),
-                  trailing: Text(c.isFinished ? 'Encerrado' : 'Ativo'),
+                  trailing: Text(c.isFinished ? 'Terminado' : 'En curso'),
                 ),
               );
             },

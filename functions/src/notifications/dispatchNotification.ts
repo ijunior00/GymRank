@@ -7,7 +7,8 @@ export type NotificationType =
   | 'newLevel'
   | 'newAchievement'
   | 'championshipEnded'
-  | 'rewardAvailable';
+  | 'rewardAvailable'
+  | 'newStudent';
 
 interface NotificationInput {
   userId: string;
@@ -50,6 +51,6 @@ export async function dispatchNotification(input: NotificationInput): Promise<vo
       data: input.deepLink ? { deepLink: input.deepLink } : {},
     });
   } catch (error) {
-    console.error('Falha ao enviar push notification', error);
+    console.error('Falha ao enviar push notification', error); // log interno, não chega ao usuário
   }
 }

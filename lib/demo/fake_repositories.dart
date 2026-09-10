@@ -3,6 +3,7 @@
 // Firebase. Ações de escrita são no-op que retornam sucesso.
 import 'dart:io';
 
+import 'package:gymrank/core/constants/app_constants.dart';
 import 'package:gymrank/core/error/result.dart';
 import 'package:gymrank/demo/demo_data.dart';
 import 'package:gymrank/features/auth/domain/repositories/auth_repository.dart';
@@ -14,19 +15,19 @@ import 'package:gymrank/features/championships/domain/entities/championship_enti
 import 'package:gymrank/features/championships/domain/repositories/championship_repository.dart';
 import 'package:gymrank/features/checkin/domain/entities/checkin_entity.dart';
 import 'package:gymrank/features/checkin/domain/repositories/checkin_repository.dart';
+import 'package:gymrank/features/coach_panel/domain/entities/client_entity.dart';
+import 'package:gymrank/features/coach_panel/domain/entities/coach_entity.dart';
+import 'package:gymrank/features/coach_panel/domain/repositories/coach_panel_repository.dart';
 import 'package:gymrank/features/friendship/domain/entities/friendship_entity.dart';
 import 'package:gymrank/features/friendship/domain/repositories/friendship_repository.dart';
 import 'package:gymrank/features/gamification/domain/entities/achievement_entity.dart';
 import 'package:gymrank/features/gamification/domain/repositories/achievement_repository.dart';
-import 'package:gymrank/features/gym_admin/domain/entities/gym_entity.dart';
-import 'package:gymrank/features/gym_admin/domain/repositories/gym_admin_repository.dart';
 import 'package:gymrank/features/notifications/domain/entities/app_notification_entity.dart';
 import 'package:gymrank/features/notifications/domain/repositories/notification_repository.dart';
 import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
 import 'package:gymrank/features/profile/domain/repositories/user_repository.dart';
 import 'package:gymrank/features/progress_photo/domain/entities/progress_photo_entity.dart';
 import 'package:gymrank/features/progress_photo/domain/repositories/progress_photo_repository.dart';
-import 'package:gymrank/core/constants/app_constants.dart';
 import 'package:gymrank/features/rankings/domain/entities/ranking_entry_entity.dart';
 import 'package:gymrank/features/rankings/domain/repositories/ranking_repository.dart';
 import 'package:gymrank/features/rewards/domain/entities/reward_entity.dart';
@@ -93,9 +94,11 @@ class FakeAuthRepository implements AuthRepository {
 }
 
 class FakeUserRepository implements UserRepository {
+  UserEntity _resolve(String uid) => DemoData.studentById(uid) ?? DemoData.user;
+
   @override
   Future<Result<UserEntity>> getById(String uid) async =>
-      Result.success(DemoData.user);
+      Result.success(_resolve(uid));
 
   @override
   Future<Result<UserEntity>> create(UserEntity user) async =>
@@ -111,7 +114,7 @@ class FakeUserRepository implements UserRepository {
 
   @override
   Stream<Result<UserEntity>> watch(String uid) =>
-      Stream.value(Result.success(DemoData.user));
+      Stream.value(Result.success(_resolve(uid)));
 }
 
 class FakeBodyMeasurementRepository implements BodyMeasurementRepository {
@@ -155,7 +158,7 @@ class FakeCheckInRepository implements CheckInRepository {
         CheckInEntity(
           id: 'demo',
           userId: DemoData.uid,
-          gymId: DemoData.gymId,
+          coachId: DemoData.coachId,
           checkedInAt: DateTime.now(),
           xpGranted: AppConstants.xpCheckIn,
           countedForStreak: true,
@@ -190,7 +193,7 @@ class FakeRankingRepository implements RankingRepository {
 
 class FakeChallengeRepository implements ChallengeRepository {
   @override
-  Stream<List<ChallengeEntity>> watchActive({String? gymId}) =>
+  Stream<List<ChallengeEntity>> watchActive({String? coachId}) =>
       Stream.value(DemoData.challenges);
 
   @override
@@ -210,7 +213,7 @@ class FakeChallengeRepository implements ChallengeRepository {
 
 class FakeChampionshipRepository implements ChampionshipRepository {
   @override
-  Stream<List<ChampionshipEntity>> watchByGym(String gymId) =>
+  Stream<List<ChampionshipEntity>> watchByCoach(String coachId) =>
       Stream.value(DemoData.championships);
 }
 
@@ -292,15 +295,66 @@ class FakeAchievementRepository implements AchievementRepository {
       Stream.value(DemoData.achievements);
 }
 
-class FakeGymAdminRepository implements GymAdminRepository {
+class FakeCoachPanelRepository implements CoachPanelRepository {
   @override
-  Stream<GymDashboardStats> watchDashboardStats(String gymId) =>
-      Stream.value(DemoData.gymStats);
+  Stream<CoachEntity?> watchCoach(String coachId) =>
+      Stream.value(DemoData.coach);
 
   @override
-  Stream<List<UserEntity>> watchStudents(String gymId, {int limit = 50}) =>
-      Stream.value([DemoData.user]);
+  Future<Result<CoachEntity>> createCoach(CoachEntity coach) async =>
+      Result.success(coach.copyWith(id: DemoData.coachId));
 
   @override
-  Stream<GymEntity?> watchGym(String gymId) => Stream.value(DemoData.gym);
+  Future<Result<CoachEntity>> findByInviteCode(String inviteCode) async =>
+      Result.success(DemoData.coach);
+
+  @override
+  Future<Result<CoachEntity>> joinCoach({
+    required String userId,
+    required String inviteCode,
+  }) async =>
+      Result.success(DemoData.coach);
+
+  @override
+  Stream<CoachDashboardStats?> watchDashboardStats(String coachId) =>
+      Stream.value(DemoData.coachStats);
+
+  @override
+  Stream<List<UserEntity>> watchStudents(String coachId, {int limit = 200}) =>
+      Stream.value(DemoData.students);
+
+  @override
+  Stream<List<ClientEntity>> watchClients(String coachId) =>
+      Stream.value(DemoData.clients);
+
+  @override
+  Stream<ClientEntity?> watchClient({
+    required String coachId,
+    required String userId,
+  }) {
+    for (final c in DemoData.clients) {
+      if (c.userId == userId) return Stream.value(c);
+    }
+    return Stream.value(null);
+  }
+
+  @override
+  Future<Result<void>> updateClient(ClientEntity client) async =>
+      const Result.success(null);
+
+  @override
+  Stream<List<CoachNoteEntity>> watchNotes({
+    required String coachId,
+    required String userId,
+  }) =>
+      Stream.value(DemoData.notes(userId));
+
+  @override
+  Future<Result<void>> addNote({
+    required String coachId,
+    required String userId,
+    required String authorId,
+    required String text,
+  }) async =>
+      const Result.success(null);
 }

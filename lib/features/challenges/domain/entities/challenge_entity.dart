@@ -11,12 +11,13 @@ enum ChallengeMetric {
   checkIns,
 }
 
-/// Documento canônico de `challenges/{challengeId}`.
+/// Documento canônico de `challenges/{challengeId}`. `coachId` nulo =
+/// desafio global da plataforma, aberto a qualquer comunidade.
 @freezed
 class ChallengeEntity with _$ChallengeEntity {
   const factory ChallengeEntity({
     required String id,
-    required String? gymId,
+    required String? coachId,
     required String title,
     required String description,
     required ChallengeScope scope,

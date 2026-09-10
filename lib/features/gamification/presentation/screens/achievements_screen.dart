@@ -14,7 +14,7 @@ class AchievementsScreen extends ConsumerWidget {
     final unlockedCodes = unlocked.map((a) => a.code).toSet();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Conquistas')),
+      appBar: AppBar(title: const Text('Logros')),
       body: GridView.builder(
         padding: const EdgeInsets.all(16),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

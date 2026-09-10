@@ -31,13 +31,13 @@ async function closeSeason(
   seasonId: string,
   season: FirebaseFirestore.DocumentData,
 ): Promise<void> {
-  const gymId = season.gymId as string | null;
+  const coachId = season.coachId as string | null;
   let usersQuery: FirebaseFirestore.Query = db.collection('users');
-  if (gymId) usersQuery = usersQuery.where('gymId', '==', gymId);
+  if (coachId) usersQuery = usersQuery.where('coachId', '==', coachId);
 
   const usersSnap = await usersQuery.orderBy('gymScore', 'desc').get();
 
-  // NOTA: `WriteBatch` tem limite de 500 operações. Para academias/bases
+  // NOTA: `WriteBatch` tem limite de 500 operações. Para comunidades/bases
   // com mais alunos que isso, trocar por `BulkWriter` ou processar em
   // páginas antes de ir para produção em escala nacional.
   const batch = db.batch();
@@ -76,7 +76,7 @@ async function closeSeason(
   const endsAt = new Date(startsAt.getTime() + durationMs);
 
   batch.set(nextSeasonRef, {
-    gymId: gymId ?? null,
+    coachId: coachId ?? null,
     number: (season.number as number) + 1,
     duration: season.duration,
     startsAt: Timestamp.fromDate(startsAt),

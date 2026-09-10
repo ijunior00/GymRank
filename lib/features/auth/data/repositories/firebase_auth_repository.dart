@@ -33,7 +33,9 @@ class FirebaseAuthRepository implements AuthRepository {
     try {
       final googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) {
-        return const Result.failure(Failure.validation('Login cancelado'));
+        return const Result.failure(
+          Failure.validation('Inicio de sesión cancelado'),
+        );
       }
       final googleAuth = await googleUser.authentication;
       final credential = fb.GoogleAuthProvider.credential(
@@ -162,9 +164,9 @@ class FirebaseAuthRepository implements AuthRepository {
       sex: data.sex,
       heightCm: data.heightCm,
       city: data.city,
-      gymId: data.gymId,
+      coachId: null,
       goal: data.goal,
-      role: UserRole.aluno,
+      role: UserRole.alumno,
       level: 1,
       xpTotal: 0,
       xpCurrentSeason: 0,
@@ -191,8 +193,9 @@ class FirebaseAuthRepository implements AuthRepository {
   Failure _mapException(fb.FirebaseAuthException e) {
     return switch (e.code) {
       'user-not-found' || 'wrong-password' || 'invalid-credential' =>
-        const Failure.validation('Credenciais inválidas'),
-      'email-already-in-use' => const Failure.conflict('E-mail já cadastrado'),
+        const Failure.validation('Correo o contraseña incorrectos'),
+      'email-already-in-use' =>
+        const Failure.conflict('Ese correo ya tiene una cuenta'),
       'network-request-failed' => const Failure.network(),
       _ => Failure.unexpected(e.message ?? e.code),
     };
