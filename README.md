@@ -68,6 +68,16 @@ importa Firebase; `data` implementa os contratos do `domain`.
 Veja `docs/architecture.md` para detalhes e `docs/firestore-schema.md` para a
 modelagem completa do banco.
 
+## Direção do produto
+
+`docs/brainstorm-personal-trainer.md` descreve a próxima missão do app:
+sair do modelo "academia como cliente" e virar o app do método de uma
+personal trainer (painel da treinadora, upload de PDF/Word que vira
+treino/dieta/macros estruturados, execução do treino, marcos de
+evolução, competição por consistência e máquina de marketing com cards
+compartilháveis), com priorização em MVP / Fase 2 / Fase 3 e o impacto
+técnico sobre a base atual.
+
 ## Setup
 
 Este scaffold foi criado sem o Flutter SDK disponível no ambiente de geração,
