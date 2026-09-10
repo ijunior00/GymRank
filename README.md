@@ -116,9 +116,12 @@ Testes das regras puras (níveis, 1RM, treino do dia, leitura dos planos):
 flutter test
 ```
 
-O passo a passo completo até a Play Store e a App Store — assinatura,
-chave APNs, capacidades do `Runner.entitlements`, ícones — está em
-`docs/setup-movil.md`.
+Dois roteiros passo a passo:
+
+- `docs/setup-firebase.md` — criar o projeto Firebase e ligar o app real
+  (é o que faz os 2 erros do `flutter analyze` sumirem).
+- `docs/setup-movil.md` — daí até a Play Store e a App Store: assinatura,
+  chave APNs, capacidades do `Runner.entitlements`, ícones.
 
 ## Planos: PDF/Word → revisão → publicação
 
@@ -184,6 +187,11 @@ npm install
 npm run build
 firebase deploy --only functions
 ```
+
+Todas rodam em `us-central1`, fixado em `functions/src/constants.ts`.
+`AppConstants.functionsRegion` (Dart) tem de acompanhar: se as duas
+divergirem, a callable existe mas o app chama outra região e recebe
+`NOT_FOUND`.
 
 Funções: `validateCheckIn`, `onWorkoutCreated` (XP + `lastWorkoutAt` do
 aluno), `onBodyMeasurementCreated`, `onProgressPhotoCreated`,

@@ -31,6 +31,11 @@ abstract final class AppConstants {
 
   /// Locale único do produto (app lançado para o México).
   static const String localeTag = 'es_MX';
+
+  /// Região das Cloud Functions. Espelha `FUNCTIONS_REGION` em
+  /// functions/src/constants.ts — as duas têm de andar juntas, senão a
+  /// callable existe mas o app chama outra região e recebe NOT_FOUND.
+  static const String functionsRegion = 'us-central1';
 }
 
 enum UserGoal { emagrecimento, hipertrofia, performance, saude, reabilitacao }

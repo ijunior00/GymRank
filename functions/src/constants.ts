@@ -4,6 +4,15 @@
  * backend, já que o cliente nunca deve poder alterar XP/Gym Score
  * diretamente.
  */
+/**
+ * Região de deploy de todas as functions. O app chama as callables nesta
+ * mesma região (ver `firebaseFunctionsProvider` em
+ * lib/core/di/firebase_providers.dart) — se as duas divergirem, a chamada
+ * volta NOT_FOUND. us-central1 é a padrão do Firebase e a de menor
+ * latência para o México entre as regiões com todos os recursos.
+ */
+export const FUNCTIONS_REGION = 'us-central1';
+
 export const XP = {
   checkIn: 20,
   workoutLogged: 50,

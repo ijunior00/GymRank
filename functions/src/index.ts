@@ -1,3 +1,14 @@
+import { setGlobalOptions } from 'firebase-functions/v2';
+
+import { FUNCTIONS_REGION } from './constants';
+
+// Região de TODAS as functions. Precisa ser a mesma do
+// `firebaseFunctionsProvider` em lib/core/di/firebase_providers.dart, senão
+// as chamadas do app (hoje `validateCheckIn`) batem em outra região e
+// voltam NOT_FOUND. us-central1 é a região padrão do Firebase e a de menor
+// latência para o México entre as que têm todos os recursos.
+setGlobalOptions({ region: FUNCTIONS_REGION });
+
 export { validateCheckIn } from './checkin/validateCheckIn';
 
 export {

@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gymrank/core/constants/app_constants.dart';
 
 /// Instâncias singleton dos SDKs do Firebase. Repositórios dependem
 /// destes providers em vez de instanciar `FirebaseFirestore.instance`
@@ -20,8 +21,11 @@ final firebaseStorageProvider = Provider<FirebaseStorage>((ref) {
   return FirebaseStorage.instance;
 });
 
+/// A região tem de ser a mesma de `FUNCTIONS_REGION` em
+/// functions/src/constants.ts. Se divergirem, a callable existe mas o app
+/// chama outra região e recebe NOT_FOUND.
 final firebaseFunctionsProvider = Provider<FirebaseFunctions>((ref) {
-  return FirebaseFunctions.instanceFor(region: 'southamerica-east1');
+  return FirebaseFunctions.instanceFor(region: AppConstants.functionsRegion);
 });
 
 final firebaseMessagingProvider = Provider<FirebaseMessaging>((ref) {
