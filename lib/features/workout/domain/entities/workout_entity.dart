@@ -16,7 +16,9 @@ enum MuscleGroup {
 
 enum WorkoutIntensity { leve, moderada, intensa }
 
-enum WorkoutSource { manual, hevy, strong, appleHealth, googleFit }
+/// `plan` = resumo criado pela Cloud Function ao concluir uma sessão do
+/// plano publicado (`workout_sessions`).
+enum WorkoutSource { manual, plan, hevy, strong, appleHealth, googleFit }
 
 /// Documento canônico de `workouts/{workoutId}`.
 @freezed

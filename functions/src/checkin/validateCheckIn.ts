@@ -3,6 +3,7 @@ import { HttpsError, onCall } from 'firebase-functions/v2/https';
 import { db, Timestamp } from '../admin';
 import { CHECKIN_COOLDOWN_MS, QR_TOKEN_TTL_MS, XP } from '../constants';
 import { grantXp } from '../gamification/grantXp';
+import { registerActivityDay } from '../gamification/streak';
 import { incrementChallengeProgress } from '../challenges/updateChallengeProgress';
 
 function parsePayload(payload: string): { coachId: string; issuedAtRaw: string; signature: string } {
@@ -33,20 +34,6 @@ function verifySignature(
   }
 
   return issuedAtMs;
-}
-
-function isSameCalendarDay(a: Date, b: Date): boolean {
-  return (
-    a.getUTCFullYear() === b.getUTCFullYear() &&
-    a.getUTCMonth() === b.getUTCMonth() &&
-    a.getUTCDate() === b.getUTCDate()
-  );
-}
-
-function isNextCalendarDay(previous: Date, current: Date): boolean {
-  const next = new Date(previous);
-  next.setUTCDate(next.getUTCDate() + 1);
-  return isSameCalendarDay(next, current);
 }
 
 /**
@@ -88,24 +75,7 @@ export const validateCheckIn = onCall(async (request) => {
     }
   }
 
-  const userRef = db.collection('users').doc(uid);
-  const userSnap = await userRef.get();
-  const userData = userSnap.data() ?? {};
-  const lastCheckInAt = (userData.lastCheckInAt as Timestamp | undefined)?.toDate();
-
-  let currentStreakDays = (userData.currentStreakDays as number) ?? 0;
-  let countedForStreak = true;
-  if (lastCheckInAt && isSameCalendarDay(lastCheckInAt, now)) {
-    countedForStreak = false; // já contou hoje, apenas registra o check-in
-  } else if (lastCheckInAt && isNextCalendarDay(lastCheckInAt, now)) {
-    currentStreakDays += 1;
-  } else {
-    currentStreakDays = 1;
-  }
-  const longestStreakDays = Math.max(
-    currentStreakDays,
-    (userData.longestStreakDays as number) ?? 0,
-  );
+  const { countedForStreak } = await registerActivityDay(uid, now);
 
   const checkInRef = checkInsRef.doc();
   await checkInRef.set({
@@ -114,12 +84,6 @@ export const validateCheckIn = onCall(async (request) => {
     checkedInAt: Timestamp.fromDate(now),
     xpGranted: XP.checkIn,
     countedForStreak,
-  });
-
-  await userRef.update({
-    lastCheckInAt: Timestamp.fromDate(now),
-    currentStreakDays,
-    longestStreakDays,
   });
 
   await grantXp(uid, XP.checkIn);

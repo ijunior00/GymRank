@@ -27,6 +27,8 @@ import 'package:gymrank/features/rankings/presentation/screens/rankings_screen.d
 import 'package:gymrank/features/rewards/presentation/screens/my_rewards_screen.dart';
 import 'package:gymrank/features/social_feed/presentation/screens/feed_screen.dart';
 import 'package:gymrank/features/workout/presentation/screens/log_workout_screen.dart';
+import 'package:gymrank/features/workout_session/presentation/screens/session_summary_screen.dart';
+import 'package:gymrank/features/workout_session/presentation/screens/workout_session_screen.dart';
 
 part 'app_router.g.dart';
 
@@ -84,6 +86,27 @@ GoRouter appRouter(Ref ref) {
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) =>
             _fadeSlide(state, const LogWorkoutScreen()),
+      ),
+      // Execução do treino do dia e resumo da sessão concluída.
+      GoRoute(
+        path: '/workout/session/:sessionId',
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => _fadeSlide(
+          state,
+          WorkoutSessionScreen(sessionId: state.pathParameters['sessionId']!),
+        ),
+        routes: [
+          GoRoute(
+            path: 'summary',
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => _fadeSlide(
+              state,
+              SessionSummaryScreen(
+                sessionId: state.pathParameters['sessionId']!,
+              ),
+            ),
+          ),
+        ],
       ),
       GoRoute(
         path: '/body-measurement',

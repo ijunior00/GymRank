@@ -12,6 +12,7 @@ import 'package:gymrank/features/coach_panel/domain/entities/client_entity.dart'
 import 'package:gymrank/features/coach_panel/domain/entities/coach_entity.dart';
 import 'package:gymrank/features/friendship/domain/entities/friendship_entity.dart';
 import 'package:gymrank/features/gamification/domain/entities/achievement_entity.dart';
+import 'package:gymrank/features/meal_log/domain/entities/meal_log_entity.dart';
 import 'package:gymrank/features/notifications/domain/entities/app_notification_entity.dart';
 import 'package:gymrank/features/plans/domain/entities/plan_entity.dart';
 import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
@@ -19,6 +20,7 @@ import 'package:gymrank/features/rankings/domain/entities/ranking_entry_entity.d
 import 'package:gymrank/features/rewards/domain/entities/reward_entity.dart';
 import 'package:gymrank/features/social_feed/domain/entities/post_entity.dart';
 import 'package:gymrank/features/workout/domain/entities/workout_entity.dart';
+import 'package:gymrank/features/workout_session/domain/entities/workout_session.dart';
 
 abstract final class DemoData {
   static const String uid = 'demo-coach';
@@ -677,7 +679,94 @@ abstract final class DemoData {
           publishedAt: _daysAgo(1),
           publishedBy: uid,
         ),
+        PlanEntity(
+          id: 'plan-coach-dieta',
+          coachId: coachId,
+          userId: uid,
+          kind: PlanKind.dieta,
+          title: 'Plan de alimentación · Definición',
+          currentVersion: 1,
+          content: dietPlanContent,
+          sourceDocumentId: null,
+          publishedAt: _daysAgo(4),
+          publishedBy: uid,
+        ),
       ];
+
+  // --- Sesiones y comidas ----------------------------------------------------
+
+  /// Sessão concluída anteontem: faz o planejador oferecer o "Día 2" como
+  /// próximo treino e alimenta o pré-preenchimento de cargas.
+  static WorkoutSessionEntity get lastSession => WorkoutSessionEntity(
+        id: 'sess-1',
+        userId: uid,
+        coachId: coachId,
+        planId: 'plan-coach-ent',
+        planVersion: 1,
+        dayIndex: 0,
+        dayName: 'Día 1 · Pierna',
+        status: SessionStatus.completada,
+        startedAt: _daysAgo(2),
+        finishedAt: _daysAgo(2).add(const Duration(minutes: 58)),
+        durationSec: 58 * 60,
+        totalVolumeKg: 5240,
+        validated: true,
+        countedForStreak: true,
+        xpGranted: AppConstants.xpWorkoutLogged,
+        exercises: [
+          SessionExercise(
+            name: 'Sentadilla con barra',
+            targetSets: 4,
+            targetReps: '6-8',
+            targetLoad: 'RPE 8',
+            restSeconds: 120,
+            sets: [
+              for (var i = 0; i < 4; i++)
+                SessionSet(reps: 8, load: 70, done: true),
+            ],
+          ),
+          SessionExercise(
+            name: 'Prensa 45°',
+            targetSets: 3,
+            targetReps: '10-12',
+            restSeconds: 90,
+            sets: [
+              for (var i = 0; i < 3; i++)
+                SessionSet(reps: 12, load: 120, done: true),
+            ],
+          ),
+        ],
+      );
+
+  static List<WorkoutSessionEntity> get sessions => [lastSession];
+
+  static List<MealLogEntity> get todayMealLogs {
+    final date = MealLogEntity.dateKey(DateTime.now());
+    return [
+      MealLogEntity(
+        id: MealLogEntity.idFor(uid, date, 0),
+        userId: uid,
+        coachId: coachId,
+        planId: 'plan-coach-dieta',
+        date: date,
+        mealIndex: 0,
+        mealName: 'Desayuno',
+        status: MealStatus.hecha,
+        createdAt: _hoursAgo(6),
+      ),
+      MealLogEntity(
+        id: MealLogEntity.idFor(uid, date, 1),
+        userId: uid,
+        coachId: coachId,
+        planId: 'plan-coach-dieta',
+        date: date,
+        mealIndex: 1,
+        mealName: 'Colación 1',
+        status: MealStatus.cambiada,
+        createdAt: _hoursAgo(2),
+      ),
+    ];
+  }
 
   static PlanDocumentEntity _document({
     required String id,

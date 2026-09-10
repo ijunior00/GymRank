@@ -16,6 +16,9 @@ enum NotificationType {
 
   /// Para o aluno: a treinadora publicou (ou atualizou) um plano.
   planPublished,
+
+  /// Para o aluno: recorde pessoal detectado ao concluir uma sessão.
+  personalRecord,
 }
 
 /// Documento canônico de `notifications/{notificationId}`, espelhado

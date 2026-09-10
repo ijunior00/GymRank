@@ -112,13 +112,51 @@ sourceDocumentId?, publishedAt, publishedBy, coachId, userId. Toda
 publicação grava uma cópia aqui; a treinadora vê o histórico. A Cloud
 Function `onPlanPublished` notifica o aluno (`planPublished`).
 
+## `workout_sessions/{sessionId}` (treino do dia executado)
+
+Execução de uma sessão do plano de treino publicado. É o "check-in" do
+aluno online.
+
+| Campo | Tipo | Notas |
+|---|---|---|
+| userId, coachId | string | dono e comunidade |
+| planId, planVersion | | plano de origem e versão vigente ao começar |
+| dayIndex, dayName | | qual sessão do plano (rodízio cíclico) |
+| status | string | `enCurso` → `completada` ou `cancelada` |
+| startedAt, finishedAt, durationSec | | cronometragem |
+| exercises[] | array | nome, prescrição copiada do plano e `sets[]` com reps, load, rpe e `done` |
+| totalVolumeKg | number | soma de reps × carga das séries feitas |
+| validated | bool? | **[CF]** `false` quando a sessão não cumpre o mínimo |
+| validationReason | string? | **[CF]** motivo em espanhol quando inválida |
+| countedForStreak, xpGranted | | **[CF]** |
+| prs[] | array | **[CF]** recordes: exercício, carga, reps, 1RM estimado |
+
+O aluno cria e edita enquanto está `enCurso`; os campos **[CF]** são
+bloqueados nas regras. Ao virar `completada`, a function
+`onWorkoutSessionCompleted` valida (mínimo de 10 min e ao menos uma série
+marcada), registra o dia na sequência, cria o resumo em `workouts` (que
+concede XP e avança desafios) e compara o 1RM estimado (Epley) com as 60
+sessões válidas anteriores para detectar recordes, gerando post e
+notificação.
+
+## `meal_logs/{userId_yyyy-MM-dd_mealIndex}`
+
+Refeição do plano marcada pelo aluno: userId, coachId, planId, date
+(`yyyy-MM-dd`), mealIndex, mealName, status (`hecha` | `cambiada` |
+`saltada`), createdAt. O id determinístico faz remarcar substituir em vez
+de duplicar. A adesão dos últimos 7 dias é calculada no cliente
+(`hecha` = 1, `cambiada` = 0,5, `saltada` = 0) e aparece na ficha do
+aluno no painel.
+
 ## `workouts/{workoutId}`
 
 userId, date, durationMinutes, muscleGroup, intensity, source (manual |
-hevy | strong | appleHealth | googleFit), note?, createdAt. Criado pelo
-próprio usuário; dispara `onWorkoutCreated` (+50 XP, progresso de
-desafios "diasTreinados", `clients/{uid}.lastWorkoutAt`). É a atividade
-que conta para o painel da treinadora no atendimento online.
+plan | hevy | strong | appleHealth | googleFit), note?, sessionId?,
+createdAt. Criado pelo próprio usuário (registro manual) ou pela function
+ao concluir uma sessão do plano (`source: plan`); dispara
+`onWorkoutCreated` (+50 XP, progresso de desafios "diasTreinados",
+`clients/{uid}.lastWorkoutAt`). É a atividade que conta para o painel da
+treinadora no atendimento online.
 
 ## `body_measurements/{measurementId}`
 

@@ -140,6 +140,34 @@ service cloud.firestore {
       }
     }
 
+    // Sessão de treino executada a partir do plano. O aluno cria e edita
+    // enquanto está `enCurso` e a encerra; validação, XP, sequência e
+    // recordes são da Cloud Function `onWorkoutSessionCompleted`.
+    match /workout_sessions/{sessionId} {
+      allow read: if isSignedIn() &&
+        (isOwner(resource.data.userId) || isCoachStaffOf(resource.data.coachId));
+      allow create: if isOwner(request.resource.data.userId) &&
+        request.resource.data.status == 'enCurso' &&
+        !request.resource.data.keys().hasAny(
+          ['validated', 'validationReason', 'prs', 'countedForStreak', 'xpGranted']);
+      allow update: if isOwner(resource.data.userId) &&
+        resource.data.status == 'enCurso' &&
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny(
+          ['validated', 'validationReason', 'prs', 'countedForStreak', 'xpGranted',
+           'userId', 'coachId', 'planId', 'startedAt', 'createdAt']);
+      allow delete: if false;
+    }
+
+    // Refeição do plano marcada como hecha / cambiada / saltada.
+    match /meal_logs/{logId} {
+      allow read: if isSignedIn() &&
+        (isOwner(resource.data.userId) || isCoachStaffOf(resource.data.coachId));
+      allow create: if isOwner(request.resource.data.userId) &&
+        logId == request.resource.data.userId + '_' + request.resource.data.date + '_' +
+          string(request.resource.data.mealIndex);
+      allow update, delete: if isOwner(resource.data.userId);
+    }
+
     match /workouts/{workoutId} {
       allow read: if isSignedIn();
       allow create: if isOwner(request.resource.data.userId);

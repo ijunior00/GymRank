@@ -95,6 +95,17 @@ Regras que valem para toda tela nova:
   layout. Se algum dia valer a pena, a adaptação é por `LayoutBuilder`
   nas telas do painel, sem trocar a arquitetura.
 
+## Paleta
+
+Tema escuro único, com acento violeta e tons de roxo que combinam
+(`lib/core/theme/app_colors.dart`). Fundos em preto-ameixa (`background`
+#0B0710, `surface` #150F1E), acento `primary` #A855F7 com conteúdo quase
+preto por cima (contraste ~5,3:1) e gradientes violeta→índigo (XP) e
+fúcsia→violeta (sequência, recordes). Cores semânticas (verde, âmbar,
+vermelho) e as medalhas do pódio ficam fora da paleta roxa de propósito:
+elas significam estado, não marca. Toda tela consome `AppColors`; não há
+cor literal fora desse arquivo, exceto branco puro sobre gradiente.
+
 ## Idioma
 
 O app é lançado para o México e toda a interface está em espanhol
@@ -114,6 +125,15 @@ de um evento de origem confiável:
 
 - Check-in: só existe via `validateCheckIn` (QR assinado com
   HMAC-SHA256, TTL de 30s, mais cooldown de 6h).
+- Treino do dia: a sessão é editável pelo aluno só enquanto está
+  `enCurso`; ao concluir, `onWorkoutSessionCompleted` valida (duração
+  mínima e séries marcadas), grava `validated`/`xpGranted`/`prs` e cria o
+  resumo em `workouts`. Os recordes vêm do 1RM estimado, comparado com o
+  histórico no servidor — nunca declarado pelo cliente.
+- Sequência (streak): `registerActivityDay` em
+  `functions/src/gamification/streak.ts` é a única porta de entrada,
+  usada tanto pelo check-in por QR quanto pela conclusão de treino, para
+  que o mesmo dia não conte duas vezes.
 - Progresso de desafio: só avança via `incrementChallengeProgress`,
   chamada a partir de check-ins e treinos — nunca de um valor enviado
   pelo cliente.

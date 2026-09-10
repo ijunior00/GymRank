@@ -36,6 +36,8 @@ lib/
     profile/
     coach_panel/            # painel da treinadora: alunos, ficha, código de convite
     plans/                  # upload PDF/Word → leitura por IA → revisão → publicação
+    workout_session/        # treino do dia executado série a série
+    meal_log/               # refeições marcadas e adesão à dieta
     body_measurement/
     progress_photo/
     workout/
@@ -129,6 +131,24 @@ flutter run -t lib/main_demo.dart
 
 Configuração necessária: `firebase functions:secrets:set ANTHROPIC_API_KEY`.
 
+## O dia a dia do aluno
+
+- **Entrenamiento de hoy** na home: o app escolhe a próxima sessão do
+  plano (rodízio pelos dias, seguindo a última concluída), estima a
+  duração e pré-preenche carga e repetições com o que o aluno fez da
+  última vez naquele exercício.
+- **Execução**: um exercício por página, séries com reps e kg, toque
+  grande para marcar a série (que dispara o descanso com +15 s e pular),
+  cronômetro da sessão, adicionar ou remover séries. Sai e retoma sem
+  perder nada.
+- **Conclusão = check-in**: `onWorkoutSessionCompleted` valida (mínimo de
+  10 min e ao menos uma série), soma XP, registra o dia na sequência,
+  cria o resumo em `workouts` e detecta recordes pelo 1RM estimado
+  (Epley). O resumo mostra duração, séries, volume, XP e os recordes.
+- **Comidas de hoy**: as refeições do plano de alimentação com um toque
+  para marcar "la hice", "la cambié" ou "me la salté". A adesão dos
+  últimos 7 dias aparece na ficha do aluno no painel da treinadora.
+
 ## Cloud Functions
 
 ```bash
@@ -142,7 +162,7 @@ Funções: `validateCheckIn`, `onWorkoutCreated` (XP + `lastWorkoutAt` do
 aluno), `onBodyMeasurementCreated`, `onProgressPhotoCreated`,
 `onFriendshipUpdated`, `recalculateGymScore`, `recalculateRankings`,
 `recalculateCoachDashboard`, `onClientCreated`, `seasonReset`,
-`parseDocument`, `onPlanPublished`.
+`parseDocument`, `onPlanPublished`, `onWorkoutSessionCompleted`.
 
 ## Firestore & Storage Rules
 
@@ -167,6 +187,8 @@ plano, cobro, progresso, treinos e notas privadas), vínculo por código
 no cadastro e no perfil, regras/índices/Storage atualizados, functions
 ajustadas e toda a interface em es-MX. Também pronto: upload de
 PDF/Word/foto com leitura por IA, revisão editável no celular,
-publicação versionada e a tela "Mis planes" do aluno. Próximo: execução
-do treino do dia a partir do plano publicado (conclusão vale como
-check-in).
+publicação versionada e a tela "Mis planes"; e o dia a dia do aluno
+(treino do dia executável, conclusão valendo como check-in com recordes
+automáticos, e marcação das refeições com adesão). A identidade visual é
+violeta escura (ver "Paleta" em `docs/architecture.md`). Próximo:
+cards compartilháveis de marcos e programa de indicação (Pilar 6).

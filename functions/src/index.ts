@@ -14,3 +14,4 @@ export { onClientCreated } from './coach/onClientCreated';
 export { recalculateRankings } from './rankings/recalculateRankings';
 export { parseDocument } from './plans/parseDocument';
 export { onPlanPublished } from './plans/onPlanPublished';
+export { onWorkoutSessionCompleted } from './training/onWorkoutSessionCompleted';

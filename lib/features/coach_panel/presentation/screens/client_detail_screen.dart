@@ -9,6 +9,7 @@ import 'package:gymrank/features/auth/presentation/controllers/auth_providers.da
 import 'package:gymrank/features/coach_panel/domain/entities/client_entity.dart';
 import 'package:gymrank/features/coach_panel/presentation/controllers/coach_panel_providers.dart';
 import 'package:gymrank/features/coach_panel/presentation/widgets/student_activity_chip.dart';
+import 'package:gymrank/features/meal_log/presentation/controllers/meal_log_providers.dart';
 import 'package:gymrank/features/plans/presentation/widgets/student_plans_card.dart';
 import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
 
@@ -188,7 +189,7 @@ class _StatsRow extends StatelessWidget {
   }
 }
 
-class _PlanCard extends StatelessWidget {
+class _PlanCard extends ConsumerWidget {
   const _PlanCard({
     required this.view,
     required this.onEdit,
@@ -200,8 +201,9 @@ class _PlanCard extends StatelessWidget {
   final ValueChanged<ClientStatus>? onStatusChanged;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final client = view.client;
+    final adherence = ref.watch(dietAdherenceProvider(view.user.id));
     final rows = <(String, String)>[
       ('Alumno desde', client == null ? '—' : DateFormatter.shortDate(client.startedAt)),
       ('Plan', client?.planName ?? 'Sin plan asignado'),
@@ -223,6 +225,11 @@ class _PlanCard extends StatelessWidget {
             ? 'sin registros'
             : DateFormatter.relative(client!.lastWorkoutAt!)
       ),
+      if (adherence?.ratio != null)
+        (
+          'Adherencia dieta (7 d)',
+          '${(adherence!.ratio! * 100).toStringAsFixed(0)}%'
+        ),
     ];
 
     return _SectionCard(

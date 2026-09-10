@@ -275,7 +275,7 @@ class _InviteCard extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFF1E1A10), Color(0xFF121212)],
+          colors: AppColors.heroGradient,
         ),
         border: Border.all(color: AppColors.divider),
       ),

@@ -9,7 +9,8 @@ export type NotificationType =
   | 'championshipEnded'
   | 'rewardAvailable'
   | 'newStudent'
-  | 'planPublished';
+  | 'planPublished'
+  | 'personalRecord';
 
 interface NotificationInput {
   userId: string;

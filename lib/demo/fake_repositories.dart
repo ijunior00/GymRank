@@ -1,6 +1,7 @@
 // PREVIEW/DEMO ONLY. Implementações in-memory das interfaces de
 // repositório, usadas por lib/main_demo.dart para rodar o app sem
 // Firebase. Ações de escrita são no-op que retornam sucesso.
+import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -37,8 +38,12 @@ import 'package:gymrank/features/rewards/domain/entities/reward_entity.dart';
 import 'package:gymrank/features/rewards/domain/repositories/reward_repository.dart';
 import 'package:gymrank/features/social_feed/domain/entities/post_entity.dart';
 import 'package:gymrank/features/social_feed/domain/repositories/feed_repository.dart';
+import 'package:gymrank/features/meal_log/domain/entities/meal_log_entity.dart';
+import 'package:gymrank/features/meal_log/domain/repositories/meal_log_repository.dart';
 import 'package:gymrank/features/workout/domain/entities/workout_entity.dart';
 import 'package:gymrank/features/workout/domain/repositories/workout_repository.dart';
+import 'package:gymrank/features/workout_session/domain/entities/workout_session.dart';
+import 'package:gymrank/features/workout_session/domain/repositories/workout_session_repository.dart';
 
 class FakeAuthRepository implements AuthRepository {
   @override
@@ -296,6 +301,141 @@ class FakeAchievementRepository implements AchievementRepository {
   @override
   Stream<List<UserAchievementEntity>> watchUnlocked(String userId) =>
       Stream.value(DemoData.achievements);
+}
+
+/// Guarda a sessão iniciada em memória para que o preview consiga
+/// executar o treino do começo ao fim (incluindo o resumo com recorde).
+class FakeWorkoutSessionRepository implements WorkoutSessionRepository {
+  WorkoutSessionEntity? _current;
+
+  final _controller = StreamController<WorkoutSessionEntity?>.broadcast();
+
+  void _emit() => _controller.add(_current);
+
+  @override
+  Future<Result<WorkoutSessionEntity>> start(WorkoutSessionEntity draft) async {
+    _current = draft.copyWithId('demo-session');
+    _emit();
+    return Result.success(_current!);
+  }
+
+  @override
+  Future<Result<void>> save(WorkoutSessionEntity session) async {
+    _current = session;
+    return const Result.success(null);
+  }
+
+  @override
+  Future<Result<void>> finish(WorkoutSessionEntity session) async {
+    final now = DateTime.now();
+    _current = WorkoutSessionEntity(
+      id: session.id,
+      userId: session.userId,
+      coachId: session.coachId,
+      planId: session.planId,
+      planVersion: session.planVersion,
+      dayIndex: session.dayIndex,
+      dayName: session.dayName,
+      status: SessionStatus.completada,
+      startedAt: session.startedAt,
+      finishedAt: now,
+      durationSec: now.difference(session.startedAt).inSeconds,
+      exercises: session.exercises,
+      totalVolumeKg: session.computedVolume,
+      validated: true,
+      countedForStreak: true,
+      xpGranted: AppConstants.xpWorkoutLogged,
+      prs: [
+        for (final ex in session.exercises)
+          if (ex.sets.any((s) => s.done && s.load != null))
+            PersonalRecord(
+              exercise: ex.name,
+              load: ex.sets.firstWhere((s) => s.done && s.load != null).load!,
+              reps: ex.sets.firstWhere((s) => s.done && s.load != null).reps ?? 0,
+              estimated1Rm: 0,
+            ),
+      ].take(1).toList(),
+    );
+    _emit();
+    return const Result.success(null);
+  }
+
+  @override
+  Future<Result<void>> cancel(String sessionId) async {
+    _current = null;
+    _emit();
+    return const Result.success(null);
+  }
+
+  @override
+  Stream<WorkoutSessionEntity?> watchActive(String userId) async* {
+    yield _current?.status == SessionStatus.enCurso ? _current : null;
+    yield* _controller.stream
+        .map((s) => s?.status == SessionStatus.enCurso ? s : null);
+  }
+
+  @override
+  Stream<WorkoutSessionEntity?> watch(String sessionId) async* {
+    yield _current;
+    yield* _controller.stream;
+  }
+
+  @override
+  Stream<List<WorkoutSessionEntity>> watchRecent(String userId, {int limit = 20}) =>
+      Stream.value(DemoData.sessions);
+}
+
+class FakeMealLogRepository implements MealLogRepository {
+  late final List<MealLogEntity> _logs = [...DemoData.todayMealLogs];
+
+  final _controller = StreamController<List<MealLogEntity>>.broadcast();
+
+  @override
+  Future<Result<void>> setStatus({
+    required String userId,
+    required String? coachId,
+    required String planId,
+    required String date,
+    required int mealIndex,
+    required String mealName,
+    required MealStatus? status,
+  }) async {
+    _logs.removeWhere((l) => l.date == date && l.mealIndex == mealIndex);
+    if (status != null) {
+      _logs.add(
+        MealLogEntity(
+          id: MealLogEntity.idFor(userId, date, mealIndex),
+          userId: userId,
+          coachId: coachId,
+          planId: planId,
+          date: date,
+          mealIndex: mealIndex,
+          mealName: mealName,
+          status: status,
+          createdAt: DateTime.now(),
+        ),
+      );
+    }
+    _controller.add(List.of(_logs));
+    return const Result.success(null);
+  }
+
+  @override
+  Stream<List<MealLogEntity>> watchDay(String userId, String date) async* {
+    yield _logs.where((l) => l.date == date).toList();
+    yield* _controller.stream
+        .map((all) => all.where((l) => l.date == date).toList());
+  }
+
+  @override
+  Stream<List<MealLogEntity>> watchRange(
+    String userId, {
+    required String fromDate,
+    required String toDate,
+  }) async* {
+    yield List.of(_logs);
+    yield* _controller.stream;
+  }
 }
 
 class FakePlanRepository implements PlanRepository {

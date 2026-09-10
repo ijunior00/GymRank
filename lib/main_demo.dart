@@ -23,6 +23,7 @@ import 'package:gymrank/features/coach_panel/presentation/controllers/coach_pane
 import 'package:gymrank/features/friendship/presentation/controllers/friendship_providers.dart';
 import 'package:gymrank/features/gamification/presentation/controllers/achievement_providers.dart';
 import 'package:gymrank/features/notifications/presentation/controllers/notification_providers.dart';
+import 'package:gymrank/features/meal_log/presentation/controllers/meal_log_providers.dart';
 import 'package:gymrank/features/plans/presentation/controllers/plan_providers.dart';
 import 'package:gymrank/features/profile/presentation/controllers/user_repository_provider.dart';
 import 'package:gymrank/features/progress_photo/presentation/controllers/progress_photo_providers.dart';
@@ -30,6 +31,7 @@ import 'package:gymrank/features/rankings/presentation/controllers/ranking_provi
 import 'package:gymrank/features/rewards/presentation/controllers/reward_providers.dart';
 import 'package:gymrank/features/social_feed/presentation/controllers/feed_providers.dart';
 import 'package:gymrank/features/workout/presentation/controllers/workout_providers.dart';
+import 'package:gymrank/features/workout_session/presentation/controllers/workout_session_providers.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,6 +66,9 @@ Future<void> main() async {
         coachPanelRepositoryProvider
             .overrideWithValue(FakeCoachPanelRepository()),
         planRepositoryProvider.overrideWithValue(FakePlanRepository()),
+        workoutSessionRepositoryProvider
+            .overrideWithValue(FakeWorkoutSessionRepository()),
+        mealLogRepositoryProvider.overrideWithValue(FakeMealLogRepository()),
       ],
       child: const GymRankDemoApp(),
     ),

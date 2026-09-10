@@ -12,7 +12,9 @@ import 'package:gymrank/features/challenges/presentation/controllers/challenge_p
 import 'package:gymrank/features/coach_panel/domain/entities/coach_entity.dart';
 import 'package:gymrank/features/coach_panel/presentation/controllers/coach_panel_providers.dart';
 import 'package:gymrank/features/gamification/domain/usecases/level_calculator.dart';
+import 'package:gymrank/features/meal_log/presentation/widgets/today_meals_card.dart';
 import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
+import 'package:gymrank/features/workout_session/presentation/widgets/today_workout_card.dart';
 
 class HomeDashboardScreen extends ConsumerWidget {
   const HomeDashboardScreen({super.key});
@@ -43,6 +45,7 @@ class HomeDashboardScreen extends ConsumerWidget {
                   Entrance(child: _CoachPanelCard(coach: coach)),
                   const SizedBox(height: 16),
                 ],
+                const Entrance(child: TodayWorkoutCard()),
                 Entrance(child: _HeroHeader(user: user, coach: coach)),
                 const SizedBox(height: 20),
                 Entrance(
@@ -53,6 +56,11 @@ class HomeDashboardScreen extends ConsumerWidget {
                 Entrance(
                   delay: const Duration(milliseconds: 160),
                   child: _QuickActionsBar(),
+                ),
+                const SizedBox(height: 16),
+                const Entrance(
+                  delay: Duration(milliseconds: 200),
+                  child: TodayMealsCard(),
                 ),
                 const SizedBox(height: 24),
                 Entrance(
@@ -167,7 +175,7 @@ class _HeroHeader extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFF1E1A10), Color(0xFF121212)],
+          colors: AppColors.heroGradient,
         ),
         border: Border.all(color: AppColors.divider),
         boxShadow: [

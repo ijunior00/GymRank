@@ -23,7 +23,12 @@
   cobro, progresso, treinos e notas privadas). **Pilar 2 também está
   feito**: upload de PDF/Word/foto, leitura por IA com esquema por tipo,
   revisão editável, publicação versionada e "Mis planes" para o aluno.
-  Próximo passo: treino do dia executável a partir do plano (Pilar 3).
+  **Pilar 3 idem**: treino do dia gerado do plano, execução série a série
+  com descanso, conclusão valendo como check-in (com validação, XP,
+  sequência e recordes no backend) e marcação das refeições com adesão
+  semanal. Próximo passo: cards compartilháveis e indicação (Pilar 6).
+- **Identidade visual roxa**: acento violeta (#A855F7) sobre preto-ameixa,
+  com gradientes violeta→índigo e fúcsia→violeta.
 
 ---
 
