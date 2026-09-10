@@ -22,13 +22,11 @@ export PATH="$FLUTTER_SDK_DIR/bin:$PATH"
 git config --global --add safe.directory "$FLUTTER_SDK_DIR" || true
 flutter config --no-analytics >/dev/null 2>&1 || true
 
-# The web/ platform folder is generated on demand (it is not committed).
-if [ ! -d web ]; then
-  rm -rf /tmp/web_scaffold
-  flutter create --platforms=web --org com.gymrank --project-name gymrank /tmp/web_scaffold
-  cp -r /tmp/web_scaffold/web web
-fi
-
 flutter pub get
 dart run build_runner build --delete-conflicting-outputs
-flutter build web --release -t lib/main_demo.dart
+
+# --no-web-resources-cdn: sem isto o CanvasKit (~5 MB) é buscado em
+# gstatic.com em tempo de execução e o app NÃO renderiza se esse CDN
+# estiver lento ou bloqueado. Com a flag, ele sai da mesma origem — que é
+# o que já vai no build/web/canvaskit de qualquer forma.
+flutter build web --release --no-web-resources-cdn -t lib/main_demo.dart

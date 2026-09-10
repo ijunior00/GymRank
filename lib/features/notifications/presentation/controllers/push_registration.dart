@@ -46,8 +46,18 @@ class PushRegistration {
 
   FirebaseMessaging get _messaging => _ref.read(firebaseMessagingProvider);
 
+  /// Chave pública dos "certificados push da Web" do projeto Firebase,
+  /// passada no build:
+  /// `flutter build web --dart-define=FCM_VAPID_KEY=<chave>`.
+  /// Só o web precisa dela; no Android e no iOS é ignorada.
+  static const String _vapidKey = String.fromEnvironment('FCM_VAPID_KEY');
+
   Future<void> _register(String userId) async {
     _currentUserId = userId;
+
+    // No navegador, `getToken` exige a chave VAPID e lança sem ela. Sem a
+    // chave, o app funciona normalmente — só não recebe push no web.
+    if (kIsWeb && _vapidKey.isEmpty) return;
 
     final settings = await _messaging.requestPermission();
     if (settings.authorizationStatus == AuthorizationStatus.denied) {
@@ -66,7 +76,8 @@ class PushRegistration {
       );
     }
 
-    final token = await _messaging.getToken();
+    final token =
+        await _messaging.getToken(vapidKey: kIsWeb ? _vapidKey : null);
     if (token != null) await _save(userId, token);
 
     unawaited(_tokenRefresh?.cancel());
@@ -82,6 +93,9 @@ class PushRegistration {
       await _save(uid, refreshed);
     });
 
+    // No web estes dois não disparam: quem trata o toque é o
+    // `notificationclick` do web/firebase-messaging-sw.js, que navega
+    // para o deepLink. Em Android/iOS são o caminho normal.
     unawaited(_opened?.cancel());
     _opened = FirebaseMessaging.onMessageOpenedApp.listen(_openDeepLink);
 

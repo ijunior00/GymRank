@@ -18,10 +18,22 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="GymRank: entrena con tu coach, sigue tu progreso y compite con tu comunidad.">
+
+  <!-- Cor da barra do navegador: a mesma do fundo do app, para não haver
+       uma faixa destoante em cima da interface. -->
+  <meta name="theme-color" content="#0B0710">
+
+  <!-- No web o Flutter (CanvasKit) desenha o texto com a Roboto que ele
+       busca aqui. Adiantar DNS + TLS tira uns 200-400 ms de tela sem
+       texto em rede móvel. Se a conexão falhar, o texto não aparece:
+       para independência total, veja "Fonte" em docs/setup-web-pwa.md. -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="GymRank">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
@@ -31,8 +43,165 @@
 
   <title>GymRank</title>
   <link rel="manifest" href="manifest.json">
+
+  <style>
+    /* O bundle do Flutter tem alguns MB: sem isto a aluna encara uma tela
+       branca por vários segundos em dados móveis. O fundo e o carregador
+       abaixo são HTML puro, então aparecem no primeiro paint. */
+    :root { color-scheme: dark; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #0B0710; /* AppColors.background */
+      overscroll-behavior: none;
+    }
+
+    #loading {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      background-color: #0B0710;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      transition: opacity 250ms ease-out;
+      z-index: 10;
+    }
+
+    #loading.hidden { opacity: 0; pointer-events: none; }
+
+    #loading .mark {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #F5F3F7; /* AppColors.textPrimary */
+    }
+
+    #loading .spinner {
+      width: 34px;
+      height: 34px;
+      border: 3px solid #2A2140;      /* AppColors.divider */
+      border-top-color: #A855F7;      /* AppColors.primary */
+      border-radius: 50%;
+      animation: spin 900ms linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      #loading .spinner { animation-duration: 3s; }
+      #loading { transition: none; }
+    }
+
+    /* Convite para instalar, só no iPhone e só fora do modo instalado.
+       No iOS, notificação web só chega para quem adicionou à tela de
+       início — daí o aviso valer a interrupção. */
+    #ios-install {
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      display: none;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background-color: #1E1730;      /* AppColors.surfaceElevated */
+      border: 1px solid #2A2140;      /* AppColors.divider */
+      color: #F5F3F7;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.4;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+      z-index: 20;
+    }
+
+    #ios-install.show { display: flex; }
+    #ios-install p { margin: 0; }
+    #ios-install strong { color: #A855F7; }
+
+    #ios-install button {
+      flex: none;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: #A29AB0;                 /* AppColors.textSecondary */
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
+  <div id="loading" role="status" aria-live="polite">
+    <div class="spinner"></div>
+    <div class="mark">GymRank</div>
+    <span hidden>Cargando…</span>
+  </div>
+
+  <div id="ios-install" role="note">
+    <p>
+      Agrega GymRank a tu pantalla de inicio para recibir los avisos de tu
+      coach: toca <strong>Compartir</strong> y luego
+      <strong>Agregar a inicio</strong>.
+    </p>
+    <button type="button" id="ios-install-close" aria-label="Cerrar">&times;</button>
+  </div>
+
+  <script>
+    (function () {
+      function hideLoading() {
+        var loading = document.getElementById('loading');
+        if (!loading) return;
+        loading.classList.add('hidden');
+        setTimeout(function () { loading.remove(); }, 300);
+      }
+
+      // Some assim que o Flutter pinta o primeiro frame.
+      window.addEventListener('flutter-first-frame', hideLoading);
+
+      // Rede de segurança: se o app falhar ao subir, o carregador cobriria
+      // a tela para sempre. Melhor mostrar o que houver por baixo.
+      setTimeout(hideLoading, 30000);
+
+      var banner = document.getElementById('ios-install');
+      var close = document.getElementById('ios-install-close');
+      if (!banner || !close) return;
+
+      var isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+      var isInstalled = window.navigator.standalone === true ||
+        (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+
+      var dismissed = false;
+      try {
+        dismissed = localStorage.getItem('iosInstallDismissed') === '1';
+      } catch (e) {
+        // Safari privado bloqueia o localStorage: só não lembramos a escolha.
+      }
+
+      if (isIos && !isInstalled && !dismissed) {
+        // Espera o app aparecer para não competir com a tela de carregamento.
+        window.addEventListener('flutter-first-frame', function () {
+          setTimeout(function () { banner.classList.add('show'); }, 1200);
+        });
+      }
+
+      close.addEventListener('click', function () {
+        banner.classList.remove('show');
+        try { localStorage.setItem('iosInstallDismissed', '1'); } catch (e) {}
+      });
+    })();
+  </script>
+
   <!--
     You can customize the "flutter_bootstrap.js" script.
     This is useful to provide a custom configuration to the Flutter loader

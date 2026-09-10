@@ -2,12 +2,14 @@
     "name": "GymRank",
     "short_name": "GymRank",
     "lang": "es-MX",
+    "dir": "ltr",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#000000",
-    "theme_color": "#FFD60A",
-    "description": "Entrena con tu coach, sigue tu progreso y compite con tu comunidad.",
     "orientation": "portrait-primary",
+    "background_color": "#0B0710",
+    "theme_color": "#0B0710",
+    "description": "Entrena con tu coach, sigue tu progreso y compite con tu comunidad.",
+    "categories": ["health", "fitness", "lifestyle"],
     "prefer_related_applications": false,
     "icons": [
         {
