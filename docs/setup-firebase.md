@@ -51,7 +51,19 @@ Nesta ordem:
 > onde as Cloud Functions rodam (`us-central1`) e a melhor latência para
 > o México entre as opções com todos os recursos.
 
-**Storage** → Começar → mesma localização.
+**Storage** → Começar → **"Ubicación sin costo"** → **`US-CENTRAL1`**.
+
+> ⚠️ O Storage **não oferece `nam5`** — Firestore e Cloud Storage usam
+> listas de localização diferentes, então não tente casar os nomes.
+> Escolha `US-CENTRAL1` por dois motivos:
+>
+> - as opções "sin costo" (US-CENTRAL1/EAST1/WEST1) entram na cota
+>   gratuita de 5 GB; as multi-regionais (`US`, `NAM4`) não;
+> - `us-central1` é onde as Cloud Functions rodam, e a `parseDocument`
+>   baixa do Storage o PDF que vai para o Claude. Mesma região = leitura
+>   local, sem tráfego (nem custo) entre regiões.
+>
+> Como a do Firestore, esta localização é permanente.
 
 **Cloud Messaging** — já vem ligado, nada a clicar aqui. (O iOS ainda
 precisa da chave APNs, no passo 7.)
