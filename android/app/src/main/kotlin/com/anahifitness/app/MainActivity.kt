@@ -1,4 +1,4 @@
-package com.gymrank.app
+package com.anahifitness.app
 
 import io.flutter.embedding.android.FlutterActivity
 

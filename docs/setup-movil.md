@@ -4,7 +4,7 @@ Os projetos nativos `android/` e `ios/` estão versionados e configurados.
 Este documento é o roteiro para sair do zero até um app instalado no
 celular da treinadora e das alunas.
 
-> **Identificador do app:** `com.gymrank.app` nas duas lojas. Ele é a
+> **Identificador do app:** `com.anahifitness.app` nas duas lojas. Ele é a
 > identidade do app na App Store, no Google Play e no Firebase. Mudar
 > depois significa começar de novo em todos esses lugares — se for para
 > trocar (por exemplo, para o domínio dela), troque **agora**, antes de
@@ -31,8 +31,8 @@ dart pub global activate flutterfire_cli
 flutterfire configure \
   --project=gymrank-e1c0d \
   --platforms=android,ios \
-  --android-package-name=com.gymrank.app \
-  --ios-bundle-id=com.gymrank.app
+  --android-package-name=com.anahifitness.app \
+  --ios-bundle-id=com.anahifitness.app
 ```
 
 Isso também adiciona o plugin `com.google.gms.google-services` ao Gradle.
@@ -61,7 +61,7 @@ Já configurado no repositório:
 
 | Item | Valor | Onde |
 |---|---|---|
-| `applicationId` / `namespace` | `com.gymrank.app` | `android/app/build.gradle.kts` |
+| `applicationId` / `namespace` | `com.anahifitness.app` | `android/app/build.gradle.kts` |
 | `minSdk` | 24 (default do Flutter; o piso dos plugins é 23, do Firebase) | idem |
 | `compileSdk` / `targetSdk` | 36 | idem |
 | Nome na tela inicial | GymRank | `AndroidManifest.xml` |
@@ -121,7 +121,7 @@ Já configurado no repositório:
 
 | Item | Valor | Onde |
 |---|---|---|
-| Bundle ID | `com.gymrank.app` | `ios/Runner.xcodeproj/project.pbxproj` |
+| Bundle ID | `com.anahifitness.app` | `ios/Runner.xcodeproj/project.pbxproj` |
 | Nome na tela inicial | GymRank | `Info.plist` (`CFBundleDisplayName`) |
 | iOS mínimo | 13.0 (piso do SDK do Firebase) | pbxproj |
 | Orientação | só retrato | `Info.plist` |
@@ -138,7 +138,7 @@ configurações (Debug, Profile, Release). As duas capacidades que ele
 declara **precisam estar ativas no App ID** ou a assinatura falha:
 
 1. No [Apple Developer](https://developer.apple.com/account/resources/identifiers),
-   no identificador `com.gymrank.app`, marque **Push Notifications** e
+   no identificador `com.anahifitness.app`, marque **Push Notifications** e
    **Sign in with Apple**. Com assinatura automática e uma conta paga, o
    Xcode faz isso sozinho ao abrir o projeto.
 2. Em Push Notifications, gere uma **chave APNs (.p8)** e suba no

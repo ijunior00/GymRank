@@ -21,7 +21,7 @@ if (hasReleaseKeystore) {
 }
 
 android {
-    namespace = "com.gymrank.app"
+    namespace = "com.anahifitness.app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -31,7 +31,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.gymrank.app"
+        applicationId = "com.anahifitness.app"
         // minSdk 24 (default de Flutter) cubre el piso de todos los plugins:
         // Firebase pide 23 y el resto 21.
         minSdk = flutter.minSdkVersion

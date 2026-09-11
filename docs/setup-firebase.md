@@ -28,7 +28,7 @@ por e-mail se algo disparar.
 
 1. [console.firebase.google.com](https://console.firebase.google.com) →
    **Adicionar projeto**.
-2. Nome: `gymrank` (ou a marca dela). O ID gerado é permanente — anote.
+2. Nome: `gymrank` (o nosso é `gymrank-e1c0d`). O ID gerado é permanente.
 3. **Google Analytics: ative.** O app já depende de `firebase_analytics`.
 4. Criado o projeto: engrenagem → **Uso e faturamento** → mudar para
    **Blaze**.
@@ -85,8 +85,8 @@ Na raiz do repositório:
 flutterfire configure \
   --project=gymrank-e1c0d \
   --platforms=android,ios \
-  --android-package-name=com.gymrank.app \
-  --ios-bundle-id=com.gymrank.app
+  --android-package-name=com.anahifitness.app \
+  --ios-bundle-id=com.anahifitness.app
 ```
 
 Acrescente `,web` à lista quando for ligar o PWA (ver
@@ -203,10 +203,13 @@ parte:
 lib/firebase_options.dart
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
-.firebaserc
 android/key.properties  +  o .jks  (ver docs/setup-movil.md)
 a chave .p8 do APNs
 ```
+
+(O `.firebaserc` **é** versionado — só tem o ID do projeto, que é
+público, e mantê-lo no repo evita um `firebase deploy` no projeto
+errado.)
 
 Perder o `.jks` ou o `.p8` dá trabalho de verdade: o `.jks` significa não
 conseguir mais atualizar o app na Play Store. Guarde fora do computador.

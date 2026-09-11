@@ -1,4 +1,4 @@
-# GymRank
+# AnahiFitness
 
 App do método de uma personal trainer no México. A treinadora é a dona
 da conta: gerencia seus alunos no painel, e os alunos treinam, registram
@@ -9,6 +9,11 @@ inclusive o painel da treinadora.
 Evoluiu do scaffold original de gamificação para academias (B2B2C); o
 histórico e a direção de produto estão em
 `docs/brainstorm-personal-trainer.md`.
+
+> O repositório e o pacote Dart ainda se chamam `gymrank` — é o nome de
+> origem e não aparece para ninguém (os imports são `package:gymrank/…`).
+> O que a aluna vê é **AnahiFitness**, e o app nas lojas é
+> `com.anahifitness.app`.
 
 ## Stack
 
@@ -93,7 +98,7 @@ código de convite na primeira abertura do painel.
 ## Setup
 
 Os projetos nativos `android/` e `ios/` estão versionados e configurados
-(app id `com.gymrank.app`, es-MX, só retrato, splash violeta, permissões
+(app id `com.anahifitness.app`, es-MX, só retrato, splash violeta, permissões
 de câmera/galeria em espanhol). Os arquivos `.g.dart`/`.freezed.dart` e
 os de configuração do Firebase **não** são versionados:
 
@@ -234,7 +239,7 @@ hospedagem: página pública com lista de espera, turmas com vagas
 limitadas e depoimentos aprovados.
 
 Os projetos nativos iOS e Android estão criados e configurados
-(`com.gymrank.app`), com o push finalmente ligado de ponta a ponta:
+(`com.anahifitness.app`), com o push finalmente ligado de ponta a ponta:
 permissão, registro do token em `users/{uid}/fcmTokens`, renovação,
 remoção no logout e abertura da tela pelo `deepLink` da notificação.
 Compilação e verificação de cada plataforma: `docs/setup-movil.md`.

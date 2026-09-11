@@ -35,7 +35,7 @@
 - **Identidade visual roxa**: acento violeta (#A855F7) sobre preto-ameixa,
   com gradientes violeta→índigo e fúcsia→violeta.
 - **iOS e Android são o alvo, e os projetos nativos existem.** App id
-  `com.gymrank.app` nas duas lojas, só retrato, es-MX, splash na cor do
+  `com.anahifitness.app` nas duas lojas, só retrato, es-MX, splash na cor do
   app e textos de permissão em espanhol. O que ainda depende de contas e
   de um Mac está no roteiro `docs/setup-movil.md`: projeto Firebase
   (`flutterfire configure`), chave de assinatura da Play Store, chave
