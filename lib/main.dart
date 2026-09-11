@@ -15,11 +15,11 @@ Future<void> main() async {
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
     initializeDateFormatting(AppConstants.localeTag),
   ]);
-  runApp(const ProviderScope(child: GymRankApp()));
+  runApp(const ProviderScope(child: AnahiFitnessApp()));
 }
 
-class GymRankApp extends ConsumerWidget {
-  const GymRankApp({super.key});
+class AnahiFitnessApp extends ConsumerWidget {
+  const AnahiFitnessApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,7 +30,7 @@ class GymRankApp extends ConsumerWidget {
     ref.watch(pushRegistrationProvider);
 
     return MaterialApp.router(
-      title: 'GymRank',
+      title: 'AnahiFitness',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.dark,
       darkTheme: AppTheme.dark,

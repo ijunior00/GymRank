@@ -1,4 +1,4 @@
-# Render blueprint for the GymRank UI PREVIEW (demo mode).
+# Render blueprint for the AnahiFitness UI PREVIEW (demo mode).
 #
 # This deploys lib/main_demo.dart: the full app running on in-memory fake
 # data, no Firebase, no backend. Use it to validate UI/navigation only.
@@ -6,7 +6,7 @@
 # NOT what this blueprint builds.
 services:
   - type: web
-    name: gymrank-preview
+    name: anahifitness-preview
     runtime: static
     buildCommand: bash scripts/render_build.sh
     staticPublishPath: build/web

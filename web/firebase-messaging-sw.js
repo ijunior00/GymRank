@@ -72,6 +72,6 @@ if (isConfigured) {
   messaging.onBackgroundMessage(() => {});
 } else {
   console.info(
-    'GymRank: firebase-messaging-sw.js sin configurar, las notificaciones web están apagadas.',
+    'AnahiFitness: firebase-messaging-sw.js sin configurar, las notificaciones web están apagadas.',
   );
 }

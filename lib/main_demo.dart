@@ -76,19 +76,19 @@ Future<void> main() async {
         pushRegistrationProvider
             .overrideWith((ref) => PushRegistration.disabled(ref)),
       ],
-      child: const GymRankDemoApp(),
+      child: const AnahiFitnessDemoApp(),
     ),
   );
 }
 
-class GymRankDemoApp extends ConsumerWidget {
-  const GymRankDemoApp({super.key});
+class AnahiFitnessDemoApp extends ConsumerWidget {
+  const AnahiFitnessDemoApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(appRouterProvider);
     return MaterialApp.router(
-      title: 'GymRank (demo)',
+      title: 'AnahiFitness (demo)',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.dark,
       darkTheme: AppTheme.dark,

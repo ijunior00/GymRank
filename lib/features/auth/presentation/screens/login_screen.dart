@@ -59,7 +59,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              const Text('GymRank', style: AppTextStyles.displayLarge),
+              const Text('AnahiFitness', style: AppTextStyles.displayLarge),
               const SizedBox(height: 8),
               const Text(
                 'Progresa. Compite. Conquista.',

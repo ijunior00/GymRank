@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>GymRank</string>
+	<string>AnahiFitness</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,7 +15,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>GymRank</string>
+	<string>AnahiFitness</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -38,11 +38,11 @@
 	<true/>
 	<!-- Permisos. iOS muestra estos textos tal cual, en español. -->
 	<key>NSCameraUsageDescription</key>
-	<string>GymRank usa la cámara para escanear el código QR de tu coach y para tomar tus fotos de progreso.</string>
+	<string>AnahiFitness usa la cámara para escanear el código QR de tu coach y para tomar tus fotos de progreso.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>GymRank necesita tu galería para subir fotos de progreso y los PDF o imágenes de tus planes.</string>
+	<string>AnahiFitness necesita tu galería para subir fotos de progreso y los PDF o imágenes de tus planes.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>GymRank guarda en tu galería las imágenes que compartes de tus logros.</string>
+	<string>AnahiFitness guarda en tu galería las imágenes que compartes de tus logros.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

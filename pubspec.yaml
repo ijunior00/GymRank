@@ -1,6 +1,6 @@
 name: gymrank
 description: >
-  GymRank - app do método de uma personal trainer (México, es-MX):
+  AnahiFitness - app do método de uma personal trainer (México, es-MX):
   painel da treinadora, treino e dieta dos alunos, marcos de evolução,
   competição e comunidade. Flutter + Firebase.
 publish_to: "none"

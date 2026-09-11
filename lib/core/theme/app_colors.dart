@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Paleta do GymRank: preto ameixa profundo com acento violeta e tons de
+/// Paleta do AnahiFitness: preto ameixa profundo com acento violeta e tons de
 /// roxo que combinam entre si. Monocromático + um acento = visual limpo;
 /// o violeta carrega a energia de gamificação.
 ///

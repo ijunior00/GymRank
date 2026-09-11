@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build script for the Render static-site preview of GymRank.
+# Build script for the Render static-site preview of AnahiFitness.
 #
 # Builds the DEMO entrypoint (lib/main_demo.dart): the whole app runs on
 # in-memory fake data, with NO Firebase and NO network calls. This is a
