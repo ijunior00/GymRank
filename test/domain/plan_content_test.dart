@@ -66,7 +66,7 @@ void main() {
 
     test('vai e volta pelo toMap sem perder nada', () {
       final original = WorkoutPlanContent(
-        title: 'Método VF · Fuerza',
+        title: 'Método AF · Fuerza',
         summary: 'Bloque 1',
         generalNotes: 'Calentar 10 min',
         confidence: 'alta',

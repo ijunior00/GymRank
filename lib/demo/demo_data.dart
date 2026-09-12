@@ -2,7 +2,7 @@
 // para permitir navegar o app inteiro sem Firebase (deploy de teste no
 // Render). Nada aqui é usado pelo app real (lib/main.dart).
 //
-// O usuário demo é a treinadora (papel `coach`) da comunidade "Método VF",
+// O usuário demo é a treinadora (papel `coach`) da comunidade "Método AF",
 // com oito alunas/alunos em situações diferentes para exercitar o painel.
 import 'package:gymrank/core/constants/app_constants.dart';
 import 'package:gymrank/features/body_measurement/domain/entities/body_measurement_entity.dart';
@@ -37,8 +37,8 @@ abstract final class DemoData {
   /// A treinadora logada no demo.
   static UserEntity get user => UserEntity(
         id: uid,
-        name: 'Valeria Fuentes',
-        username: 'vale.fuentes',
+        name: 'Anahi Fitness',
+        username: 'anahi.fitness',
         photoUrl: null,
         birthDate: DateTime(1993, 6, 2),
         sex: 'feminino',
@@ -63,14 +63,14 @@ abstract final class DemoData {
   static CoachEntity get coach => CoachEntity(
         id: coachId,
         ownerUserId: uid,
-        name: 'Método VF',
+        name: 'Método AF',
         tagline: 'Fuerza, constancia y comunidad',
         city: 'Ciudad de México',
         country: 'MX',
         logoUrl: null,
         brandColorHex: '#FFD60A',
-        instagramHandle: 'metodovf',
-        inviteCode: 'VF2026',
+        instagramHandle: 'metodoaf',
+        inviteCode: 'AF2026',
         qrCodeSecret: 'demo-secret',
         plan: SubscriptionPlan.premium,
         studentCount: 8,
@@ -241,7 +241,7 @@ abstract final class DemoData {
         const RewardEntity(
           id: 'r1',
           coachId: coachId,
-          name: 'Playera oficial Método VF',
+          name: 'Playera oficial Método AF',
           imageUrl: null,
           type: RewardType.vestuario,
           stock: 12,
@@ -339,7 +339,7 @@ abstract final class DemoData {
   ) {
     final names = [
       ('Carlos Núñez', 934.0, 'u0'),
-      ('Valeria Fuentes', 812.0, uid),
+      ('Anahi Fitness', 812.0, uid),
       ('Fernanda Ríos', 798.0, 'u1'),
       ('Diego Prado', 771.0, 'u2'),
       ('Ximena Castro', 690.0, 'u4'),
@@ -423,7 +423,7 @@ abstract final class DemoData {
         ChampionshipEntity(
           id: 'ch1',
           coachId: coachId,
-          name: 'Copa Método VF · Temporada 3',
+          name: 'Copa Método AF · Temporada 3',
           description:
               'El mayor Gym Score de la comunidad se lleva el podio y premios.',
           startsAt: _daysAgo(15),
@@ -479,10 +479,10 @@ abstract final class DemoData {
         PostEntity(
           id: 'p3',
           userId: uid,
-          authorName: 'Valeria Fuentes',
+          authorName: 'Anahi Fitness',
           authorPhotoUrl: null,
           type: PostType.streakMilestone,
-          text: '¡Valeria lleva 41 días de racha! 💪',
+          text: '¡Anahi lleva 41 días de racha! 💪',
           imageUrl: null,
           likeCount: 58,
           commentCount: 9,
@@ -527,7 +527,7 @@ abstract final class DemoData {
           userId: uid,
           type: NotificationType.newStudent,
           title: 'Nuevo alumno',
-          body: 'Luis Herrera se unió a Método VF con tu código.',
+          body: 'Luis Herrera se unió a Método AF con tu código.',
           deepLink: '/coach/clients/u7',
           read: false,
           createdAt: DateTime.now().subtract(const Duration(hours: 1)),

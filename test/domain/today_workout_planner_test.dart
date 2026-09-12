@@ -15,10 +15,10 @@ void main() {
       coachId: 'c1',
       userId: 'u1',
       kind: PlanKind.entrenamiento,
-      title: 'Método VF · Fuerza',
+      title: 'Método AF · Fuerza',
       currentVersion: 3,
       content: WorkoutPlanContent(
-        title: 'Método VF · Fuerza',
+        title: 'Método AF · Fuerza',
         days: [
           for (final name in days)
             WorkoutDay(

@@ -131,7 +131,7 @@ class _CoachSetupScreenState extends ConsumerState<CoachSetupScreen> {
                 textCapitalization: TextCapitalization.words,
                 decoration: const InputDecoration(
                   labelText: 'Nombre de la marca o método',
-                  hintText: 'Ej. Método VF',
+                  hintText: 'Ej. Método AF',
                 ),
                 validator: (v) =>
                     (v == null || v.trim().length < 2) ? 'Escribe un nombre' : null,

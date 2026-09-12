@@ -14,7 +14,7 @@ class CoachEntity with _$CoachEntity {
     /// `users/{uid}` da treinadora. É quem administra o painel.
     required String ownerUserId,
 
-    /// Nome da marca/método exibido aos alunos (ex.: "Método VF").
+    /// Nome da marca/método exibido aos alunos (ex.: "Método AF").
     required String name,
     required String? tagline,
     required String city,
