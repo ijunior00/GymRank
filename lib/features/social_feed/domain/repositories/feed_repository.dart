@@ -12,6 +12,10 @@ abstract interface class FeedRepository {
     required bool liked,
   });
 
+  /// Se [userId] já curtiu [postId] — é o que decide se o coração aparece
+  /// preenchido e se o próximo toque curte ou descurte.
+  Stream<bool> watchLiked({required String postId, required String userId});
+
   Future<Result<void>> addComment(CommentEntity comment);
 
   Stream<List<CommentEntity>> watchComments(String postId);

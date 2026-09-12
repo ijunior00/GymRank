@@ -14,3 +14,9 @@ final myRewardGrantsProvider = StreamProvider<List<RewardGrantEntity>>((ref) {
   if (uid == null) return Stream.value(const []);
   return ref.watch(rewardRepositoryProvider).watchMyGrants(uid);
 });
+
+/// O prêmio por trás de um grant (nome, tipo). `null` se foi apagado.
+final rewardByIdProvider =
+    StreamProvider.family<RewardEntity?, String>((ref, rewardId) {
+  return ref.watch(rewardRepositoryProvider).watchReward(rewardId);
+});

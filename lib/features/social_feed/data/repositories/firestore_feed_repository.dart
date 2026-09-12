@@ -43,6 +43,16 @@ class FirestoreFeedRepository implements FeedRepository {
   }
 
   @override
+  Stream<bool> watchLiked({required String postId, required String userId}) {
+    return _posts
+        .doc(postId)
+        .collection('likes')
+        .doc(userId)
+        .snapshots()
+        .map((doc) => doc.exists);
+  }
+
+  @override
   Future<Result<void>> addComment(CommentEntity comment) async {
     try {
       await _posts.doc(comment.postId).collection('comments').add({

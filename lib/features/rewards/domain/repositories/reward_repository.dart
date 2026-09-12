@@ -5,4 +5,8 @@ abstract interface class RewardRepository {
   /// group). Toda concessão é feita por Cloud Functions ao finalizar um
   /// desafio ou campeonato — nunca escrita diretamente pelo cliente.
   Stream<List<RewardGrantEntity>> watchMyGrants(String userId);
+
+  /// O prêmio em si (nome, tipo, imagem) — o grant só guarda o id. `null`
+  /// se a treinadora o apagou.
+  Stream<RewardEntity?> watchReward(String rewardId);
 }

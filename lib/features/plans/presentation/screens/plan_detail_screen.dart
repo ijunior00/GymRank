@@ -7,6 +7,7 @@ import 'package:gymrank/core/theme/app_text_styles.dart';
 import 'package:gymrank/core/utils/date_formatter.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_providers.dart';
 import 'package:gymrank/features/plans/domain/entities/plan_content.dart';
+import 'package:gymrank/features/plans/domain/entities/plan_entity.dart';
 import 'package:gymrank/features/plans/presentation/controllers/plan_providers.dart';
 import 'package:gymrank/features/plans/presentation/widgets/plan_content_view.dart';
 
@@ -60,7 +61,12 @@ class PlanDetailScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
               PlanContentView(content: content),
-              if (isStaff) _VersionHistory(planId: p.id, current: p.currentVersion),
+              if (isStaff)
+                _VersionHistory(
+                  planId: p.id,
+                  kind: p.kind,
+                  current: p.currentVersion,
+                ),
             ],
           ),
         );
@@ -70,9 +76,14 @@ class PlanDetailScreen extends ConsumerWidget {
 }
 
 class _VersionHistory extends ConsumerWidget {
-  const _VersionHistory({required this.planId, required this.current});
+  const _VersionHistory({
+    required this.planId,
+    required this.kind,
+    required this.current,
+  });
 
   final String planId;
+  final PlanKind kind;
   final int current;
 
   @override
@@ -88,33 +99,72 @@ class _VersionHistory extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text('Historial de versiones', style: AppTextStyles.title),
+              const SizedBox(height: 2),
+              const Text('Toca una versión para ver cómo era.',
+                  style: AppTextStyles.caption),
               const SizedBox(height: 8),
               for (final v in versions)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: Row(
-                    children: [
-                      Icon(
-                        v.number == current ? Icons.check_circle : Icons.history,
-                        size: 16,
-                        color: v.number == current
-                            ? AppColors.primary
-                            : AppColors.textSecondary,
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text('v${v.number} · ${v.title}',
-                            style: AppTextStyles.body,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis),
-                      ),
-                      Text(DateFormatter.shortDate(v.publishedAt),
-                          style: AppTextStyles.caption),
-                    ],
+                InkWell(
+                  onTap: () => _showVersion(context, v),
+                  borderRadius: BorderRadius.circular(8),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: Row(
+                      children: [
+                        Icon(
+                          v.number == current ? Icons.check_circle : Icons.history,
+                          size: 16,
+                          color: v.number == current
+                              ? AppColors.primary
+                              : AppColors.textSecondary,
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text('v${v.number} · ${v.title}',
+                              style: AppTextStyles.body,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                        Text(DateFormatter.shortDate(v.publishedAt),
+                            style: AppTextStyles.caption),
+                        const SizedBox(width: 4),
+                        const Icon(Icons.chevron_right,
+                            size: 16, color: AppColors.textSecondary),
+                      ],
+                    ),
                   ),
                 ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  /// A versão antiga, só leitura, para comparar o que mudou.
+  void _showVersion(BuildContext context, PlanVersionEntity v) {
+    showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      isScrollControlled: true,
+      builder: (context) => DraggableScrollableSheet(
+        expand: false,
+        initialChildSize: 0.75,
+        minChildSize: 0.4,
+        maxChildSize: 0.95,
+        builder: (context, controller) => ListView(
+          controller: controller,
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 32),
+          children: [
+            Text('Versión ${v.number}', style: AppTextStyles.headline),
+            Text(
+              '${v.title} · publicada ${DateFormatter.shortDate(v.publishedAt)}'
+              '${v.number == current ? ' · vigente' : ''}',
+              style: AppTextStyles.caption,
+            ),
+            const SizedBox(height: 16),
+            PlanContentView(content: PlanContent.fromMap(kind, v.content)),
+          ],
         ),
       ),
     );

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:gymrank/core/l10n/labels_es.dart';
 import 'package:gymrank/core/theme/app_colors.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
+import 'package:gymrank/core/utils/share_text.dart';
 import 'package:gymrank/core/widgets/entrance.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_providers.dart';
 import 'package:gymrank/features/coach_panel/domain/entities/client_entity.dart';
@@ -87,6 +88,7 @@ class _CoachDashboardScreenState extends ConsumerState<CoachDashboardScreen> {
             child: _StatsGrid(
               stats: stats,
               fallbackStudents: students.valueOrNull,
+              onFilter: (f) => setState(() => _filter = f),
             ),
           ),
           const SizedBox(height: 16),
@@ -190,10 +192,13 @@ class _CoachDashboardScreenState extends ConsumerState<CoachDashboardScreen> {
       };
 
   void _showInviteSheet(BuildContext context, CoachEntity coach) {
+    // As ações fecham a folha antes de agir: um SnackBar disparado com a
+    // folha aberta fica escondido atrás dela e a treinadora acha que nada
+    // aconteceu. Por isso usam o `context` da tela, não o da folha.
     showModalBottomSheet<void>(
       context: context,
       showDragHandle: true,
-      builder: (context) => Padding(
+      builder: (sheetContext) => Padding(
         padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -209,10 +214,29 @@ class _CoachDashboardScreenState extends ConsumerState<CoachDashboardScreen> {
             const SizedBox(height: 20),
             _InviteCodeBox(code: coach.inviteCode),
             const SizedBox(height: 16),
+            // Mandar por WhatsApp é como ela vai usar isto de verdade; copiar
+            // fica como segunda opção.
             ElevatedButton.icon(
-              onPressed: () => _copyCode(context, coach.inviteCode),
+              onPressed: () {
+                Navigator.of(sheetContext).pop();
+                shareText(
+                  context,
+                  'Únete a mi comunidad ${coach.name} en AnahiFitness 💪\n\n'
+                  'Descarga la app, crea tu cuenta y usa el código '
+                  '${coach.inviteCode} para entrenar conmigo.',
+                );
+              },
+              icon: const Icon(Icons.ios_share),
+              label: const Text('Compartir invitación'),
+            ),
+            const SizedBox(height: 8),
+            OutlinedButton.icon(
+              onPressed: () {
+                Navigator.of(sheetContext).pop();
+                _copyCode(context, coach.inviteCode);
+              },
               icon: const Icon(Icons.copy),
-              label: const Text('Copiar código'),
+              label: const Text('Copiar solo el código'),
             ),
           ],
         ),
@@ -356,10 +380,18 @@ class _InviteCodeBox extends StatelessWidget {
 }
 
 class _StatsGrid extends StatelessWidget {
-  const _StatsGrid({required this.stats, required this.fallbackStudents});
+  const _StatsGrid({
+    required this.stats,
+    required this.fallbackStudents,
+    required this.onFilter,
+  });
 
   final CoachDashboardStats? stats;
   final List<CoachStudentView>? fallbackStudents;
+
+  /// Os indicadores que correspondem a um filtro da lista viram atalho:
+  /// tocar em "En riesgo" já mostra quem está em risco.
+  final ValueChanged<_Filter> onFilter;
 
   @override
   Widget build(BuildContext context) {
@@ -374,15 +406,16 @@ class _StatsGrid extends StatelessWidget {
             s.activity == StudentActivity.sinActividad)
         .length;
 
-    final items = [
-      ('Alumnos activos', '${stats?.activeStudents ?? active.length}'),
-      ('En riesgo', '${stats?.inactiveStudents7d ?? atRisk}'),
-      ('Entrenaron hoy', stats == null ? '—' : '${stats!.workoutsToday}'),
-      ('Entrenos (7 días)', stats == null ? '—' : '${stats!.workoutsThisWeek}'),
-      ('Nuevos este mes', stats == null ? '—' : '${stats!.newStudentsThisMonth}'),
+    final items = <(String, String, _Filter?)>[
+      ('Alumnos activos', '${stats?.activeStudents ?? active.length}', _Filter.alDia),
+      ('En riesgo', '${stats?.inactiveStudents7d ?? atRisk}', _Filter.enRiesgo),
+      ('Entrenaron hoy', stats == null ? '—' : '${stats!.workoutsToday}', null),
+      ('Entrenos (7 días)', stats == null ? '—' : '${stats!.workoutsThisWeek}', null),
+      ('Nuevos este mes', stats == null ? '—' : '${stats!.newStudentsThisMonth}', null),
       (
         'Retención',
-        stats == null ? '—' : '${(stats!.retentionRate * 100).toStringAsFixed(0)}%'
+        stats == null ? '—' : '${(stats!.retentionRate * 100).toStringAsFixed(0)}%',
+        null,
       ),
     ];
 
@@ -396,24 +429,38 @@ class _StatsGrid extends StatelessWidget {
       mainAxisSpacing: 10,
       childAspectRatio: 1.9,
       children: [
-        for (final (label, value) in items)
+        for (final (label, value, filter) in items)
           Card(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(value,
-                      style: AppTextStyles.displayLarge.copyWith(fontSize: 24)),
-                  const SizedBox(height: 2),
-                  Text(
-                    label,
-                    style: AppTextStyles.caption,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+            child: InkWell(
+              onTap: filter == null ? null : () => onFilter(filter),
+              borderRadius: BorderRadius.circular(16),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(value,
+                              style: AppTextStyles.displayLarge
+                                  .copyWith(fontSize: 24)),
+                          const SizedBox(height: 2),
+                          Text(
+                            label,
+                            style: AppTextStyles.caption,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                    if (filter != null)
+                      const Icon(Icons.chevron_right,
+                          size: 18, color: AppColors.textSecondary),
+                  ],
+                ),
               ),
             ),
           ),
@@ -493,26 +540,33 @@ class _MarketingCard extends ConsumerWidget {
               const SizedBox(height: 12),
               const Text('Embajadores', style: AppTextStyles.caption),
               for (final a in ambassadors.take(3))
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.volunteer_activism,
-                          size: 15, color: AppColors.primary),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Text(a.user.name,
-                            style: AppTextStyles.body,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis),
-                      ),
-                      Text(
-                        a.user.referralCount == 1
-                            ? '1 invitado'
-                            : '${a.user.referralCount} invitados',
-                        style: AppTextStyles.caption,
-                      ),
-                    ],
+                InkWell(
+                  onTap: () => context.push('/coach/clients/${a.user.id}'),
+                  borderRadius: BorderRadius.circular(8),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.volunteer_activism,
+                            size: 15, color: AppColors.primary),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(a.user.name,
+                              style: AppTextStyles.body,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis),
+                        ),
+                        Text(
+                          a.user.referralCount == 1
+                              ? '1 invitado'
+                              : '${a.user.referralCount} invitados',
+                          style: AppTextStyles.caption,
+                        ),
+                        const SizedBox(width: 4),
+                        const Icon(Icons.chevron_right,
+                            size: 16, color: AppColors.textSecondary),
+                      ],
+                    ),
                   ),
                 ),
             ],

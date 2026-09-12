@@ -13,3 +13,15 @@ final activeChallengesProvider = StreamProvider<List<ChallengeEntity>>((ref) {
   final coachId = ref.watch(currentUserProvider).valueOrNull?.coachId;
   return ref.watch(challengeRepositoryProvider).watchActive(coachId: coachId);
 });
+
+/// Inscrição do usuário logado num reto: `null` = ainda não entrou.
+final challengeParticipationProvider =
+    StreamProvider.family<ChallengeParticipantEntity?, String>(
+        (ref, challengeId) {
+  final uid = ref.watch(authStateProvider).valueOrNull;
+  if (uid == null) return Stream.value(null);
+  return ref.watch(challengeRepositoryProvider).watchParticipation(
+        challengeId: challengeId,
+        userId: uid,
+      );
+});

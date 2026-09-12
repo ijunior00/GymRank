@@ -63,5 +63,9 @@ abstract interface class AuthRepository {
     required SignUpData data,
   });
 
+  /// Manda o e-mail de redefinição de senha. Sucesso mesmo quando o e-mail
+  /// não está cadastrado, para não revelar quem tem conta.
+  Future<Result<void>> sendPasswordResetEmail(String email);
+
   Future<void> signOut();
 }

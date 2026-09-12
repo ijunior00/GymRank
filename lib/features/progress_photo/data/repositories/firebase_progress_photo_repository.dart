@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -29,7 +29,7 @@ class FirebaseProgressPhotoRepository implements ProgressPhotoRepository {
   @override
   Future<Result<ProgressPhotoEntity>> upload({
     required String userId,
-    required File file,
+    required Uint8List bytes,
     required ProgressPhotoCategory category,
     double? weightAtTimeKg,
   }) async {
@@ -38,7 +38,7 @@ class FirebaseProgressPhotoRepository implements ProgressPhotoRepository {
       final path =
           'progress_photos/$userId/${takenAt.millisecondsSinceEpoch}.jpg';
       final ref = _storage.ref(path);
-      await ref.putFile(file);
+      await ref.putData(bytes, SettableMetadata(contentType: 'image/jpeg'));
       final url = await ref.getDownloadURL();
 
       final doc = await _collection.add({

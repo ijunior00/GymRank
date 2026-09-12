@@ -11,7 +11,9 @@ import 'package:gymrank/features/challenges/domain/entities/challenge_entity.dar
 import 'package:gymrank/features/challenges/presentation/controllers/challenge_providers.dart';
 import 'package:gymrank/features/coach_panel/domain/entities/coach_entity.dart';
 import 'package:gymrank/features/coach_panel/presentation/controllers/coach_panel_providers.dart';
+import 'package:gymrank/features/friendship/presentation/controllers/friendship_providers.dart';
 import 'package:gymrank/features/gamification/domain/usecases/level_calculator.dart';
+import 'package:gymrank/features/gamification/presentation/controllers/achievement_providers.dart';
 import 'package:gymrank/features/meal_log/presentation/widgets/today_meals_card.dart';
 import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
 import 'package:gymrank/features/workout_session/presentation/widgets/today_workout_card.dart';
@@ -69,20 +71,14 @@ class HomeDashboardScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('Retos activos', style: AppTextStyles.title),
-                      GestureDetector(
-                        onTap: () => context.go('/challenges'),
-                        child: Text(
-                          'Ver todos',
-                          style: AppTextStyles.caption.copyWith(
-                            color: AppColors.primary,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
+                      TextButton(
+                        onPressed: () => context.go('/challenges'),
+                        child: const Text('Ver todos'),
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 4),
                 if (challenges.isEmpty)
                   const _EmptyState(
                     icon: Icons.flag_outlined,
@@ -258,19 +254,51 @@ class _HeroHeader extends StatelessWidget {
   }
 }
 
-class _HighlightsRow extends StatelessWidget {
+/// Atalhos redondos. Cada um leva à tela onde aquele número "mora":
+/// racha e nivel no perfil, Gym Score no ranking, logros na vitrine,
+/// amigos na lista.
+class _HighlightsRow extends ConsumerWidget {
   const _HighlightsRow({required this.user});
 
   final UserEntity user;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final achievements =
+        ref.watch(unlockedAchievementsProvider).valueOrNull?.length;
+    final friends = ref.watch(friendCountProvider);
+
     final items = [
-      (Icons.local_fire_department, '${user.currentStreakDays}', 'Racha'),
-      (Icons.military_tech, '${user.level}', 'Nivel'),
-      (Icons.speed, user.gymScore.toStringAsFixed(0), 'Gym Score'),
-      (Icons.emoji_events, '7', 'Logros'),
-      (Icons.workspace_premium, user.isPremium ? 'PRO' : 'Gratis', 'Plan'),
+      (
+        Icons.local_fire_department,
+        '${user.currentStreakDays}',
+        'Racha',
+        () => context.go('/profile'),
+      ),
+      (
+        Icons.military_tech,
+        '${user.level}',
+        'Nivel',
+        () => context.go('/profile'),
+      ),
+      (
+        Icons.speed,
+        user.gymScore.toStringAsFixed(0),
+        'Gym Score',
+        () => context.go('/rankings'),
+      ),
+      (
+        Icons.emoji_events,
+        achievements == null ? '…' : '$achievements',
+        'Logros',
+        () => context.push('/achievements'),
+      ),
+      (
+        Icons.people_outline,
+        friends == null ? '…' : '$friends',
+        'Amigos',
+        () => context.push('/friends'),
+      ),
     ];
     return SizedBox(
       height: 96,
@@ -282,6 +310,7 @@ class _HighlightsRow extends StatelessWidget {
           icon: items[i].$1,
           value: items[i].$2,
           label: items[i].$3,
+          onTap: items[i].$4,
         ),
       ),
     );
@@ -293,46 +322,55 @@ class _Highlight extends StatelessWidget {
     required this.icon,
     required this.value,
     required this.label,
+    required this.onTap,
   });
 
   final IconData icon;
   final String value;
   final String label;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 62,
-          height: 62,
-          padding: const EdgeInsets.all(2),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: LinearGradient(
-              colors: AppColors.streakGradient,
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(14),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: Column(
+          children: [
+            Container(
+              width: 62,
+              height: 62,
+              padding: const EdgeInsets.all(2),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  colors: AppColors.streakGradient,
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+              ),
+              child: Container(
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.surface,
+                ),
+                child: Icon(icon, color: AppColors.primary, size: 24),
+              ),
             ),
-          ),
-          child: Container(
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColors.surface,
+            const SizedBox(height: 6),
+            Text(
+              value,
+              style: AppTextStyles.caption.copyWith(
+                color: AppColors.textPrimary,
+                fontWeight: FontWeight.w800,
+              ),
             ),
-            child: Icon(icon, color: AppColors.primary, size: 24),
-          ),
+            Text(label, style: AppTextStyles.caption),
+          ],
         ),
-        const SizedBox(height: 6),
-        Text(
-          value,
-          style: AppTextStyles.caption.copyWith(
-            color: AppColors.textPrimary,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-        Text(label, style: AppTextStyles.caption),
-      ],
+      ),
     );
   }
 }
@@ -426,35 +464,39 @@ class _ChallengePreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: AppColors.primary.withValues(alpha: 0.14),
-                borderRadius: BorderRadius.circular(12),
+      child: InkWell(
+        onTap: () => context.go('/challenges'),
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withValues(alpha: 0.14),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(Icons.flag, color: AppColors.primary),
               ),
-              child: const Icon(Icons.flag, color: AppColors.primary),
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(challenge.title, style: AppTextStyles.title),
-                  const SizedBox(height: 2),
-                  Text(
-                    '+${challenge.xpReward} XP · ${challenge.participantCount} participantes',
-                    style: AppTextStyles.caption,
-                  ),
-                ],
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(challenge.title, style: AppTextStyles.title),
+                    const SizedBox(height: 2),
+                    Text(
+                      '+${challenge.xpReward} XP · ${challenge.participantCount} participantes',
+                      style: AppTextStyles.caption,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const Icon(Icons.chevron_right, color: AppColors.textSecondary),
-          ],
+              const Icon(Icons.chevron_right, color: AppColors.textSecondary),
+            ],
+          ),
         ),
       ),
     );

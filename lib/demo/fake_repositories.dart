@@ -1,11 +1,14 @@
 // PREVIEW/DEMO ONLY. Implementações in-memory das interfaces de
 // repositório, usadas por lib/main_demo.dart para rodar o app sem
-// Firebase. Ações de escrita são no-op que retornam sucesso.
+// Firebase. As escritas ficam em memória enquanto o app está aberto,
+// para que cada toque tenha efeito visível no preview (curtir, comentar,
+// entrar num reto, registrar peso…) — sem isso o preview parece quebrado.
 import 'dart:async';
-import 'dart:io';
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:gymrank/core/constants/app_constants.dart';
+import 'package:gymrank/core/error/failure.dart';
 import 'package:gymrank/core/error/result.dart';
 import 'package:gymrank/demo/demo_data.dart';
 import 'package:gymrank/features/auth/domain/repositories/auth_repository.dart';
@@ -46,6 +49,27 @@ import 'package:gymrank/features/workout/domain/entities/workout_entity.dart';
 import 'package:gymrank/features/workout/domain/repositories/workout_repository.dart';
 import 'package:gymrank/features/workout_session/domain/entities/workout_session.dart';
 import 'package:gymrank/features/workout_session/domain/repositories/workout_session_repository.dart';
+
+/// Valor observável mínimo: emite o atual para quem chega e cada mudança
+/// depois. Evita repetir StreamController em cada fake.
+class _Live<T> {
+  _Live(this._value);
+
+  T _value;
+  final _controller = StreamController<T>.broadcast();
+
+  T get value => _value;
+
+  set value(T next) {
+    _value = next;
+    _controller.add(next);
+  }
+
+  Stream<T> get stream async* {
+    yield _value;
+    yield* _controller.stream;
+  }
+}
 
 class FakeAuthRepository implements AuthRepository {
   @override
@@ -100,6 +124,10 @@ class FakeAuthRepository implements AuthRepository {
       Result.success(DemoData.user);
 
   @override
+  Future<Result<void>> sendPasswordResetEmail(String email) async =>
+      const Result.success(null);
+
+  @override
   Future<void> signOut() async {}
 }
 
@@ -128,37 +156,48 @@ class FakeUserRepository implements UserRepository {
 }
 
 class FakeBodyMeasurementRepository implements BodyMeasurementRepository {
-  @override
-  Stream<List<BodyMeasurementEntity>> watchHistory(String userId) =>
-      Stream.value(DemoData.measurements);
+  final _history = _Live<List<BodyMeasurementEntity>>(DemoData.measurements);
 
   @override
-  Future<Result<BodyMeasurementEntity>> add(BodyMeasurementEntity entry) async =>
-      Result.success(entry);
+  Stream<List<BodyMeasurementEntity>> watchHistory(String userId) =>
+      _history.stream;
+
+  @override
+  Future<Result<BodyMeasurementEntity>> add(BodyMeasurementEntity entry) async {
+    final saved = entry.copyWith(id: 'm${_history.value.length}');
+    _history.value = [..._history.value, saved];
+    return Result.success(saved);
+  }
 }
 
 class FakeProgressPhotoRepository implements ProgressPhotoRepository {
+  final _photos = _Live<List<ProgressPhotoEntity>>(const []);
+
   @override
-  Stream<List<ProgressPhotoEntity>> watchAll(String userId) =>
-      Stream.value(const []);
+  Stream<List<ProgressPhotoEntity>> watchAll(String userId) => _photos.stream;
 
   @override
   Future<Result<ProgressPhotoEntity>> upload({
     required String userId,
-    required File file,
+    required Uint8List bytes,
     required ProgressPhotoCategory category,
     double? weightAtTimeKg,
-  }) async =>
-      Result.success(
-        ProgressPhotoEntity(
-          id: 'demo',
-          userId: userId,
-          storageUrl: '',
-          thumbnailUrl: '',
-          category: category,
-          takenAt: DateTime.now(),
-        ),
-      );
+  }) async {
+    // Sem Storage no preview, a própria imagem vira a URL (data URI), que
+    // a tela sabe desenhar direto da memória.
+    final url = 'data:image/jpeg;base64,${base64Encode(bytes)}';
+    final photo = ProgressPhotoEntity(
+      id: 'photo-${_photos.value.length}',
+      userId: userId,
+      storageUrl: url,
+      thumbnailUrl: url,
+      category: category,
+      takenAt: DateTime.now(),
+      weightAtTimeKg: weightAtTimeKg,
+    );
+    _photos.value = [..._photos.value, photo];
+    return Result.success(photo);
+  }
 }
 
 class FakeCheckInRepository implements CheckInRepository {
@@ -181,13 +220,18 @@ class FakeCheckInRepository implements CheckInRepository {
 }
 
 class FakeWorkoutRepository implements WorkoutRepository {
-  @override
-  Stream<List<WorkoutEntity>> watchRecent(String userId, {int limit = 20}) =>
-      Stream.value(DemoData.workouts);
+  final _workouts = _Live<List<WorkoutEntity>>(DemoData.workouts);
 
   @override
-  Future<Result<WorkoutEntity>> log(WorkoutEntity workout) async =>
-      Result.success(workout);
+  Stream<List<WorkoutEntity>> watchRecent(String userId, {int limit = 20}) =>
+      _workouts.stream;
+
+  @override
+  Future<Result<WorkoutEntity>> log(WorkoutEntity workout) async {
+    final saved = workout.copyWith(id: 'w${_workouts.value.length}');
+    _workouts.value = [saved, ..._workouts.value];
+    return Result.success(saved);
+  }
 }
 
 class FakeRankingRepository implements RankingRepository {
@@ -202,23 +246,55 @@ class FakeRankingRepository implements RankingRepository {
 }
 
 class FakeChallengeRepository implements ChallengeRepository {
+  final _challenges = _Live<List<ChallengeEntity>>(DemoData.challenges);
+
+  /// Inscrições por reto. A treinadora do demo já está no "Semana de
+  /// enfoque" com progresso, para o cartão de "ya participas" aparecer.
+  final _participations = _Live<Map<String, ChallengeParticipantEntity>>({
+    'c3': const ChallengeParticipantEntity(
+      userId: DemoData.uid,
+      challengeId: 'c3',
+      currentValue: 3,
+      completed: false,
+    ),
+  });
+
   @override
   Stream<List<ChallengeEntity>> watchActive({String? coachId}) =>
-      Stream.value(DemoData.challenges);
+      _challenges.stream;
 
   @override
   Future<Result<void>> join({
     required String challengeId,
     required String userId,
-  }) async =>
-      const Result.success(null);
+  }) async {
+    if (_participations.value.containsKey(challengeId)) {
+      return const Result.success(null);
+    }
+    _participations.value = {
+      ..._participations.value,
+      challengeId: ChallengeParticipantEntity(
+        userId: userId,
+        challengeId: challengeId,
+        currentValue: 0,
+        completed: false,
+      ),
+    };
+    _challenges.value = [
+      for (final c in _challenges.value)
+        c.id == challengeId
+            ? c.copyWith(participantCount: c.participantCount + 1)
+            : c,
+    ];
+    return const Result.success(null);
+  }
 
   @override
   Stream<ChallengeParticipantEntity?> watchParticipation({
     required String challengeId,
     required String userId,
   }) =>
-      Stream.value(null);
+      _participations.stream.map((all) => all[challengeId]);
 }
 
 class FakeChampionshipRepository implements ChampionshipRepository {
@@ -231,44 +307,130 @@ class FakeRewardRepository implements RewardRepository {
   @override
   Stream<List<RewardGrantEntity>> watchMyGrants(String userId) =>
       Stream.value(DemoData.rewardGrants);
+
+  @override
+  Stream<RewardEntity?> watchReward(String rewardId) =>
+      Stream.value(DemoData.rewardById(rewardId));
 }
 
 class FakeFeedRepository implements FeedRepository {
+  final _posts = _Live<List<PostEntity>>(DemoData.feed);
+  final _liked = _Live<Set<String>>({'p4'});
+  final _comments = _Live<Map<String, List<CommentEntity>>>({
+    'p1': [
+      CommentEntity(
+        id: 'k1',
+        postId: 'p1',
+        userId: 'u1',
+        authorName: 'Fernanda Ríos',
+        authorPhotoUrl: null,
+        text: '¡Vamos Carlos! 🔥',
+        createdAt: DateTime.now().subtract(const Duration(hours: 1)),
+      ),
+    ],
+  });
+
   @override
-  Stream<List<PostEntity>> watchFeed({int limit = 15}) =>
-      Stream.value(DemoData.feed);
+  Stream<List<PostEntity>> watchFeed({int limit = 15}) => _posts.stream;
+
+  void _bump(String postId, {int likes = 0, int comments = 0}) {
+    _posts.value = [
+      for (final p in _posts.value)
+        p.id == postId
+            ? p.copyWith(
+                likeCount: p.likeCount + likes,
+                commentCount: p.commentCount + comments,
+              )
+            : p,
+    ];
+  }
 
   @override
   Future<Result<void>> toggleLike({
     required String postId,
     required String userId,
     required bool liked,
-  }) async =>
-      const Result.success(null);
+  }) async {
+    final already = _liked.value.contains(postId);
+    if (liked == already) return const Result.success(null);
+    _liked.value = liked
+        ? {..._liked.value, postId}
+        : ({..._liked.value}..remove(postId));
+    _bump(postId, likes: liked ? 1 : -1);
+    return const Result.success(null);
+  }
 
   @override
-  Future<Result<void>> addComment(CommentEntity comment) async =>
-      const Result.success(null);
+  Stream<bool> watchLiked({required String postId, required String userId}) =>
+      _liked.stream.map((s) => s.contains(postId));
+
+  @override
+  Future<Result<void>> addComment(CommentEntity comment) async {
+    final list = [...?_comments.value[comment.postId], comment];
+    _comments.value = {..._comments.value, comment.postId: list};
+    _bump(comment.postId, comments: 1);
+    return const Result.success(null);
+  }
 
   @override
   Stream<List<CommentEntity>> watchComments(String postId) =>
-      Stream.value(const []);
+      _comments.stream.map((all) => all[postId] ?? const []);
 }
 
 class FakeFriendshipRepository implements FriendshipRepository {
+  final _friendships = _Live<List<FriendshipEntity>>(DemoData.friendships);
+
   @override
   Future<Result<void>> sendRequest({
     required String requesterId,
     required String addresseeUsername,
-  }) async =>
-      const Result.success(null);
+  }) async {
+    final other = DemoData.studentByUsername(addresseeUsername);
+    if (other == null) {
+      return const Result.failure(
+        Failure.notFound(),
+      );
+    }
+    final exists = _friendships.value.any((f) =>
+        (f.requesterId == requesterId && f.addresseeId == other.id) ||
+        (f.requesterId == other.id && f.addresseeId == requesterId));
+    if (exists) {
+      return const Result.failure(
+        Failure.conflict('Ya tienen una solicitud o amistad.'),
+      );
+    }
+    _friendships.value = [
+      ..._friendships.value,
+      FriendshipEntity(
+        id: '${requesterId}_${other.id}',
+        requesterId: requesterId,
+        addresseeId: other.id,
+        status: FriendshipStatus.pending,
+        createdAt: DateTime.now(),
+      ),
+    ];
+    return const Result.success(null);
+  }
 
   @override
   Future<Result<void>> respond({
     required String friendshipId,
     required bool accept,
-  }) async =>
-      const Result.success(null);
+  }) async {
+    _friendships.value = [
+      for (final f in _friendships.value)
+        if (f.id != friendshipId)
+          f
+        else if (accept)
+          f.copyWith(
+            status: FriendshipStatus.accepted,
+            respondedAt: DateTime.now(),
+          ),
+      // Recusar simplesmente some da lista, como no app real (vira
+      // `blocked`, que a tela não mostra).
+    ];
+    return const Result.success(null);
+  }
 
   @override
   Future<Result<void>> block({
@@ -279,17 +441,25 @@ class FakeFriendshipRepository implements FriendshipRepository {
 
   @override
   Stream<List<FriendshipEntity>> watchFriendships(String userId) =>
-      Stream.value(DemoData.friendships);
+      _friendships.stream;
 }
 
 class FakeNotificationRepository implements NotificationRepository {
-  @override
-  Stream<List<AppNotificationEntity>> watchAll(String userId) =>
-      Stream.value(DemoData.notifications);
+  final _notifications =
+      _Live<List<AppNotificationEntity>>(DemoData.notifications);
 
   @override
-  Future<Result<void>> markRead(String notificationId) async =>
-      const Result.success(null);
+  Stream<List<AppNotificationEntity>> watchAll(String userId) =>
+      _notifications.stream;
+
+  @override
+  Future<Result<void>> markRead(String notificationId) async {
+    _notifications.value = [
+      for (final n in _notifications.value)
+        n.id == notificationId ? n.copyWith(read: true) : n,
+    ];
+    return const Result.success(null);
+  }
 
   @override
   Future<Result<void>> registerDeviceToken({

@@ -111,3 +111,17 @@ final studentWorkoutsProvider =
     StreamProvider.family<List<WorkoutEntity>, String>((ref, userId) {
   return ref.watch(workoutRepositoryProvider).watchRecent(userId, limit: 10);
 });
+
+/// O vínculo do aluno logado com a treinadora dele (plano, próximo pago).
+/// É o que o perfil mostra em "Mi plan con …". `null` para a própria
+/// treinadora e para quem ainda não entrou numa comunidade.
+final myClientProvider = StreamProvider<ClientEntity?>((ref) {
+  final user = ref.watch(currentUserProvider).valueOrNull;
+  final coachId = user?.coachId;
+  if (user == null || coachId == null || user.isStaff) {
+    return Stream.value(null);
+  }
+  return ref
+      .watch(coachPanelRepositoryProvider)
+      .watchClient(coachId: coachId, userId: user.id);
+});

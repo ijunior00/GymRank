@@ -183,6 +183,18 @@ class FirebaseAuthRepository implements AuthRepository {
   }
 
   @override
+  Future<Result<void>> sendPasswordResetEmail(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email.trim());
+      return const Result.success(null);
+    } on fb.FirebaseAuthException catch (e) {
+      // "user-not-found" também é sucesso: não revelamos quem tem conta.
+      if (e.code == 'user-not-found') return const Result.success(null);
+      return Result.failure(_mapException(e));
+    }
+  }
+
+  @override
   Future<void> signOut() async {
     try {
       await GoogleSignIn().signOut();

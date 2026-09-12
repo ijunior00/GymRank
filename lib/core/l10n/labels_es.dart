@@ -1,5 +1,6 @@
 import 'package:gymrank/core/constants/app_constants.dart';
 import 'package:gymrank/features/challenges/domain/entities/challenge_entity.dart';
+import 'package:gymrank/features/championships/domain/entities/championship_entity.dart';
 import 'package:gymrank/features/coach_panel/domain/entities/client_entity.dart';
 import 'package:gymrank/features/friendship/domain/entities/friendship_entity.dart';
 import 'package:gymrank/features/plans/domain/entities/plan_entity.dart';
@@ -149,6 +150,26 @@ extension PlanDocumentStatusLabelEs on PlanDocumentStatus {
         PlanDocumentStatus.listo => 'Listo para revisar',
         PlanDocumentStatus.error => 'Error',
         PlanDocumentStatus.publicado => 'Publicado',
+      };
+}
+
+extension RewardTypeLabelEs on RewardType {
+  String get labelEs => switch (this) {
+        RewardType.suplemento => 'Suplemento',
+        RewardType.vestuario => 'Ropa',
+        RewardType.consultoria => 'Asesoría',
+        RewardType.mensalidadeGratis => 'Mensualidad gratis',
+        RewardType.acessorio => 'Accesorio',
+        RewardType.valeCompras => 'Vale de compras',
+      };
+}
+
+extension ChampionshipCriteriaLabelEs on ChampionshipCriteria {
+  String get labelEs => switch (this) {
+        ChampionshipCriteria.maisXp => 'Más XP',
+        ChampionshipCriteria.maiorGymScore => 'Mayor Gym Score',
+        ChampionshipCriteria.maisCheckIns => 'Más check-ins',
+        ChampionshipCriteria.maiorEvolucao => 'Mayor evolución',
       };
 }
 

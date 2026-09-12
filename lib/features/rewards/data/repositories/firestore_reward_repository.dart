@@ -28,4 +28,20 @@ class FirestoreRewardRepository implements RewardRepository {
               );
             }).toList());
   }
+
+  @override
+  Stream<RewardEntity?> watchReward(String rewardId) {
+    return _firestore.collection('rewards').doc(rewardId).snapshots().map((doc) {
+      final data = doc.data();
+      if (data == null) return null;
+      return RewardEntity(
+        id: doc.id,
+        coachId: data['coachId'] as String,
+        name: data['name'] as String,
+        imageUrl: data['imageUrl'] as String?,
+        type: RewardType.values.byName(data['type'] as String),
+        stock: data['stock'] as int? ?? 0,
+      );
+    });
+  }
 }

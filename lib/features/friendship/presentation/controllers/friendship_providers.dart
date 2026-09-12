@@ -14,3 +14,10 @@ final myFriendshipsProvider = StreamProvider<List<FriendshipEntity>>((ref) {
   if (uid == null) return Stream.value(const []);
   return ref.watch(friendshipRepositoryProvider).watchFriendships(uid);
 });
+
+/// Só as amizades aceitas — é o número que o perfil mostra.
+final friendCountProvider = Provider<int?>((ref) {
+  final list = ref.watch(myFriendshipsProvider).valueOrNull;
+  if (list == null) return null;
+  return list.where((f) => f.status == FriendshipStatus.accepted).length;
+});

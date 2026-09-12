@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gymrank/core/theme/app_colors.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
+import 'package:gymrank/core/utils/date_formatter.dart';
+import 'package:gymrank/core/utils/share_text.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_providers.dart';
+import 'package:gymrank/features/coach_panel/domain/entities/coach_entity.dart';
 import 'package:gymrank/features/coach_panel/presentation/controllers/coach_panel_providers.dart';
 import 'package:gymrank/features/coach_panel/presentation/widgets/join_coach_dialog.dart';
+import 'package:gymrank/features/friendship/presentation/controllers/friendship_providers.dart';
 import 'package:gymrank/features/gamification/presentation/widgets/level_progress_card.dart';
+import 'package:gymrank/features/gamification/presentation/widgets/streak_card.dart';
+import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
 import 'package:gymrank/features/sharing/domain/entities/share_card.dart';
 import 'package:gymrank/features/sharing/presentation/controllers/share_providers.dart';
 import 'package:gymrank/features/sharing/presentation/screens/share_card_screen.dart';
-import 'package:gymrank/features/gamification/presentation/widgets/streak_card.dart';
-import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -21,6 +27,7 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(currentUserProvider).valueOrNull;
     final coach = ref.watch(currentCoachProvider).valueOrNull;
+    final friends = ref.watch(friendCountProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -62,7 +69,11 @@ class ProfileScreen extends ConsumerWidget {
                       children: [
                         _StatColumn(label: 'Gym Score', value: user.gymScore.toStringAsFixed(0)),
                         _StatColumn(label: 'XP total', value: '${user.xpTotal}'),
-                        const _StatColumn(label: 'Amigos', value: '—'),
+                        _StatColumn(
+                          label: 'Amigos',
+                          value: friends == null ? '—' : '$friends',
+                          onTap: () => context.push('/friends'),
+                        ),
                       ],
                     ),
                   ),
@@ -70,7 +81,7 @@ class ProfileScreen extends ConsumerWidget {
                 const SizedBox(height: 16),
                 _ShareAndInviteCard(user: user),
                 const SizedBox(height: 16),
-                // Vínculo com a treinadora: painel (coach), nome da coach
+                // Vínculo com a treinadora: painel (coach), ficha da coach
                 // (aluno vinculado) ou entrada por código (aluno solto).
                 if (user.isStaff)
                   ListTile(
@@ -80,13 +91,18 @@ class ProfileScreen extends ConsumerWidget {
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () => context.push('/coach'),
                   )
-                else if (user.coachId != null)
+                else if (user.coachId != null) ...[
                   ListTile(
                     leading: const Icon(Icons.verified_outlined, color: AppColors.primary),
                     title: const Text('Tu coach'),
                     subtitle: Text(coach?.name ?? 'Cargando…'),
-                  )
-                else
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: coach == null
+                        ? null
+                        : () => showCoachSheet(context, coach),
+                  ),
+                  _MyPlanTile(coach: coach),
+                ] else
                   ListTile(
                     leading: const Icon(Icons.group_add_outlined),
                     title: const Text('Unirme a mi coach'),
@@ -133,13 +149,149 @@ class ProfileScreen extends ConsumerWidget {
                 ),
                 ListTile(
                   leading: const Icon(Icons.workspace_premium_outlined),
-                  title: const Text('Suscripción Premium'),
-                  trailing: Text(user.isPremium ? 'Activa' : 'Gratis', style: AppTextStyles.caption),
+                  title: const Text('Torneos'),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => context.push('/championships'),
                 ),
               ],
             ),
     );
   }
+}
+
+/// O plano que o aluno tem com a treinadora (nome do plano e próximo
+/// pago), lido do vínculo `clients`. Substitui a antiga "Suscripción
+/// Premium", que era do app genérico e aqui não fazia sentido: quem cobra
+/// é a coach, não o app.
+class _MyPlanTile extends ConsumerWidget {
+  const _MyPlanTile({required this.coach});
+
+  final CoachEntity? coach;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final client = ref.watch(myClientProvider).valueOrNull;
+    final plan = client?.planName;
+    final nextPayment = client?.nextPaymentAt;
+    final subtitle = [
+      plan ?? 'Sin plan asignado todavía',
+      if (nextPayment != null)
+        'próximo pago ${DateFormatter.shortDate(nextPayment)}',
+    ].join(' · ');
+
+    return ListTile(
+      leading: const Icon(Icons.receipt_long_outlined),
+      title: Text(coach == null ? 'Mi plan' : 'Mi plan con ${coach!.name}'),
+      subtitle: Text(subtitle),
+      trailing: const Icon(Icons.chevron_right),
+      onTap: coach == null ? null : () => showCoachSheet(context, coach!),
+    );
+  }
+}
+
+/// Ficha pública da treinadora: quem é, onde está, Instagram e o código
+/// de convite para o aluno passar adiante.
+Future<void> showCoachSheet(BuildContext context, CoachEntity coach) {
+  // Copiar e invitar fecham a folha antes de mostrar o aviso: um SnackBar
+  // com a folha aberta fica escondido atrás dela.
+  return showModalBottomSheet<void>(
+    context: context,
+    showDragHandle: true,
+    builder: (sheetContext) => Padding(
+      padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                radius: 28,
+                backgroundColor: AppColors.primary.withValues(alpha: 0.15),
+                backgroundImage:
+                    coach.logoUrl != null ? NetworkImage(coach.logoUrl!) : null,
+                child: coach.logoUrl == null
+                    ? Text(
+                        coach.name.isEmpty ? '?' : coach.name[0].toUpperCase(),
+                        style: AppTextStyles.headline
+                            .copyWith(color: AppColors.primary),
+                      )
+                    : null,
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(coach.name, style: AppTextStyles.headline),
+                    if (coach.tagline != null)
+                      Text(coach.tagline!, style: AppTextStyles.bodyMuted),
+                    Text(
+                      '${coach.city} · ${coach.studentCount} alumnos',
+                      style: AppTextStyles.caption,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          if (coach.instagramHandle != null)
+            OutlinedButton.icon(
+              onPressed: () => launchUrl(
+                Uri.parse('https://instagram.com/${coach.instagramHandle}'),
+                mode: LaunchMode.externalApplication,
+              ),
+              icon: const Icon(Icons.camera_alt_outlined, size: 18),
+              label: Text('@${coach.instagramHandle}'),
+            ),
+          const SizedBox(height: 16),
+          Text('CÓDIGO DE INVITACIÓN',
+              style: AppTextStyles.caption.copyWith(letterSpacing: 1.2)),
+          const SizedBox(height: 6),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  coach.inviteCode,
+                  style: AppTextStyles.displayLarge.copyWith(
+                    fontSize: 28,
+                    letterSpacing: 4,
+                    color: AppColors.primary,
+                  ),
+                ),
+              ),
+              IconButton.filledTonal(
+                tooltip: 'Copiar',
+                onPressed: () async {
+                  Navigator.of(sheetContext).pop();
+                  await Clipboard.setData(ClipboardData(text: coach.inviteCode));
+                  if (!context.mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Código copiado.')),
+                  );
+                },
+                icon: const Icon(Icons.copy),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.of(sheetContext).pop();
+              shareText(
+                context,
+                'Entreno con ${coach.name} 💪 Únete a la comunidad en '
+                'AnahiFitness con el código ${coach.inviteCode}.',
+              );
+            },
+            icon: const Icon(Icons.ios_share, size: 18),
+            label: const Text('Invitar a alguien'),
+          ),
+        ],
+      ),
+    ),
+  );
 }
 
 /// Marketing na mão do aluno: compartilhar a racha ou o nível e ver
@@ -290,19 +442,29 @@ class _ProfileHeader extends StatelessWidget {
 }
 
 class _StatColumn extends StatelessWidget {
-  const _StatColumn({required this.label, required this.value});
+  const _StatColumn({required this.label, required this.value, this.onTap});
 
   final String label;
   final String value;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    final column = Column(
       children: [
         Text(value, style: AppTextStyles.statValue),
         const SizedBox(height: 4),
         Text(label, style: AppTextStyles.caption),
       ],
+    );
+    if (onTap == null) return column;
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(10),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        child: column,
+      ),
     );
   }
 }

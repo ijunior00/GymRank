@@ -228,6 +228,49 @@ abstract final class DemoData {
     return null;
   }
 
+  static UserEntity? studentByUsername(String username) {
+    final wanted = username.trim().replaceFirst('@', '').toLowerCase();
+    for (final s in students) {
+      if (s.username.toLowerCase() == wanted) return s;
+    }
+    return null;
+  }
+
+  /// Prêmios da comunidade (o grant só guarda o id, o nome vem daqui).
+  static List<RewardEntity> get rewards => [
+        const RewardEntity(
+          id: 'r1',
+          coachId: coachId,
+          name: 'Playera oficial Método VF',
+          imageUrl: null,
+          type: RewardType.vestuario,
+          stock: 12,
+        ),
+        const RewardEntity(
+          id: 'r2',
+          coachId: coachId,
+          name: 'Sesión presencial 1 a 1',
+          imageUrl: null,
+          type: RewardType.consultoria,
+          stock: 3,
+        ),
+        const RewardEntity(
+          id: 'r3',
+          coachId: coachId,
+          name: 'Mensualidad gratis',
+          imageUrl: null,
+          type: RewardType.mensalidadeGratis,
+          stock: 1,
+        ),
+      ];
+
+  static RewardEntity? rewardById(String id) {
+    for (final r in rewards) {
+      if (r.id == id) return r;
+    }
+    return null;
+  }
+
   static List<ClientEntity> get clients {
     const plans = [
       'Elite',

@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gymrank/core/constants/app_constants.dart';
+import 'package:gymrank/core/error/result.dart';
 import 'package:gymrank/core/l10n/labels_es.dart';
+import 'package:gymrank/core/theme/app_text_styles.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_providers.dart';
 import 'package:gymrank/features/workout/domain/entities/workout_entity.dart';
 import 'package:gymrank/features/workout/presentation/controllers/workout_providers.dart';
 
+/// Registro manual, para quem treinou fora do plano (ou ainda não tem
+/// plano). O treino do dia com séries fica em `workout_session`.
 class LogWorkoutScreen extends ConsumerStatefulWidget {
   const LogWorkoutScreen({super.key});
 
@@ -22,7 +28,7 @@ class _LogWorkoutScreenState extends ConsumerState<LogWorkoutScreen> {
     final uid = ref.read(authStateProvider).valueOrNull;
     if (uid == null) return;
     setState(() => _saving = true);
-    await ref.read(workoutRepositoryProvider).log(
+    final result = await ref.read(workoutRepositoryProvider).log(
           WorkoutEntity(
             id: '',
             userId: uid,
@@ -34,7 +40,31 @@ class _LogWorkoutScreenState extends ConsumerState<LogWorkoutScreen> {
             createdAt: DateTime.now(),
           ),
         );
-    if (mounted) Navigator.of(context).pop();
+    if (!mounted) return;
+    setState(() => _saving = false);
+    final failure = result.failureOrNull;
+    if (failure != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('No se pudo guardar: $failure')),
+      );
+      return;
+    }
+    final messenger = ScaffoldMessenger.of(context);
+    // Se a tela foi aberta direto pela URL (web), não há para onde voltar:
+    // vai para o início em vez de deixar a tela em branco.
+    if (context.canPop()) {
+      context.pop();
+    } else {
+      context.go('/home');
+    }
+    messenger.showSnackBar(
+      SnackBar(
+        content: Text(
+          'Entrenamiento guardado: ${_group.labelEs}, $_minutes min. '
+          '+${AppConstants.xpWorkoutLogged} XP en camino.',
+        ),
+      ),
+    );
   }
 
   @override
@@ -44,6 +74,12 @@ class _LogWorkoutScreenState extends ConsumerState<LogWorkoutScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          const Text(
+            'Para lo que hiciste fuera del plan. Cuenta para tu racha y '
+            'suma XP igual.',
+            style: AppTextStyles.bodyMuted,
+          ),
+          const SizedBox(height: 16),
           DropdownButtonFormField<MuscleGroup>(
             initialValue: _group,
             decoration: const InputDecoration(labelText: 'Grupo muscular'),
@@ -61,8 +97,8 @@ class _LogWorkoutScreenState extends ConsumerState<LogWorkoutScreen> {
                 .toList(),
             onChanged: (v) => setState(() => _intensity = v ?? _intensity),
           ),
-          const SizedBox(height: 12),
-          Text('Duración: $_minutes min'),
+          const SizedBox(height: 16),
+          Text('Duración: $_minutes min', style: AppTextStyles.title),
           Slider(
             value: _minutes.toDouble(),
             min: 10,
