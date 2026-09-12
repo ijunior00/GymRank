@@ -20,11 +20,20 @@ class LevelProgressCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // O cartão divide a linha com o da racha: com o número de
+            // nível grande, "Nivel 21" precisa poder encolher.
             Row(
               children: [
                 const Icon(Icons.military_tech, color: AppColors.gold),
                 const SizedBox(width: 6),
-                Text('Nivel ${user.level}', style: AppTextStyles.title),
+                Flexible(
+                  child: Text(
+                    'Nivel ${user.level}',
+                    style: AppTextStyles.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 12),

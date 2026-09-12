@@ -272,9 +272,19 @@ class _PlanCard extends ConsumerWidget {
           for (final (label, value) in rows)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 5),
+              // Rótulo e valor dividem a linha: em tela estreita o rótulo
+              // também precisa poder encolher, senão empurra o valor
+              // para fora.
               child: Row(
                 children: [
-                  Text(label, style: AppTextStyles.bodyMuted),
+                  Flexible(
+                    child: Text(
+                      label,
+                      style: AppTextStyles.bodyMuted,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(

@@ -64,15 +64,28 @@ class ProfileScreen extends ConsumerWidget {
                 Card(
                   child: Padding(
                     padding: const EdgeInsets.all(16),
+                    // Um terço da largura para cada, senão o rótulo mais
+                    // longo ("Gym Score") empurra os outros para fora.
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        _StatColumn(label: 'Gym Score', value: user.gymScore.toStringAsFixed(0)),
-                        _StatColumn(label: 'XP total', value: '${user.xpTotal}'),
-                        _StatColumn(
-                          label: 'Amigos',
-                          value: friends == null ? '—' : '$friends',
-                          onTap: () => context.push('/friends'),
+                        Expanded(
+                          child: _StatColumn(
+                            label: 'Gym Score',
+                            value: user.gymScore.toStringAsFixed(0),
+                          ),
+                        ),
+                        Expanded(
+                          child: _StatColumn(
+                            label: 'XP total',
+                            value: '${user.xpTotal}',
+                          ),
+                        ),
+                        Expanded(
+                          child: _StatColumn(
+                            label: 'Amigos',
+                            value: friends == null ? '—' : '$friends',
+                            onTap: () => context.push('/friends'),
+                          ),
                         ),
                       ],
                     ),
@@ -452,9 +465,19 @@ class _StatColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     final column = Column(
       children: [
-        Text(value, style: AppTextStyles.statValue),
+        Text(
+          value,
+          style: AppTextStyles.statValue,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
         const SizedBox(height: 4),
-        Text(label, style: AppTextStyles.caption),
+        Text(
+          label,
+          style: AppTextStyles.caption,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
       ],
     );
     if (onTap == null) return column;

@@ -202,9 +202,18 @@ class _HeroHeader extends StatelessWidget {
                       style: AppTextStyles.displayLarge.copyWith(fontSize: 30),
                     ),
                     const SizedBox(width: 6),
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 5),
-                      child: Text('Gym Score', style: AppTextStyles.caption),
+                    // Ao lado do anel de nível sobra pouca largura: o
+                    // rótulo encolhe antes de estourar.
+                    const Flexible(
+                      child: Padding(
+                        padding: EdgeInsets.only(bottom: 5),
+                        child: Text(
+                          'Gym Score',
+                          style: AppTextStyles.caption,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -221,27 +230,24 @@ class _HeroHeader extends StatelessWidget {
                   ),
                 ],
                 const SizedBox(height: 12),
-                Row(
+                // Wrap e não Row: com racha e XP altos os dois não cabem
+                // lado a lado em tela estreita, e aí o XP desce uma linha
+                // em vez de ser cortado.
+                Wrap(
+                  spacing: 14,
+                  runSpacing: 4,
                   children: [
-                    const Icon(Icons.local_fire_department,
-                        color: AppColors.warning, size: 18),
-                    const SizedBox(width: 4),
-                    AnimatedCountText(
-                      user.currentStreakDays,
+                    _HeroStat(
+                      icon: Icons.local_fire_department,
+                      color: AppColors.warning,
+                      value: user.currentStreakDays,
                       suffix: ' días',
-                      style: AppTextStyles.body.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
                     ),
-                    const SizedBox(width: 14),
-                    const Icon(Icons.bolt, color: AppColors.primary, size: 18),
-                    const SizedBox(width: 2),
-                    AnimatedCountText(
-                      user.xpCurrentSeason,
+                    _HeroStat(
+                      icon: Icons.bolt,
+                      color: AppColors.primary,
+                      value: user.xpCurrentSeason,
                       suffix: ' XP',
-                      style: AppTextStyles.body.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
                     ),
                   ],
                 ),
@@ -250,6 +256,37 @@ class _HeroHeader extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// Ícone + número do cabeçalho (racha, XP da temporada).
+class _HeroStat extends StatelessWidget {
+  const _HeroStat({
+    required this.icon,
+    required this.color,
+    required this.value,
+    required this.suffix,
+  });
+
+  final IconData icon;
+  final Color color;
+  final int value;
+  final String suffix;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, color: color, size: 18),
+        const SizedBox(width: 4),
+        AnimatedCountText(
+          value,
+          suffix: suffix,
+          style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w700),
+        ),
+      ],
     );
   }
 }
@@ -300,18 +337,23 @@ class _HighlightsRow extends ConsumerWidget {
         () => context.push('/friends'),
       ),
     ];
-    return SizedBox(
-      height: 96,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: items.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 14),
-        itemBuilder: (context, i) => _Highlight(
-          icon: items[i].$1,
-          value: items[i].$2,
-          label: items[i].$3,
-          onTap: items[i].$4,
-        ),
+    // Altura vem do conteúdo, não de um número fixo: com a fonte do
+    // sistema aumentada as duas linhas de texto crescem e uma altura
+    // fixa estouraria (a faixa listrada de "BOTTOM OVERFLOWED").
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          for (var i = 0; i < items.length; i++) ...[
+            if (i > 0) const SizedBox(width: 14),
+            _Highlight(
+              icon: items[i].$1,
+              value: items[i].$2,
+              label: items[i].$3,
+              onTap: items[i].$4,
+            ),
+          ],
+        ],
       ),
     );
   }

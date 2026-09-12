@@ -82,6 +82,9 @@ class _LogWorkoutScreenState extends ConsumerState<LogWorkoutScreen> {
           const SizedBox(height: 16),
           DropdownButtonFormField<MuscleGroup>(
             initialValue: _group,
+            // Sem isto o menu tenta ficar do tamanho do texto mais longo
+            // e estoura em tela estreita.
+            isExpanded: true,
             decoration: const InputDecoration(labelText: 'Grupo muscular'),
             items: MuscleGroup.values
                 .map((g) => DropdownMenuItem(value: g, child: Text(g.labelEs)))
@@ -91,6 +94,7 @@ class _LogWorkoutScreenState extends ConsumerState<LogWorkoutScreen> {
           const SizedBox(height: 12),
           DropdownButtonFormField<WorkoutIntensity>(
             initialValue: _intensity,
+            isExpanded: true,
             decoration: const InputDecoration(labelText: 'Intensidad'),
             items: WorkoutIntensity.values
                 .map((i) => DropdownMenuItem(value: i, child: Text(i.labelEs)))

@@ -16,11 +16,20 @@ class StreakCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Cartão estreito (metade da tela): o título encolhe em vez
+            // de estourar.
             const Row(
               children: [
                 Icon(Icons.local_fire_department, color: AppColors.warning),
                 SizedBox(width: 6),
-                Text('Racha', style: AppTextStyles.title),
+                Flexible(
+                  child: Text(
+                    'Racha',
+                    style: AppTextStyles.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 12),
