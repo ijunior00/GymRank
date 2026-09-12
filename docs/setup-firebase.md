@@ -75,8 +75,21 @@ npm install -g firebase-tools
 firebase login
 
 dart pub global activate flutterfire_cli
-# se o comando `flutterfire` não for encontrado, adicione ao PATH:
+```
+
+Se o comando `flutterfire` não for encontrado depois disso, é só PATH:
+
+```bash
+# macOS / Linux
 export PATH="$PATH:$HOME/.pub-cache/bin"
+```
+
+```powershell
+# Windows (PowerShell). Feche e reabra o PowerShell depois.
+[Environment]::SetEnvironmentVariable(
+  "Path",
+  [Environment]::GetEnvironmentVariable("Path","User") + ";$env:LOCALAPPDATA\Pub\Cache\bin",
+  "User")
 ```
 
 ## 4. Conectar o repo ao projeto
@@ -96,13 +109,21 @@ Na raiz do repositório:
 ```bash
 flutterfire configure \
   --project=gymrank-e1c0d \
-  --platforms=android,ios \
+  --platforms=android,ios,web \
   --android-package-name=com.anahifitness.app \
   --ios-bundle-id=com.anahifitness.app
 ```
 
-Acrescente `,web` à lista quando for ligar o PWA (ver
-`docs/setup-web-pwa.md`).
+No PowerShell a quebra de linha é outra — use crase no fim da linha, ou
+tudo em uma linha só:
+
+```powershell
+flutterfire configure --project=gymrank-e1c0d --platforms=android,ios,web --android-package-name=com.anahifitness.app --ios-bundle-id=com.anahifitness.app
+```
+
+`web` está na lista porque é como o app roda no Chrome durante o
+desenvolvimento — sem ela, `flutter run -d chrome` do app real não sobe.
+É a mesma configuração que o PWA usa depois (ver `docs/setup-web-pwa.md`).
 
 Isto gera de uma vez os três arquivos que **não** estão no git (são por
 projeto e um deles carrega chaves):
