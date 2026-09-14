@@ -149,10 +149,28 @@ firebase deploy --only firestore:rules,firestore:indexes,storage
 
 cd functions
 npm install
-firebase functions:secrets:set ANTHROPIC_API_KEY   # cola a chave quando pedir
-firebase deploy --only functions
 cd ..
+
+# 1) Ligue a Secret Manager API uma vez, no console:
+#    https://console.developers.google.com/apis/api/secretmanager.googleapis.com/overview?project=gymrank-e1c0d
+# 2) Crie o segredo (cola a chave quando pedir):
+firebase functions:secrets:set ANTHROPIC_API_KEY
+# 3) Suba tudo:
+firebase deploy --only functions
 ```
+
+> ⚠️ **O segredo precisa existir antes de qualquer deploy de functions —
+> inclusive de um deploy que não inclua a `parseDocument`.** O
+> `defineSecret('ANTHROPIC_API_KEY')` roda quando o arquivo é carregado, e
+> o CLI carrega o projeto inteiro para descobrir as functions antes de
+> aplicar o filtro do `--only`. Sem a API ligada o deploy morre com
+> `HTTP Error: 403, Secret Manager API has not been used in project`.
+>
+> Ainda não tem a chave da Anthropic? Crie o segredo com um valor
+> qualquer (`PENDIENTE`) para destravar as outras 12, e rode o mesmo
+> `functions:secrets:set` de novo quando tiver a chave de verdade — ele
+> cria uma versão nova. Só não suba a `parseDocument` enquanto o valor for
+> falso: ela iria falhar em toda tentativa de ler um documento.
 
 O primeiro `deploy --only functions` demora (5–10 min) e pede para
 ativar algumas APIs do Google Cloud — aceite.
