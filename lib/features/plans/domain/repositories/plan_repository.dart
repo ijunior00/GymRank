@@ -16,7 +16,10 @@ abstract interface class PlanRepository {
     required String contentType,
   });
 
-  Stream<List<PlanDocumentEntity>> watchDocuments(String userId);
+  /// [coachId] é obrigatório quando quem lê é a treinadora: a regra do
+  /// Firestore libera pelo `coachId` do documento, e uma consulta que não
+  /// filtra por ele é recusada inteira (regras não filtram, recusam).
+  Stream<List<PlanDocumentEntity>> watchDocuments(String userId, {String? coachId});
 
   Stream<PlanDocumentEntity?> watchDocument(String documentId);
 
@@ -36,7 +39,8 @@ abstract interface class PlanRepository {
     String? sourceDocumentId,
   });
 
-  Stream<List<PlanEntity>> watchPlans(String userId);
+  /// Ver [watchDocuments] sobre o [coachId].
+  Stream<List<PlanEntity>> watchPlans(String userId, {String? coachId});
 
   Stream<PlanEntity?> watchPlan(String planId);
 

@@ -17,9 +17,12 @@ abstract interface class MealLogRepository {
   Stream<List<MealLogEntity>> watchDay(String userId, String date);
 
   /// Registros com `date` entre [fromDate] e [toDate] (inclusive, `yyyy-MM-dd`).
+  /// [coachId] é obrigatório quando quem lê é a treinadora — ver o mesmo
+  /// motivo em `PlanRepository.watchDocuments`.
   Stream<List<MealLogEntity>> watchRange(
     String userId, {
     required String fromDate,
     required String toDate,
+    String? coachId,
   });
 }

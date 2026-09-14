@@ -5,6 +5,18 @@ import 'package:gymrank/features/plans/data/repositories/firebase_plan_repositor
 import 'package:gymrank/features/plans/domain/entities/plan_entity.dart';
 import 'package:gymrank/features/plans/domain/repositories/plan_repository.dart';
 
+/// O `coachId` a usar ao ler os dados de OUTRA pessoa.
+///
+/// A regra do Firestore libera esses documentos pelo `coachId` deles, e uma
+/// consulta que não filtra por esse campo é recusada por inteiro — regras
+/// não filtram, recusam. Quem lê os próprios dados passa `null`: aí quem
+/// libera é o `isOwner`, já provado pelo filtro de `userId`.
+String? coachIdForReading(Ref ref, String userId) {
+  final me = ref.watch(currentUserProvider).valueOrNull;
+  if (me == null || me.id == userId || !me.isStaff) return null;
+  return me.coachId;
+}
+
 final planRepositoryProvider = Provider<PlanRepository>((ref) {
   return FirebasePlanRepository(
     ref.watch(firestoreProvider),
@@ -15,7 +27,10 @@ final planRepositoryProvider = Provider<PlanRepository>((ref) {
 /// Documentos enviados para um aluno (visão da treinadora).
 final studentDocumentsProvider =
     StreamProvider.family<List<PlanDocumentEntity>, String>((ref, userId) {
-  return ref.watch(planRepositoryProvider).watchDocuments(userId);
+  return ref.watch(planRepositoryProvider).watchDocuments(
+        userId,
+        coachId: coachIdForReading(ref, userId),
+      );
 });
 
 final planDocumentProvider =
@@ -26,7 +41,10 @@ final planDocumentProvider =
 /// Planos vigentes de um aluno (um por tipo), mais recente primeiro.
 final studentPlansProvider =
     StreamProvider.family<List<PlanEntity>, String>((ref, userId) {
-  return ref.watch(planRepositoryProvider).watchPlans(userId);
+  return ref.watch(planRepositoryProvider).watchPlans(
+        userId,
+        coachId: coachIdForReading(ref, userId),
+      );
 });
 
 /// Planos do usuário logado (visão do aluno).

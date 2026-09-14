@@ -611,6 +611,7 @@ class FakeMealLogRepository implements MealLogRepository {
     String userId, {
     required String fromDate,
     required String toDate,
+    String? coachId,
   }) async* {
     yield List.of(_logs);
     yield* _controller.stream;
@@ -662,7 +663,7 @@ class FakePlanRepository implements PlanRepository {
   }
 
   @override
-  Stream<List<PlanDocumentEntity>> watchDocuments(String userId) =>
+  Stream<List<PlanDocumentEntity>> watchDocuments(String userId, {String? coachId}) =>
       Stream.value(
         DemoData.documents.where((d) => d.userId == userId).toList(),
       );
@@ -705,7 +706,7 @@ class FakePlanRepository implements PlanRepository {
       );
 
   @override
-  Stream<List<PlanEntity>> watchPlans(String userId) =>
+  Stream<List<PlanEntity>> watchPlans(String userId, {String? coachId}) =>
       Stream.value(DemoData.plans.where((p) => p.userId == userId).toList());
 
   @override

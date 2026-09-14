@@ -58,9 +58,11 @@ class FirestoreMealLogRepository implements MealLogRepository {
     String userId, {
     required String fromDate,
     required String toDate,
+    String? coachId,
   }) {
-    return _logs
-        .where('userId', isEqualTo: userId)
+    Query<Map<String, dynamic>> query = _logs.where('userId', isEqualTo: userId);
+    if (coachId != null) query = query.where('coachId', isEqualTo: coachId);
+    return query
         .where('date', isGreaterThanOrEqualTo: fromDate)
         .where('date', isLessThanOrEqualTo: toDate)
         .snapshots()

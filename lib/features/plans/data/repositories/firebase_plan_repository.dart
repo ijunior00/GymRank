@@ -65,9 +65,10 @@ class FirebasePlanRepository implements PlanRepository {
   }
 
   @override
-  Stream<List<PlanDocumentEntity>> watchDocuments(String userId) {
-    return _documents
-        .where('userId', isEqualTo: userId)
+  Stream<List<PlanDocumentEntity>> watchDocuments(String userId, {String? coachId}) {
+    Query<Map<String, dynamic>> query = _documents.where('userId', isEqualTo: userId);
+    if (coachId != null) query = query.where('coachId', isEqualTo: coachId);
+    return query
         .orderBy('createdAt', descending: true)
         .limit(50)
         .snapshots()
@@ -170,9 +171,10 @@ class FirebasePlanRepository implements PlanRepository {
   }
 
   @override
-  Stream<List<PlanEntity>> watchPlans(String userId) {
-    return _plans
-        .where('userId', isEqualTo: userId)
+  Stream<List<PlanEntity>> watchPlans(String userId, {String? coachId}) {
+    Query<Map<String, dynamic>> query = _plans.where('userId', isEqualTo: userId);
+    if (coachId != null) query = query.where('coachId', isEqualTo: coachId);
+    return query
         .orderBy('publishedAt', descending: true)
         .snapshots()
         .map((s) => s.docs.map(_planFromSnapshot).toList());

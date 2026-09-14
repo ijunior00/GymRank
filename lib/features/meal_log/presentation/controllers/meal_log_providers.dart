@@ -32,6 +32,7 @@ final mealLogsLastWeekProvider =
         userId,
         fromDate: MealLogEntity.dateKey(from),
         toDate: MealLogEntity.dateKey(now),
+        coachId: coachIdForReading(ref, userId),
       );
 });
 
