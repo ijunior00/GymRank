@@ -21,12 +21,15 @@ import 'package:gymrank/demo/demo_overrides.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_providers.dart';
 import 'package:gymrank/features/auth/presentation/screens/login_screen.dart';
 import 'package:gymrank/features/coach_panel/presentation/screens/client_detail_screen.dart';
+import 'package:gymrank/features/coach_panel/presentation/widgets/staff_only.dart';
 import 'package:gymrank/features/home/presentation/screens/home_dashboard_screen.dart';
 
 void main() {
   setUpAll(() async {
     await initializeDateFormatting(AppConstants.localeTag);
   });
+
+  _staffOnlyTests();
 
   testWidgets('sair da conta tira as telas empurradas da pilha',
       (tester) async {
@@ -76,6 +79,55 @@ void main() {
     expect(find.byType(LoginScreen), findsOneWidget);
   });
 
+  // O caso que o dono encontrou: ficha aberta pela conta da treinadora e,
+  // sem passar pelo logout, a sessão vira a de uma aluna — é o que o
+  // Firebase entrega quando a troca aconteceu em outra aba, ou quando o
+  // nulo intermediário não chega. Não havendo mudança de "logado /
+  // deslogado", nada empurrava a tela para fora, e a aluna ficava vendo
+  // um permission-denied cru.
+  testWidgets('trocar de conta com a ficha aberta tira a aluna de lá',
+      (tester) async {
+    final auth = StreamController<String?>();
+    addTearDown(auth.close);
+
+    final container = ProviderContainer(
+      overrides: [
+        ...demoOverrides(),
+        authStateProvider.overrideWith((ref) => auth.stream),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    await tester.pumpWidget(
+      UncontrolledProviderScope(
+        container: container,
+        child: const _TestApp(),
+      ),
+    );
+
+    auth.add(DemoData.uid); // treinadora
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 250));
+    }
+    unawaited(container.read(appRouterProvider).push('/coach/clients/u0'));
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 250));
+    }
+    expect(find.byType(ClientDetailScreen), findsOneWidget);
+
+    auth.add('u0'); // a sessão vira a da aluna, sem nulo no meio
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 250));
+    }
+
+    expect(
+      find.byType(ClientDetailScreen),
+      findsNothing,
+      reason: 'a ficha continuou aberta para a conta de aluna',
+    );
+    expect(find.byType(HomeDashboardScreen), findsOneWidget);
+  });
+
   testWidgets('conta de aluna não entra nas telas de coach', (tester) async {
     final auth = StreamController<String?>();
     addTearDown(auth.close);
@@ -115,6 +167,51 @@ void main() {
       reason: 'uma aluna abriu a ficha de outra aluna',
     );
     expect(find.byType(HomeDashboardScreen), findsOneWidget);
+  });
+}
+
+/// O porteiro sozinho, sem depender de como a tela chegou à pilha — é o
+/// que protege o caso em que o endereço continua `/home` porque a tela
+/// foi empurrada com `context.push`.
+void _staffOnlyTests() {
+  Future<void> pumpGate(WidgetTester tester, String uid) async {
+    final container = ProviderContainer(
+      overrides: [
+        ...demoOverrides(),
+        authStateProvider.overrideWith((ref) => Stream.value(uid)),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    await tester.pumpWidget(
+      UncontrolledProviderScope(
+        container: container,
+        child: MaterialApp(
+          theme: AppTheme.dark,
+          locale: appLocale,
+          supportedLocales: appSupportedLocales,
+          localizationsDelegates: appLocalizationsDelegates,
+          home: const StaffOnly(child: Text('painel da coach')),
+        ),
+      ),
+    );
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 250));
+    }
+  }
+
+  testWidgets('o porteiro deixa a treinadora passar', (tester) async {
+    await pumpGate(tester, DemoData.uid);
+    expect(find.text('painel da coach'), findsOneWidget);
+  });
+
+  testWidgets('o porteiro barra a aluna', (tester) async {
+    await pumpGate(tester, 'u0');
+    expect(
+      find.text('painel da coach'),
+      findsNothing,
+      reason: 'uma aluna viu o conteúdo de uma tela de coach',
+    );
   });
 }
 

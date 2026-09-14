@@ -14,6 +14,7 @@ import 'package:gymrank/features/gamification/presentation/screens/achievements_
 import 'package:gymrank/features/coach_panel/presentation/screens/client_detail_screen.dart';
 import 'package:gymrank/features/coach_panel/presentation/screens/coach_dashboard_screen.dart';
 import 'package:gymrank/features/coach_panel/presentation/screens/coach_setup_screen.dart';
+import 'package:gymrank/features/coach_panel/presentation/widgets/staff_only.dart';
 import 'package:gymrank/features/home/presentation/screens/app_shell_screen.dart';
 import 'package:gymrank/features/home/presentation/screens/home_dashboard_screen.dart';
 import 'package:gymrank/features/notifications/presentation/screens/notifications_screen.dart';
@@ -166,20 +167,23 @@ GoRouter appRouter(Ref ref) {
         path: '/coach',
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) =>
-            _fadeSlide(state, const CoachDashboardScreen()),
+            _fadeSlide(state, const StaffOnly(child: CoachDashboardScreen())),
         routes: [
           GoRoute(
             path: 'setup',
             parentNavigatorKey: _rootNavigatorKey,
             pageBuilder: (context, state) =>
-                _fadeSlide(state, const CoachSetupScreen()),
+                _fadeSlide(state, const StaffOnly(child: CoachSetupScreen())),
           ),
           GoRoute(
             path: 'clients/:userId',
             parentNavigatorKey: _rootNavigatorKey,
             pageBuilder: (context, state) => _fadeSlide(
               state,
-              ClientDetailScreen(userId: state.pathParameters['userId']!),
+              StaffOnly(
+                child:
+                    ClientDetailScreen(userId: state.pathParameters['userId']!),
+              ),
             ),
             routes: [
               // Captura manual de um plano para o aluno (?kind=dieta…).
@@ -188,11 +192,13 @@ GoRouter appRouter(Ref ref) {
                 parentNavigatorKey: _rootNavigatorKey,
                 pageBuilder: (context, state) => _fadeSlide(
                   state,
-                  PlanReviewScreen(
-                    userId: state.pathParameters['userId']!,
-                    kind: PlanKind.values.asNameMap()[
-                            state.uri.queryParameters['kind'] ?? ''] ??
-                        PlanKind.entrenamiento,
+                  StaffOnly(
+                    child: PlanReviewScreen(
+                      userId: state.pathParameters['userId']!,
+                      kind: PlanKind.values.asNameMap()[
+                              state.uri.queryParameters['kind'] ?? ''] ??
+                          PlanKind.entrenamiento,
+                    ),
                   ),
                 ),
               ),
@@ -204,7 +210,10 @@ GoRouter appRouter(Ref ref) {
             parentNavigatorKey: _rootNavigatorKey,
             pageBuilder: (context, state) => _fadeSlide(
               state,
-              PlanReviewScreen(documentId: state.pathParameters['docId']!),
+              StaffOnly(
+                child:
+                    PlanReviewScreen(documentId: state.pathParameters['docId']!),
+              ),
             ),
           ),
           // Editar e republicar um plano vigente.
@@ -213,7 +222,9 @@ GoRouter appRouter(Ref ref) {
             parentNavigatorKey: _rootNavigatorKey,
             pageBuilder: (context, state) => _fadeSlide(
               state,
-              PlanReviewScreen(planId: state.pathParameters['planId']!),
+              StaffOnly(
+                child: PlanReviewScreen(planId: state.pathParameters['planId']!),
+              ),
             ),
           ),
         ],
