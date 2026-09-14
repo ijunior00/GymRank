@@ -19,11 +19,19 @@ class StudentPlansCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final plans = ref.watch(studentPlansProvider(userId)).valueOrNull ?? [];
-    final documents = ref.watch(studentDocumentsProvider(userId)).valueOrNull ?? [];
+    final plansAsync = ref.watch(studentPlansProvider(userId));
+    final documentsAsync = ref.watch(studentDocumentsProvider(userId));
+    final plans = plansAsync.valueOrNull ?? [];
+    final documents = documentsAsync.valueOrNull ?? [];
     final pending = documents
         .where((d) => d.status != PlanDocumentStatus.publicado)
         .toList();
+
+    // Sem isto, uma leitura recusada (regra, índice faltando, rede) ficava
+    // igualzinha a "esta alumna ainda não tem nada": lista vazia, nenhum
+    // aviso. A treinadora sobe o arquivo, vê "Archivo subido" e depois não
+    // aparece nada — sem nenhuma pista do que houve.
+    final failure = plansAsync.error ?? documentsAsync.error;
 
     return Card(
       child: Padding(
@@ -41,7 +49,9 @@ class StudentPlansCard extends ConsumerWidget {
                 ),
               ],
             ),
-            if (plans.isEmpty && pending.isEmpty)
+            if (failure != null)
+              _LoadFailed(error: failure)
+            else if (plans.isEmpty && pending.isEmpty)
               const Padding(
                 padding: EdgeInsets.only(top: 4),
                 child: Text(
@@ -63,6 +73,46 @@ class StudentPlansCard extends ConsumerWidget {
             ],
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// Diz que a leitura falhou e mostra o motivo técnico em letra miúda —
+/// é o que a treinadora copia e manda para quem cuida do app.
+class _LoadFailed extends StatelessWidget {
+  const _LoadFailed({required this.error});
+
+  final Object error;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 6),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Icon(Icons.cloud_off, size: 18, color: AppColors.danger),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'No pudimos cargar los planes de esta alumna.',
+                  style: AppTextStyles.body,
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  '$error',
+                  style: AppTextStyles.caption,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
