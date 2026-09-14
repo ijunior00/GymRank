@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -117,12 +118,20 @@ class FirebasePlanRepository implements PlanRepository {
           .where('kind', isEqualTo: kind.name)
           .limit(1)
           .get();
-      final planRef =
-          existing.docs.isEmpty ? _plans.doc() : existing.docs.first.reference;
+      final isNew = existing.docs.isEmpty;
+      final planRef = isNew ? _plans.doc() : existing.docs.first.reference;
 
       final published = await _firestore.runTransaction((tx) async {
-        final snap = await tx.get(planRef);
-        final version = ((snap.data()?['currentVersion'] as int?) ?? 0) + 1;
+        // Só lê o plano quando ele já existe. Ler um documento inexistente
+        // faz a regra de leitura avaliar `resource.data` de um `resource`
+        // nulo — e isso é acesso negado, não "documento vazio". No web,
+        // uma transação negada assim pode nunca responder: era o
+        // "Publicando…" eterno.
+        var version = 1;
+        if (!isNew) {
+          final snap = await tx.get(planRef);
+          version = ((snap.data()?['currentVersion'] as int?) ?? 0) + 1;
+        }
         final now = Timestamp.now();
         final versionData = {
           'number': version,
@@ -144,7 +153,7 @@ class FirebasePlanRepository implements PlanRepository {
           'sourceDocumentId': sourceDocumentId,
           'publishedAt': now,
           'publishedBy': publishedBy,
-          if (!snap.exists) 'createdAt': now,
+          if (isNew) 'createdAt': now,
         });
         tx.set(planRef.collection('versions').doc('$version'), versionData);
         if (sourceDocumentId != null) {
@@ -167,12 +176,18 @@ class FirebasePlanRepository implements PlanRepository {
           publishedAt: now.toDate(),
           publishedBy: publishedBy,
         );
-      });
+      }).timeout(_publishTimeout);
       return Result.success(published);
     } on FirebaseException catch (e) {
       return Result.failure(_mapException(e));
+    } on TimeoutException {
+      // Melhor um "não deu" honesto do que um botão girando para sempre.
+      return const Result.failure(Failure.network());
     }
   }
+
+  /// Publicar são três escritas pequenas; passou disso, algo travou.
+  static const _publishTimeout = Duration(seconds: 30);
 
   @override
   Stream<List<PlanEntity>> watchPlans(String userId, {String? coachId}) {

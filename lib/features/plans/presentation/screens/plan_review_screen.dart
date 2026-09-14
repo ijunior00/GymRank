@@ -284,7 +284,7 @@ class _PlanReviewScreenState extends ConsumerState<PlanReviewScreen> {
         context.pop();
       },
       failure: (f) => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('No se pudo publicar: $f')),
+        SnackBar(content: Text('No se pudo publicar. ${f.labelEs}')),
       ),
     );
   }

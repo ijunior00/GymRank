@@ -1,4 +1,5 @@
 import 'package:gymrank/core/constants/app_constants.dart';
+import 'package:gymrank/core/error/failure.dart';
 import 'package:gymrank/features/challenges/domain/entities/challenge_entity.dart';
 import 'package:gymrank/features/championships/domain/entities/championship_entity.dart';
 import 'package:gymrank/features/coach_panel/domain/entities/client_entity.dart';
@@ -180,3 +181,21 @@ String rewardSourceLabelEs(String sourceType) => switch (sourceType) {
       'season' => 'temporada',
       _ => sourceType,
     };
+
+/// O que a pessoa lê quando uma ação falha. Sem isto o SnackBar mostrava o
+/// `toString()` do Freezed — `Failure.permissionDenied()` — que não diz
+/// nada para quem não programa.
+extension FailureLabelEs on Failure {
+  String get labelEs => switch (this) {
+        NetworkFailure() =>
+          'Sin conexión con el servidor. Revisa tu internet e intenta de nuevo.',
+        UnauthenticatedFailure() =>
+          'Tu sesión expiró. Cierra sesión y vuelve a entrar.',
+        PermissionDeniedFailure() =>
+          'Tu cuenta no tiene permiso para hacer esto.',
+        NotFoundFailure() => 'Ya no encontramos lo que buscabas.',
+        ValidationFailure(:final message) => message,
+        ConflictFailure(:final message) => message,
+        UnexpectedFailure(:final message) => 'Algo salió mal: $message',
+      };
+}
