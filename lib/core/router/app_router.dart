@@ -37,6 +37,7 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 @riverpod
 GoRouter appRouter(Ref ref) {
   final authState = ref.watch(authStateProvider);
+  final currentUser = ref.watch(currentUserProvider);
 
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
@@ -50,6 +51,18 @@ GoRouter appRouter(Ref ref) {
       if (authState.isLoading) return null;
       if (!isLoggedIn && !isAuthRoute) return '/login';
       if (isLoggedIn && isAuthRoute) return '/home';
+
+      // As telas de `/coach` leem dados que as regras do Firestore só
+      // liberam para a treinadora. Sem esta guarda, uma aluna que chegue
+      // lá — por um link de notificação, pelo endereço digitado, ou
+      // porque o papel dela mudou com a tela aberta — vê um
+      // `permission-denied` cru no lugar da tela. A regra está certa; o
+      // que não pode é a navegação levar até ali.
+      if (state.matchedLocation.startsWith('/coach')) {
+        final user = currentUser.valueOrNull;
+        if (user == null) return null; // ainda carregando: não decide agora
+        if (!user.isStaff) return '/home';
+      }
       return null;
     },
     routes: [
