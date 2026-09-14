@@ -315,3 +315,10 @@ errado.)
 
 Perder o `.jks` ou o `.p8` dá trabalho de verdade: o `.jks` significa não
 conseguir mais atualizar o app na Play Store. Guarde fora do computador.
+
+## 11. Próximo passo: o link para o celular
+
+Com o Firebase ligado, o app já pode ser publicado como site e aberto
+pelo celular sem loja nenhuma: `firebase deploy --only hosting`. O passo
+a passo, o que fazer com a chave de push e como trocar o endereço estão
+em `docs/setup-web-pwa.md`, na seção *Publicar o app de verdade*.

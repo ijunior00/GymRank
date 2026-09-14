@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gymrank/core/l10n/labels_es.dart';
 import 'package:gymrank/core/error/result.dart';
 import 'package:gymrank/core/theme/app_colors.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
@@ -124,7 +125,7 @@ class _PostCard extends ConsumerWidget {
                           final failure = result.failureOrNull;
                           if (failure != null && context.mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('No se pudo: $failure')),
+                              SnackBar(content: Text('No se pudo: ${failure.labelEs}')),
                             );
                           }
                         },
@@ -214,7 +215,7 @@ class _CommentsSheetState extends ConsumerState<_CommentsSheet> {
     final failure = result.failureOrNull;
     setState(() {
       _sending = false;
-      _error = failure == null ? null : 'No se pudo comentar: $failure';
+      _error = failure == null ? null : 'No se pudo comentar: ${failure.labelEs}';
     });
     if (failure == null) _controller.clear();
   }

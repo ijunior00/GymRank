@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:gymrank/core/l10n/labels_es.dart';
 import 'package:gymrank/core/theme/app_colors.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
 import 'package:gymrank/features/checkin/presentation/controllers/checkin_providers.dart';
@@ -37,7 +38,7 @@ class _CheckInScreenState extends ConsumerState<CheckInScreen> {
       },
       failure: (failure) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(failure.toString())),
+          SnackBar(content: Text(failure.labelEs)),
         );
         setState(() => _processing = false);
       },

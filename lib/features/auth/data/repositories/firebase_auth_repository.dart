@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart' as fb;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:gymrank/core/constants/app_constants.dart';
@@ -31,6 +32,16 @@ class FirebaseAuthRepository implements AuthRepository {
   @override
   Future<Result<String>> signInWithGoogle() async {
     try {
+      if (kIsWeb) {
+        // No navegador o plugin google_sign_in exige um "client ID" próprio
+        // no index.html e, sem ele, lança antes de abrir qualquer janela.
+        // O Firebase Auth já sabe falar com o Google sozinho no web: abre
+        // a janelinha de escolher conta e devolve o usuário logado.
+        final provider = fb.GoogleAuthProvider()
+          ..setCustomParameters({'prompt': 'select_account'});
+        final result = await _auth.signInWithPopup(provider);
+        return Result.success(result.user!.uid);
+      }
       final googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) {
         return const Result.failure(
@@ -196,20 +207,42 @@ class FirebaseAuthRepository implements AuthRepository {
 
   @override
   Future<void> signOut() async {
-    try {
-      await GoogleSignIn().signOut();
-    } catch (_) {
-      // Usuário pode não ter autenticado via Google; ignora e prossegue.
+    // No web o login com Google passa pelo Firebase Auth (ver
+    // signInWithGoogle); o plugin nem foi inicializado, não há o que sair.
+    if (!kIsWeb) {
+      try {
+        await GoogleSignIn().signOut();
+      } catch (_) {
+        // Usuário pode não ter autenticado via Google; ignora e prossegue.
+      }
     }
     await _auth.signOut();
   }
 
+  /// Cada código que a pessoa pode provocar vira uma frase que ela consiga
+  /// agir em cima. O que sobra cai em `unexpected` com o texto do Firebase.
   Failure _mapException(fb.FirebaseAuthException e) {
     return switch (e.code) {
       'user-not-found' || 'wrong-password' || 'invalid-credential' =>
         const Failure.validation('Correo o contraseña incorrectos'),
+      'invalid-email' => const Failure.validation('Escribe un correo válido.'),
+      'weak-password' => const Failure.validation(
+          'La contraseña debe tener al menos 6 caracteres.'),
+      'user-disabled' =>
+        const Failure.validation('Esta cuenta está deshabilitada.'),
+      'too-many-requests' => const Failure.validation(
+          'Demasiados intentos. Espera unos minutos e intenta de nuevo.'),
       'email-already-in-use' =>
         const Failure.conflict('Ese correo ya tiene una cuenta'),
+      'account-exists-with-different-credential' => const Failure.conflict(
+          'Ese correo ya tiene cuenta con otro método. Entra con correo y contraseña.'),
+      // Janela do Google no navegador.
+      'popup-closed-by-user' || 'cancelled-popup-request' || 'user-cancelled' =>
+        const Failure.validation('Inicio de sesión cancelado'),
+      'popup-blocked' => const Failure.validation(
+          'El navegador bloqueó la ventana de Google. Permite ventanas emergentes e intenta de nuevo.'),
+      'operation-not-allowed' => const Failure.validation(
+          'Este método de acceso todavía no está habilitado.'),
       'network-request-failed' => const Failure.network(),
       _ => Failure.unexpected(e.message ?? e.code),
     };

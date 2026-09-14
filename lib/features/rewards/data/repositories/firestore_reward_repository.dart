@@ -34,12 +34,15 @@ class FirestoreRewardRepository implements RewardRepository {
     return _firestore.collection('rewards').doc(rewardId).snapshots().map((doc) {
       final data = doc.data();
       if (data == null) return null;
+      // Prêmios são cadastrados à mão no console: campo faltando não pode
+      // virar tela quebrada.
       return RewardEntity(
         id: doc.id,
-        coachId: data['coachId'] as String,
-        name: data['name'] as String,
+        coachId: data['coachId'] as String? ?? '',
+        name: data['name'] as String? ?? '',
         imageUrl: data['imageUrl'] as String?,
-        type: RewardType.values.byName(data['type'] as String),
+        type: RewardType.values.asNameMap()[data['type'] as String? ?? ''] ??
+            RewardType.acessorio,
         stock: data['stock'] as int? ?? 0,
       );
     });

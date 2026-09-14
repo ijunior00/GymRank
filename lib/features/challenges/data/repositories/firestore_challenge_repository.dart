@@ -15,12 +15,26 @@ class FirestoreChallengeRepository implements ChallengeRepository {
 
   @override
   Stream<List<ChallengeEntity>> watchActive({String? coachId}) {
-    Query<Map<String, dynamic>> query =
-        _collection.where('isActive', isEqualTo: true);
-    if (coachId != null) {
-      query = query.where('coachId', whereIn: [coachId, null]);
-    }
-    return query.snapshots().map((s) => s.docs.map(_fromSnapshot).toList());
+    // Isto era um `whereIn: [coachId, null]`, que o SDK rejeita na hora
+    // ("'in' filters cannot contain 'null'") e derrubava a aba Retos
+    // inteira. Dava para pedir ao servidor "coachId == X OU coachId nulo",
+    // mas o Firestore não considera nulo um campo que simplesmente não
+    // existe — e os retos globais são criados à mão no console, onde é
+    // fácil esquecer o campo. Ler os ativos e separar aqui é o que
+    // funciona nos dois casos; são poucos documentos.
+    return _collection
+        .where('isActive', isEqualTo: true)
+        .snapshots()
+        .map((s) => s.docs
+            .map(_fromSnapshot)
+            .where((c) => isVisibleTo(c, coachId: coachId))
+            .toList());
+  }
+
+  /// Um reto aparece para a aluna se for da comunidade dela ou global.
+  /// Sem comunidade (aluna ainda sem treinadora), só os globais.
+  static bool isVisibleTo(ChallengeEntity challenge, {required String? coachId}) {
+    return challenge.coachId == null || challenge.coachId == coachId;
   }
 
   @override
@@ -67,24 +81,34 @@ class FirestoreChallengeRepository implements ChallengeRepository {
     });
   }
 
-  ChallengeEntity _fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc) {
+  /// Tolerante a campo faltando: os retos são criados à mão no console e
+  /// um único documento incompleto não pode derrubar a aba inteira.
+  static ChallengeEntity _fromSnapshot(
+    DocumentSnapshot<Map<String, dynamic>> doc,
+  ) {
     final data = doc.data()!;
+    final now = DateTime.now();
     return ChallengeEntity(
       id: doc.id,
       coachId: data['coachId'] as String?,
-      title: data['title'] as String,
-      description: data['description'] as String,
-      scope: ChallengeScope.values.byName(data['scope'] as String),
-      period: ChallengePeriod.values.byName(data['period'] as String),
-      metric: ChallengeMetric.values.byName(data['metric'] as String),
-      targetValue: (data['targetValue'] as num).toDouble(),
-      startsAt: (data['startsAt'] as Timestamp).toDate(),
-      endsAt: (data['endsAt'] as Timestamp).toDate(),
-      xpReward: data['xpReward'] as int,
+      title: data['title'] as String? ?? '',
+      description: data['description'] as String? ?? '',
+      scope: ChallengeScope.values.asNameMap()[data['scope'] as String? ?? ''] ??
+          ChallengeScope.comunidad,
+      period:
+          ChallengePeriod.values.asNameMap()[data['period'] as String? ?? ''] ??
+              ChallengePeriod.semanal,
+      metric:
+          ChallengeMetric.values.asNameMap()[data['metric'] as String? ?? ''] ??
+              ChallengeMetric.diasTreinados,
+      targetValue: (data['targetValue'] as num?)?.toDouble() ?? 0,
+      startsAt: (data['startsAt'] as Timestamp?)?.toDate() ?? now,
+      endsAt: (data['endsAt'] as Timestamp?)?.toDate() ?? now,
+      xpReward: (data['xpReward'] as num?)?.toInt() ?? 0,
       rewardId: data['rewardId'] as String?,
-      participantCount: data['participantCount'] as int? ?? 0,
-      isActive: data['isActive'] as bool,
-      createdAt: (data['createdAt'] as Timestamp).toDate(),
+      participantCount: (data['participantCount'] as num?)?.toInt() ?? 0,
+      isActive: data['isActive'] as bool? ?? false,
+      createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? now,
     );
   }
 }

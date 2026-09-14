@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gymrank/core/l10n/labels_es.dart';
 import 'package:gymrank/core/error/result.dart';
 import 'package:gymrank/core/theme/app_colors.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
@@ -158,7 +159,7 @@ class _WorkoutSessionScreenState extends ConsumerState<WorkoutSessionScreen> {
     final failure = result.failureOrNull;
     if (failure != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('No se pudo terminar: $failure')),
+        SnackBar(content: Text('No se pudo terminar: ${failure.labelEs}')),
       );
       return;
     }

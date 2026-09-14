@@ -5,13 +5,13 @@
 //
 // COMO ATIVAR (uma vez, depois do `flutterfire configure`):
 //
-//   1. Abra o lib/firebase_options.dart gerado e copie o bloco
-//      `static const FirebaseOptions web = ...`.
-//   2. Preencha FIREBASE_CONFIG abaixo com esses mesmos valores.
-//   3. No console do Firebase → Configurações do projeto → Cloud
+//   1. Rode `dart run scripts/preencher_sw.dart`: ele copia o bloco
+//      `static const FirebaseOptions web` do lib/firebase_options.dart
+//      para o FIREBASE_CONFIG abaixo. (O `firebase deploy --only hosting`
+//      já faz isso sozinho antes de buildar.)
+//   2. No console do Firebase → Configurações do projeto → Cloud
 //      Messaging → "Certificados push da Web" → gere o par de chaves e
-//      passe a chave pública no build:
-//        flutter build web --release --dart-define=FCM_VAPID_KEY=<chave>
+//      cole a chave pública em dart_defines.json (FCM_VAPID_KEY).
 //
 // Estes valores NÃO são segredo: a config web do Firebase é pública por
 // natureza (quem protege os dados são as regras do Firestore/Storage).

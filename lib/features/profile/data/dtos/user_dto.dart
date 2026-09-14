@@ -10,20 +10,27 @@ class UserDto {
 
   final UserEntity entity;
 
+  /// Tolerante a campo faltando: um perfil criado no console, ou anterior
+  /// a um campo novo, não pode derrubar a lista inteira de alunas da
+  /// treinadora — o painel mapeia todas de uma vez, e uma exceção aqui
+  /// apaga a tela toda, não só uma linha.
   static UserEntity fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc) {
     final data = doc.data()!;
     return UserEntity(
       id: doc.id,
-      name: data['name'] as String,
-      username: data['username'] as String,
+      name: data['name'] as String? ?? '',
+      username: data['username'] as String? ?? '',
       photoUrl: data['photoUrl'] as String?,
-      birthDate: (data['birthDate'] as Timestamp).toDate(),
-      sex: data['sex'] as String,
-      heightCm: (data['heightCm'] as num).toDouble(),
-      city: data['city'] as String,
+      birthDate: (data['birthDate'] as Timestamp?)?.toDate() ?? DateTime(2000),
+      sex: data['sex'] as String? ?? '',
+      heightCm: (data['heightCm'] as num?)?.toDouble() ?? 0,
+      city: data['city'] as String? ?? '',
       coachId: data['coachId'] as String?,
-      goal: UserGoal.values.byName(data['goal'] as String),
-      role: UserRole.values.byName(data['role'] as String),
+      goal: UserGoal.values.asNameMap()[data['goal'] as String? ?? ''] ??
+          UserGoal.saude,
+      // Papel desconhecido vira aluna: é o menor privilégio possível.
+      role: UserRole.values.asNameMap()[data['role'] as String? ?? ''] ??
+          UserRole.alumno,
       level: data['level'] as int? ?? 1,
       xpTotal: data['xpTotal'] as int? ?? 0,
       xpCurrentSeason: data['xpCurrentSeason'] as int? ?? 0,
@@ -31,12 +38,11 @@ class UserDto {
       currentStreakDays: data['currentStreakDays'] as int? ?? 0,
       longestStreakDays: data['longestStreakDays'] as int? ?? 0,
       lastCheckInAt: (data['lastCheckInAt'] as Timestamp?)?.toDate(),
-      plan: SubscriptionPlan.values.byName(
-        data['plan'] as String? ?? 'free',
-      ),
+      plan: SubscriptionPlan.values.asNameMap()[data['plan'] as String? ?? ''] ??
+          SubscriptionPlan.free,
       referredBy: data['referredBy'] as String?,
       referralCount: data['referralCount'] as int? ?? 0,
-      createdAt: (data['createdAt'] as Timestamp).toDate(),
+      createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
     );
   }
 

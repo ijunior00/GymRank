@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gymrank/core/l10n/labels_es.dart';
 import 'package:gymrank/core/error/result.dart';
 import 'package:gymrank/core/theme/app_colors.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
@@ -246,7 +247,7 @@ class _AddMeasurementSheetState extends ConsumerState<_AddMeasurementSheet> {
     setState(() => _saving = false);
     final failure = result.failureOrNull;
     if (failure != null) {
-      setState(() => _error = 'No se pudo guardar: $failure');
+      setState(() => _error = 'No se pudo guardar: ${failure.labelEs}');
       return;
     }
     final messenger = ScaffoldMessenger.of(context);

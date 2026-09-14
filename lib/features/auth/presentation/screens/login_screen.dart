@@ -1,7 +1,11 @@
+import 'package:flutter/foundation.dart'
+    show defaultTargetPlatform, kIsWeb, TargetPlatform;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gymrank/core/error/failure.dart';
 import 'package:gymrank/core/error/result.dart';
+import 'package:gymrank/core/l10n/labels_es.dart';
 import 'package:gymrank/core/theme/app_colors.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
 import 'package:gymrank/features/auth/presentation/controllers/auth_controller.dart';
@@ -30,10 +34,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final state = ref.read(authControllerProvider);
     state.whenOrNull(
       error: (failure, _) => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(failure.toString())),
+        SnackBar(
+          content: Text(
+            failure is Failure ? failure.labelEs : failure.toString(),
+          ),
+        ),
       ),
     );
   }
+
+  /// Sign in with Apple só existe de verdade no iPhone/iPad/Mac. No
+  /// navegador e no Android ele precisaria de um cadastro à parte na
+  /// Apple que ainda não existe — o botão só levaria a um erro.
+  bool get _showApple =>
+      !kIsWeb &&
+      (defaultTargetPlatform == TargetPlatform.iOS ||
+          defaultTargetPlatform == TargetPlatform.macOS);
 
   /// Pede o e-mail (já preenchido com o que estiver no campo de login) e
   /// dispara o e-mail de redefinição. A resposta é a mesma exista ou não
@@ -86,7 +102,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           failure == null
               ? 'Si $email tiene cuenta, te llegará un correo para '
                   'restablecer la contraseña.'
-              : 'No se pudo enviar: $failure',
+              : 'No se pudo enviar: ${failure.labelEs}',
         ),
       ),
     );
@@ -200,19 +216,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       icon: const Icon(Icons.g_mobiledata),
                       label: const Text('Google'),
                     ),
-                    const SizedBox(height: 8),
-                    OutlinedButton.icon(
-                      onPressed: isLoading
-                          ? null
-                          : () async {
-                              await ref
-                                  .read(authControllerProvider.notifier)
-                                  .signInWithApple();
-                              await _handleResult();
-                            },
-                      icon: const Icon(Icons.apple),
-                      label: const Text('Apple'),
-                    ),
+                    if (_showApple) ...[
+                      const SizedBox(height: 8),
+                      OutlinedButton.icon(
+                        onPressed: isLoading
+                            ? null
+                            : () async {
+                                await ref
+                                    .read(authControllerProvider.notifier)
+                                    .signInWithApple();
+                                await _handleResult();
+                              },
+                        icon: const Icon(Icons.apple),
+                        label: const Text('Apple'),
+                      ),
+                    ],
                     const Spacer(),
                     TextButton(
                       onPressed: () => context.push('/signup'),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gymrank/core/constants/app_constants.dart';
 import 'package:gymrank/core/error/result.dart';
 import 'package:gymrank/core/l10n/labels_es.dart';
 import 'package:gymrank/core/theme/app_colors.dart';
@@ -24,6 +25,12 @@ class ClientDetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(studentUserProvider(userId));
     final client = ref.watch(clientDetailProvider(userId)).valueOrNull;
+    // As notas são privadas da treinadora: a regra do Firestore só deixa
+    // coach e admin lerem. A nutrióloga também abre esta ficha, e para
+    // ela o cartão só mostraria "sin permiso" — melhor nem mostrar.
+    final me = ref.watch(currentUserProvider).valueOrNull;
+    final canSeeNotes =
+        me != null && (me.isCoach || me.role == UserRole.adminGlobal);
 
     return Scaffold(
       appBar: AppBar(title: Text(user.valueOrNull?.name ?? 'Alumno')),
@@ -61,8 +68,10 @@ class ClientDetailScreen extends ConsumerWidget {
               _WorkoutsCard(userId: userId),
               const SizedBox(height: 16),
               StudentPlansCard(userId: userId),
-              const SizedBox(height: 16),
-              _NotesCard(userId: userId),
+              if (canSeeNotes) ...[
+                const SizedBox(height: 16),
+                _NotesCard(userId: userId),
+              ],
             ],
           );
         },
@@ -82,7 +91,7 @@ class ClientDetailScreen extends ConsumerWidget {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          failure == null ? 'Cambios guardados.' : 'No se pudo guardar: $failure',
+          failure == null ? 'Cambios guardados.' : 'No se pudo guardar: ${failure.labelEs}',
         ),
       ),
     );
@@ -506,7 +515,7 @@ class _NotesCardState extends ConsumerState<_NotesCard> {
       _controller.clear();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('No se pudo guardar la nota: $failure')),
+        SnackBar(content: Text('No se pudo guardar la nota: ${failure.labelEs}')),
       );
     }
   }

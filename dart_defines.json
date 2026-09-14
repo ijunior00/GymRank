@@ -1,0 +1,5 @@
+{
+  "_comentario": "Valores que entram no app na hora do build (flutter build ... --dart-define-from-file=dart_defines.json). Nenhum deles é segredo.",
+  "_FCM_VAPID_KEY": "Chave PÚBLICA dos 'Certificados push da Web' (console do Firebase → Configurações do projeto → Cloud Messaging). Vazia = o app web funciona normal, só sem notificações push no navegador.",
+  "FCM_VAPID_KEY": ""
+}

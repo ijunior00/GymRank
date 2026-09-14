@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gymrank/core/l10n/labels_es.dart';
 import 'package:gymrank/core/constants/app_constants.dart';
 import 'package:gymrank/core/error/result.dart';
 import 'package:gymrank/core/theme/app_colors.dart';
@@ -102,7 +103,7 @@ class _CoachSetupScreenState extends ConsumerState<CoachSetupScreen> {
     final failure = result.failureOrNull;
     if (failure != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('No se pudo crear tu perfil: $failure')),
+        SnackBar(content: Text('No se pudo crear tu perfil: ${failure.labelEs}')),
       );
       return;
     }

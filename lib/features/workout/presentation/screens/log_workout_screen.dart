@@ -45,7 +45,7 @@ class _LogWorkoutScreenState extends ConsumerState<LogWorkoutScreen> {
     final failure = result.failureOrNull;
     if (failure != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('No se pudo guardar: $failure')),
+        SnackBar(content: Text('No se pudo guardar: ${failure.labelEs}')),
       );
       return;
     }

@@ -41,25 +41,28 @@ flag ele sai da mesma origem. Já está no `render_build.sh`.
 
 Três coisas, nesta ordem:
 
-1. **Preencher `web/firebase-messaging-sw.js`.** Copie os valores do
-   bloco `static const FirebaseOptions web` do `lib/firebase_options.dart`
-   que o `flutterfire configure` gerou. Enquanto estiver com
-   `PENDIENTE`, o service worker não inicializa nada e o app funciona
-   normalmente, só sem push no navegador. (Esses valores não são
-   segredo: a config web do Firebase é pública por natureza — quem
-   protege os dados são as regras do Firestore.)
+1. **Preencher `web/firebase-messaging-sw.js`.** No Terminal, na pasta
+   do projeto:
+   ```bash
+   dart run scripts/preencher_sw.dart
+   ```
+   Ele copia o bloco `static const FirebaseOptions web` do
+   `lib/firebase_options.dart` (gerado pelo `flutterfire configure`)
+   para dentro do service worker. O `firebase deploy --only hosting`
+   também roda isso sozinho. Enquanto estiver com `PENDIENTE`, o
+   service worker não inicializa nada e o app funciona normalmente, só
+   sem push no navegador. (Esses valores não são segredo: a config web
+   do Firebase é pública por natureza — quem protege os dados são as
+   regras do Firestore.)
 
 2. **Gerar a chave VAPID.** Console do Firebase → Configurações do
    projeto → Cloud Messaging → *Certificados push da Web* → gerar par de
-   chaves.
+   chaves. Copie a chave (um texto longo começando com `B`).
 
-3. **Passar a chave no build:**
-   ```bash
-   flutter build web --release --no-web-resources-cdn \
-     --dart-define=FCM_VAPID_KEY=<a-chave-publica> \
-     -t lib/main.dart
-   ```
-   Sem ela, `PushRegistration` sai fora sem tentar nada — no navegador
+3. **Colar a chave em `dart_defines.json`** (na raiz do projeto), no
+   campo `FCM_VAPID_KEY`. O build a lê com
+   `--dart-define-from-file=dart_defines.json`. Sem ela,
+   `PushRegistration` sai fora sem tentar nada — no navegador
    `getToken()` lança sem a chave VAPID. O app roda igual, só sem push.
 
 ### 3. HTTPS
@@ -119,19 +122,61 @@ aí é melhor decidir de propósito.
 
 ---
 
-## Deploy
+## Publicar o app de verdade (Firebase Hosting)
 
-O `render.yaml` hoje publica o **preview com dados falsos**
+O `render.yaml` publica o **preview com dados falsos**
 (`lib/main_demo.dart`) — serve para validar interface, não é o app.
 
-Para publicar o app de verdade, troque o entrypoint no
-`scripts/render_build.sh` para `lib/main.dart` e acrescente o
-`--dart-define` da chave VAPID. Isso só funciona depois do
-`flutterfire configure` (ver `docs/setup-firebase.md`): sem
-`lib/firebase_options.dart` o build falha.
+O app real vai para o **Firebase Hosting**, dentro do mesmo projeto do
+Firestore. Vantagens para quem está começando: HTTPS pronto, o endereço
+`https://gymrank-e1c0d.web.app` já vem autorizado para o login com
+Google, e é a mesma ferramenta (`firebase`) que já publica regras e
+functions. Só funciona depois do `flutterfire configure` (ver
+`docs/setup-firebase.md`): sem `lib/firebase_options.dart` o build falha.
 
-Vale manter os dois: o preview para mexer na interface sem risco, e o app
-real em outro endereço.
+Tudo o que o deploy precisa está no `firebase.json` → `hosting`:
+
+| chave | o que faz |
+|---|---|
+| `predeploy` | roda `dart run scripts/preencher_sw.dart` e depois o `flutter build web` do `lib/main.dart` (com `--no-web-resources-cdn` e `--dart-define-from-file=dart_defines.json`). Assim nunca sobe um `build/web` velho. |
+| `public: build/web` | a pasta que sobe |
+| `rewrites` | toda rota cai no `index.html`; o roteador do Flutter resolve |
+| `headers` | `index.html`, `main.dart.js`, os service workers e o `manifest.json` vão como `no-cache`: quem já abriu o app recebe a versão nova no próximo carregamento, em vez de ficar semanas na antiga |
+
+### Passo a passo
+
+1. (Opcional, só para push) cole a chave VAPID em `dart_defines.json`,
+   como descrito acima. Vazio também funciona.
+2. No Terminal, na pasta do projeto:
+   ```bash
+   firebase deploy --only hosting
+   ```
+   Demora uns minutos: primeiro o build do Flutter, depois o envio. No
+   fim aparece `Hosting URL: https://gymrank-e1c0d.web.app`.
+3. Abra esse endereço no celular. Para atualizar o app depois de
+   qualquer mudança, é só repetir o passo 2.
+
+Se aparecer `Error: Hosting site or target ... not detected`, o projeto
+ainda não tem Hosting ativado: console do Firebase → Build → Hosting →
+*Começar*, aceite os passos sem instalar nada, e repita o deploy.
+
+### Endereço mais bonito
+
+`gymrank-e1c0d.web.app` funciona, mas não é o nome que vai na bio do
+Instagram. Duas opções, sem mexer no código:
+
+- **Outro subdomínio do Firebase:**
+  `firebase hosting:sites:create anahifitness` cria
+  `https://anahifitness.web.app` (se o nome estiver livre; senão, tente
+  outro). Depois acrescente `"site": "anahifitness"` dentro de `hosting`
+  no `firebase.json` e faça o deploy de novo.
+- **Domínio próprio** (`app.anahifitness.com`): console do Firebase →
+  Hosting → *Adicionar domínio personalizado* e siga as instruções de
+  DNS. Depois, em Authentication → Settings → *Domínios autorizados*,
+  adicione o mesmo domínio, senão o login com Google recusa.
+
+Vale manter os dois: o preview no Render para mexer na interface sem
+risco, e o app real no Hosting.
 
 ## Como testar se ficou de pé
 

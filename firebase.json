@@ -6,6 +6,21 @@
   "storage": {
     "rules": "storage.rules"
   },
+  "hosting": {
+    "public": "build/web",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "predeploy": [
+      "dart run scripts/preencher_sw.dart",
+      "flutter build web --release --no-web-resources-cdn -t lib/main.dart --dart-define-from-file=dart_defines.json"
+    ],
+    "rewrites": [{ "source": "**", "destination": "/index.html" }],
+    "headers": [
+      {
+        "source": "/@(index.html|flutter_bootstrap.js|flutter_service_worker.js|firebase-messaging-sw.js|main.dart.js|version.json|manifest.json)",
+        "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+      }
+    ]
+  },
   "functions": [
     {
       "source": "functions",

@@ -72,7 +72,7 @@ class _ChallengeCardState extends ConsumerState<_ChallengeCard> {
           failure == null
               ? '¡Estás dentro! Tu progreso se actualiza solo con cada '
                   'entrenamiento.'
-              : 'No se pudo entrar: $failure',
+              : 'No se pudo entrar: ${failure.labelEs}',
         ),
       ),
     );

@@ -111,7 +111,7 @@ class FriendsScreen extends ConsumerWidget {
               ? 'Solicitud enviada a @$username.'
               : failure is NotFoundFailure
                   ? 'No encontramos a @$username. Revisa el usuario.'
-                  : 'No se pudo enviar: $failure',
+                  : 'No se pudo enviar: ${failure.labelEs}',
         ),
       ),
     );
@@ -135,7 +135,7 @@ class _FriendshipTile extends ConsumerWidget {
       SnackBar(
         content: Text(
           failure != null
-              ? 'No se pudo: $failure'
+              ? 'No se pudo: ${failure.labelEs}'
               : accept
                   ? '¡Ahora son amigos!'
                   : 'Solicitud rechazada.',
