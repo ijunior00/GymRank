@@ -175,6 +175,18 @@ firebase deploy --only functions
 O primeiro `deploy --only functions` demora (5–10 min) e pede para
 ativar algumas APIs do Google Cloud — aceite.
 
+> **No primeiro deploy, as 8 functions de gatilho do Firestore falham.**
+> As 5 que não dependem de Eventarc (as 4 agendadas e a `validateCheckIn`)
+> sobem; as outras dão `Failed to create function X in region
+> us-central1`. É propagação de permissão: o Eventarc e sua conta de
+> serviço acabaram de ser criados nesse mesmo deploy. **Espere ~5 min e
+> rode o mesmo comando de novo** — passa sem mudar nada.
+>
+> O CLI também pergunta por quanto tempo guardar as imagens de container
+> (política de limpeza do Artifact Registry). Aceite o padrão: são só o
+> material de build, não as functions no ar, e sem limpeza elas se
+> acumulam cobrando uns centavos por mês.
+
 As 13 functions vão todas para `us-central1`, fixado em
 `functions/src/constants.ts`. **Se algum dia mudar de região, mude também
 `AppConstants.functionsRegion`** em `lib/core/constants/app_constants.dart`:
