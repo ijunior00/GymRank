@@ -52,7 +52,7 @@ No console do Firebase, ainda é preciso ligar à mão:
 Depois:
 
 ```bash
-firebase deploy --only firestore:rules,firestore:indexes,storage:rules,functions
+firebase deploy --only firestore:rules,firestore:indexes,storage,functions
 ```
 
 ## 3. Android

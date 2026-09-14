@@ -260,7 +260,7 @@ Esse é o sinal de que o app está ligado ao Firebase.
 ## Passo 10 — Enviar as regras e os robôs
 
 ```powershell
-firebase deploy --only firestore:rules,firestore:indexes,storage:rules
+firebase deploy --only firestore:rules,firestore:indexes,storage
 ```
 
 Manda para o Firebase as regras de segurança (quem pode ler e escrever o

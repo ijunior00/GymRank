@@ -141,7 +141,11 @@ compilação. Deixe o `flutterfire` colocar os dois juntos.
 ## 5. Subir regras, índices e functions
 
 ```bash
-firebase deploy --only firestore:rules,firestore:indexes,storage:rules
+# Atenção: `storage` vai sem `:rules`. No Firestore o que vem depois dos
+# dois-pontos é o que deployar (rules, indexes); no Storage é o apelido de
+# um bucket, e `storage:rules` falha com "Could not find rules for the
+# following storage targets: rules".
+firebase deploy --only firestore:rules,firestore:indexes,storage
 
 cd functions
 npm install

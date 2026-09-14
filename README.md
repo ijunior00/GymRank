@@ -207,7 +207,7 @@ aluno), `onBodyMeasurementCreated`, `onProgressPhotoCreated`,
 ## Firestore & Storage Rules
 
 ```bash
-firebase deploy --only firestore:rules,firestore:indexes,storage:rules
+firebase deploy --only firestore:rules,firestore:indexes,storage
 ```
 
 ## Direção do produto
