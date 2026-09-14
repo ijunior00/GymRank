@@ -44,6 +44,16 @@ service cloud.firestore {
       return isCoachOf(coachId) || isNutriologoOf(coachId) || isAdmin();
     }
 
+    // Quem pode ler um plano, decidido pelo documento pai buscado pelo
+    // CAMINHO (não por campos do documento lido). Isso importa para as
+    // subcoleções: uma consulta em `plans/{id}/versions` não tem como
+    // provar nada sobre `resource.data`, então uma regra baseada nela
+    // recusa a lista inteira — regras não filtram, recusam.
+    function canReadPlan(planId) {
+      let plan = get(/databases/$(database)/documents/plans/$(planId)).data;
+      return isOwner(plan.userId) || isCoachStaffOf(plan.coachId);
+    }
+
     // Campos que só podem ser alterados pelo backend (Cloud Functions com
     // Admin SDK, que ignora estas regras). Impede que o cliente forje XP,
     // nível, Gym Score ou o próprio papel.
@@ -133,8 +143,7 @@ service cloud.firestore {
       allow delete: if isCoachOf(resource.data.coachId) || isAdmin();
 
       match /versions/{versionNumber} {
-        allow read: if isSignedIn() &&
-          (isOwner(resource.data.userId) || isCoachStaffOf(resource.data.coachId));
+        allow read: if isSignedIn() && canReadPlan(planId);
         allow create: if isCoachStaffOf(request.resource.data.coachId);
         allow update, delete: if false; // append-only
       }

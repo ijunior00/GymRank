@@ -106,5 +106,8 @@ class _NotificationTile extends ConsumerWidget {
         NotificationType.planPublished => Icons.assignment_outlined,
         NotificationType.personalRecord => Icons.bolt_outlined,
         NotificationType.referralJoined => Icons.volunteer_activism_outlined,
+        NotificationType.documentReady => Icons.rate_review_outlined,
+        NotificationType.documentFailed => Icons.error_outline,
+        NotificationType.general => Icons.notifications_none,
       };
 }

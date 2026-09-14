@@ -108,7 +108,11 @@ class FirebasePlanRepository implements PlanRepository {
   }) async {
     try {
       // Um plano vigente por (aluno, tipo): republicar cria nova versão.
+      // O filtro por coachId não é redundante: é o que permite à regra do
+      // Firestore aprovar a consulta feita pela treinadora (ver
+      // PlanRepository.watchDocuments).
       final existing = await _plans
+          .where('coachId', isEqualTo: coachId)
           .where('userId', isEqualTo: userId)
           .where('kind', isEqualTo: kind.name)
           .limit(1)

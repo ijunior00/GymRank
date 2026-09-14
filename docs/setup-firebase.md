@@ -254,12 +254,47 @@ Roteiro rápido de teste:
 
 1. Criar conta de aluna → entra e vê a home.
 2. Login com Google → se falhar, é o SHA-1 do passo 6.
-3. Com a conta coach: subir um PDF na ficha de uma aluna → o documento
-   deve sair de `subido` para `listo` em ~30 s. Se ficar em `error`, veja
-   `firebase functions:log --only parseDocument` (quase sempre é a chave
-   da Anthropic).
+3. Com a conta coach: subir um Word ou PDF na ficha de uma aluna (ver
+   o fluxo completo e a tabela de diagnóstico logo abaixo).
 4. Publicar o plano → a aluna vê em "Mis planes" e recebe notificação.
 5. Concluir um treino → confere XP, sequência e recorde no resumo.
+
+### O fluxo de um documento, passo a passo
+
+É o caminho mais longo do app, e cada etapa pode travar num lugar
+diferente. Saber em qual etapa parou economiza uma tarde:
+
+| # | O que acontece | Onde ver | Se travar aqui |
+| --- | --- | --- | --- |
+| 1 | A treinadora escolhe o tipo e o arquivo em *Subir plan* | o app diz "Archivo subido" | erro de Storage ou de regra: o texto do SnackBar diz qual |
+| 2 | Nasce `documents/{id}` com `status: subido` | Firestore → `documents` | não nasceu = o passo 1 falhou de verdade, mesmo com o aviso |
+| 3 | A function `parseDocument` acorda e muda para `procesando` | mesmo documento, campo `status` | fica em `subido` = a function não subiu ou o Eventarc ainda propaga (ver passo 5) |
+| 4 | O Claude lê e devolve o plano → `listo` (ou `error`) | `status`, `parsedPlan`, `errorMessage` | `error`: o `errorMessage` agora vem em espanhol e diz o que fazer |
+| 5 | A treinadora recebe "Plan listo para revisar" e vê **Revisar** na ficha | Notificaciones; ficha da aluna → *Planes y documentos* | ficha vazia ou com aviso vermelho: ver a tabela de erros abaixo |
+| 6 | Ela revisa, corrige e **Publica** → `plans/{id}` + versão | Firestore → `plans` | SnackBar de erro na tela de revisão diz o motivo |
+| 7 | `onPlanPublished` avisa a aluna; ela vê em *Mis planes* | a conta da aluna | — |
+
+**Para reprocessar um documento sem subir de novo:** toque nele na ficha
+(fica com ícone vermelho) → *Reintentar*. Ou, no console, troque o
+`status` de volta para `subido`: a function acorda com a mudança.
+
+### Erros que já apareceram, e o que significam
+
+| O que a tela mostra | Causa | O que fazer |
+| --- | --- | --- |
+| `errorMessage` falando em **crédito** | a conta da Anthropic está sem saldo | recarregar em console.anthropic.com → Billing; *Reintentar* |
+| *El servidor todavía está preparando esta lista (índice en construcción)* | você acabou de fazer `deploy --only firestore:indexes`; o índice leva minutos | esperar e reabrir a ficha |
+| *Tu cuenta no tiene permiso para ver esto* na ficha da aluna | consulta sem o filtro que a regra exige (`coachId`), ou o perfil da coach sem `coachId` | atualizar o app; conferir `users/{uid}.coachId` da coach |
+| documento parado em `subido` por mais de 2 min | `parseDocument` não está no ar | `firebase functions:list` deve mostrá-la; senão, deploy de novo |
+| `permission-denied` cru numa tela de coach, logado como aluna | a tela é de coach; a regra recusou certo | atualizar o app: agora essas telas devolvem a aluna ao início |
+
+**Por que as consultas da treinadora filtram por `coachId`.** As regras
+do Firestore não filtram resultados — elas aprovam ou recusam a consulta
+inteira. Uma regra que libera "se você é a coach deste `coachId`" só é
+aprovável quando a consulta também restringe `coachId`. Sem isso, a
+aluna (dona dos dados) passa e a treinadora não. Toda consulta que a
+coach faz sobre dados de uma aluna precisa carregar esse filtro, e o
+índice composto correspondente em `firestore.indexes.json`.
 
 ## 10. O que nunca vai para o git
 

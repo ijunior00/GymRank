@@ -4,6 +4,7 @@ import { defineSecret } from 'firebase-functions/params';
 import { onDocumentWritten } from 'firebase-functions/v2/firestore';
 import * as mammoth from 'mammoth';
 import { storage, Timestamp } from '../admin';
+import { dispatchNotification } from '../notifications/dispatchNotification';
 import { KIND_INSTRUCTIONS, PlanKind, schemaForKind } from './planSchemas';
 
 const anthropicApiKey = defineSecret('ANTHROPIC_API_KEY');
@@ -85,13 +86,13 @@ export const parseDocument = onDocumentWritten(
       });
 
       if (response.stop_reason === 'refusal') {
-        throw new Error(
+        throw new ReadableError(
           'El modelo no pudo procesar este documento. Revisa el archivo o captura el plan a mano.',
         );
       }
       const parsed = response.parsed_output;
       if (!parsed) {
-        throw new Error('No se obtuvo un plan válido del documento. Intenta de nuevo.');
+        throw new ReadableError('No se obtuvo un plan válido del documento. Intenta de nuevo.');
       }
 
       await ref.update({
@@ -101,17 +102,97 @@ export const parseDocument = onDocumentWritten(
         parserModel: response.model,
         updatedAt: Timestamp.now(),
       });
+
+      // "Te avisamos cuando esté listo para revisar" — este é o aviso.
+      const warnings = (parsed as { warnings?: unknown[] }).warnings?.length ?? 0;
+      await notifyUploader(data, {
+        type: 'documentReady',
+        title: 'Plan listo para revisar',
+        body:
+          `${data.fileName} ya está leído.` +
+          (warnings > 0 ? ` Tiene ${warnings} aviso(s) para revisar antes de publicar.` : ''),
+        deepLink: `/coach/documents/${event.params.docId}/review`,
+      });
     } catch (error) {
       console.error('parseDocument failed', event.params.docId, error);
+      const message = describeError(error);
       await ref.update({
         status: 'error',
-        errorMessage:
-          error instanceof Error ? error.message : 'Error desconocido al procesar el documento.',
+        errorMessage: message,
         updatedAt: Timestamp.now(),
+      });
+      await notifyUploader(data, {
+        type: 'documentFailed',
+        title: 'No pudimos leer el archivo',
+        body: message,
+        deepLink: `/coach/clients/${data.userId as string}`,
       });
     }
   },
 );
+
+/**
+ * Avisa quem subiu o documento. Um push que falhe não pode mudar o
+ * resultado da leitura, por isso o erro fica só no log.
+ */
+async function notifyUploader(
+  data: FirebaseFirestore.DocumentData,
+  input: { type: 'documentReady' | 'documentFailed'; title: string; body: string; deepLink: string },
+): Promise<void> {
+  const uploadedBy = data.uploadedBy as string | undefined;
+  if (!uploadedBy) return;
+  try {
+    await dispatchNotification({ userId: uploadedBy, ...input });
+  } catch (error) {
+    console.error('parseDocument: falha ao notificar', uploadedBy, error);
+  }
+}
+
+/**
+ * Traduz o erro para algo que a treinadora consiga resolver sozinha. O que
+ * ela via antes era o JSON cru da API — inútil para quem não programa.
+ *
+ * O SDK da Anthropic começa a mensagem pelo status HTTP ("400 {...}"), e
+ * o texto do erro traz a causa; os dois entram na decisão.
+ */
+export function describeError(error: unknown): string {
+  if (error instanceof ReadableError) return error.message;
+  const raw = error instanceof Error ? error.message : String(error);
+  const lower = raw.toLowerCase();
+  const status = /^(\d{3})\b/.exec(raw)?.[1];
+
+  if (lower.includes('credit balance')) {
+    return (
+      'La cuenta de Anthropic no tiene crédito. Recárgala en console.anthropic.com → ' +
+      'Billing y toca "Reintentar".'
+    );
+  }
+  if (status === '401' || lower.includes('authentication_error') || lower.includes('invalid x-api-key')) {
+    return (
+      'La clave de la API de Anthropic no es válida. Hay que guardarla de nuevo ' +
+      '(firebase functions:secrets:set ANTHROPIC_API_KEY) y volver a desplegar parseDocument.'
+    );
+  }
+  if (status === '429' || lower.includes('rate_limit')) {
+    return 'Demasiadas lecturas seguidas. Espera un par de minutos y toca "Reintentar".';
+  }
+  if (status === '529' || status === '503' || lower.includes('overloaded')) {
+    return 'El servicio de lectura está saturado en este momento. Toca "Reintentar" en unos minutos.';
+  }
+  if (status === '413' || lower.includes('too large') || lower.includes('request_too_large')) {
+    return 'El archivo es demasiado grande para leerlo. Divídelo o comprímelo y súbelo de nuevo.';
+  }
+  if (lower.includes('could not process') || lower.includes('invalid_request_error')) {
+    return (
+      'El servicio no pudo procesar este archivo. Prueba guardarlo de nuevo como PDF o Word, ' +
+      'o súbelo como foto.'
+    );
+  }
+  return `No se pudo leer el archivo. Detalle técnico: ${raw.slice(0, 200)}${raw.length > 200 ? '…' : ''}`;
+}
+
+/** Erro cuja mensagem já foi escrita para a treinadora ler — passa direto. */
+export class ReadableError extends Error {}
 
 async function buildSourceBlocks(
   buffer: Buffer,

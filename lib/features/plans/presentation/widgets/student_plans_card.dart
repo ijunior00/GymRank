@@ -5,6 +5,7 @@ import 'package:gymrank/core/l10n/labels_es.dart';
 import 'package:gymrank/core/theme/app_colors.dart';
 import 'package:gymrank/core/theme/app_text_styles.dart';
 import 'package:gymrank/core/utils/date_formatter.dart';
+import 'package:gymrank/core/utils/load_error_text.dart';
 import 'package:gymrank/features/plans/domain/entities/plan_entity.dart';
 import 'package:gymrank/features/plans/presentation/controllers/plan_providers.dart';
 import 'package:gymrank/features/plans/presentation/screens/my_plans_screen.dart';
@@ -98,15 +99,12 @@ class _LoadFailed extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'No pudimos cargar los planes de esta alumna.',
-                  style: AppTextStyles.body,
-                ),
+                Text(describeLoadError(error), style: AppTextStyles.body),
                 const SizedBox(height: 2),
                 Text(
                   '$error',
                   style: AppTextStyles.caption,
-                  maxLines: 3,
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
               ],

@@ -11,7 +11,10 @@ export type NotificationType =
   | 'newStudent'
   | 'planPublished'
   | 'personalRecord'
-  | 'referralJoined';
+  | 'referralJoined'
+  // Para quem subiu um documento: a leitura terminou / falhou.
+  | 'documentReady'
+  | 'documentFailed';
 
 interface NotificationInput {
   userId: string;

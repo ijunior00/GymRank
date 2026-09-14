@@ -24,7 +24,10 @@ class FirestoreNotificationRepository implements NotificationRepository {
               return AppNotificationEntity(
                 id: doc.id,
                 userId: data['userId'] as String,
-                type: NotificationType.values.byName(data['type'] as String),
+                // Tipo desconhecido não pode derrubar a lista inteira.
+                type: NotificationType.values
+                        .asNameMap()[data['type'] as String? ?? ''] ??
+                    NotificationType.general,
                 title: data['title'] as String,
                 body: data['body'] as String,
                 deepLink: data['deepLink'] as String?,

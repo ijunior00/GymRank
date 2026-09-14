@@ -22,6 +22,17 @@ enum NotificationType {
 
   /// Para o embaixador: alguém entrou usando a indicação dele.
   referralJoined,
+
+  /// Para quem subiu um documento: a leitura terminou, dá para revisar.
+  documentReady,
+
+  /// Para quem subiu um documento: a leitura falhou (o corpo diz por quê).
+  documentFailed,
+
+  /// Tipo que esta versão do app ainda não conhece. Acontece quando as
+  /// Cloud Functions ganham um tipo novo antes de a aluna atualizar o app;
+  /// a notificação continua aparecendo, só com o ícone genérico.
+  general,
 }
 
 /// Documento canônico de `notifications/{notificationId}`, espelhado
