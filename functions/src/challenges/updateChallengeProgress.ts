@@ -46,7 +46,10 @@ export async function incrementChallengeProgress(
 
     if (!completed) continue;
 
-    await grantXp(userId, (challenge.xpReward as number) ?? 0);
+    // Mesmo teto das regras (10–1000): um reto criado no console com XP
+    // absurdo não pode virar um salto no ranking.
+    const xpReward = Math.min(Math.max(Math.round((challenge.xpReward as number) ?? 0), 0), 1000);
+    await grantXp(userId, xpReward);
 
     if (challenge.rewardId) {
       await grantReward({

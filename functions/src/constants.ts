@@ -45,6 +45,22 @@ export const XP_LIMITS = {
 export const CHECKIN_COOLDOWN_MS = 6 * 60 * 60 * 1000;
 export const QR_TOKEN_TTL_MS = 30 * 1000;
 
+/**
+ * Endereço público do app web. Vai impresso no QR das academias, por
+ * isso, se um dia o domínio mudar, os QRs antigos continuam apontando
+ * para cá — mantenha um redirecionamento.
+ */
+export const PUBLIC_APP_URL = 'https://gymrank-e1c0d.web.app';
+
+/**
+ * Check-in por QR impresso: a aluna tem de estar a até `radiusM` da
+ * academia (cadastrado por ponto, padrão 150 m), com uma folga igual à
+ * imprecisão do GPS dela até este teto. Se o aparelho diz "±800 m", a
+ * leitura não serve para nada e é recusada.
+ */
+export const CHECKIN_ACCURACY_ALLOWANCE_M = 100;
+export const CHECKIN_MAX_ACCURACY_M = 250;
+
 export function levelForXp(totalXp: number): number {
   let level = 1;
   while (xpRequiredFor(level + 1) <= totalXp) {

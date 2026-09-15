@@ -78,10 +78,18 @@ Subcoleções:
   (sempre `activo`); só a treinadora edita.
   - `notes/{noteId}`: anotações privadas da treinadora (authorId, text,
     createdAt). O aluno nunca lê.
+- `locations/{locationId}`: academias com QR impresso — name, address?,
+  lat, lng, radiusM (50–1000), qrVersion (sobe em "Generar QR nuevo"),
+  active, createdAt, updatedAt. Lidas pelo staff, escritas pela coach
+  (`validLocation`); a aluna nunca lê. O QR é
+  `https://…/checkin?c=&l=&v=&s=` assinado por `issueLocationQr`.
 - `checkins/{checkInId}` **[CF only]**: userId, coachId, checkedInAt,
-  xpGranted, countedForStreak. Criado exclusivamente pela function
-  `validateCheckIn` a partir de um QR Code assinado (HMAC-SHA256 com o
-  segredo de `private/qr`, TTL de 30s) — o cliente nunca escreve aqui.
+  xpGranted, countedForStreak, locationId?, locationName?, distanceM?.
+  Criado exclusivamente pela function `validateCheckIn` a partir de um
+  QR assinado: o rotativo da tela da coach (HMAC-SHA256 com o segredo de
+  `private/qr`, TTL de 30s) ou o impresso da academia (mesmo segredo +
+  versão, exige a localização do celular dentro do raio) — o cliente
+  nunca escreve aqui.
 
 ## `documents/{docId}` (arquivos de plano)
 
@@ -225,13 +233,21 @@ coachId? (null = desafio global/plataforma), title, description, scope
 metric (diasTreinados | distanciaKm | pesoPerdidoKg |
 massaMuscularGanhaKg | checkIns), targetValue, startsAt, endsAt,
 xpReward, rewardId?, participantCount, isActive, createdAt. Criado pela
-treinadora dona do `coachId` (ou admin).
+treinadora dona do `coachId` no painel (ou admin). A regra
+`validChallenge` impõe: título até 80, descrição até 500, `xpReward`
+inteiro entre 10 e 1000, `targetValue` entre 0 e 10000, `endsAt >
+startsAt`, `rewardId` de um prêmio da mesma comunidade;
+`participantCount` **[CF]** (`onParticipantCreated`) e `createdAt` não
+mudam pelo cliente. `coaches/{id}.activeChallengeCount` é recalculado
+por `onChallengeWritten`. Índice: `(coachId, createdAt desc)` para a
+lista da coach.
 
 Subcoleção `participants/{userId}`: currentValue, completed,
 completedAt?. **O cliente só pode criar a inscrição inicial
 (`currentValue: 0, completed: false`)** — todo progresso é calculado
 por `incrementChallengeProgress` a partir de eventos de origem confiável
-(check-in, treino), nunca auto-declarado, para evitar trapaça.
+(check-in, treino), nunca auto-declarado, para evitar trapaça. O XP ao
+completar é limitado a 1000 também na function.
 
 ## `championships/{championshipId}` (torneios)
 
@@ -243,7 +259,10 @@ treinadora.
 ## `rewards/{rewardId}`
 
 coachId, name, imageUrl?, type (suplemento | vestuario | consultoria |
-mensalidadeGratis | acessorio | valeCompras), stock.
+mensalidadeGratis | acessorio | valeCompras), stock, createdAt. Criado
+e editado pela treinadora no painel (`validReward`: nome até 80, tipo da
+lista, `stock` inteiro 0–1000); a foto vai para
+`Storage:reward_images/{rewardId}/`, só depois de o documento existir.
 
 Subcoleção `grants/{grantId}` **[CF only]**: rewardId, userId,
 sourceType (challenge | championship | season), sourceId, status

@@ -49,6 +49,8 @@ Antes de explicar um setup do zero, veja se já existe:
 - `docs/setup-web-pwa.md` — a versão web / PWA
 - `docs/seguranca.md` — o que protege o app e o que se liga no console
   (App Check, Auth, orçamento)
+- `docs/retos-e-checkin.md` — como a coach cria retos e prêmios e como
+  funciona o QR impresso das academias (com GPS)
 
 ## Regras técnicas que não podem ser quebradas
 

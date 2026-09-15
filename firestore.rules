@@ -79,6 +79,18 @@ service cloud.firestore {
       return data.get(key, null) == null || validText(data[key], max);
     }
 
+    // Ponto de check-in (academia) com QR impresso. Raio entre 50 m e 1 km:
+    // menos que isso o GPS de celular não distingue; mais, não é "estar lá".
+    function validLocation(d) {
+      return validText(d.name, 80) &&
+        optionalText(d, 'address', 200) &&
+        d.lat is number && d.lat >= -90 && d.lat <= 90 &&
+        d.lng is number && d.lng >= -180 && d.lng <= 180 &&
+        d.radiusM is number && d.radiusM >= 50 && d.radiusM <= 1000 &&
+        d.qrVersion is int && d.qrVersion >= 1 &&
+        d.active is bool;
+    }
+
     // Quem pode ler um plano, decidido pelo documento pai buscado pelo
     // CAMINHO (não por campos do documento lido). Isso importa para as
     // subcoleções: uma consulta em `plans/{id}/versions` não tem como
@@ -154,6 +166,16 @@ service cloud.firestore {
       // conseguisse lê-lo fabricaria check-ins válidos de casa.
       match /private/{docId} {
         allow read, write: if false;
+      }
+
+      // Academias onde a coach atende, cada uma com seu QR impresso. A
+      // aluna não lê daqui (o servidor devolve o nome no check-in); a
+      // assinatura do QR nunca fica gravada, sai da function na hora.
+      match /locations/{locationId} {
+        allow read: if isCoachStaffOf(coachId);
+        allow create, update: if (isCoachOf(coachId) || isAdmin()) &&
+          validLocation(request.resource.data);
+        allow delete: if isCoachOf(coachId) || isAdmin();
       }
 
       match /stats/{statId} {
@@ -345,9 +367,36 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+    // Reto criado pela treinadora no app. Os limites aqui são os mesmos do
+    // formulário (ChallengeFormRules): XP entre 10 e 1000 para um reto não
+    // valer mais que meses de treino no ranking nacional.
+    function validChallenge(d) {
+      return validText(d.title, 80) &&
+        d.description is string && d.description.size() <= 500 &&
+        d.metric in ['diasTreinados', 'checkIns', 'distanciaKm', 'pesoPerdidoKg', 'massaMuscularGanhaKg'] &&
+        d.scope in ['individual', 'equipo', 'comunidad', 'regional'] &&
+        d.period in ['semanal', 'mensal'] &&
+        d.targetValue is number && d.targetValue > 0 && d.targetValue <= 10000 &&
+        d.xpReward is int && d.xpReward >= 10 && d.xpReward <= 1000 &&
+        d.startsAt is timestamp && d.endsAt is timestamp && d.endsAt > d.startsAt &&
+        d.isActive is bool &&
+        (d.get('rewardId', null) == null || rewardBelongsTo(d.rewardId, d.coachId));
+    }
+
+    function rewardBelongsTo(rewardId, coachId) {
+      return get(/databases/$(database)/documents/rewards/$(rewardId)).data.coachId == coachId;
+    }
+
     match /challenges/{challengeId} {
       allow read: if isSignedIn();
-      allow create, update: if isCoachOf(request.resource.data.coachId) || isAdmin();
+      allow create: if (isCoachOf(request.resource.data.coachId) || isAdmin()) &&
+        validChallenge(request.resource.data) &&
+        request.resource.data.participantCount == 0;
+      // `participantCount` é do servidor (`onParticipantCreated`).
+      allow update: if (isCoachOf(resource.data.coachId) || isAdmin()) &&
+        validChallenge(request.resource.data) &&
+        !request.resource.data.diff(resource.data).affectedKeys()
+          .hasAny(['coachId', 'participantCount', 'createdAt']);
       allow delete: if isCoachOf(resource.data.coachId) || isAdmin();
 
       match /participants/{userId} {
@@ -368,9 +417,22 @@ service cloud.firestore {
       allow delete: if isCoachOf(resource.data.coachId) || isAdmin();
     }
 
+    function validReward(d) {
+      return validText(d.name, 80) &&
+        d.type in ['suplemento', 'vestuario', 'consultoria', 'mensalidadeGratis', 'acessorio', 'valeCompras'] &&
+        d.stock is int && d.stock >= 0 && d.stock <= 1000 &&
+        (d.get('imageUrl', null) == null || d.imageUrl is string);
+    }
+
+    // Prêmio cadastrado pela treinadora. O estoque só baixa pelo servidor
+    // (`grantReward`), mas ela pode repor.
     match /rewards/{rewardId} {
       allow read: if isSignedIn();
-      allow create, update: if isCoachOf(request.resource.data.coachId) || isAdmin();
+      allow create: if (isCoachOf(request.resource.data.coachId) || isAdmin()) &&
+        validReward(request.resource.data);
+      allow update: if (isCoachOf(resource.data.coachId) || isAdmin()) &&
+        validReward(request.resource.data) &&
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny(['coachId']);
       allow delete: if isCoachOf(resource.data.coachId) || isAdmin();
 
       match /grants/{grantId} {

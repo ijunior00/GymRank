@@ -25,3 +25,23 @@ final challengeParticipationProvider =
         userId: uid,
       );
 });
+
+/// Todos os retos da comunidade da treinadora logada (ativos e
+/// encerrados), mais recentes primeiro.
+final coachChallengesProvider = StreamProvider<List<ChallengeEntity>>((ref) {
+  final coachId = ref.watch(currentUserProvider).valueOrNull?.coachId;
+  if (coachId == null) return Stream.value(const []);
+  return ref.watch(challengeRepositoryProvider).watchByCoach(coachId);
+});
+
+final challengeByIdProvider =
+    StreamProvider.family<ChallengeEntity?, String>((ref, challengeId) {
+  return ref.watch(challengeRepositoryProvider).watchChallenge(challengeId);
+});
+
+/// Inscritas de um reto, maior progresso primeiro (visão da treinadora).
+final challengeParticipantsProvider =
+    StreamProvider.family<List<ChallengeParticipantEntity>, String>(
+        (ref, challengeId) {
+  return ref.watch(challengeRepositoryProvider).watchParticipants(challengeId);
+});

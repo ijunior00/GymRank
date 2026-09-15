@@ -6,7 +6,10 @@ import 'package:gymrank/features/rewards/domain/entities/reward_entity.dart';
 import 'package:gymrank/features/rewards/domain/repositories/reward_repository.dart';
 
 final rewardRepositoryProvider = Provider<RewardRepository>((ref) {
-  return FirestoreRewardRepository(ref.watch(firestoreProvider));
+  return FirestoreRewardRepository(
+    ref.watch(firestoreProvider),
+    ref.watch(firebaseStorageProvider),
+  );
 });
 
 final myRewardGrantsProvider = StreamProvider<List<RewardGrantEntity>>((ref) {
@@ -19,4 +22,11 @@ final myRewardGrantsProvider = StreamProvider<List<RewardGrantEntity>>((ref) {
 final rewardByIdProvider =
     StreamProvider.family<RewardEntity?, String>((ref, rewardId) {
   return ref.watch(rewardRepositoryProvider).watchReward(rewardId);
+});
+
+/// Catálogo de prêmios da comunidade da treinadora logada.
+final coachRewardsProvider = StreamProvider<List<RewardEntity>>((ref) {
+  final coachId = ref.watch(currentUserProvider).valueOrNull?.coachId;
+  if (coachId == null) return Stream.value(const []);
+  return ref.watch(rewardRepositoryProvider).watchByCoach(coachId);
 });

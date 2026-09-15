@@ -18,6 +18,11 @@ import 'package:gymrank/core/theme/app_theme.dart';
 import 'package:gymrank/demo/demo_overrides.dart';
 
 import 'package:gymrank/features/auth/presentation/screens/login_screen.dart';
+import 'package:gymrank/features/challenges/presentation/screens/challenge_form_screen.dart';
+import 'package:gymrank/features/challenges/presentation/screens/coach_challenge_detail_screen.dart';
+import 'package:gymrank/features/challenges/presentation/screens/coach_challenges_screen.dart';
+import 'package:gymrank/features/checkin/presentation/screens/coach_locations_screen.dart';
+import 'package:gymrank/features/rewards/presentation/screens/coach_rewards_screen.dart';
 import 'package:gymrank/features/body_measurement/presentation/screens/body_measurement_screen.dart';
 import 'package:gymrank/features/challenges/presentation/screens/challenges_screen.dart';
 import 'package:gymrank/features/championships/presentation/screens/championships_screen.dart';
@@ -77,6 +82,15 @@ final _screens = <String, Widget Function()>{
   'Configurar coach': () => const CoachSetupScreen(),
   'Ficha de la alumna': () => const ClientDetailScreen(userId: 'u0'),
   'Iniciar sesión': () => const LoginScreen(),
+  'Retos (coach)': () => const CoachChallengesScreen(),
+  'Nuevo reto': () => const ChallengeFormScreen(),
+  'Editar reto': () => const ChallengeFormScreen(challengeId: 'c1'),
+  'Detalle del reto (coach)': () => const CoachChallengeDetailScreen(challengeId: 'c1'),
+  'Premios (coach)': () => const CoachRewardsScreen(),
+  'QR de check-in (coach)': () => const CoachLocationsScreen(),
+  'Confirmar check-in (link)': () => const CheckInScreen(
+        initialPayload: 'c=coach-demo&l=loc-demo&v=1&s=0123456789abcdef0123456789abcdef',
+      ),
 };
 
 void main() {

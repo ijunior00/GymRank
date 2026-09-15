@@ -65,17 +65,30 @@ revisadas à mão: o emulador daqui não consegue fazer a consulta cruzada
 ao Firestore que elas usam, mas é a mesma consulta que já protege o
 upload de documentos em produção.
 
+**QR impresso nas academias**: o QR é fixo, então quem o protege é a
+localização do celular na hora do scan (raio da academia + imprecisão
+do GPS até 100 m; leituras com mais de 250 m de imprecisão são
+recusadas). A assinatura inclui a versão do QR: "Generar QR nuevo" mata
+o papel antigo. GPS falso é possível; o intervalo de 6 h, o teto de 2
+check-ins com XP por dia e a lista que a coach vê são o resto da defesa.
+Detalhes em `docs/retos-e-checkin.md`.
+
+**Retos e prêmios criados no app**: XP por reto entre 10 e 1000 (regras e
+function), meta positiva, fim depois do início, prêmio só da própria
+comunidade, contadores só pelo servidor.
+
 ## Deploy do que mudou
 
 No PowerShell, na pasta do projeto:
 
 ```powershell
-firebase deploy --only firestore:rules,storage,functions
+firebase deploy --only "firestore:rules,firestore:indexes,storage,functions"
 ```
 
-As functions novas: `issueCheckInToken`, `onLikeWritten`,
-`onCommentCreated`, `onUserWritten`. Se alguma falhar na primeira vez
-(Eventarc), espere 5 minutos e repita o mesmo comando.
+Functions criadas nesta fase: `issueCheckInToken`, `issueLocationQr`,
+`onLikeWritten`, `onCommentCreated`, `onUserWritten`,
+`onParticipantCreated`, `onChallengeWritten`. Se alguma falhar na
+primeira vez (Eventarc), espere 5 minutos e repita o mesmo comando.
 
 Depois do deploy, o cartão público das contas que já existem aparece na
 próxima rodada de `recalculateRankings` (roda a cada hora). Até lá a

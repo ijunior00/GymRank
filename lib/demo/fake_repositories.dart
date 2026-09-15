@@ -19,6 +19,7 @@ import 'package:gymrank/features/challenges/domain/repositories/challenge_reposi
 import 'package:gymrank/features/championships/domain/entities/championship_entity.dart';
 import 'package:gymrank/features/championships/domain/repositories/championship_repository.dart';
 import 'package:gymrank/features/checkin/domain/entities/checkin_entity.dart';
+import 'package:gymrank/features/checkin/domain/entities/checkin_location.dart';
 import 'package:gymrank/features/checkin/domain/repositories/checkin_repository.dart';
 import 'package:gymrank/features/coach_panel/domain/entities/client_entity.dart';
 import 'package:gymrank/features/coach_panel/domain/entities/coach_entity.dart';
@@ -225,8 +226,26 @@ class FakeProgressPhotoRepository implements ProgressPhotoRepository {
 }
 
 class FakeCheckInRepository implements CheckInRepository {
+  final _locations = _Live<List<CheckInLocation>>([
+    CheckInLocation(
+      id: 'loc-demo',
+      coachId: DemoData.coachId,
+      name: 'Smart Fit Polanco',
+      address: 'Av. Presidente Masaryk 111, CDMX',
+      lat: 19.4326,
+      lng: -99.1332,
+      radiusM: 150,
+      qrVersion: 1,
+      active: true,
+      createdAt: DateTime.now().subtract(const Duration(days: 30)),
+    ),
+  ]);
+
   @override
-  Future<Result<CheckInEntity>> submitQrPayload(String qrPayload) async =>
+  Future<Result<CheckInEntity>> submitQrPayload(
+    String qrPayload, {
+    CheckInPosition? position,
+  }) async =>
       Result.success(
         CheckInEntity(
           id: 'demo',
@@ -235,12 +254,54 @@ class FakeCheckInRepository implements CheckInRepository {
           checkedInAt: DateTime.now(),
           xpGranted: AppConstants.xpCheckIn,
           countedForStreak: true,
+          locationName: position == null ? null : 'Smart Fit Polanco',
         ),
       );
 
   @override
   Stream<List<CheckInEntity>> watchRecent(String userId, {int limit = 10}) =>
       Stream.value(const []);
+
+  @override
+  Stream<List<CheckInLocation>> watchLocations(String coachId) =>
+      _locations.stream;
+
+  @override
+  Future<Result<CheckInLocation>> saveLocation(CheckInLocation location) async {
+    final saved = location.id.isEmpty
+        ? location.copyWith(id: 'loc${DateTime.now().millisecondsSinceEpoch}')
+        : location;
+    final exists = _locations.value.any((l) => l.id == saved.id);
+    _locations.value = exists
+        ? [for (final l in _locations.value) l.id == saved.id ? saved : l]
+        : [..._locations.value, saved];
+    return Result.success(saved);
+  }
+
+  @override
+  Future<Result<void>> deleteLocation({
+    required String coachId,
+    required String locationId,
+  }) async {
+    _locations.value =
+        _locations.value.where((l) => l.id != locationId).toList();
+    return const Result.success(null);
+  }
+
+  @override
+  Future<Result<String>> issueLocationQr(String locationId) async =>
+      Result.success(
+        'https://gymrank-e1c0d.web.app/checkin?c=${DemoData.coachId}'
+        '&l=$locationId&v=1&s=0123456789abcdef0123456789abcdef',
+      );
+}
+
+/// Posição fixa (Zócalo, CDMX) para o preview e os testes não pedirem GPS.
+class FakePositionSource implements PositionSource {
+  @override
+  Future<Result<CheckInPosition>> current() async => const Result.success(
+        CheckInPosition(lat: 19.4326, lng: -99.1332, accuracyM: 12),
+      );
 }
 
 class FakeWorkoutRepository implements WorkoutRepository {
@@ -288,6 +349,67 @@ class FakeChallengeRepository implements ChallengeRepository {
       _challenges.stream;
 
   @override
+  Stream<List<ChallengeEntity>> watchByCoach(String coachId) =>
+      _challenges.stream
+          .map((all) => all.where((c) => c.coachId == coachId).toList());
+
+  @override
+  Stream<ChallengeEntity?> watchChallenge(String challengeId) =>
+      _challenges.stream.map((all) {
+        for (final c in all) {
+          if (c.id == challengeId) return c;
+        }
+        return null;
+      });
+
+  @override
+  Future<Result<ChallengeEntity>> save(ChallengeEntity challenge) async {
+    final saved = challenge.id.isEmpty
+        ? challenge.copyWith(
+            id: 'c${DateTime.now().millisecondsSinceEpoch}',
+            participantCount: 0,
+            createdAt: DateTime.now(),
+          )
+        : challenge;
+    final exists = _challenges.value.any((c) => c.id == saved.id);
+    _challenges.value = exists
+        ? [for (final c in _challenges.value) c.id == saved.id ? saved : c]
+        : [saved, ..._challenges.value];
+    return Result.success(saved);
+  }
+
+  @override
+  Future<Result<void>> setActive({
+    required String challengeId,
+    required bool active,
+  }) async {
+    _challenges.value = [
+      for (final c in _challenges.value)
+        c.id == challengeId ? c.copyWith(isActive: active) : c,
+    ];
+    return const Result.success(null);
+  }
+
+  @override
+  Stream<List<ChallengeParticipantEntity>> watchParticipants(
+    String challengeId,
+  ) =>
+      _participations.stream.map((all) {
+        final mine = all[challengeId];
+        var i = 0;
+        return [
+          if (mine != null) mine,
+          for (final s in DemoData.students.take(4))
+            ChallengeParticipantEntity(
+              userId: s.id,
+              challengeId: challengeId,
+              currentValue: (4 - i++).toDouble(),
+              completed: false,
+            ),
+        ];
+      });
+
+  @override
   Future<Result<void>> join({
     required String challengeId,
     required String userId,
@@ -328,13 +450,41 @@ class FakeChampionshipRepository implements ChampionshipRepository {
 }
 
 class FakeRewardRepository implements RewardRepository {
+  final _rewards = _Live<List<RewardEntity>>(DemoData.rewards);
+
   @override
   Stream<List<RewardGrantEntity>> watchMyGrants(String userId) =>
       Stream.value(DemoData.rewardGrants);
 
   @override
   Stream<RewardEntity?> watchReward(String rewardId) =>
-      Stream.value(DemoData.rewardById(rewardId));
+      _rewards.stream.map((all) {
+        for (final r in all) {
+          if (r.id == rewardId) return r;
+        }
+        return null;
+      });
+
+  @override
+  Stream<List<RewardEntity>> watchByCoach(String coachId) =>
+      _rewards.stream.map((all) =>
+          all.where((r) => r.coachId == coachId).toList()
+            ..sort((a, b) => a.name.compareTo(b.name)));
+
+  @override
+  Future<Result<RewardEntity>> save(
+    RewardEntity reward, {
+    Uint8List? imageBytes,
+  }) async {
+    final saved = reward.id.isEmpty
+        ? reward.copyWith(id: 'r${DateTime.now().millisecondsSinceEpoch}')
+        : reward;
+    final exists = _rewards.value.any((r) => r.id == saved.id);
+    _rewards.value = exists
+        ? [for (final r in _rewards.value) r.id == saved.id ? saved : r]
+        : [..._rewards.value, saved];
+    return Result.success(saved);
+  }
 }
 
 class FakeFeedRepository implements FeedRepository {

@@ -15,8 +15,10 @@ setGlobalOptions({ region: FUNCTIONS_REGION, maxInstances: 10 });
 
 export { validateCheckIn } from './checkin/validateCheckIn';
 export { issueCheckInToken } from './checkin/issueCheckInToken';
+export { issueLocationQr } from './checkin/locationQr';
 export { onLikeWritten, onCommentCreated } from './social/counters';
 export { onUserWritten } from './profiles/publicProfile';
+export { onParticipantCreated, onChallengeWritten } from './challenges/challengeCounters';
 
 export {
   onWorkoutCreated,

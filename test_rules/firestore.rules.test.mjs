@@ -139,6 +139,54 @@ await check('aluna NÃO escreve no xp_ledger', setDoc(doc(as('alumna-1'), 'users
 await check('aluna NÃO muda o próprio xpTotal', updateDoc(doc(as('alumna-1'), 'users', 'alumna-1'), { xpTotal: 99999 }), false);
 await check('aluna edita a própria cidade', updateDoc(doc(as('alumna-1'), 'users', 'alumna-1'), { city: 'CDMX' }), true);
 
+
+console.log('\n# retos e prêmios criados pela coach');
+const semana = Timestamp.fromMillis(Date.now() + 7 * 86400000);
+const reto = (uid, extra) => addDoc(collection(as(uid), 'challenges'), { coachId: 'c1', title: 'Semana fuerte', description: '5 entrenamientos', scope: 'comunidad', period: 'semanal', metric: 'diasTreinados', targetValue: 5, startsAt: now, endsAt: semana, xpReward: 200, rewardId: null, participantCount: 0, isActive: true, createdAt: now, ...extra });
+await check('coach cria reto válido', reto('coach-1', {}), true);
+await check('coach cria reto com prêmio da própria comunidade', reto('coach-1', { rewardId: 'r1' }), true);
+await check('reto com 5000 XP NÃO passa', reto('coach-1', { xpReward: 5000 }), false);
+await check('reto com 5 XP NÃO passa', reto('coach-1', { xpReward: 5 }), false);
+await check('reto com fim antes do início NÃO passa', reto('coach-1', { endsAt: daysAgo(1) }), false);
+await check('reto com meta zero NÃO passa', reto('coach-1', { targetValue: 0 }), false);
+await check('reto já nascendo com 50 participantes NÃO passa', reto('coach-1', { participantCount: 50 }), false);
+await check('reto com título vazio NÃO passa', reto('coach-1', { title: '' }), false);
+await check('aluna NÃO cria reto', reto('alumna-1', {}), false);
+await check('coach de outra comunidade NÃO cria reto na c1', reto('coach-2', {}), false);
+await check('nutrióloga NÃO cria reto', reto('nutri-1', {}), false);
+await env.withSecurityRulesDisabled(async (ctx) => {
+  await setDoc(doc(ctx.firestore(), 'rewards', 'r-outra'), { coachId: 'c2', name: 'x', type: 'acessorio', stock: 1 });
+  await setDoc(doc(ctx.firestore(), 'challenges', 'ch1'), { coachId: 'c1', title: 't', description: '', scope: 'comunidad', period: 'semanal', metric: 'checkIns', targetValue: 3, startsAt: now, endsAt: semana, xpReward: 100, rewardId: null, participantCount: 2, isActive: true, createdAt: now });
+});
+await check('reto com prêmio de OUTRA comunidade NÃO passa', reto('coach-1', { rewardId: 'r-outra' }), false);
+await check('coach encerra o reto', updateDoc(doc(as('coach-1'), 'challenges', 'ch1'), { isActive: false }), true);
+await check('coach NÃO mexe no participantCount', updateDoc(doc(as('coach-1'), 'challenges', 'ch1'), { participantCount: 99 }), false);
+await check('coach NÃO passa o reto para outra comunidade', updateDoc(doc(as('coach-1'), 'challenges', 'ch1'), { coachId: 'c2' }), false);
+await check('aluna se inscreve no reto', setDoc(doc(as('alumna-1'), 'challenges/ch1/participants/alumna-1'), { userId: 'alumna-1', challengeId: 'ch1', currentValue: 0, completed: false }), true);
+await check('aluna NÃO se inscreve já completada', setDoc(doc(as('alumna-2'), 'challenges/ch1/participants/alumna-2'), { userId: 'alumna-2', challengeId: 'ch1', currentValue: 5, completed: true }), false);
+await check('aluna NÃO mexe no participantCount do reto', updateDoc(doc(as('alumna-1'), 'challenges', 'ch1'), { participantCount: 3 }), false);
+await check('coach lista as inscritas', getDocs(collection(as('coach-1'), 'challenges/ch1/participants')), true);
+const premio = (uid, extra) => addDoc(collection(as(uid), 'rewards'), { coachId: 'c1', name: 'Playera', type: 'vestuario', stock: 10, imageUrl: null, createdAt: now, ...extra });
+await check('coach cria prêmio', premio('coach-1', {}), true);
+await check('prêmio com estoque negativo NÃO passa', premio('coach-1', { stock: -1 }), false);
+await check('prêmio com tipo inventado NÃO passa', premio('coach-1', { type: 'carro' }), false);
+await check('aluna NÃO cria prêmio', premio('alumna-1', {}), false);
+await check('coach repõe estoque', updateDoc(doc(as('coach-1'), 'rewards', 'r1'), { stock: 20 }), true);
+await check('coach NÃO passa o prêmio para outra comunidade', updateDoc(doc(as('coach-1'), 'rewards', 'r1'), { coachId: 'c2' }), false);
+
+
+console.log('\n# pontos de check-in (QR impresso)');
+const ponto = (uid, extra) => setDoc(doc(as(uid), 'coaches/c1/locations/gym-norte'), { name: 'Gym Norte', address: 'Av. Siempre Viva 1', lat: 19.43, lng: -99.13, radiusM: 150, qrVersion: 1, active: true, createdAt: now, ...extra });
+await check('coach cadastra a academia', ponto('coach-1', {}), true);
+await check('raio de 5 m NÃO passa', ponto('coach-1', { radiusM: 5 }), false);
+await check('latitude inválida NÃO passa', ponto('coach-1', { lat: 123 }), false);
+await check('aluna NÃO cadastra academia', ponto('alumna-1', {}), false);
+await check('coach de outra comunidade NÃO cadastra na c1', ponto('coach-2', {}), false);
+await check('coach gera novo QR (sobe a versão)', updateDoc(doc(as('coach-1'), 'coaches/c1/locations/gym-norte'), { qrVersion: 2 }), true);
+await check('coach lê os próprios pontos', getDocs(collection(as('coach-1'), 'coaches/c1/locations')), true);
+await check('nutrióloga lê os pontos da comunidade', getDocs(collection(as('nutri-1'), 'coaches/c1/locations')), true);
+await check('aluna NÃO lê os pontos (o servidor devolve o nome)', getDoc(doc(as('alumna-1'), 'coaches/c1/locations/gym-norte')), false);
+
 console.log('\n# o que já funcionava continua funcionando');
 await check('aluna lista os próprios planos', getDocs(query(collection(as('alumna-1'), 'plans'), where('userId', '==', 'alumna-1'), orderBy('publishedAt', 'desc'))), true);
 await check('coach lista planos da aluna (com coachId)', getDocs(query(collection(as('coach-1'), 'plans'), where('coachId', '==', 'c1'), where('userId', '==', 'alumna-1'), orderBy('publishedAt', 'desc'))), true);

@@ -82,6 +82,11 @@ class _CoachDashboardScreenState extends ConsumerState<CoachDashboardScreen> {
         children: [
           if (coach.valueOrNull != null)
             Entrance(child: _InviteCard(coach: coach.valueOrNull!)),
+          const SizedBox(height: 12),
+          const Entrance(
+            delay: Duration(milliseconds: 60),
+            child: _ToolsRow(),
+          ),
           const SizedBox(height: 16),
           Entrance(
             delay: const Duration(milliseconds: 80),
@@ -344,6 +349,39 @@ class _InviteCard extends StatelessWidget {
             tooltip: 'Copiar código',
             onPressed: () => _copyCode(context, coach.inviteCode),
             icon: const Icon(Icons.copy),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Atalhos do painel: o que a treinadora administra além das alunas.
+class _ToolsRow extends StatelessWidget {
+  const _ToolsRow();
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          FilledButton.tonalIcon(
+            onPressed: () => context.push('/coach/challenges'),
+            icon: const Icon(Icons.emoji_events_outlined),
+            label: const Text('Retos'),
+          ),
+          const SizedBox(width: 8),
+          FilledButton.tonalIcon(
+            onPressed: () => context.push('/coach/rewards'),
+            icon: const Icon(Icons.card_giftcard),
+            label: const Text('Premios'),
+          ),
+          const SizedBox(width: 8),
+          FilledButton.tonalIcon(
+            onPressed: () => context.push('/coach/locations'),
+            icon: const Icon(Icons.qr_code_2),
+            label: const Text('QR de check-in'),
           ),
         ],
       ),

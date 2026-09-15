@@ -36,6 +36,7 @@ List<Override> demoOverrides() => [
       progressPhotoRepositoryProvider
           .overrideWithValue(FakeProgressPhotoRepository()),
       checkInRepositoryProvider.overrideWithValue(FakeCheckInRepository()),
+      positionSourceProvider.overrideWithValue(FakePositionSource()),
       workoutRepositoryProvider.overrideWithValue(FakeWorkoutRepository()),
       rankingRepositoryProvider.overrideWithValue(FakeRankingRepository()),
       challengeRepositoryProvider.overrideWithValue(FakeChallengeRepository()),

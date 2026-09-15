@@ -8,7 +8,12 @@ import 'package:gymrank/features/auth/presentation/screens/signup_screen.dart';
 import 'package:gymrank/features/body_measurement/presentation/screens/body_measurement_screen.dart';
 import 'package:gymrank/features/challenges/presentation/screens/challenges_screen.dart';
 import 'package:gymrank/features/championships/presentation/screens/championships_screen.dart';
+import 'package:gymrank/features/challenges/presentation/screens/challenge_form_screen.dart';
+import 'package:gymrank/features/challenges/presentation/screens/coach_challenge_detail_screen.dart';
+import 'package:gymrank/features/challenges/presentation/screens/coach_challenges_screen.dart';
 import 'package:gymrank/features/checkin/presentation/screens/checkin_screen.dart';
+import 'package:gymrank/features/checkin/presentation/screens/coach_locations_screen.dart';
+import 'package:gymrank/features/rewards/presentation/screens/coach_rewards_screen.dart';
 import 'package:gymrank/features/friendship/presentation/screens/friends_screen.dart';
 import 'package:gymrank/features/gamification/presentation/screens/achievements_screen.dart';
 import 'package:gymrank/features/coach_panel/presentation/screens/client_detail_screen.dart';
@@ -50,8 +55,20 @@ GoRouter appRouter(Ref ref) {
           state.matchedLocation == '/login' || state.matchedLocation == '/signup';
 
       if (authState.isLoading) return null;
-      if (!isLoggedIn && !isAuthRoute) return '/login';
-      if (isLoggedIn && isAuthRoute) return '/home';
+      if (!isLoggedIn && !isAuthRoute) {
+        // A aluna escaneou o QR impresso da academia com a câmera e caiu
+        // em /checkin sem estar logada: guarda o destino para voltar a
+        // ele depois do login. Só /checkin, para nenhum link virar um
+        // redirecionamento arbitrário.
+        final target = state.uri.toString();
+        return target.startsWith('/checkin')
+            ? '/login?from=${Uri.encodeComponent(target)}'
+            : '/login';
+      }
+      if (isLoggedIn && isAuthRoute) {
+        final from = state.uri.queryParameters['from'];
+        return from != null && from.startsWith('/checkin') ? from : '/home';
+      }
 
       // As telas de `/coach` leem dados que as regras do Firestore só
       // liberam para a treinadora. Sem esta guarda, uma aluna que chegue
@@ -93,7 +110,14 @@ GoRouter appRouter(Ref ref) {
       GoRoute(
         path: '/checkin',
         parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) => _fadeSlide(state, const CheckInScreen()),
+        // Com query (`?c=…&l=…&s=…`) é o QR impresso aberto pela câmera do
+        // celular: a tela só confirma, sem abrir o scanner.
+        pageBuilder: (context, state) => _fadeSlide(
+          state,
+          CheckInScreen(
+            initialPayload: state.uri.hasQuery ? state.uri.query : null,
+          ),
+        ),
       ),
       GoRoute(
         path: '/workout/new',
@@ -226,6 +250,60 @@ GoRouter appRouter(Ref ref) {
                 child: PlanReviewScreen(planId: state.pathParameters['planId']!),
               ),
             ),
+          ),
+          // Retos e prêmios da comunidade (criação e acompanhamento).
+          GoRoute(
+            path: 'challenges',
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) =>
+                _fadeSlide(state, const StaffOnly(child: CoachChallengesScreen())),
+            routes: [
+              GoRoute(
+                path: 'new',
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) =>
+                    _fadeSlide(state, const StaffOnly(child: ChallengeFormScreen())),
+              ),
+              GoRoute(
+                path: ':challengeId',
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) => _fadeSlide(
+                  state,
+                  StaffOnly(
+                    child: CoachChallengeDetailScreen(
+                      challengeId: state.pathParameters['challengeId']!,
+                    ),
+                  ),
+                ),
+                routes: [
+                  GoRoute(
+                    path: 'edit',
+                    parentNavigatorKey: _rootNavigatorKey,
+                    pageBuilder: (context, state) => _fadeSlide(
+                      state,
+                      StaffOnly(
+                        child: ChallengeFormScreen(
+                          challengeId: state.pathParameters['challengeId']!,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          GoRoute(
+            path: 'rewards',
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) =>
+                _fadeSlide(state, const StaffOnly(child: CoachRewardsScreen())),
+          ),
+          // Academias com QR impresso para check-in.
+          GoRoute(
+            path: 'locations',
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) =>
+                _fadeSlide(state, const StaffOnly(child: CoachLocationsScreen())),
           ),
         ],
       ),

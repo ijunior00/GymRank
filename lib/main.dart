@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:gymrank/core/constants/app_constants.dart';
 import 'package:gymrank/core/l10n/app_locale.dart';
@@ -13,6 +14,10 @@ import 'package:gymrank/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Endereços sem "#": é o que deixa o QR impresso da academia
+  // (https://…/checkin?c=…) abrir direto na tela certa. O Hosting já
+  // devolve o index.html para qualquer caminho (rewrites no firebase.json).
+  usePathUrlStrategy();
   await Future.wait([
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
     initializeDateFormatting(AppConstants.localeTag),

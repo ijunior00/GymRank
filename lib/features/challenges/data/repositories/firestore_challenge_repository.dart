@@ -38,23 +38,94 @@ class FirestoreChallengeRepository implements ChallengeRepository {
   }
 
   @override
+  Stream<List<ChallengeEntity>> watchByCoach(String coachId) {
+    return _collection
+        .where('coachId', isEqualTo: coachId)
+        .orderBy('createdAt', descending: true)
+        .snapshots()
+        .map((s) => s.docs.map(_fromSnapshot).toList());
+  }
+
+  @override
+  Stream<ChallengeEntity?> watchChallenge(String challengeId) {
+    return _collection.doc(challengeId).snapshots().map(
+          (doc) => doc.exists ? _fromSnapshot(doc) : null,
+        );
+  }
+
+  @override
+  Future<Result<ChallengeEntity>> save(ChallengeEntity challenge) async {
+    try {
+      if (challenge.id.isEmpty) {
+        final ref = _collection.doc();
+        final now = DateTime.now();
+        final fresh = challenge.copyWith(
+          id: ref.id,
+          participantCount: 0,
+          createdAt: now,
+        );
+        await ref.set({
+          ..._editableFields(fresh),
+          'coachId': fresh.coachId,
+          'participantCount': 0,
+          'createdAt': Timestamp.fromDate(now),
+        });
+        return Result.success(fresh);
+      }
+      await _collection.doc(challenge.id).update(_editableFields(challenge));
+      return Result.success(challenge);
+    } on FirebaseException catch (e) {
+      return Result.failure(_mapException(e));
+    }
+  }
+
+  @override
+  Future<Result<void>> setActive({
+    required String challengeId,
+    required bool active,
+  }) async {
+    try {
+      await _collection.doc(challengeId).update({'isActive': active});
+      return const Result.success(null);
+    } on FirebaseException catch (e) {
+      return Result.failure(_mapException(e));
+    }
+  }
+
+  /// Os campos que a treinadora edita. `coachId`, `participantCount` e
+  /// `createdAt` ficam de fora de propósito: a regra recusa mudá-los.
+  Map<String, dynamic> _editableFields(ChallengeEntity c) => {
+        'title': c.title.trim(),
+        'description': c.description.trim(),
+        'scope': c.scope.name,
+        'period': c.period.name,
+        'metric': c.metric.name,
+        'targetValue': c.targetValue,
+        'startsAt': Timestamp.fromDate(c.startsAt),
+        'endsAt': Timestamp.fromDate(c.endsAt),
+        'xpReward': c.xpReward,
+        'rewardId': c.rewardId,
+        'isActive': c.isActive,
+      };
+
+  @override
   Future<Result<void>> join({
     required String challengeId,
     required String userId,
   }) async {
     try {
+      // Só a inscrição. O `participantCount` do reto é somado pela Cloud
+      // Function `onParticipantCreated`: a regra não deixa a aluna editar
+      // o reto (e antes este passo falhava em silêncio por isso).
       await _collection.doc(challengeId).collection('participants').doc(userId).set({
         'userId': userId,
         'challengeId': challengeId,
         'currentValue': 0,
         'completed': false,
       });
-      await _collection.doc(challengeId).update({
-        'participantCount': FieldValue.increment(1),
-      });
       return const Result.success(null);
     } on FirebaseException catch (e) {
-      return Result.failure(Failure.unexpected(e.message ?? e.code));
+      return Result.failure(_mapException(e));
     }
   }
 
@@ -70,15 +141,34 @@ class FirestoreChallengeRepository implements ChallengeRepository {
         .snapshots()
         .map((doc) {
       if (!doc.exists) return null;
-      final data = doc.data()!;
-      return ChallengeParticipantEntity(
-        userId: userId,
-        challengeId: challengeId,
-        currentValue: (data['currentValue'] as num).toDouble(),
-        completed: data['completed'] as bool,
-        completedAt: (data['completedAt'] as Timestamp?)?.toDate(),
-      );
+      return _participantFrom(userId, challengeId, doc.data()!);
     });
+  }
+
+  @override
+  Stream<List<ChallengeParticipantEntity>> watchParticipants(String challengeId) {
+    return _collection
+        .doc(challengeId)
+        .collection('participants')
+        .orderBy('currentValue', descending: true)
+        .snapshots()
+        .map((s) => s.docs
+            .map((doc) => _participantFrom(doc.id, challengeId, doc.data()))
+            .toList());
+  }
+
+  static ChallengeParticipantEntity _participantFrom(
+    String userId,
+    String challengeId,
+    Map<String, dynamic> data,
+  ) {
+    return ChallengeParticipantEntity(
+      userId: userId,
+      challengeId: challengeId,
+      currentValue: (data['currentValue'] as num?)?.toDouble() ?? 0,
+      completed: data['completed'] as bool? ?? false,
+      completedAt: (data['completedAt'] as Timestamp?)?.toDate(),
+    );
   }
 
   /// Tolerante a campo faltando: os retos são criados à mão no console e
@@ -110,5 +200,14 @@ class FirestoreChallengeRepository implements ChallengeRepository {
       isActive: data['isActive'] as bool? ?? false,
       createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? now,
     );
+  }
+
+  Failure _mapException(FirebaseException e) {
+    return switch (e.code) {
+      'permission-denied' => const Failure.permissionDenied(),
+      'not-found' => const Failure.notFound(),
+      'unavailable' => const Failure.network(),
+      _ => Failure.unexpected(e.message ?? e.code),
+    };
   }
 }

@@ -16,5 +16,8 @@ class CheckInEntity with _$CheckInEntity {
     required DateTime checkedInAt,
     required int xpGranted,
     required bool countedForStreak,
+
+    /// Academia do QR impresso; `null` no QR rotativo da tela da coach.
+    String? locationName,
   }) = _CheckInEntity;
 }
