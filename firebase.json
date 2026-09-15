@@ -11,6 +11,7 @@
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "predeploy": [
       "dart run scripts/preencher_sw.dart",
+      "dart run build_runner build --delete-conflicting-outputs",
       "flutter build web --release --no-web-resources-cdn -t lib/main.dart --dart-define-from-file dart_defines.json"
     ],
     "rewrites": [{ "source": "**", "destination": "/index.html" }],

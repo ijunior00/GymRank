@@ -138,7 +138,7 @@ Tudo o que o deploy precisa está no `firebase.json` → `hosting`:
 
 | chave | o que faz |
 |---|---|
-| `predeploy` | roda `dart run scripts/preencher_sw.dart` e depois o `flutter build web` do `lib/main.dart` (com `--no-web-resources-cdn` e `--dart-define-from-file dart_defines.json`). Assim nunca sobe um `build/web` velho. **Sem `=` nesses comandos**: no Windows a ferramenta do Firebase trata `algo=valor` como variável de ambiente e o comando simplesmente não roda (o aviso é "Your command contains '='"). |
+| `predeploy` | roda, nesta ordem: `dart run scripts/preencher_sw.dart`; `dart run build_runner build --delete-conflicting-outputs` (regenera os arquivos `*.freezed.dart` / `*.g.dart`, que não vão para o git e ficam velhos a cada `git pull` que mexe numa entidade); e o `flutter build web` do `lib/main.dart` (com `--no-web-resources-cdn` e `--dart-define-from-file dart_defines.json`). Assim nunca sobe um `build/web` velho. **Sem `=` nesses comandos**: no Windows a ferramenta do Firebase trata `algo=valor` como variável de ambiente e o comando simplesmente não roda (o aviso é "Your command contains '='"). |
 | `public: build/web` | a pasta que sobe |
 | `rewrites` | toda rota cai no `index.html`; o roteador do Flutter resolve |
 | `headers` | `index.html`, `main.dart.js`, os service workers e o `manifest.json` vão como `no-cache`: quem já abriu o app recebe a versão nova no próximo carregamento, em vez de ficar semanas na antiga |
