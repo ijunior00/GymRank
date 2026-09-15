@@ -1,5 +1,7 @@
 {
   "_comentario": "Valores que entram no app na hora do build (flutter build ... --dart-define-from-file=dart_defines.json). Nenhum deles é segredo.",
   "_FCM_VAPID_KEY": "Chave PÚBLICA dos 'Certificados push da Web' (console do Firebase → Configurações do projeto → Cloud Messaging). Vazia = o app web funciona normal, só sem notificações push no navegador.",
-  "FCM_VAPID_KEY": ""
+  "FCM_VAPID_KEY": "",
+  "_APP_CHECK_RECAPTCHA_SITE_KEY": "Chave do site reCAPTCHA v3 gerada em console do Firebase → App Check → registrar app web. Vazia = App Check desligado. Ver docs/seguranca.md.",
+  "APP_CHECK_RECAPTCHA_SITE_KEY": ""
 }

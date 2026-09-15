@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gymrank/core/error/failure.dart';
 import 'package:gymrank/core/error/result.dart';
 import 'package:gymrank/features/profile/data/dtos/user_dto.dart';
+import 'package:gymrank/features/profile/domain/entities/public_profile.dart';
 import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
 import 'package:gymrank/features/profile/domain/repositories/user_repository.dart';
 
@@ -52,17 +53,57 @@ class FirestoreUserRepository implements UserRepository {
     }
   }
 
+  CollectionReference<Map<String, dynamic>> get _publicProfiles =>
+      _firestore.collection('public_profiles');
+
+  /// Consulta o espelho público, não `users`: a regra só deixa listar
+  /// `users` para a própria pessoa e para o staff, e a busca por @ é de
+  /// todo mundo. O espelho é escrito pela function `onUserWritten`
+  /// segundos depois do cadastro — bom o bastante para "esse @ já existe?".
   @override
   Future<Result<bool>> isUsernameAvailable(String username) async {
+    final found = await findPublicProfileByUsername(username);
+    final failure = found.failureOrNull;
+    if (failure != null) return Result.failure(failure);
+    return Result.success(found.dataOrNull == null);
+  }
+
+  @override
+  Future<Result<PublicProfile?>> findPublicProfileByUsername(
+    String username,
+  ) async {
     try {
-      final query = await _users
-          .where('usernameLowercase', isEqualTo: username.toLowerCase())
+      final normalized = username.replaceFirst('@', '').trim().toLowerCase();
+      if (normalized.isEmpty) return const Result.success(null);
+      final query = await _publicProfiles
+          .where('usernameLowercase', isEqualTo: normalized)
           .limit(1)
           .get();
-      return Result.success(query.docs.isEmpty);
+      if (query.docs.isEmpty) return const Result.success(null);
+      return Result.success(_publicProfileFromSnapshot(query.docs.first));
     } on FirebaseException catch (e) {
       return Result.failure(_mapException(e));
     }
+  }
+
+  @override
+  Stream<PublicProfile?> watchPublicProfile(String uid) {
+    return _publicProfiles.doc(uid).snapshots().map(
+          (doc) => doc.exists ? _publicProfileFromSnapshot(doc) : null,
+        );
+  }
+
+  PublicProfile _publicProfileFromSnapshot(
+    DocumentSnapshot<Map<String, dynamic>> doc,
+  ) {
+    final d = doc.data() ?? const {};
+    return PublicProfile(
+      id: doc.id,
+      name: d['name'] as String? ?? '',
+      username: d['username'] as String? ?? '',
+      photoUrl: d['photoUrl'] as String?,
+      level: (d['level'] as num?)?.toInt() ?? 1,
+    );
   }
 
   Failure _mapException(FirebaseException e) {

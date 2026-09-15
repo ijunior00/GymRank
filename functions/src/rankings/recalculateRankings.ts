@@ -1,5 +1,6 @@
 import { onSchedule } from 'firebase-functions/v2/scheduler';
 import { db, Timestamp } from '../admin';
+import { publicProfileOf } from '../profiles/publicProfile';
 
 interface RankableUser {
   id: string;
@@ -23,6 +24,12 @@ const CRITERIA_FIELD: Record<string, string> = {
  */
 export const recalculateRankings = onSchedule('every 1 hours', async () => {
   const usersSnap = await db.collection('users').get();
+
+  // Garante o cartão público de quem já existia antes de `onUserWritten`
+  // (contas criadas antes desta function). Depois da primeira rodada é
+  // idempotente e barato.
+  await backfillPublicProfiles(usersSnap);
+
   const users: RankableUser[] = usersSnap.docs.map((doc) => {
     const data = doc.data();
     return {
@@ -111,4 +118,17 @@ async function writeRanking(
     });
   });
   await batch.commit();
+}
+
+async function backfillPublicProfiles(usersSnap: FirebaseFirestore.QuerySnapshot): Promise<void> {
+  const docs = usersSnap.docs;
+  for (let i = 0; i < docs.length; i += 400) {
+    const batch = db.batch();
+    for (const doc of docs.slice(i, i + 400)) {
+      batch.set(db.collection('public_profiles').doc(doc.id), publicProfileOf(doc.data()), {
+        merge: true,
+      });
+    }
+    await batch.commit();
+  }
 }

@@ -47,13 +47,22 @@ Antes de explicar um setup do zero, veja se já existe:
 - `docs/setup-firebase.md` — criar e ligar o projeto Firebase
 - `docs/setup-movil.md` — daí até a Play Store e a App Store
 - `docs/setup-web-pwa.md` — a versão web / PWA
+- `docs/seguranca.md` — o que protege o app e o que se liga no console
+  (App Check, Auth, orçamento)
 
 ## Regras técnicas que não podem ser quebradas
 
 - **Nada de gamificação escrito pelo cliente.** XP, nível, sequência,
   Gym Score, recordes, `referralCount` — tudo só por Cloud Function, e
   bloqueado em `firestore.rules`. É o que impede a aluna de burlar o
-  ranking.
+  ranking. Toda concessão de XP passa por `grantXp` com um teto por
+  período (`XP_LIMITS`); nova fonte de XP = novo teto.
+- **Dado pessoal da aluna é dela e do staff da comunidade dela.** Treino,
+  medida, foto, perfil completo: nunca `allow read: if isSignedIn()`. O
+  que o resto do app precisa saber de alguém vai para
+  `public_profiles/{uid}`. Segredo do QR só em `coaches/{id}/private/qr`.
+  Toda mudança em `firestore.rules` roda a bateria contra o emulador
+  (ver `docs/seguranca.md`).
 - **Região das functions**: `us-central1`, fixado em
   `functions/src/constants.ts` **e** em `AppConstants.functionsRegion`.
   Se as duas divergirem, a chamada volta `NOT_FOUND`.

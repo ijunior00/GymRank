@@ -18,14 +18,27 @@ service firebase.storage {
     // Treinadora dona de `coaches/{coachId}` (mesma regra do Firestore).
     function isCoachOf(coachId) {
       let doc = callerDoc();
-      return isSignedIn() && doc.role == 'coach' && ('coachId' in doc) && doc.coachId == coachId;
+      return isSignedIn() && coachId != null &&
+        doc.role == 'coach' && ('coachId' in doc) && doc.coachId == coachId;
     }
 
     // Treinadora ou nutrióloga parceira da mesma comunidade.
     function isCoachStaffOf(coachId) {
       let doc = callerDoc();
-      return isSignedIn() && (doc.role == 'coach' || doc.role == 'nutriologo') &&
+      return isSignedIn() && coachId != null &&
+        (doc.role == 'coach' || doc.role == 'nutriologo') &&
         ('coachId' in doc) && doc.coachId == coachId;
+    }
+
+    // Treinadora de uma aluna, lida do perfil dela (mesmo truque das
+    // regras do Firestore para treinos/medidas/fotos).
+    function coachIdOfUser(userId) {
+      let u = firestore.get(/databases/(default)/documents/users/$(userId)).data;
+      return ('coachId' in u) ? u.coachId : null;
+    }
+
+    function coachIdOfReward(rewardId) {
+      return firestore.get(/databases/(default)/documents/rewards/$(rewardId)).data.coachId;
     }
 
     function isImage() {
@@ -41,8 +54,11 @@ service firebase.storage {
         isImage();
     }
 
+    // Fotos de evolução: só a própria aluna e o staff da comunidade dela.
+    // Antes bastava estar logado — qualquer conta baixava a foto de
+    // qualquer aluna.
     match /progress_photos/{userId}/{fileName} {
-      allow read: if isSignedIn();
+      allow read: if isOwner(userId) || isCoachStaffOf(coachIdOfUser(userId));
       allow write: if isOwner(userId) && isImage() &&
         request.resource.size < 10 * 1024 * 1024;
     }
@@ -69,9 +85,12 @@ service firebase.storage {
         request.resource.size < 20 * 1024 * 1024;
     }
 
+    // Imagem de um prêmio: só a treinadora dona do prêmio, com limite de
+    // tamanho. Antes qualquer conta subia imagens sem limite aqui.
     match /reward_images/{rewardId}/{fileName} {
       allow read: if isSignedIn();
-      allow write: if isSignedIn() && isImage();
+      allow write: if isCoachOf(coachIdOfReward(rewardId)) && isImage() &&
+        request.resource.size < 5 * 1024 * 1024;
     }
   }
 }

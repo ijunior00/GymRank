@@ -71,7 +71,6 @@ abstract final class DemoData {
         brandColorHex: '#FFD60A',
         instagramHandle: 'metodoaf',
         inviteCode: 'AF2026',
-        qrCodeSecret: 'demo-secret',
         plan: SubscriptionPlan.premium,
         studentCount: 8,
         activeChallengeCount: 3,

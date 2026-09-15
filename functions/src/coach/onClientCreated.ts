@@ -1,7 +1,8 @@
 import { onDocumentCreated } from 'firebase-functions/v2/firestore';
 import { db, FieldValue } from '../admin';
-import { XP } from '../constants';
+import { XP, XP_LIMITS } from '../constants';
 import { grantXp } from '../gamification/grantXp';
+import { weekKey } from '../gamification/periodKeys';
 import { dispatchNotification } from '../notifications/dispatchNotification';
 
 /**
@@ -64,12 +65,19 @@ async function creditReferrer(
   if (!referrer || referrer.id === newUserId) return;
 
   await referrer.ref.update({ referralCount: FieldValue.increment(1) });
-  await grantXp(referrer.id, XP.friendInvited);
+  // Mesmo teto semanal das amizades: indicações continuam contando no
+  // `referralCount`, mas só as primeiras da semana rendem XP.
+  const xp = await grantXp(referrer.id, XP.friendInvited, {
+    bucket: `social:${weekKey()}`,
+    max: XP_LIMITS.socialPerWeek,
+  });
   await dispatchNotification({
     userId: referrer.id,
     type: 'referralJoined',
     title: '¡Tu invitación funcionó! 🎉',
-    body: `${newUserName} se unió con tu recomendación. +${XP.friendInvited} XP.`,
+    body:
+      `${newUserName} se unió con tu recomendación.` +
+      (xp.granted ? ` +${XP.friendInvited} XP.` : ''),
     deepLink: '/profile',
   });
 }

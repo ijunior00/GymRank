@@ -76,7 +76,14 @@ export const onWorkoutSessionCompleted = onDocumentWritten(
 
     const userId = data.userId as string;
     const exercises = (data.exercises as SessionExercise[] | undefined) ?? [];
-    const durationSec = (data.durationSec as number | undefined) ?? 0;
+    // A duração que o app manda é só uma sugestão: o que vale é o tempo
+    // entre os carimbos de início e fim, que as regras obrigam a serem
+    // "agora" quando gravados. Sem isto bastava mandar durationSec: 600.
+    const startedAtMs = (data.startedAt as Timestamp | undefined)?.toMillis();
+    const finishedAtMs = (data.finishedAt as Timestamp | undefined)?.toMillis() ?? Date.now();
+    const elapsedSec =
+      startedAtMs === undefined ? 0 : Math.max(0, Math.floor((finishedAtMs - startedAtMs) / 1000));
+    const durationSec = Math.min((data.durationSec as number | undefined) ?? 0, elapsedSec);
     const doneSets = exercises.reduce(
       (n, ex) => n + (ex.sets ?? []).filter((s) => s.done).length,
       0,

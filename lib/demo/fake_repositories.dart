@@ -31,6 +31,7 @@ import 'package:gymrank/features/notifications/domain/entities/app_notification_
 import 'package:gymrank/features/notifications/domain/repositories/notification_repository.dart';
 import 'package:gymrank/features/plans/domain/entities/plan_entity.dart';
 import 'package:gymrank/features/plans/domain/repositories/plan_repository.dart';
+import 'package:gymrank/features/profile/domain/entities/public_profile.dart';
 import 'package:gymrank/features/profile/domain/entities/user_entity.dart';
 import 'package:gymrank/features/profile/domain/repositories/user_repository.dart';
 import 'package:gymrank/features/progress_photo/domain/entities/progress_photo_entity.dart';
@@ -153,6 +154,29 @@ class FakeUserRepository implements UserRepository {
   @override
   Stream<Result<UserEntity>> watch(String uid) =>
       Stream.value(Result.success(_resolve(uid)));
+
+  PublicProfile _card(UserEntity u) => PublicProfile(
+        id: u.id,
+        name: u.name,
+        username: u.username,
+        photoUrl: u.photoUrl,
+        level: u.level,
+      );
+
+  @override
+  Stream<PublicProfile?> watchPublicProfile(String uid) =>
+      Stream.value(_card(_resolve(uid)));
+
+  @override
+  Future<Result<PublicProfile?>> findPublicProfileByUsername(
+    String username,
+  ) async {
+    final wanted = username.replaceFirst('@', '').trim().toLowerCase();
+    for (final u in [DemoData.user, ...DemoData.students]) {
+      if (u.username.toLowerCase() == wanted) return Result.success(_card(u));
+    }
+    return const Result.success(null);
+  }
 }
 
 class FakeBodyMeasurementRepository implements BodyMeasurementRepository {

@@ -44,8 +44,6 @@ class _CoachSetupScreenState extends ConsumerState<CoachSetupScreen> {
   ];
 
   static const _codeAlphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  static const _secretAlphabet =
-      'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
   @override
   void initState() {
@@ -88,7 +86,6 @@ class _CoachSetupScreenState extends ConsumerState<CoachSetupScreen> {
           ? null
           : _instagram.text.trim().replaceFirst('@', ''),
       inviteCode: _random(6, _codeAlphabet),
-      qrCodeSecret: _random(40, _secretAlphabet),
       plan: SubscriptionPlan.free,
       studentCount: 0,
       activeChallengeCount: 0,

@@ -25,9 +25,12 @@ class FirestoreFriendshipRepository implements FriendshipRepository {
     required String addresseeUsername,
   }) async {
     try {
+      // Busca no espelho público: `users` só é listável pela própria
+      // pessoa e pelo staff.
       final userQuery = await _firestore
-          .collection('users')
-          .where('usernameLowercase', isEqualTo: addresseeUsername.toLowerCase())
+          .collection('public_profiles')
+          .where('usernameLowercase',
+              isEqualTo: addresseeUsername.replaceFirst('@', '').trim().toLowerCase())
           .limit(1)
           .get();
       if (userQuery.docs.isEmpty) {

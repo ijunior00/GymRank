@@ -28,13 +28,14 @@ class FirestoreFeedRepository implements FeedRepository {
     required bool liked,
   }) async {
     try {
+      // Só a curtida em si (uma por pessoa: o id é o uid). O `likeCount`
+      // do post é somado pela Cloud Function `onLikeWritten` — a regra
+      // não deixa o cliente editar o post de outra pessoa.
       final likeRef = _posts.doc(postId).collection('likes').doc(userId);
       if (liked) {
         await likeRef.set({'userId': userId, 'createdAt': Timestamp.now()});
-        await _posts.doc(postId).update({'likeCount': FieldValue.increment(1)});
       } else {
         await likeRef.delete();
-        await _posts.doc(postId).update({'likeCount': FieldValue.increment(-1)});
       }
       return const Result.success(null);
     } on FirebaseException catch (e) {
@@ -63,9 +64,7 @@ class FirestoreFeedRepository implements FeedRepository {
         'text': comment.text,
         'createdAt': Timestamp.fromDate(comment.createdAt),
       });
-      await _posts.doc(comment.postId).update({
-        'commentCount': FieldValue.increment(1),
-      });
+      // `commentCount` é somado pela Cloud Function `onCommentCreated`.
       return const Result.success(null);
     } on FirebaseException catch (e) {
       return Result.failure(Failure.unexpected(e.message ?? e.code));

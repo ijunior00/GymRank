@@ -51,8 +51,7 @@ A treinadora, sua marca e a configuração da comunidade dela.
 | city, country | string | `country` default `MX` |
 | logoUrl, brandColorHex, instagramHandle | string? | white-label |
 | inviteCode | string | código curto que o aluno digita para se vincular |
-| qrCodeSecret | string | HMAC do QR de check-in presencial (opcional no modelo online) |
-| plan | string | free \| premium |
+| plan | string | free \| premium (só o servidor muda) |
 | studentCount | number | **[CF]** `onClientCreated` / `recalculateCoachDashboard` |
 | activeChallengeCount | number | |
 | createdAt | timestamp | |
@@ -62,6 +61,11 @@ Criado pela própria treinadora no primeiro acesso ao painel (tela
 atribuído fora do app. A criação grava também `users/{uid}.coachId`.
 
 Subcoleções:
+- `private/qr` **[CF only]**: `secret` do QR de check-in. Ninguém lê pelo
+  app (regra `false` para tudo): `issueCheckInToken` gera o QR para a
+  coach e `validateCheckIn` confere. O documento público `coaches/{id}` é
+  legível por qualquer conta logada, por isso o segredo não pode morar
+  nele — as regras recusam gravar `qrCodeSecret` ali.
 - `stats/current` **[CF]**: `CoachDashboardStats` (totalStudents,
   activeStudents, workoutsToday, workoutsThisWeek, newStudentsThisMonth,
   inactiveStudents7d, retentionRate, calculatedAt). Recalculado a cada
@@ -76,8 +80,8 @@ Subcoleções:
     createdAt). O aluno nunca lê.
 - `checkins/{checkInId}` **[CF only]**: userId, coachId, checkedInAt,
   xpGranted, countedForStreak. Criado exclusivamente pela function
-  `validateCheckIn` a partir de um QR Code assinado (HMAC-SHA256 com
-  `qrCodeSecret`, TTL de 30s) — o cliente nunca escreve aqui.
+  `validateCheckIn` a partir de um QR Code assinado (HMAC-SHA256 com o
+  segredo de `private/qr`, TTL de 30s) — o cliente nunca escreve aqui.
 
 ## `documents/{docId}` (arquivos de plano)
 
@@ -173,6 +177,12 @@ ao concluir uma sessão do plano (`source: plan`); dispara
 `clients/{uid}.lastWorkoutAt`). É a atividade que conta para o painel da
 treinadora no atendimento online.
 
+**Leitura**: só a dona e o staff da comunidade dela (a regra busca a
+treinadora em `users/{userId}.coachId`; vale também para
+`body_measurements` e `progress_photos`). **Criação**: `date` até 2 dias
+atrás, `durationMinutes` entre 1 e 600, sem `sessionId` (carimbo do
+servidor). Cada criação rende XP, por isso as travas.
+
 ## `body_measurements/{measurementId}`
 
 userId, recordedAt, pesoKg, percentualGordura, massaMuscularKg, imc,
@@ -194,10 +204,12 @@ userId, authorName, authorPhotoUrl, type (streakMilestone | xpMilestone
 | levelUp | personalRecord | challengeCompleted | custom), text,
 imageUrl?, likeCount, commentCount, shareCount, createdAt. A maioria é
 gerada por Cloud Functions (`generateAutoPost`); posts customizados são
-permitidos ao próprio usuário.
+permitidos ao próprio usuário (texto até 1000 caracteres).
 
 Subcoleções: `likes/{userId}` (id = uid do curtidor, evita curtida
-duplicada), `comments/{commentId}`.
+duplicada), `comments/{commentId}` (texto até 500 caracteres).
+`likeCount` e `commentCount` são somados pelas functions `onLikeWritten`
+e `onCommentCreated` **[CF]** — o cliente não edita o post de ninguém.
 
 ## `friendships/{requesterId_addresseeId}`
 

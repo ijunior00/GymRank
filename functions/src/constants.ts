@@ -29,6 +29,19 @@ export const GYM_SCORE_WEIGHTS = {
   evolution: 0.2,
 } as const;
 
+/**
+ * Quantas vezes cada fonte rende XP por período (dia ou semana ISO, no
+ * fuso da Cidade do México). O que passa disso continua sendo registrado,
+ * só não vale pontos — é o teto que impede inflar o ranking à mão.
+ */
+export const XP_LIMITS = {
+  workoutLoggedPerDay: 1,
+  checkInPerDay: 2,
+  bodyMeasurementPerWeek: 1,
+  progressPhotoPerDay: 1,
+  socialPerWeek: 3, // amizades aceitas + indicações
+} as const;
+
 export const CHECKIN_COOLDOWN_MS = 6 * 60 * 60 * 1000;
 export const QR_TOKEN_TTL_MS = 30 * 1000;
 

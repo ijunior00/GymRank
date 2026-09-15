@@ -92,3 +92,6 @@ functions/lib/
 # Env
 .env
 *.env.local
+
+# testes de regras (test_rules/)
+test_rules/node_modules/

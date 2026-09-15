@@ -1,0 +1,14 @@
+{
+  "name": "anahifitness-rules-tests",
+  "private": true,
+  "type": "module",
+  "description": "Bateria de testes das regras do Firestore e do Storage contra o emulador. Ver README.md.",
+  "scripts": {
+    "test": "cd .. && firebase emulators:exec --only firestore \"node test_rules/firestore.rules.test.mjs\"",
+    "test:storage": "cd .. && firebase emulators:exec --only firestore,storage \"node test_rules/storage.rules.test.mjs\""
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^4.0.0",
+    "firebase": "^11.0.0"
+  }
+}

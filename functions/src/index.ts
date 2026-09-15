@@ -7,9 +7,16 @@ import { FUNCTIONS_REGION } from './constants';
 // as chamadas do app (hoje `validateCheckIn`) batem em outra região e
 // voltam NOT_FOUND. us-central1 é a região padrão do Firebase e a de menor
 // latência para o México entre as que têm todos os recursos.
-setGlobalOptions({ region: FUNCTIONS_REGION });
+// maxInstances é o teto de custo: por padrão cada function escala até 100
+// cópias em paralelo; 10 é muito para o tamanho da comunidade hoje e
+// segura a conta se alguém tentar inundar o backend. Suba quando as
+// filas (logs "instance limit") aparecerem de verdade.
+setGlobalOptions({ region: FUNCTIONS_REGION, maxInstances: 10 });
 
 export { validateCheckIn } from './checkin/validateCheckIn';
+export { issueCheckInToken } from './checkin/issueCheckInToken';
+export { onLikeWritten, onCommentCreated } from './social/counters';
+export { onUserWritten } from './profiles/publicProfile';
 
 export {
   onWorkoutCreated,

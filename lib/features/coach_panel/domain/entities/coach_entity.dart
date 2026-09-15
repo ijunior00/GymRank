@@ -24,12 +24,12 @@ class CoachEntity with _$CoachEntity {
     required String? instagramHandle,
 
     /// Código curto que o aluno digita para se vincular à treinadora.
+    ///
+    /// O segredo do QR de check-in presencial NÃO mora aqui: este
+    /// documento é legível por qualquer conta logada. Ele vive em
+    /// `coaches/{coachId}/private/qr`, que só as Cloud Functions leem
+    /// (`issueCheckInToken` gera o QR, `validateCheckIn` confere).
     required String inviteCode,
-
-    /// Segredo do QR Code de check-in presencial (HMAC). Só é usado se a
-    /// treinadora atender presencialmente; alunos online usam a conclusão
-    /// do treino como check-in.
-    required String qrCodeSecret,
     required SubscriptionPlan plan,
     required int studentCount,
     required int activeChallengeCount,

@@ -1,10 +1,12 @@
 import * as crypto from 'crypto';
 import { HttpsError, onCall } from 'firebase-functions/v2/https';
 import { db, Timestamp } from '../admin';
-import { CHECKIN_COOLDOWN_MS, QR_TOKEN_TTL_MS, XP } from '../constants';
+import { CHECKIN_COOLDOWN_MS, QR_TOKEN_TTL_MS, XP, XP_LIMITS } from '../constants';
 import { grantXp } from '../gamification/grantXp';
+import { dayKey } from '../gamification/periodKeys';
 import { registerActivityDay } from '../gamification/streak';
 import { incrementChallengeProgress } from '../challenges/updateChallengeProgress';
+import { getOrCreateQrSecret, signCheckInToken } from './qrSecret';
 
 function parsePayload(payload: string): { coachId: string; issuedAtRaw: string; signature: string } {
   const parts = payload.split('.');
@@ -17,10 +19,11 @@ function verifySignature(
   { coachId, issuedAtRaw, signature }: { coachId: string; issuedAtRaw: string; signature: string },
   secret: string,
 ): number {
-  const expectedSignature = crypto
-    .createHmac('sha256', secret)
-    .update(`${coachId}.${issuedAtRaw}`)
-    .digest('hex');
+  const issuedAtParsed = Number(issuedAtRaw);
+  if (!Number.isInteger(issuedAtParsed)) {
+    throw new HttpsError('invalid-argument', 'Código QR mal formado.');
+  }
+  const expectedSignature = signCheckInToken(coachId, issuedAtParsed, secret);
 
   const provided = Buffer.from(signature);
   const expected = Buffer.from(expectedSignature);
@@ -38,24 +41,27 @@ function verifySignature(
 
 /**
  * Cloud Function callable que valida o check-in presencial via QR Code
- * da treinadora (token rotativo assinado com
- * `coaches/{coachId}.qrCodeSecret`, TTL de 30s). É a única forma de criar
- * um documento em `coaches/{coachId}/checkins` — o cliente nunca escreve
- * diretamente (ver firestore.rules), o que evita fraude de check-in.
+ * da treinadora (token rotativo assinado com o segredo de
+ * `coaches/{coachId}/private/qr`, TTL de 30s, emitido por
+ * `issueCheckInToken`). É a única forma de criar um documento em
+ * `coaches/{coachId}/checkins` — o cliente nunca escreve diretamente
+ * (ver firestore.rules), o que evita fraude de check-in.
  */
 export const validateCheckIn = onCall(async (request) => {
   const uid = request.auth?.uid;
   if (!uid) throw new HttpsError('unauthenticated', 'Inicia sesión para continuar.');
 
-  const qrPayload = request.data?.qrPayload as string | undefined;
-  if (!qrPayload) throw new HttpsError('invalid-argument', 'Falta el código QR.');
+  const qrPayload = request.data?.qrPayload;
+  if (typeof qrPayload !== 'string' || qrPayload.length === 0 || qrPayload.length > 300) {
+    throw new HttpsError('invalid-argument', 'Falta el código QR.');
+  }
 
   const parsed = parsePayload(qrPayload);
   const coachRef = db.collection('coaches').doc(parsed.coachId);
   const coachSnap = await coachRef.get();
   if (!coachSnap.exists) throw new HttpsError('not-found', 'Coach no encontrado.');
 
-  verifySignature(parsed, coachSnap.data()!.qrCodeSecret as string);
+  verifySignature(parsed, await getOrCreateQrSecret(parsed.coachId));
   const coachId = parsed.coachId;
 
   const now = new Date();
@@ -77,16 +83,20 @@ export const validateCheckIn = onCall(async (request) => {
 
   const { countedForStreak } = await registerActivityDay(uid, now);
 
+  const xp = await grantXp(uid, XP.checkIn, {
+    bucket: `checkin:${dayKey(now)}`,
+    max: XP_LIMITS.checkInPerDay,
+  });
+
   const checkInRef = checkInsRef.doc();
   await checkInRef.set({
     userId: uid,
     coachId,
     checkedInAt: Timestamp.fromDate(now),
-    xpGranted: XP.checkIn,
+    xpGranted: xp.amount,
     countedForStreak,
   });
 
-  await grantXp(uid, XP.checkIn);
   await incrementChallengeProgress(uid, 'checkIns', 1);
 
   return {
@@ -94,7 +104,7 @@ export const validateCheckIn = onCall(async (request) => {
     userId: uid,
     coachId,
     checkedInAt: now.toISOString(),
-    xpGranted: XP.checkIn,
+    xpGranted: xp.amount,
     countedForStreak,
   };
 });

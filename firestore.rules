@@ -29,19 +29,54 @@ service cloud.firestore {
     }
 
     // A treinadora dona de `coaches/{coachId}`: papel `coach` e o próprio
-    // perfil apontando para esse painel.
+    // perfil apontando para esse painel. O `coachId != null` importa: sem
+    // ele, uma coach que ainda não criou a comunidade (coachId nulo)
+    // "bateria" com qualquer aluna sem treinadora (coachId nulo também).
     function isCoachOf(coachId) {
-      return isSignedIn() && callerRole() == 'coach' && callerCoachId() == coachId;
+      return isSignedIn() && coachId != null &&
+        callerRole() == 'coach' && callerCoachId() == coachId;
     }
 
     // Nutrióloga parceira vinculada ao mesmo painel (leitura da comunidade;
     // a parte alimentar ganha regras próprias quando existir).
     function isNutriologoOf(coachId) {
-      return isSignedIn() && callerRole() == 'nutriologo' && callerCoachId() == coachId;
+      return isSignedIn() && coachId != null &&
+        callerRole() == 'nutriologo' && callerCoachId() == coachId;
     }
 
     function isCoachStaffOf(coachId) {
       return isCoachOf(coachId) || isNutriologoOf(coachId) || isAdmin();
+    }
+
+    // Treinadora de uma aluna, lida do perfil dela.
+    function coachIdOfUser(userId) {
+      let u = get(/databases/$(database)/documents/users/$(userId)).data;
+      return ('coachId' in u) ? u.coachId : null;
+    }
+
+    // Dado pessoal da aluna (treino, medida, foto): só ela e o staff da
+    // comunidade dela. Numa consulta com `userId == X` o motor de regras
+    // sabe o valor de `resource.data.userId`, então consegue buscar o
+    // perfil e avaliar — é o que deixa a coach listar sem que cada
+    // registro precise carregar `coachId`. O `||` para no primeiro
+    // verdadeiro: a própria aluna nunca paga a busca extra.
+    function isOwnerOrStaffOfUser(userId) {
+      return isOwner(userId) || isCoachStaffOf(coachIdOfUser(userId));
+    }
+
+    // Carimbo de tempo dentro de uma janela em torno de agora. Fecha a
+    // porta de "registrar" 30 treinos com datas no passado num só dia.
+    function recentTs(ts, past, future) {
+      return ts is timestamp && ts > request.time - past && ts < request.time + future;
+    }
+
+    function validText(text, max) {
+      return text is string && text.size() > 0 && text.size() <= max;
+    }
+
+    // Campo opcional: ausente, nulo, ou texto dentro do limite.
+    function optionalText(data, key, max) {
+      return data.get(key, null) == null || validText(data[key], max);
     }
 
     // Quem pode ler um plano, decidido pelo documento pai buscado pelo
@@ -64,13 +99,23 @@ service cloud.firestore {
       return !unchangeable.toSet().hasAny(request.resource.data.diff(resource.data).affectedKeys());
     }
 
+    // O perfil completo (nascimento, sexo, altura, cidade, quem indicou) é
+    // da própria pessoa e do staff da comunidade dela. O que o resto do
+    // app precisa saber de alguém (nome, @, foto, nível) está em
+    // `public_profiles/{uid}`, espelhado pela function `onUserWritten`.
     match /users/{userId} {
-      allow read: if isSignedIn();
+      allow read: if isOwner(userId) || isCoachStaffOf(resource.data.coachId);
       // Todo cadastro nasce como alumno; coach/nutriologo/adminGlobal são
       // atribuídos fora do app (console ou script com Admin SDK).
       allow create: if isOwner(userId) && request.resource.data.role == 'alumno';
       allow update: if isOwner(userId) && onlyProfileFieldsChanged();
       allow delete: if false;
+
+      // Teto de XP por período: só a function `grantXp` escreve.
+      match /xp_ledger/{bucket} {
+        allow read: if isOwner(userId);
+        allow write: if false;
+      }
 
       match /achievements/{code} {
         allow read: if isSignedIn();
@@ -82,16 +127,34 @@ service cloud.firestore {
       }
     }
 
+    // Cartão público de cada pessoa: nome, @, foto, nível. É o que a busca
+    // de amigas, a lista de amigas e o ranking mostram. Espelho de
+    // `users/{uid}` mantido por Cloud Function; ninguém escreve pelo app.
+    match /public_profiles/{userId} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
+
     match /coaches/{coachId} {
       allow read: if isSignedIn();
       // A própria treinadora cria seu perfil de marca uma única vez (o
-      // papel `coach` já precisa existir no perfil dela).
+      // papel `coach` já precisa existir no perfil dela). O segredo do QR
+      // NÃO entra aqui: este documento é público para quem está logado.
       allow create: if isSignedIn() &&
         callerRole() == 'coach' &&
         callerCoachId() == null &&
-        request.resource.data.ownerUserId == request.auth.uid;
-      allow update: if isCoachOf(coachId) || isAdmin();
+        request.resource.data.ownerUserId == request.auth.uid &&
+        !request.resource.data.keys().hasAny(['qrCodeSecret']);
+      allow update: if (isCoachOf(coachId) || isAdmin()) &&
+        !request.resource.data.diff(resource.data).affectedKeys()
+          .hasAny(['qrCodeSecret', 'ownerUserId', 'studentCount', 'plan']);
       allow delete: if isAdmin();
+
+      // Só o servidor: segredo do QR de check-in (`private/qr`). Quem
+      // conseguisse lê-lo fabricaria check-ins válidos de casa.
+      match /private/{docId} {
+        allow read, write: if false;
+      }
 
       match /stats/{statId} {
         allow read: if isCoachStaffOf(coachId);
@@ -152,18 +215,24 @@ service cloud.firestore {
     // Sessão de treino executada a partir do plano. O aluno cria e edita
     // enquanto está `enCurso` e a encerra; validação, XP, sequência e
     // recordes são da Cloud Function `onWorkoutSessionCompleted`.
+    // Os carimbos de início e fim têm de ser "agora" (com folga de relógio):
+    // é o que faz uma sessão de 10 minutos levar 10 minutos de verdade. A
+    // function ainda recalcula a duração a partir deles.
     match /workout_sessions/{sessionId} {
       allow read: if isSignedIn() &&
         (isOwner(resource.data.userId) || isCoachStaffOf(resource.data.coachId));
       allow create: if isOwner(request.resource.data.userId) &&
         request.resource.data.status == 'enCurso' &&
+        recentTs(request.resource.data.startedAt, duration.value(10, 'm'), duration.value(10, 'm')) &&
         !request.resource.data.keys().hasAny(
           ['validated', 'validationReason', 'prs', 'countedForStreak', 'xpGranted']);
       allow update: if isOwner(resource.data.userId) &&
         resource.data.status == 'enCurso' &&
         !request.resource.data.diff(resource.data).affectedKeys().hasAny(
           ['validated', 'validationReason', 'prs', 'countedForStreak', 'xpGranted',
-           'userId', 'coachId', 'planId', 'startedAt', 'createdAt']);
+           'userId', 'coachId', 'planId', 'startedAt', 'createdAt']) &&
+        (request.resource.data.status == 'enCurso' ||
+          recentTs(request.resource.data.finishedAt, duration.value(10, 'm'), duration.value(10, 'm')));
       allow delete: if false;
     }
 
@@ -187,31 +256,66 @@ service cloud.firestore {
       allow update, delete: if isOwner(resource.data.userId);
     }
 
+    // Treino registrado à mão ou gerado pelo servidor ao concluir uma
+    // sessão. Cada criação rende XP (`onWorkoutCreated`), por isso a data
+    // tem de ser de agora: nada de "registrar" o mês inteiro numa tarde.
     match /workouts/{workoutId} {
-      allow read: if isSignedIn();
-      allow create: if isOwner(request.resource.data.userId);
-      allow update, delete: if isOwner(resource.data.userId);
+      allow read: if isOwnerOrStaffOfUser(resource.data.userId);
+      allow create: if isOwner(request.resource.data.userId) &&
+        recentTs(request.resource.data.date, duration.value(2, 'd'), duration.value(10, 'm')) &&
+        request.resource.data.durationMinutes is number &&
+        request.resource.data.durationMinutes >= 1 &&
+        request.resource.data.durationMinutes <= 600 &&
+        optionalText(request.resource.data, 'note', 500) &&
+        // `sessionId` é o carimbo do servidor: só ele grava.
+        !request.resource.data.keys().hasAny(['sessionId']);
+      allow update: if isOwner(resource.data.userId) &&
+        !request.resource.data.diff(resource.data).affectedKeys()
+          .hasAny(['userId', 'date', 'sessionId']) &&
+        optionalText(request.resource.data, 'note', 500);
+      allow delete: if isOwner(resource.data.userId);
     }
 
     match /body_measurements/{measurementId} {
-      allow read: if isSignedIn();
-      allow create: if isOwner(request.resource.data.userId);
+      allow read: if isOwnerOrStaffOfUser(resource.data.userId);
+      allow create: if isOwner(request.resource.data.userId) &&
+        recentTs(request.resource.data.recordedAt, duration.value(7, 'd'), duration.value(10, 'm')) &&
+        (request.resource.data.get('pesoKg', null) == null ||
+          (request.resource.data.pesoKg is number &&
+           request.resource.data.pesoKg > 20 && request.resource.data.pesoKg < 400)) &&
+        (request.resource.data.get('percentualGordura', null) == null ||
+          (request.resource.data.percentualGordura is number &&
+           request.resource.data.percentualGordura >= 0 &&
+           request.resource.data.percentualGordura <= 80));
       allow update, delete: if false; // histórico imutável
     }
 
+    // Fotos de evolução: o dado mais sensível do app. Só a aluna e o staff
+    // da comunidade dela — e o registro tem de apontar para um arquivo na
+    // pasta dela no Storage, não para qualquer URL.
     match /progress_photos/{photoId} {
-      allow read: if isSignedIn();
-      allow create: if isOwner(request.resource.data.userId);
+      allow read: if isOwnerOrStaffOfUser(resource.data.userId);
+      allow create: if isOwner(request.resource.data.userId) &&
+        recentTs(request.resource.data.takenAt, duration.value(1, 'd'), duration.value(10, 'm')) &&
+        request.resource.data.storageUrl is string &&
+        request.resource.data.storageUrl.matches(
+          'https://firebasestorage[.]googleapis[.]com/v0/b/[^/]+/o/progress_photos%2F' +
+          request.resource.data.userId + '%2F.*');
       allow update: if false;
       allow delete: if isOwner(resource.data.userId);
     }
 
+    // Feed da comunidade. Os contadores de curtidas e comentários são do
+    // servidor (`onLikeWritten`, `onCommentCreated`): o cliente só cria a
+    // curtida e o comentário, cada um com dono e tamanho limitados.
     match /posts/{postId} {
       allow read: if isSignedIn();
-      allow create: if isOwner(request.resource.data.userId);
+      allow create: if isOwner(request.resource.data.userId) &&
+        validText(request.resource.data.text, 1000);
       allow update: if isOwner(resource.data.userId) &&
         request.resource.data.diff(resource.data).affectedKeys()
-          .hasOnly(['text']);
+          .hasOnly(['text']) &&
+        validText(request.resource.data.text, 1000);
       allow delete: if isOwner(resource.data.userId) || isAdmin();
 
       match /likes/{userId} {
@@ -221,7 +325,10 @@ service cloud.firestore {
 
       match /comments/{commentId} {
         allow read: if isSignedIn();
-        allow create: if isOwner(request.resource.data.userId);
+        allow create: if isOwner(request.resource.data.userId) &&
+          validText(request.resource.data.text, 500) &&
+          request.resource.data.keys().hasOnly(
+            ['postId', 'userId', 'authorName', 'authorPhotoUrl', 'text', 'createdAt']);
         allow delete: if isOwner(resource.data.userId) || isAdmin();
         allow update: if false;
       }
