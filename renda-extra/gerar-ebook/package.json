@@ -1,0 +1,17 @@
+{
+  "name": "gerar-ebook-renda-extra",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Gera um e-book completo (Word) + material de venda a partir de um tema de renda extra, usando a API do Claude.",
+  "engines": { "node": ">=22.9" },
+  "scripts": {
+    "gerar": "node --env-file-if-exists=.env gerar.mjs",
+    "simular": "node gerar.mjs --simular --tema \"Renda extra vendendo doces caseiros\" --publico \"mães que querem trabalhar de casa\" --idioma pt-BR"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.124.0",
+    "docx": "^9.5.0",
+    "zod": "^4.6.1"
+  }
+}
