@@ -184,12 +184,12 @@ def img_07_agachamento():
         [
             cartao(),
             chao(780),
-            cabeca(612, 262),
-            linha([(590, 320), (530, 600)]),  # tronco
-            linha([(530, 600), (735, 540), (600, 760)]),  # coxa e perna
-            linha([(560, 770), (700, 770)], w=40),  # pé inteiro no chão
-            linha([(592, 340), (840, 340)], w=38),  # braços à frente
-            seta(500, 730, 500, 650, w=18),
+            cabeca(640, 268),
+            linha([(622, 326), (592, 612)]),  # tronco quase ereto
+            linha([(592, 612), (760, 556), (640, 756)]),  # coxa à frente, perna de volta ao pé
+            linha([(590, 768), (730, 768)], w=40),  # pé inteiro no chão, calcanhar sob o quadril
+            linha([(624, 346), (870, 346)], w=38),  # braços à frente
+            seta(548, 730, 548, 655, w=18),
         ]
     )
 
@@ -204,8 +204,8 @@ def img_08_borboleta():
             linha([(688, 690), (500, 640), (690, 772)]),  # perna esquerda
             linha([(712, 690), (900, 640), (710, 772)]),  # perna direita
             linha([(700, 772), (700, 772)], w=44),  # pés juntos
-            linha([(655, 390), (560, 590), (640, 760)], w=38),  # braço até o pé
-            linha([(745, 390), (840, 590), (760, 760)], w=38),
+            linha([(655, 390), (580, 540), (515, 640)], w=38),  # mãos nos joelhos
+            linha([(745, 390), (820, 540), (885, 640)], w=38),
         ]
     )
 
