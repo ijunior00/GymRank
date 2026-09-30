@@ -1,21 +1,13 @@
 {
   "titulo": "Bloco B: Soltar e respirar",
-  "abertura": "No capítulo anterior você aprendeu a contrair. Este capítulo ensina o movimento contrário, e ele vale tanto quanto o primeiro. Um assoalho pélvico que só sabe apertar não freia nada: ele chega ao sexo já no limite, e um músculo no limite dispara antes.\n\nSão dois exercícios: o Kegel reverso, que ensina a soltar, e a respiração diafragmática, que é o freio que você vai levar para a cama. Os dois entram desde o primeiro dia, junto com o Bloco A, e a dose não muda até a semana 12. O que muda é o uso: na última fase, a respiração passa a ser usada durante o sexo.\n\nNo fim do capítulo estão os dois entregáveis: a rotina de respiração de 5 minutos, passo a passo e com contagem, e o scan de tensão de 60 segundos para fazer antes do sexo e ao longo do dia.",
+  "abertura": "No capítulo anterior você aprendeu a contrair. Este ensina o movimento contrário, e ele vale tanto quanto o primeiro. Um assoalho pélvico que só sabe apertar não freia nada: chega ao sexo já no limite, e músculo no limite dispara antes.\n\nSão dois exercícios: o Kegel reverso, que ensina a soltar, e a respiração diafragmática, que é o freio que você vai levar para a cama. Os dois entram desde o primeiro dia, junto com o Bloco A, e a dose não muda até a semana 12. O que muda é o uso: na última fase, a respiração passa a ser usada durante o sexo.\n\nNo fim do capítulo estão a rotina de respiração de 5 minutos, com contagem, e o scan de tensão de 60 segundos.",
   "secoes": [
     {
       "titulo": "Por que tensão demais acelera",
       "blocos": [
-        { "tipo": "paragrafo", "texto": "Quase todo mundo chega a este livro achando que o músculo é fraco. Às vezes é. Mas uma parte grande dos homens que terminam rápido tem o assoalho pélvico tenso demais, não fraco demais. A meta-análise de Medrano-Sánchez e colegas (2026, Journal of Sexual Medicine), que reuniu 6 estudos com 416 homens, descreve as duas situações: fraqueza e/ou hipertonia do assoalho pélvico podem levar a distúrbio ejaculatório. Hipertonia é o nome técnico de um músculo que não desliga." },
-        { "tipo": "paragrafo", "texto": "Pense no que acontece no sexo. A excitação sobe, o corpo inteiro se arma e o assoalho pélvico se contrai junto. Se ele já vive contraído, chega ao limite mais cedo. A ejaculação é um reflexo que passa por esses músculos, e músculo tenso dispara com menos estímulo. É o que a experiência prática de treino mostra em quem aperta o bumbum o dia inteiro, senta 8 horas seguidas ou treina pesado prendendo o ar." },
+        { "tipo": "paragrafo", "texto": "Quase todo mundo chega a este livro achando que o músculo é fraco. Às vezes é. Mas uma parte grande dos homens que terminam rápido tem o assoalho pélvico tenso demais, não fraco demais. A meta-análise de Medrano-Sánchez e colegas (2026, Journal of Sexual Medicine), com 6 estudos e 416 homens, descreve as duas situações: fraqueza e/ou hipertonia do assoalho pélvico podem levar a distúrbio ejaculatório. Hipertonia é o nome técnico de um músculo que não desliga." },
+        { "tipo": "paragrafo", "texto": "No sexo, a excitação sobe, o corpo se arma e o assoalho pélvico se contrai junto. Se ele já vive contraído, chega ao limite mais cedo: a ejaculação é um reflexo que passa por esses músculos, e músculo tenso dispara com menos estímulo. A experiência prática de treino mostra isso em quem aperta o bumbum o dia inteiro, senta 8 horas seguidas ou treina pesado prendendo o ar." },
         { "tipo": "paragrafo", "texto": "Por isso o Kegel reverso vem depois de cada série de Kegel, e não como opcional. Fortalecer sem aprender a soltar pode piorar o quadro: você constrói força em cima de um músculo que já não relaxa. É também por isso que a regra de progressão do capítulo 4 manda voltar uma fase e aumentar o reverso e a respiração se você ficar mais rápido em vez de mais lento." },
-        { "tipo": "paragrafo", "texto": "Sinais de que o seu assoalho pélvico está mais para tenso do que para fraco:" },
-        { "tipo": "topicos", "itens": [
-          "Você aperta o bumbum ou as coxas sem perceber, sentado ou em pé.",
-          "Prende o ar quando se concentra ou faz força.",
-          "Sente a lombar ou o quadril duros no fim do dia.",
-          "Depois de uma série de Kegel, o períneo fica cansado ou dolorido, e não só ativo.",
-          "Ficou mais rápido, e não mais lento, nas primeiras semanas de treino."
-        ] },
         { "tipo": "atencao", "texto": "Se no questionário do capítulo 2 seu perfil deu tenso, este é o seu bloco principal nas duas primeiras semanas: menos volume de Kegel, mais reverso e mais respiração. A força vem depois, sobre uma base que sabe relaxar. E dor não se treina: se o períneo ou o quadril doerem, pare e procure um fisioterapeuta pélvico." }
       ]
     },
@@ -23,28 +15,27 @@
       "titulo": "4. Kegel reverso (soltar)",
       "blocos": [
         { "tipo": "imagem", "arquivo": "05-kegel-reverso.png", "texto": "Deitado, a região do períneo desce de leve. É deixar cair, não empurrar." },
-        { "tipo": "paragrafo", "texto": "O Kegel reverso é o oposto exato da contração: em vez de puxar o períneo para cima e para dentro, você deixa a região descer e se abrir. A sensação de referência é a de iniciar o xixi. Você não força nada; você dá permissão." },
+        { "tipo": "paragrafo", "texto": "O Kegel reverso é o oposto exato da contração: em vez de puxar o períneo para cima e para dentro, você deixa a região descer e se abrir. A referência é a sensação de iniciar o xixi. Você não força nada; você dá permissão." },
         { "tipo": "passos", "itens": [
-          "Deite de costas, joelhos dobrados, pés no chão, uma mão na barriga. É a mesma posição do Kegel deitado.",
+          "Deite de costas, joelhos dobrados, pés no chão, uma mão na barriga.",
           "Inspire pelo nariz e deixe a barriga subir. Junto com ela, relaxe o abdômen e o períneo como se fosse iniciar o xixi, deixando a região descer.",
-          "Segure essa sensação de soltura por 5 a 10 segundos, respirando normalmente. O ar continua entrando e saindo.",
+          "Segure essa sensação de soltura por 5 a 10 segundos, respirando normalmente.",
           "Se perceber que está empurrando para baixo, como quem faz esforço no banheiro, volte ao neutro e recomece só deixando cair.",
-          "Faça uma respiração normal e repita. São 10 repetições, sempre depois de cada série de Kegel."
+          "Uma respiração normal e repita. São 10 repetições, sempre depois de cada série de Kegel."
         ] },
         { "tipo": "topicos", "itens": [
           "Semanas 1–2: 5–10 s de soltura · 10 rep · depois de cada série de Kegel lento.",
-          "Semanas 3–4: igual. Agora a série de Kegel termina com as contrações rápidas; o reverso vem depois delas.",
-          "Semanas 5–8: igual. Com as contrações de 10 segundos, a soltura completa importa ainda mais.",
+          "Semanas 3–4: igual. A série agora termina com as contrações rápidas; o reverso vem depois delas.",
+          "Semanas 5–8: igual. Com contrações de 10 segundos, a soltura completa importa ainda mais.",
           "Semanas 9–12: igual. Fora do treino, o períneo solto vira o seu estado normal; é assim que ele deve estar no começo do sexo."
         ] },
         { "tipo": "topicos", "itens": [
           "O períneo e a base do pênis descem de leve, sem esforço visível.",
-          "A barriga está mole e a mão sobe e desce com a respiração.",
-          "Glúteos e coxas continuam soltos.",
+          "A barriga está mole; glúteos e coxas continuam soltos.",
           "Você sente a diferença entre o fim de uma contração e o chão completo da soltura: o reverso vai um pouco abaixo desse chão.",
           "Ao terminar a série, o períneo parece mais pesado ou mais quente, não cansado."
         ] },
-        { "tipo": "atencao", "texto": "Erros comuns: empurrar para baixo com força, como no banheiro, que é o erro mais perigoso deste bloco porque sobrecarrega o assoalho pélvico; prender o ar durante a soltura; fazer o reverso apressado, só para cumprir tabela depois do Kegel; apertar os glúteos para tentar soltar o períneo." },
+        { "tipo": "atencao", "texto": "Erros comuns: empurrar para baixo com força, como no banheiro, o erro mais perigoso deste bloco porque sobrecarrega o assoalho pélvico; prender o ar durante a soltura; fazer o reverso apressado, só para cumprir tabela; apertar os glúteos para tentar soltar o períneo." },
         { "tipo": "dica", "texto": "Se não consegue sentir a soltura, faça uma contração leve de 2 segundos e então solte. A diferença fica óbvia. Com o tempo você dispensa a contração e vai direto ao soltar." }
       ]
     },
@@ -52,54 +43,51 @@
       "titulo": "5. Respiração diafragmática",
       "blocos": [
         { "tipo": "imagem", "arquivo": "06-respiracao.png", "texto": "Inspira em 4 segundos, a barriga sobe e o períneo relaxa. Expira em 6, a barriga desce." },
-        { "tipo": "paragrafo", "texto": "O diafragma e o assoalho pélvico se movem juntos. Você pode conferir agora: coloque a mão sobre o períneo, por cima da roupa, e inspire fundo pela barriga. Ele desce um pouco. Expire: ele volta. Os dois são o teto e o chão da mesma caixa, o abdômen, e sobem e descem como um pistão." },
-        { "tipo": "paragrafo", "texto": "Respiração curta e presa no peito faz o contrário. O diafragma quase não desce, o assoalho pélvico fica travado em cima e a excitação sobe sem nada segurando. É o padrão que a maioria dos homens tem no sexo sem perceber, e ele piora quando entra a ansiedade. A experiência prática de treino é clara: quem aprende a expirar longo ganha um freio que funciona sem parar de se mover." },
-        { "tipo": "paragrafo", "texto": "A evidência mais direta é de Erkut e colegas (2025, Journal of Sexual Medicine). Foi um ensaio com 59 homens, 8 semanas de técnica comportamental mais treino do assoalho pélvico. O grupo que também fez respiração diafragmática 2 vezes por dia ganhou mais tempo (mediana de +283 segundos, contra +204 no grupo sem respiração) e foi o único que manteve o ganho um ano depois. Por isso a dose deste livro é 5 minutos, 2 vezes ao dia, do primeiro ao último dia." },
+        { "tipo": "paragrafo", "texto": "O diafragma e o assoalho pélvico se movem juntos. Confira agora: mão sobre o períneo, por cima da roupa, e inspire fundo pela barriga. Ele desce um pouco. Expire: ele volta. Os dois são o teto e o chão da mesma caixa, o abdômen. Respiração curta e presa no peito faz o contrário: o diafragma quase não desce, o assoalho pélvico fica travado em cima e a excitação sobe sem nada segurando. É o padrão que a maioria dos homens tem no sexo sem perceber, e piora com a ansiedade." },
+        { "tipo": "paragrafo", "texto": "A evidência mais direta é de Erkut e colegas (2025, Journal of Sexual Medicine): um ensaio com 59 homens, 8 semanas de técnica comportamental mais treino do assoalho pélvico. O grupo que também fez respiração diafragmática 2 vezes por dia ganhou mais tempo (mediana de +283 segundos, contra +204 no grupo sem respiração) e foi o único que manteve o ganho um ano depois. Por isso a dose deste livro é 5 minutos, 2 vezes ao dia, do primeiro ao último dia." },
         { "tipo": "passos", "itens": [
           "Deite de costas nas primeiras semanas, ou sente com a coluna apoiada. Uma mão na barriga, outra no peito.",
           "Inspire pelo nariz contando 4 segundos. A mão da barriga sobe; a do peito quase não se mexe. O períneo relaxa junto, sem você comandar.",
           "Expire pela boca, lábios quase fechados, contando 6 segundos. A barriga desce sozinha; não empurre o ar para fora.",
-          "Faça uma pausa curta e natural, sem prender, e inspire de novo.",
-          "Repita por 5 minutos. Dá cerca de 6 respirações por minuto. Não precisa contar todas; mantenha o ritmo 4 e 6."
+          "Pausa curta e natural, sem prender, e inspire de novo.",
+          "Repita por 5 minutos. Dá cerca de 6 respirações por minuto; não precisa contar todas, só manter o ritmo 4 e 6."
         ] },
         { "tipo": "topicos", "itens": [
           "Semanas 1–2: 5 min · 2× ao dia (manhã e noite) · 4 s inspira, 6 s expira · deitado.",
-          "Semanas 3–4: igual. Pode passar para sentado, o que facilita usar em qualquer lugar.",
+          "Semanas 3–4: igual. Pode passar para sentado.",
           "Semanas 5–8: igual. A expiração longa entra como parte do freio no para-e-continua (capítulo 8).",
           "Semanas 9–12: igual + usar durante o sexo, sempre que a excitação passar do 6."
         ] },
         { "tipo": "topicos", "itens": [
-          "A mão da barriga sobe primeiro e sobe mais que a do peito.",
-          "Os ombros não sobem na inspiração.",
+          "A mão da barriga sobe primeiro e sobe mais que a do peito; os ombros não sobem.",
           "A expiração é mais longa que a inspiração e termina sem esforço.",
           "Depois de 2 ou 3 minutos, o coração desacelera e a mandíbula solta sozinha.",
           "O períneo acompanha: desce na inspiração, volta na expiração, sem contração voluntária."
         ] },
-        { "tipo": "atencao", "texto": "Erros comuns: encher o peito primeiro; expirar com força, esvaziando tudo de uma vez; prender o ar no fim da inspiração; contrair o períneo na expiração por hábito de Kegel (aqui ele só acompanha); fazer uma sessão de 10 minutos e pular a outra. No ensaio de 2025 o que se testou foram duas sessões por dia, e é isso que cria o hábito." },
-        { "tipo": "dica", "texto": "Prenda a sessão a algo que você já faz: a da manhã antes de pegar o celular, a da noite deitado na cama, com a luz apagada. Um timer de 5 minutos resolve a contagem." }
+        { "tipo": "atencao", "texto": "Erros comuns: encher o peito primeiro; expirar com força, esvaziando tudo de uma vez; prender o ar no fim da inspiração; contrair o períneo na expiração por hábito de Kegel (aqui ele só acompanha); fazer uma sessão de 10 minutos e pular a outra. O que o ensaio de 2025 testou foram duas sessões por dia." },
+        { "tipo": "dica", "texto": "Prenda a sessão a algo que você já faz: a da manhã antes de pegar o celular, a da noite deitado na cama com a luz apagada. Um timer de 5 minutos resolve a contagem." }
       ]
     },
     {
       "titulo": "A rotina de 5 minutos, passo a passo",
       "blocos": [
-        { "tipo": "paragrafo", "texto": "Esta é a sessão completa, com contagem. Cada ciclo (4 segundos entrando, 6 saindo) dura 10 segundos; são 30 ciclos em 5 minutos. Use um timer e siga a sequência até ela virar automática." },
+        { "tipo": "paragrafo", "texto": "Esta é a sessão completa. Cada ciclo (4 segundos entrando, 6 saindo) dura 10 segundos; são 30 ciclos em 5 minutos. Use um timer e siga a sequência até ela virar automática." },
         { "tipo": "passos", "itens": [
-          "0:00 a 0:30. Posição: deitado ou sentado, mão na barriga, olhos fechados. Três respirações normais, só observando para onde o ar vai.",
+          "0:00 a 0:30. Deitado ou sentado, mão na barriga, olhos fechados. Três respirações normais, só observando para onde o ar vai.",
           "0:30 a 1:30. Seis ciclos de 4 e 6. Atenção só na mão da barriga subindo e descendo.",
           "1:30 a 3:00. Nove ciclos. Leve a atenção ao períneo: sinta ele descer de leve na inspiração e voltar na expiração.",
           "3:00 a 4:00. Seis ciclos. Na expiração, solte também a mandíbula e os ombros.",
           "4:00 a 4:30. Três ciclos com a expiração um pouco mais longa, 7 ou 8 segundos, se for confortável.",
-          "4:30 a 5:00. Três respirações normais. Antes de levantar, note como o períneo está. Essa é a sensação que você quer levar para o resto do dia."
+          "4:30 a 5:00. Três respirações normais. Antes de levantar, note como o períneo está. É essa sensação que você quer levar para o resto do dia."
         ] },
-        { "tipo": "paragrafo", "texto": "A sessão da manhã vem antes do primeiro bloco de Kegel; a da noite, depois do terceiro. Nos dias em que a ansiedade estiver alta, ou antes do sexo, faça uma terceira. Ela não substitui as duas fixas." }
+        { "tipo": "paragrafo", "texto": "A sessão da manhã vem antes do primeiro bloco de Kegel; a da noite, depois do terceiro. Em dias de ansiedade alta, ou antes do sexo, faça uma terceira. Ela não substitui as duas fixas." }
       ]
     },
     {
       "titulo": "O freio durante o sexo e o scan de tensão de 60 segundos",
       "blocos": [
-        { "tipo": "paragrafo", "texto": "Quando a excitação passa do 6 na escala do capítulo 2, você não precisa parar. Você expira longo. A expiração de 6 segundos faz três coisas ao mesmo tempo: desacelera o ritmo, solta o assoalho pélvico e tira a atenção do pensamento de que vai acontecer. Continue se movendo, só mais devagar, e emende duas ou três expirações até o número baixar." },
-        { "tipo": "paragrafo", "texto": "Essa é a versão mais simples do freio. As três formas de frear, o ponto 7 e o momento de usar cada uma estão no capítulo 8; a partir da semana 5 a expiração se junta à contração. Até lá, treine a respiração sozinha na masturbação: quando sentir que passou do 6, expire longo sem parar e veja o número descer." },
-        { "tipo": "paragrafo", "texto": "A tensão no sexo raramente começa no períneo. Começa na mandíbula travada, nos ombros perto das orelhas, na barriga dura. O scan de 60 segundos percorre o corpo de cima para baixo e solta cada ponto. Faça antes do sexo e 2 ou 3 vezes por dia, sentado no trabalho ou no trânsito." },
+        { "tipo": "paragrafo", "texto": "Quando a excitação passa do 6 na escala do capítulo 2, você não precisa parar. Você expira longo. A expiração de 6 segundos desacelera o ritmo, solta o assoalho pélvico e tira a atenção do pensamento de que vai acontecer. Continue se movendo, só mais devagar, e emende duas ou três expirações até o número baixar. As três formas de frear e o ponto 7 estão no capítulo 8; até lá, treine a respiração sozinha na masturbação: passou do 6, expire longo sem parar e veja o número descer." },
+        { "tipo": "paragrafo", "texto": "A tensão no sexo raramente começa no períneo. Começa na mandíbula travada, nos ombros perto das orelhas, na barriga dura. O scan de 60 segundos percorre o corpo de cima para baixo e solta cada ponto. Faça antes do sexo e 2 ou 3 vezes por dia, no trabalho ou no trânsito." },
         { "tipo": "checklist", "itens": [
           "Mandíbula (10 s): dentes separados, língua solta no céu da boca.",
           "Ombros (10 s): longe das orelhas, braços pesados.",
@@ -107,9 +95,9 @@
           "Barriga (10 s): mole, subindo com a inspiração.",
           "Glúteos (10 s): soltos, sem apertar o assento.",
           "Coxas (5 s): sem apertar uma contra a outra.",
-          "Períneo (10 s): descido, na sensação do Kegel reverso. Confira com uma expiração longa e solte mais um pouco."
+          "Períneo (10 s): descido, na sensação do Kegel reverso. Uma expiração longa e solte mais um pouco."
         ] },
-        { "tipo": "exemplo", "texto": "Diego, 38, Belo Horizonte: passava 9 horas sentado, apertava o bumbum sem perceber e respirava só no peito. No questionário deu perfil tenso. Nas duas primeiras semanas fez metade do volume de Kegel e caprichou no reverso e nas duas sessões de respiração. Na quarta semana começou a notar o períneo solto no meio do dia, coisa que nunca tinha sentido. Na sexta, conseguia baixar a excitação do 7 para o 5 só com três expirações longas durante o treino de para-e-continua. Caso composto, com nome trocado." },
+        { "tipo": "exemplo", "texto": "Diego, 38, Belo Horizonte: passava 9 horas sentado, apertava o bumbum sem perceber e respirava só no peito. No questionário deu perfil tenso. Nas duas primeiras semanas fez metade do volume de Kegel e caprichou no reverso e nas duas sessões de respiração. Na quarta semana começou a notar o períneo solto no meio do dia, coisa que nunca tinha sentido. Na sexta, baixava a excitação do 7 para o 5 com três expirações longas durante o para-e-continua. Caso composto, com nome trocado." },
         { "tipo": "atencao", "texto": "Se durante o reverso ou a respiração aparecer dor no períneo, peso que não passa ou ardência ao urinar, pare o bloco e procure um médico ou fisioterapeuta pélvico. Soltar não deve doer." }
       ]
     }
@@ -117,13 +105,13 @@
   "resumo": [
     "Assoalho pélvico tenso demais é causa comum de terminar rápido, e fortalecer sem soltar pode piorar; a meta-análise de 2026 fala em fraqueza e/ou hipertonia.",
     "O Kegel reverso (5–10 s de soltura, 10 rep, depois de cada série de Kegel) ensina o músculo a descer sem empurrar.",
-    "A respiração diafragmática, 5 minutos 2 vezes ao dia com 4 s de inspiração e 6 s de expiração, foi o que separou o grupo que ganhou mais e manteve o ganho em 1 ano no ensaio de 2025.",
+    "A respiração diafragmática, 5 minutos 2 vezes ao dia, 4 s inspirando e 6 s expirando, foi o que separou o grupo que ganhou mais e manteve o ganho em 1 ano no ensaio de 2025.",
     "No sexo, a expiração longa é o freio que funciona sem parar de se mover; o scan de 60 segundos tira a tensão antes que ela chegue ao períneo."
   ],
   "acao_agora": [
     "Faça agora uma série de Kegel reverso: 10 solturas de 5 a 10 segundos, deitado (3 minutos).",
     "Faça a rotina de respiração de 5 minutos seguindo a contagem da seção 4, com timer (5 minutos).",
-    "Rode o scan de tensão de 60 segundos e anote em que ponto do corpo você estava mais travado (1 minuto).",
-    "Coloque dois lembretes no celular para a respiração, manhã e noite, nos horários em que você realmente vai fazer (1 minuto)."
+    "Rode o scan de tensão de 60 segundos e anote onde você estava mais travado (1 minuto).",
+    "Coloque dois lembretes no celular para a respiração, manhã e noite (1 minuto)."
   ]
 }
