@@ -7,12 +7,14 @@
       "blocos": [
         { "tipo": "paragrafo", "texto": "Imagine o abdômen como uma caixa. O diafragma é o teto, o assoalho pélvico é o chão, os músculos da barriga são as paredes. Quando você expira, o diafragma sobe e o assoalho pélvico sobe junto: é o momento natural de contrair. Quando inspira, os dois descem: é o momento de soltar. Trabalhar nessa direção gasta menos força e não empurra nada para baixo." },
         { "tipo": "paragrafo", "texto": "Prender o ar e fazer força, o que na academia chamam de manobra de Valsalva, faz o contrário. A pressão dentro da caixa dispara e o chão é empurrado para baixo em cada repetição. Em quem levanta peso, é hábito. Semana após semana, um assoalho pélvico empurrado e apertado vira um assoalho pélvico tenso, e o capítulo 5 mostrou o que tensão faz com o momento da ejaculação. A experiência prática de treino é clara: homens fortes que prendem o ar costumam estar entre os mais rápidos." },
+        { "tipo": "paragrafo", "texto": "Teste agora. Mão sobre o períneo, por cima da roupa, e uma tossida leve. Num assoalho pélvico coordenado, ele sobe um instante antes da tosse; num assoalho pélvico tenso ou desconectado, ele é empurrado para baixo. Esse pequeno movimento para cima antes do esforço é o que este bloco ensina a fazer de propósito, até voltar a ser automático. Na experiência prática de treino, é comum que quem termina rápido empurre para baixo nesse teste, e comum que isso mude ao longo das 12 semanas." },
         { "tipo": "topicos", "itens": [
           "Antes do esforço: inspire pela barriga, períneo solto.",
           "Na parte pesada: expire pela boca e contraia de leve períneo e abdômen, uns 30% da força, como fechar um zíper de baixo para cima.",
           "Na volta: inspire e solte tudo."
         ] },
-        { "tipo": "atencao", "texto": "Contrair de leve não é Kegel máximo. Segurar contração total durante um esforço cansa o músculo e ensina exatamente a tensão que você está tentando desfazer. Fora do esforço, o padrão continua o do capítulo 5: períneo solto." }
+        { "tipo": "atencao", "texto": "Contrair de leve não é Kegel máximo. Segurar contração total durante um esforço cansa o músculo e ensina exatamente a tensão que você está tentando desfazer. Fora do esforço, o padrão continua o do capítulo 5: períneo solto." },
+        { "tipo": "paragrafo", "texto": "Este é o bloco mais fácil de pular, porque prancha parece coisa de academia e não de sexo. Não pule. Quem treina pesado sem este padrão desfaz numa hora de musculação o que construiu no treino do dia; quem não treina, mas carrega peso, sobe escada e faz força no banheiro prendendo o ar, faz o mesmo em doses menores." }
       ]
     },
     {
@@ -35,17 +37,28 @@
         ] },
         { "tipo": "topicos", "itens": [
           "Quadril nem alto nem caído; lombar sem dor.",
+          "Cotovelos sob os ombros e pescoço na linha do corpo, sem peso na nuca.",
           "Você mantém os 4 segundos entrando e 6 saindo sem travar.",
-          "O períneo sobe de leve na expiração e desce na inspiração; tremor no abdômen é normal."
+          "O períneo sobe de leve na expiração e desce na inspiração; tremor no abdômen é normal.",
+          "Depois da série, o períneo solta sozinho na primeira inspiração; se fica apertado, você segurou demais."
         ] },
         { "tipo": "atencao", "texto": "Erros comuns: prender o ar; quadril caindo; queixo no peito; apertar os glúteos no máximo; insistir depois que a respiração quebrou. Quando você não consegue mais expirar em 6 segundos, a série acabou, mesmo que faltem 10 segundos no relógio." },
+        { "tipo": "paragrafo", "texto": "Se a versão nos pés não sai com a respiração inteira, faça de joelhos: mesma linha reta do joelho à cabeça, mesmo padrão. Suba para os pés quando conseguir as 3 séries de joelhos sem quebrar a respiração. Fazer de joelhos com o padrão certo vale mais que fazer nos pés prendendo o ar." },
         { "tipo": "dica", "texto": "Conte respirações em vez de segundos: 3 ciclos completos são 30 segundos, 4 ou 5 são 45. A atenção fica no padrão, não no cronômetro." }
       ]
     },
     {
       "titulo": "Na academia, na escada e no dia a dia",
       "blocos": [
-        { "tipo": "paragrafo", "texto": "O padrão é o mesmo em qualquer exercício de força: expira na parte que empurra ou levanta, inspira na descida. Agachamento, leg press, levantamento terra, supino, subir escada com peso. Se a carga só sobe com o ar preso, ela está alta demais para estas 12 semanas." },
+        { "tipo": "paragrafo", "texto": "O padrão é o mesmo em qualquer exercício de força: expira na parte que empurra ou levanta, inspira na descida. Agachamento, leg press, levantamento terra, supino, subir escada com peso. Se a carga só sobe com o ar preso, ela está alta demais para estas 12 semanas. Um exemplo fora da academia, pegar uma caixa pesada do chão:" },
+        { "tipo": "passos", "itens": [
+          "Chegue perto, pés afastados, um pé um pouco à frente.",
+          "Agache dobrando joelhos e quadril, tronco firme, e segure a caixa junto do corpo.",
+          "Ainda embaixo, inspire pela barriga; períneo solto.",
+          "Expire pela boca enquanto sobe, contraindo de leve períneo e abdômen.",
+          "Em pé, inspire e solte. Para descer a caixa, o mesmo: inspira em cima, expira descendo."
+        ] },
+        { "tipo": "paragrafo", "texto": "Para quem treina na academia, o que muda durante as 12 semanas:" },
         { "tipo": "topicos", "itens": [
           "Cargas que exigem prender o ar: reduza até conseguir expirar durante a repetição. A força volta; o padrão fica.",
           "Abdominais de muita pressão (elevação de pernas pesada, prancha com anilha): troque pela prancha com respiração nas primeiras 8 semanas.",
@@ -53,7 +66,13 @@
           "Depois do treino de pernas: 2 minutos de agachamento profundo e uma série de Kegel reverso.",
           "Cinto de musculação só nas séries mais pesadas, não o treino inteiro. Ele convida a prender o ar."
         ] },
-        { "tipo": "paragrafo", "texto": "Para quem não treina nada: a prancha 3 vezes por semana é suficiente. Não precisa de academia nem de mais exercícios de abdômen. O ganho aqui é coordenação, não tamanho." },
+        { "tipo": "paragrafo", "texto": "Para quem não treina nada: a prancha 3 vezes por semana é suficiente. Não precisa de academia nem de mais exercícios de abdômen. O ganho aqui é coordenação, não tamanho. O padrão, porém, vale para todo esforço do dia:" },
+        { "tipo": "topicos", "itens": [
+          "Criança no colo, mala no bagageiro, botijão de gás: expira ao levantar.",
+          "Escada com sacolas: expira nos degraus, sem prender o ar no fim do lance.",
+          "Empurrar carro ou móvel: expira no empurrão, períneo de leve para cima, nunca para baixo.",
+          "Banheiro: evacuar sem forçar. Fazer força para baixo ali é o mesmo empurrão da prancha errada, todo dia."
+        ] },
         { "tipo": "exemplo", "texto": "Caio, 27, Goiânia: musculação 5 vezes por semana, agachamento e terra pesados, ar preso em toda repetição. Começou o programa e nas duas primeiras semanas ficou mais rápido, não mais lento. Voltou uma fase, dobrou o reverso e trocou a respiração no treino: expirar em toda subida, carga 20% menor por 4 semanas. Na semana 6, a tensão no períneo depois do treino tinha sumido; na semana 8 fazia as 3 pausas do para-e-continua sem passar do ponto. Caso composto, nome trocado." }
       ]
     },
@@ -68,7 +87,8 @@
           "Não vou prender o ar em nenhum momento; se precisar, a carga está alta demais.",
           "Na volta, inspiro e solto tudo: períneo, glúteos e mandíbula."
         ] },
-        { "tipo": "paragrafo", "texto": "A mini-rotina de core de 5 minutos entra 3 vezes por semana, a partir da semana 3. Nos dias de quadril, ela é o fim da rotina do capítulo 6; se preferir um dia à parte, ela se sustenta sozinha." },
+        { "tipo": "paragrafo", "texto": "Na academia, rode o checklist na primeira repetição de cada exercício, não em todas. Depois de duas semanas o corpo assume; você só volta a ele quando a carga sobe ou quando percebe que prendeu o ar." },
+        { "tipo": "paragrafo", "texto": "A mini-rotina de core de 5 minutos entra 3 vezes por semana, a partir da semana 3. Nos dias de quadril, ela é o fim da rotina do capítulo 6, e você pode pular o primeiro minuto de respiração, que já veio nos alongamentos; se preferir um dia à parte, ela se sustenta sozinha." },
         { "tipo": "passos", "itens": [
           "0:00 a 1:00. Deitado, 6 ciclos de respiração 4 e 6, mão na barriga, sentindo o períneo descer e subir.",
           "1:00 a 1:45. Prancha 1, 30 a 45 segundos conforme a fase, respirando no padrão.",
@@ -91,6 +111,7 @@
   "acao_agora": [
     "Deitado, teste o padrão: 6 respirações com contração leve na expiração e soltura na inspiração (1 minuto).",
     "Leia o checklist em voz alta e use no próximo esforço real do dia: uma sacola, uma escada (10 segundos).",
-    "Se treina na academia, anote quais exercícios você faz com o ar preso e qual carga permite expirar (5 minutos)."
+    "Se treina na academia, anote quais exercícios você faz com o ar preso e qual carga permite expirar (5 minutos).",
+    "Faça o teste da tosse com a mão no períneo e anote se ele subiu ou desceu; repita na semana 6 (1 minuto)."
   ]
 }

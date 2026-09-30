@@ -1,0 +1,132 @@
+{
+  "titulo": "El plan de 12 semanas",
+  "abertura": "Todo lo que enseñaron los capítulos 3 a 8 cabe en una página. Este capítulo es esa página: las cuatro fases, la rutina del día por horario, la rutina de la semana, el registro semanal y las reglas para avanzar, retroceder y retomar cuando la vida se atraviese. Nada aquí es nuevo; es el mismo entrenamiento, organizado para que no tengas que hojear el libro todos los días.\n\nLéelo una vez completo, tómale foto a la tarjeta de bolsillo, copia el registro semanal y regresa aquí el domingo por la noche de cada semana para contar los días y decidir la semana siguiente.",
+  "secoes": [
+    {
+      "titulo": "1. Las 4 fases",
+      "blocos": [
+        { "tipo": "paragrafo", "texto": "Cada fase tiene un objetivo y una dosis. El calendario dice cuándo termina la fase; la regla de progresión (sección 4) dice si puedes avanzar. Las dos tienen que coincidir." },
+        { "tipo": "paragrafo", "texto": "**Fase 1, semanas 1–2: base.** Sentir el músculo, soltar y respirar, todo acostado. Si tu perfil en el capítulo 2 salió tenso, ve más ligero con el Kegel y más generoso con el inverso." },
+        { "tipo": "topicos", "itens": [
+          "Kegel lento: 3 s contrae / 3 s suelta · 10 repeticiones · 3× al día · acostado.",
+          "Kegel inverso: 5–10 s de soltura · 10 repeticiones · después de cada serie de Kegel.",
+          "Respiración diafragmática: 5 min · 2× al día (4 s inhala, 6 s exhala).",
+          "Cadera (sentadilla profunda, mariposa, flexor): 3–4× por semana · 1–2 min · 2 repeticiones cada uno; flexor 1 min por lado · 2 repeticiones.",
+          "Contracciones rápidas, plancha y parar y seguir: todavía no."
+        ] },
+        { "tipo": "paragrafo", "texto": "**Fase 2, semanas 3–4: progresión.** El Kegel sale de la cama y pasa a la silla y a la fila. Entran las rápidas, la plancha y el parar y seguir." },
+        { "tipo": "topicos", "itens": [
+          "Kegel lento: 5 s / 5 s · 10–15 repeticiones · 3× al día · sentado o de pie.",
+          "Contracciones rápidas: 10 repeticiones (1 s / 1 s) al final de cada serie.",
+          "Plancha con respiración: 3 × 30 s · 3× por semana.",
+          "Parar y seguir: 2–3× por semana · 3 a 4 pausas.",
+          "Kegel inverso, respiración y cadera: igual que en la fase 1."
+        ] },
+        { "tipo": "paragrafo", "texto": "**Fase 3, semanas 5–8: fuerza.** Contracciones de 10 segundos y plancha más larga. La contracción se vuelve lo bastante fuerte para servir de freno (capítulo 8) y el parar y seguir puede ser en pareja (capítulo 9)." },
+        { "tipo": "topicos", "itens": [
+          "Kegel lento: 10 s / 10 s · 10–15 repeticiones · 3× al día.",
+          "Contracciones rápidas: 15–20 repeticiones al final de cada serie.",
+          "Plancha con respiración: 3 × 30–45 s · 3× por semana.",
+          "Parar y seguir: 2–3× por semana · 3 a 4 pausas, ahora también con el freno por contracción y exhalación.",
+          "Kegel inverso, respiración y cadera: igual."
+        ] },
+        { "tipo": "paragrafo", "texto": "**Fase 4, semanas 9–12: mantenimiento y aplicación.** El Kegel baja a dos veces al día y lo que ganaste se lleva al sexo, una vez por semana, con el plan de juego del capítulo 8." },
+        { "tipo": "topicos", "itens": [
+          "Kegel lento: mantener 10 s / 10 s · 10–15 repeticiones · 2× al día.",
+          "Contracciones rápidas: 15–20 repeticiones al final de cada serie.",
+          "Respiración diafragmática: igual, y usarla durante el sexo.",
+          "Parar y seguir: aplicarlo en el sexo (pausa, contracción o ritmo) · 1× por semana.",
+          "Kegel inverso, cadera y plancha (3 × 30–45 s · 3× por semana): igual."
+        ] }
+      ]
+    },
+    {
+      "titulo": "2. La rutina de un día, por horario",
+      "blocos": [
+        { "tipo": "paragrafo", "texto": "Tres bloques cortos y dos respiraciones. Cada bloque tiene 1 serie de Kegel lento, las rápidas al final de la serie (a partir de la semana 3) y el Kegel inverso. En las semanas 9 a 12 el bloque de la tarde se quita." },
+        { "tipo": "passos", "itens": [
+          "Mañana, todavía en la cama: respiración, 5 minutos (4 s inhala, 6 s exhala). Enseguida, bloque 1: 3 a 4 minutos.",
+          "Tarde, sentado o de pie a partir de la semana 3 (escritorio, coche estacionado, fila): bloque 2, 3 a 4 minutos. Nadie se da cuenta.",
+          "Noche, antes de dormir: bloque 3, 3 a 4 minutos. Después, respiración, 5 minutos, ya acostado.",
+          "Días de cadera (3 a 4 por semana): 10 minutos después de bañarte o antes de la respiración de la noche. La plancha entra en esos 10 minutos a partir de la semana 3, en 3 de los días."
+        ] },
+        { "tipo": "paragrafo", "texto": "Cuenta de tiempo: los tres bloques suman 10 a 12 minutos de entrenamiento al día. La respiración queda fuera de esa cuenta porque la haces acostado, en los 5 minutos antes de levantarte y en los 5 antes de dormir, en lugar de estar viendo el celular. Cadera y plancha son otros 10 minutos, solo los días marcados." },
+        { "tipo": "paragrafo", "texto": "Tarjeta de bolsillo. Tómale una foto y déjala como favorita en la galería." },
+        { "tipo": "topicos", "itens": [
+          "Mañana: respiración 5 min + 1 serie (Kegel lento, rápidas a partir de la semana 3, inverso).",
+          "Tarde: 1 serie (se quita en las semanas 9–12).",
+          "Noche: 1 serie + respiración 5 min.",
+          "3–4× por semana: cadera 10 min (plancha incluida, 3× por semana, a partir de la semana 3).",
+          "2–3× por semana: parar y seguir, a partir de la semana 3; en el sexo 1× por semana a partir de la semana 9."
+        ] },
+        { "tipo": "dica", "texto": "Amarra cada bloque a algo que ya pasa: el despertador, la comida, lavarte los dientes. La tarde es el bloque que más se pierde; ponte una alarma en silencio." }
+      ]
+    },
+    {
+      "titulo": "3. La rutina de la semana y el registro semanal",
+      "blocos": [
+        { "tipo": "paragrafo", "texto": "Además de lo diario, cuatro cosas son semanales:" },
+        { "tipo": "topicos", "itens": [
+          "Cadera: 3 a 4× por semana, 10 minutos, desde la semana 1.",
+          "Plancha: 3× por semana a partir de la semana 3, junto con la cadera.",
+          "Parar y seguir: 2 a 3× por semana a partir de la semana 3; desde la semana 5, una sesión puede ser en pareja (capítulo 9).",
+          "Aplicación en el sexo: 1× por semana a partir de la semana 9, dos frenos, sin cronómetro."
+        ] },
+        { "tipo": "paragrafo", "texto": "Registro semanal. Copia la lista de abajo 12 veces en las notas del celular, o imprime la página, y marca cada punto en el día. Un día cuenta como completo cuando hiciste los tres bloques y las dos respiraciones (dos bloques en las semanas 9–12). Cadera, plancha y parar y seguir los marcas solo los días en que los hiciste." },
+        { "tipo": "checklist", "itens": [
+          "Lun: mañana ☐ tarde ☐ noche ☐ respiración 2× ☐ cadera ☐ plancha ☐ parar y seguir ☐",
+          "Mar: mañana ☐ tarde ☐ noche ☐ respiración 2× ☐ cadera ☐ plancha ☐ parar y seguir ☐",
+          "Mié: mañana ☐ tarde ☐ noche ☐ respiración 2× ☐ cadera ☐ plancha ☐ parar y seguir ☐",
+          "Jue: mañana ☐ tarde ☐ noche ☐ respiración 2× ☐ cadera ☐ plancha ☐ parar y seguir ☐",
+          "Vie: mañana ☐ tarde ☐ noche ☐ respiración 2× ☐ cadera ☐ plancha ☐ parar y seguir ☐",
+          "Sáb: mañana ☐ tarde ☐ noche ☐ respiración 2× ☐ cadera ☐ plancha ☐ parar y seguir ☐",
+          "Dom: mañana ☐ tarde ☐ noche ☐ respiración 2× ☐ cadera ☐ plancha ☐ parar y seguir ☐",
+          "Domingo por la noche: días completos ___ de 7 · cadera ___ de 3–4 · plancha ___ de 3 · parar y seguir ___ de 2–3 · ¿la contracción se debilitó antes del final algún día? sí ☐ no ☐ · semana ___ de 12"
+        ] },
+        { "tipo": "atencao", "texto": "No lo llenes de memoria el domingo. El registro de 30 segundos hecho en el momento es lo que sostiene la constancia (capítulo 2). El domingo es solo para contar." }
+      ]
+    },
+    {
+      "titulo": "4. Reglas: avanzar, retroceder, días perdidos",
+      "blocos": [
+        { "tipo": "paragrafo", "texto": "Decide el domingo, con el registro semanal en la mano, y no a media semana." },
+        { "tipo": "topicos", "itens": [
+          "Avanzar. Solo cuando pasan dos cosas juntas: la fase terminó en el calendario y, en su última semana, completaste la dosis actual 5 días o más sin que la contracción se debilitara antes del final de la serie. Menos de 5 días: repite una semana en la misma fase.",
+          "Retroceder una fase. Tres señales: te volviste más rápido en vez de más lento; tensión en el periné, en el glúteo o en la zona lumbar después de las series; cualquier dolor. Retrocede una fase, aumenta el Kegel inverso y la respiración y retoma solo cuando las señales desaparezcan. Es un piso pélvico demasiado tenso; el capítulo 11 lo detalla.",
+          "Perdiste 1 día. Retoma al día siguiente, sin compensar. Doblar la serie es el exceso de volumen del capítulo 4 y genera tensión.",
+          "Perdiste 3 días seguidos. La semana no cuenta: repite la semana en la que estabas, con la misma dosis.",
+          "Perdiste 2 semanas o más. Retrocede una fase completa, haz una semana de ella y, con los 5 días cerrados, retoma donde te quedaste.",
+          "Primeras señales. Lo esperado es más conciencia del músculo y del punto 7 entre la 4ª y la 6ª semana. Antes de eso, no evalúes; después, si nada cambió, capítulo 11."
+        ] },
+        { "tipo": "exemplo", "texto": "Alejandro, 38, Monterrey: perdió la semana 6 completa en un viaje de trabajo y regresó queriendo compensar con dos series por bloque. Siguió la regla a regañadientes: repitió la semana 5 con 10 s / 10 s, cerró 6 días el domingo y solo entonces pasó a la 7. En la semana 10 aplicó el primer freno por contracción en el sexo. Según él, lo que lo salvó fue no intentar recuperar el tiempo perdido." }
+      ]
+    },
+    {
+      "titulo": "5. Después de la semana 12: mantenimiento",
+      "blocos": [
+        { "tipo": "paragrafo", "texto": "La técnica sola recae cuando la persona la deja: es lo que muestran los datos sobre el parar y seguir (Semans, 1956) y el apretón (Masters y Johnson, 1970), 50 a 60% de resultado a corto plazo y recaída común. Lo que sostiene la ganancia es el músculo y la respiración. En el estudio de Erkut y colegas (2025), el grupo que hizo respiración diafragmática 2 veces al día fue el único que mantuvo el resultado un año después. Por eso el mantenimiento es pequeño, pero no es cero." },
+        { "tipo": "topicos", "itens": [
+          "Kegel lento 10 s / 10 s, 10 a 15 repeticiones, con rápidas e inverso: 2 veces al día (mañana y noche).",
+          "Respiración diafragmática: 5 minutos, 1 vez al día, y siempre durante el sexo, como freno.",
+          "Cadera: 2 veces por semana, 10 minutos. Plancha, si quieres mantenerla, el mismo día.",
+          "Frenos en el sexo: siguen. No son una fase del entrenamiento; son tu forma de tener relaciones."
+        ] },
+        { "tipo": "paragrafo", "texto": "Señales de que hace falta reforzar: volviste a ser más rápido en dos relaciones seguidas; regresó la tensión en el periné o en la cadera; pasaste 2 semanas o más sin entrenar; saliste de una enfermedad, de dormir mal o de mucho estrés. Refuerzo: 2 semanas con la rutina completa de la fase 3 (semanas 5–8), incluido el parar y seguir, y después regresas al mantenimiento." },
+        { "tipo": "dica", "texto": "Si en mantenimiento el control empieza a caer sin motivo aparente y hay cualquier señal de alerta del capítulo 1, no es el refuerzo lo que lo resuelve: es una consulta." }
+      ]
+    }
+  ],
+  "resumo": [
+    "Cuatro fases: base (1–2), progresión (3–4), fuerza (5–8), mantenimiento y aplicación (9–12), con las dosis de las fichas.",
+    "Día típico: respiración y bloque en la mañana, bloque en la tarde, bloque y respiración en la noche; los bloques suman 10 a 12 minutos.",
+    "Semana típica: cadera 3 a 4×, plancha 3× y parar y seguir 2 a 3× a partir de la semana 3, sexo con frenos 1× a partir de la semana 9.",
+    "Avanzas solo con 5 días completos sin debilitarte; retrocedes una fase si te vuelves más rápido, tenso o con dolor.",
+    "Después de la semana 12: Kegel 2× al día, respiración 1×, cadera 2× por semana, y refuerzo de 2 semanas cuando regresen las señales."
+  ],
+  "acao_agora": [
+    "Tómale foto a la tarjeta de bolsillo y márcala como favorita (1 minuto).",
+    "Copia el registro semanal 12 veces en las notas del celular o imprímelo (5 minutos).",
+    "Elige las anclas de los tres bloques y ponte una alarma para el de la tarde (3 minutos).",
+    "Marca en el calendario los domingos de las semanas 2, 4, 8 y 12: son los días de decidir si avanzas (2 minutos)."
+  ]
+}

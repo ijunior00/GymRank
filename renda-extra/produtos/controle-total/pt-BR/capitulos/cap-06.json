@@ -7,6 +7,7 @@
       "blocos": [
         { "tipo": "paragrafo", "texto": "Três grupos importam aqui. Os adutores, na parte interna da coxa, encurtam em quem passa o dia sentado com as pernas fechadas. Os flexores do quadril, na frente, encurtam com qualquer hora de cadeira: ficam em posição encolhida o dia inteiro. Os glúteos ficam apertados e, ao mesmo tempo, preguiçosos. Todos se ligam à pelve, e uma pelve puxada para a frente ou travada deixa o assoalho pélvico esticado e tenso, o mesmo quadro de hipertonia do capítulo 5." },
         { "tipo": "paragrafo", "texto": "No sexo, esses músculos são os que mais trabalham. Se já chegam curtos, contraem forte, e essa contração vai direto para o períneo. A experiência prática de treino é consistente: quem solta o quadril sente as pernas menos travadas na cama e a excitação subindo com menos pressa. É também o que torna possível, no capítulo 8, escolher posições em que o corpo fica solto." },
+        { "tipo": "paragrafo", "texto": "O que esperar: nas duas primeiras semanas a descida do agachamento fica menos assustadora; por volta da semana 6 muita gente coloca o calcanhar no chão pela primeira vez. É lento, e é assim mesmo. Alongamento responde a frequência, não a força, e por isso a dose é 3 a 4 vezes por semana até o fim. Os sinais abaixo mostram se o seu quadril está entre os que mais precisam deste bloco:" },
         { "tipo": "topicos", "itens": [
           "Você não consegue agachar fundo com os calcanhares no chão.",
           "Sentado com as solas dos pés juntas, os joelhos ficam altos e a virilha puxa.",
@@ -41,6 +42,7 @@
           "Puxa na parte interna da coxa e no tornozelo, não no joelho."
         ] },
         { "tipo": "atencao", "texto": "Erros comuns: joelhos para dentro; calcanhares levantados com o peso na ponta do pé; prender o ar; descer com pressa. Se os calcanhares levantam, apoie-os num livro ou numa toalha dobrada, ou segure em algo firme à sua frente, como o batente de uma porta. Se o joelho doer, desça menos e use mais apoio." },
+        { "tipo": "paragrafo", "texto": "Se nem com apoio você chega embaixo, comece sentado num banquinho baixo ou num degrau, com os pés na posição do agachamento, e respire ali 1 a 2 minutos. A cada semana, um apoio mais baixo. O objetivo é a posição sem apoio, mas o alongamento já acontece no caminho." },
         { "tipo": "dica", "texto": "Use a posição no dia a dia: amarrar o tênis, pegar algo no chão, esperar a água ferver. Cada minuto agachado conta." }
       ]
     },
@@ -67,6 +69,7 @@
           "Ombros e mandíbula soltos; o períneo acompanha a respiração."
         ] },
         { "tipo": "atencao", "texto": "Erros comuns: empurrar os joelhos com as mãos ou com os cotovelos (o adutor reage contraindo e você perde o alongamento); arredondar a lombar para parecer que desceu mais; trazer os pés perto demais do corpo, o que joga a tensão para o joelho." },
+        { "tipo": "paragrafo", "texto": "É comum um lado descer mais que o outro. Não force o lado duro para igualar; dê a ele a mesma respiração e o mesmo tempo, e a diferença diminui sozinha ao longo das semanas. Quando os joelhos já chegam perto do chão, incline o tronco para a frente a partir do quadril, coluna longa, para aprofundar." },
         { "tipo": "dica", "texto": "Encoste as costas na parede se a coluna cansar. O alongamento é no quadril, não na lombar." }
       ]
     },
@@ -93,6 +96,7 @@
           "O joelho da frente fica em cima do pé; a respiração continua livre."
         ] },
         { "tipo": "atencao", "texto": "Erros comuns: inclinar o tronco para a frente, o que tira o alongamento do lugar; arquear a lombar em vez de avançar o quadril; soltar o glúteo de trás. Se a lombar reclamar, avance menos e contraia o glúteo um pouco mais." },
+        { "tipo": "paragrafo", "texto": "Se ajoelhar dói mesmo com almofada, faça em pé: um passo largo à frente, pé de trás apoiado no chão ou num degrau baixo, joelho de trás quase esticado, glúteo de trás firme, quadril avançando. A sensação é a mesma; o joelho fica de fora." },
         { "tipo": "dica", "texto": "Nos dias de muitas horas sentado, se tiver que cortar um dos três, corte outro. Este é o que desfaz a cadeira." }
       ]
     },
@@ -107,9 +111,16 @@
           "4:00 a 5:00. Agachamento profundo, 2ª volta.",
           "5:00 a 6:00. Borboleta, 2ª volta.",
           "6:00 a 8:00. Flexor do quadril, 2ª volta, 1 minuto de cada lado.",
-          "8:00 a 10:00. Nas semanas 1–2, estique para 2 minutos os dois alongamentos que mais puxam. A partir da semana 3, esses 2 minutos são da prancha com respiração (capítulo 7)."
+          "8:00 a 10:00. Nas semanas 1–2, estique para 2 minutos os dois alongamentos que mais puxam. A partir da semana 3, esses 2 minutos viram a prancha com respiração (capítulo 7); com os descansos, a rotina fecha em pouco mais de 10 minutos."
         ] },
-        { "tipo": "paragrafo", "texto": "Quando dói: joelho no agachamento, menos profundidade, calcanhares mais altos no apoio, mãos seguras em algo. Joelho na borboleta, pés mais longe do corpo. Lombar no flexor, avance menos e firme o glúteo. Lombar no agachamento, segure em algo e deixe o tronco mais vertical. Se com essas trocas a dor continuar por 2 semanas, aparecer fora do exercício ou vier com formigamento, pare e procure um fisioterapeuta." },
+        { "tipo": "paragrafo", "texto": "Onde encaixar: depois do banho quente, antes de dormir junto com a respiração da noite, ou logo depois do treino de pernas, quando o quadril já está aquecido. Escolha um horário fixo; alongamento que depende de sobrar tempo não acontece. Quando dói, troque antes de parar:" },
+        { "tipo": "topicos", "itens": [
+          "Joelho no agachamento: menos profundidade, calcanhares mais altos no apoio, mãos seguras em algo.",
+          "Joelho na borboleta: pés mais longe do corpo, almofada sob cada joelho.",
+          "Lombar no flexor: avance menos e firme mais o glúteo de trás.",
+          "Lombar no agachamento: segure em algo à frente e deixe o tronco mais vertical.",
+          "Se com essas trocas a dor continuar por 2 semanas, aparecer fora do exercício ou vier com formigamento na perna, pare e procure um fisioterapeuta."
+        ] },
         { "tipo": "exemplo", "texto": "Bruno, 42, Porto Alegre: corria três vezes por semana e nunca alongava. Não descia no agachamento sem levantar os calcanhares e sentia a virilha puxar na borboleta com os joelhos a um palmo do chão. Perfil misto no questionário. Começou com um livro sob os calcanhares e almofada na borboleta. Na semana 6 agachava com o pé inteiro no chão e notou que as pernas paravam de travar no sexo; na semana 8 já escolhia posições com as pernas soltas. Caso composto, nome trocado." }
       ]
     }
