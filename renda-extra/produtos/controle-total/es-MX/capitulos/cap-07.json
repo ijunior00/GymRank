@@ -1,0 +1,117 @@
+{
+  "titulo": "Bloque D: Core y coordinación",
+  "abertura": "Todo esfuerzo que haces pasa por el piso pélvico. Levantar una caja, subir escaleras con las compras, hacer sentadilla con barra: la presión dentro del abdomen sube y es el piso pélvico el que sostiene por abajo. Si aguantas el aire y haces fuerza, es él quien recibe el impacto.\n\nEste bloque tiene un solo ejercicio, la plancha con respiración, y un patrón: exhala y contrae suave, inhala y suelta. El patrón es lo que importa; te lo llevas a cualquier entrenamiento y a cualquier esfuerzo del día. Al final, la lista de verificación antes de cualquier esfuerzo y la minirrutina de core de 5 minutos.",
+  "secoes": [
+    {
+      "titulo": "El patrón: exhala y contrae, inhala y suelta",
+      "blocos": [
+        { "tipo": "paragrafo", "texto": "Imagina el abdomen como una caja. El diafragma es el techo, el piso pélvico es el piso, los músculos del abdomen son las paredes. Cuando exhalas, el diafragma sube y el piso pélvico sube con él: es el momento natural de contraer. Cuando inhalas, los dos bajan: es el momento de soltar. Trabajar en esa dirección gasta menos fuerza y no empuja nada hacia abajo." },
+        { "tipo": "paragrafo", "texto": "Aguantar el aire y hacer fuerza, lo que en el gimnasio llaman maniobra de Valsalva, hace lo contrario. La presión dentro de la caja se dispara y el piso es empujado hacia abajo en cada repetición. En quien levanta pesas, es hábito. Semana tras semana, un piso pélvico empujado y apretado se vuelve un piso pélvico tenso, y el capítulo 5 mostró lo que la tensión hace con el momento de la eyaculación. La experiencia práctica de entrenamiento es clara: los hombres fuertes que aguantan el aire suelen estar entre los más rápidos." },
+        { "tipo": "paragrafo", "texto": "Prueba ahora. Mano sobre el periné, por encima de la ropa, y una tos ligera. En un piso pélvico coordinado, sube un instante antes de la tos; en un piso pélvico tenso o desconectado, es empujado hacia abajo. Ese pequeño movimiento hacia arriba antes del esfuerzo es lo que este bloque enseña a hacer a propósito, hasta que vuelva a ser automático. En la experiencia práctica de entrenamiento, es común que quien termina rápido empuje hacia abajo en esta prueba, y común que eso cambie a lo largo de las 12 semanas." },
+        { "tipo": "topicos", "itens": [
+          "Antes del esfuerzo: inhala con el abdomen, periné suelto.",
+          "En la parte pesada: exhala por la boca y contrae suave periné y abdomen, un 30% de la fuerza, como subir un cierre de abajo hacia arriba.",
+          "Al regresar: inhala y suelta todo."
+        ] },
+        { "tipo": "atencao", "texto": "Contraer suave no es Kegel máximo. Sostener una contracción total durante un esfuerzo cansa el músculo y enseña exactamente la tensión que estás tratando de deshacer. Fuera del esfuerzo, el patrón sigue siendo el del capítulo 5: periné suelto." },
+        { "tipo": "paragrafo", "texto": "Este es el bloque más fácil de saltarse, porque la plancha parece cosa de gimnasio y no de sexo. No lo saltes. Quien entrena pesado sin este patrón deshace en una hora de pesas lo que construyó en el entrenamiento del día; quien no entrena, pero carga peso, sube escaleras y hace fuerza en el baño aguantando el aire, hace lo mismo en dosis menores." }
+      ]
+    },
+    {
+      "titulo": "9. Plancha con respiración",
+      "blocos": [
+        { "tipo": "imagem", "arquivo": "10-prancha.png", "texto": "Plancha sobre los antebrazos, cuerpo recto. En la exhalación, periné y abdomen contraen suave." },
+        { "tipo": "passos", "itens": [
+          "Antebrazos en el piso, codos debajo de los hombros, puntas de los pies en el piso.",
+          "Cuerpo en línea recta de la cabeza a los talones. Mirada al piso, una cuarta adelante de las manos.",
+          "Inhala por la nariz soltando el piso pélvico; el abdomen se expande ligeramente.",
+          "Exhala por la boca y contrae suave el periné junto con el abdomen, como si subieras un cierre de abajo hacia arriba.",
+          "Mantén el ritmo hasta que se acabe el tiempo. Nunca aguantes el aire; nunca empujes hacia abajo.",
+          "Baja con control. 30 segundos de descanso entre series. Si es demasiado, apoya las rodillas en el piso."
+        ] },
+        { "tipo": "topicos", "itens": [
+          "Semanas 1–2: todavía no. Primero la base: Kegel, inverso, respiración y cadera.",
+          "Semanas 3–4: 3 × 30 s · 3× por semana.",
+          "Semanas 5–8: 3 × 30–45 s · 3× por semana.",
+          "Semanas 9–12: igual."
+        ] },
+        { "tipo": "topicos", "itens": [
+          "Cadera ni alta ni caída; zona lumbar sin dolor.",
+          "Codos bajo los hombros y cuello en línea con el cuerpo, sin peso en la nuca.",
+          "Mantienes los 4 segundos entrando y 6 saliendo sin trabarte.",
+          "El periné sube suave en la exhalación y baja en la inhalación; el temblor en el abdomen es normal.",
+          "Después de la serie, el periné se suelta solo en la primera inhalación; si se queda apretado, sostuviste de más."
+        ] },
+        { "tipo": "atencao", "texto": "Errores comunes: aguantar el aire; cadera cayéndose; barbilla al pecho; apretar los glúteos al máximo; insistir después de que la respiración se rompió. Cuando ya no puedes exhalar en 6 segundos, la serie se acabó, aunque falten 10 segundos en el reloj." },
+        { "tipo": "paragrafo", "texto": "Si la versión sobre los pies no sale con la respiración completa, hazla de rodillas: la misma línea recta de la rodilla a la cabeza, el mismo patrón. Sube a los pies cuando logres las 3 series de rodillas sin romper la respiración. Hacerla de rodillas con el patrón correcto vale más que hacerla sobre los pies aguantando el aire." },
+        { "tipo": "dica", "texto": "Cuenta respiraciones en vez de segundos: 3 ciclos completos son 30 segundos, 4 o 5 son 45. La atención se queda en el patrón, no en el cronómetro." }
+      ]
+    },
+    {
+      "titulo": "En el gimnasio, en la escalera y en el día a día",
+      "blocos": [
+        { "tipo": "paragrafo", "texto": "El patrón es el mismo en cualquier ejercicio de fuerza: exhala en la parte que empuja o levanta, inhala en la bajada. Sentadilla, prensa de piernas, peso muerto, press de banca, subir escaleras con peso. Si la carga solo sube con el aire contenido, está demasiado alta para estas 12 semanas. Un ejemplo fuera del gimnasio, levantar una caja pesada del piso:" },
+        { "tipo": "passos", "itens": [
+          "Acércate, pies separados, un pie un poco al frente.",
+          "Baja doblando rodillas y cadera, tronco firme, y sujeta la caja pegada al cuerpo.",
+          "Todavía abajo, inhala con el abdomen; periné suelto.",
+          "Exhala por la boca mientras subes, contrayendo suave periné y abdomen.",
+          "De pie, inhala y suelta. Para bajar la caja, lo mismo: inhala arriba, exhala al bajar."
+        ] },
+        { "tipo": "paragrafo", "texto": "Para quien entrena en el gimnasio, lo que cambia durante las 12 semanas:" },
+        { "tipo": "topicos", "itens": [
+          "Cargas que exigen aguantar el aire: bájalas hasta que puedas exhalar durante la repetición. La fuerza regresa; el patrón se queda.",
+          "Abdominales de mucha presión (elevación de piernas con peso, plancha con disco): cámbialos por la plancha con respiración en las primeras 8 semanas.",
+          "El Kegel no entra en la serie. El periné solo acompaña la respiración; nada de sostener una contracción máxima mientras levantas.",
+          "Después del entrenamiento de pierna: 2 minutos de sentadilla profunda y una serie de Kegel inverso.",
+          "Cinturón de levantamiento solo en las series más pesadas, no todo el entrenamiento. Invita a aguantar el aire."
+        ] },
+        { "tipo": "paragrafo", "texto": "Para quien no entrena nada: la plancha 3 veces por semana es suficiente. No necesitas gimnasio ni más ejercicios de abdomen. La ganancia aquí es coordinación, no tamaño. El patrón, eso sí, vale para todo esfuerzo del día:" },
+        { "tipo": "topicos", "itens": [
+          "Un niño en brazos, la maleta en la cajuela, el tanque de gas: exhala al levantar.",
+          "Escaleras con bolsas: exhala en los escalones, sin aguantar el aire al final del tramo.",
+          "Empujar un coche o un mueble: exhala en el empujón, periné suave hacia arriba, nunca hacia abajo.",
+          "Baño: evacuar sin pujar. Hacer fuerza hacia abajo ahí es el mismo empujón de la plancha mal hecha, todos los días."
+        ] },
+        { "tipo": "exemplo", "texto": "Mauricio, 27, Mérida: pesas 5 veces por semana, sentadilla y peso muerto pesados, aire contenido en cada repetición. Empezó el programa y en las dos primeras semanas se volvió más rápido, no más lento. Retrocedió una fase, dobló el inverso y cambió la respiración en el entrenamiento: exhalar en cada subida, carga 20% menor durante 4 semanas. En la semana 6, la tensión en el periné después de entrenar había desaparecido; en la semana 8 hacía las 3 pausas del parar y seguir sin pasarse del punto. Caso compuesto, con nombre cambiado." }
+      ]
+    },
+    {
+      "titulo": "Lista de verificación antes de cualquier esfuerzo y la minirrutina de core",
+      "blocos": [
+        { "tipo": "paragrafo", "texto": "Cinco preguntas, 10 segundos, antes de cargar peso, mover un mueble o subir la escalera con bolsas. En dos semanas se vuelven automáticas." },
+        { "tipo": "checklist", "itens": [
+          "Pies firmes y peso repartido: sé de dónde viene la fuerza.",
+          "Inhalé con el abdomen antes de empezar; el periné está suelto.",
+          "Voy a exhalar en la parte pesada, contrayendo suave periné y abdomen.",
+          "No voy a aguantar el aire en ningún momento; si hace falta, la carga está demasiado alta.",
+          "Al regresar, inhalo y suelto todo: periné, glúteos y mandíbula."
+        ] },
+        { "tipo": "paragrafo", "texto": "En el gimnasio, repasa la lista en la primera repetición de cada ejercicio, no en todas. Después de dos semanas el cuerpo la asume; solo regresas a ella cuando la carga sube o cuando notas que aguantaste el aire." },
+        { "tipo": "paragrafo", "texto": "La minirrutina de core de 5 minutos entra 3 veces por semana, a partir de la semana 3. En los días de cadera, es el cierre de la rutina del capítulo 6, y puedes saltarte el primer minuto de respiración, que ya vino en los estiramientos; si prefieres un día aparte, se sostiene sola." },
+        { "tipo": "passos", "itens": [
+          "0:00 a 1:00. Acostado, 6 ciclos de respiración 4 y 6, mano en el abdomen, sintiendo el periné bajar y subir.",
+          "1:00 a 1:45. Plancha 1, 30 a 45 segundos según la fase, respirando en el patrón.",
+          "1:45 a 2:15. Descanso de 30 segundos sentado sobre los talones, respirando.",
+          "2:15 a 3:00. Plancha 2.",
+          "3:00 a 3:30. Descanso.",
+          "3:30 a 4:15. Plancha 3.",
+          "4:15 a 5:00. Kegel inverso acostado: 5 solturas de 5 a 10 segundos. El periné termina suelto, no apretado."
+        ] },
+        { "tipo": "dica", "texto": "Si un día la plancha no cabe, haz solo la lista de verificación en el siguiente esfuerzo real del día. El patrón vale más que la serie." }
+      ]
+    }
+  ],
+  "resumo": [
+    "Todo esfuerzo pasa por el piso pélvico; aguantar el aire y hacer fuerza empuja el músculo hacia abajo y lo deja tenso.",
+    "El patrón es exhalar y contraer suave en la parte pesada, inhalar y soltar al regresar, en cualquier ejercicio.",
+    "La plancha con respiración entra en la semana 3: 3 × 30 s, después 3 × 30–45 s, 3 veces por semana.",
+    "Quien entrena pesado baja la carga hasta poder exhalar en la repetición; quien no entrena nada necesita solo la plancha."
+  ],
+  "acao_agora": [
+    "Acostado, prueba el patrón: 6 respiraciones con contracción suave en la exhalación y soltura en la inhalación (1 minuto).",
+    "Lee la lista de verificación en voz alta y úsala en el siguiente esfuerzo real del día: una bolsa, una escalera (10 segundos).",
+    "Si entrenas en el gimnasio, anota qué ejercicios haces con el aire contenido y qué carga te permite exhalar (5 minutos).",
+    "Haz la prueba de la tos con la mano en el periné y anota si subió o bajó; repítela en la semana 6 (1 minuto)."
+  ]
+}
