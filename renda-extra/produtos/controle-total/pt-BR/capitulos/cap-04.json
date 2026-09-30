@@ -1,0 +1,133 @@
+{
+  "titulo": "Bloco A: Fortalecimento (Kegel)",
+  "abertura": "Agora que você sabe onde está o músculo, começa o treino de verdade. O Bloco A é a base do programa: três exercícios de fortalecimento que você vai fazer todos os dias durante as 12 semanas, em três blocos curtos de 3 a 4 minutos. Manhã, tarde e noite. É o que ocupa a maior parte dos seus 10 a 12 minutos diários.\n\nEste capítulo é a ficha técnica. Cada exercício vem com a imagem, o passo a passo, a dose por fase, como saber que está certo, os erros comuns e uma dica. No fim, a ficha completa das doses e o checklist que decide quando você avança de fase. Leia uma vez inteiro; depois volte só à ficha.",
+  "secoes": [
+    {
+      "titulo": "1. Por que força e resistência",
+      "blocos": [
+        { "tipo": "paragrafo", "texto": "O assoalho pélvico precisa de duas capacidades diferentes para servir de freio. A primeira é resistência: segurar uma contração média por tempo suficiente enquanto a excitação baixa do 7 para o 5. É o que as contrações lentas treinam, e é por isso que a duração cresce de 3 para 10 segundos ao longo das fases. A segunda é velocidade: contrair forte e no instante certo, quando a excitação dispara sem aviso. É o reflexo que as contrações rápidas treinam." },
+        { "tipo": "paragrafo", "texto": "Os programas de fisioterapia estudados, como o italiano de 2014 de Pastore e colegas, trabalham as duas capacidades. Na experiência prática de treino, quem faz só o lento chega ao 7 com um freio que demora a responder; quem faz só o rápido não sustenta. E as duas dependem de uma terceira, soltar por completo, que fecha cada bloco com o Kegel reverso do capítulo 5. Sem soltura, força vira tensão, e tensão acelera." },
+        { "tipo": "citacao", "texto": "Força sem soltura vira tensão. Tensão acelera." }
+      ]
+    },
+    {
+      "titulo": "2. Exercício 1. Kegel lento deitado",
+      "blocos": [
+        { "tipo": "imagem", "arquivo": "02-kegel-deitado.png", "texto": "Deitado de costas, joelhos dobrados, pés no chão. A seta pequena no períneo mostra a contração: para cima." },
+        { "tipo": "paragrafo", "texto": "É a posição da fase 1 (semanas 1–2). Sem a gravidade contra, você sente melhor e erra menos. Comece sempre por aqui, mesmo que já tenha feito Kegel antes." },
+        { "tipo": "passos", "itens": [
+          "Deite de costas, joelhos dobrados, pés no chão na largura do quadril, braços ao lado do corpo ou uma mão na barriga.",
+          "Expire pela boca e, junto com o ar saindo, contraia o assoalho pélvico: fechar e levantar, base do pênis e períneo subindo. Contração média, não máxima.",
+          "Segure pelo tempo da fase, contando em voz baixa (3 segundos na fase 1). Glúteos, abdômen e coxas ficam soltos.",
+          "Inspire pelo nariz e solte por completo pelo mesmo tempo. Sinta a região descer antes de começar a próxima.",
+          "Repita até fechar a série. Termine com o Kegel reverso: 10 solturas de 5 a 10 segundos."
+        ] },
+        { "tipo": "topicos", "itens": [
+          "Semanas 1–2: 3 segundos contrai / 3 segundos solta · 10 repetições · 3 vezes ao dia (manhã, tarde, noite) · deitado.",
+          "Semanas 3 em diante: a série passa para sentado ou em pé (exercício 2), com a dose da fase correspondente. Volte a deitar só se perder a sensação do músculo, mantendo a dose da fase em que está.",
+          "Depois de cada série, em qualquer fase: Kegel reverso, 5 a 10 segundos de soltura · 10 repetições."
+        ] },
+        { "tipo": "topicos", "itens": [
+          "Está certo se a base do pênis e o períneo sobem de leve e nada mais se move.",
+          "Está certo se a barriga fica macia sob a mão e continua respirando.",
+          "Está certo se a décima repetição sai com a mesma qualidade da primeira.",
+          "Está certo se, ao soltar, você sente a região descer e ficar solta antes da próxima."
+        ] },
+        { "tipo": "atencao", "texto": "Erros comuns: apertar o glúteo e levantar o quadril do chão; encolher a barriga; prender o ar nos 3 segundos; emendar uma contração na outra sem soltar; e pular o reverso no fim porque 'já acabou'. Se a contração enfraquecer antes da décima, encerre a série ali: quantidade não compensa qualidade." },
+        { "tipo": "dica", "texto": "Faça a série da noite na cama, antes de dormir, e a da manhã antes de levantar. Duas das três séries do dia resolvidas sem precisar de tempo extra." }
+      ]
+    },
+    {
+      "titulo": "3. Exercício 2. Kegel lento sentado ou em pé",
+      "blocos": [
+        { "tipo": "imagem", "arquivo": "03-kegel-sentado.png", "texto": "Sentado em uma cadeira, coluna ereta, pés no chão. A seta mostra a contração para cima, agora contra a gravidade." },
+        { "tipo": "paragrafo", "texto": "A partir da semana 3, o mesmo movimento com a gravidade contra. É mais difícil e mais parecido com a posição em que você vai precisar do músculo. Dá para fazer no carro, na mesa do trabalho ou na fila; ninguém percebe." },
+        { "tipo": "passos", "itens": [
+          "Sente com a coluna ereta, peso distribuído nos dois ossos em que você senta, pés no chão. Em pé: pés na largura do quadril, joelhos destravados, peso no meio do pé.",
+          "Expire e contraia: fechar e levantar, como deitado. Sentado, a sensação é de levantar o períneo da cadeira.",
+          "Segure pelo tempo da fase, contando em voz baixa. Ombros e mandíbula soltos, respiração normal.",
+          "Inspire e solte por completo pelo mesmo tempo. Sentado, sinta o períneo voltar a apoiar na cadeira.",
+          "Feche a série com as contrações rápidas (exercício 3) e depois o Kegel reverso, sentado mesmo."
+        ] },
+        { "tipo": "topicos", "itens": [
+          "Semanas 3–4: 5 segundos contrai / 5 segundos solta · 10 a 15 repetições · 3 vezes ao dia · sentado ou em pé.",
+          "Semanas 5–8: 10 segundos / 10 segundos · 10 a 15 repetições · 3 vezes ao dia.",
+          "Semanas 9–12: manter 10 segundos / 10 segundos · 10 a 15 repetições · 2 vezes ao dia.",
+          "Depois de cada série, sempre: Kegel reverso, 5 a 10 segundos de soltura · 10 repetições."
+        ] },
+        { "tipo": "topicos", "itens": [
+          "Está certo se ninguém ao lado percebe: sem balançar, sem subir o ombro, sem cara de esforço.",
+          "Está certo se você segura os 10 segundos da fase 3 sem a contração 'escorregar' no meio.",
+          "Está certo se a barriga não endurece e você continua conversando ou contando durante a contração.",
+          "Está certo se, em pé, joelhos e glúteos ficam soltos e só o períneo trabalha."
+        ] },
+        { "tipo": "atencao", "texto": "Erros comuns: sentar na beirada da cadeira curvado, o que já deixa o períneo comprimido; apertar as coxas uma contra a outra; usar o glúteo para 'ajudar' quando o músculo cansa; e avançar para 10 segundos antes de completar 5 dias com a dose de 5 segundos limpa." },
+        { "tipo": "dica", "texto": "Amarre a série a algo que já acontece todo dia: o café da manhã, o primeiro e-mail, o sinal vermelho, o intervalo do almoço. Quem depende de lembrar esquece; quem depende de gatilho faz." }
+      ]
+    },
+    {
+      "titulo": "4. Exercício 3. Contrações rápidas",
+      "blocos": [
+        { "tipo": "imagem", "arquivo": "04-contracoes-rapidas.png", "texto": "Em pé, três setas curtas para cima: contrai forte 1 segundo, solta 1 segundo, em sequência." },
+        { "tipo": "paragrafo", "texto": "Entram na semana 3, no fim de cada série de Kegel lento. Treinam o reflexo de 'segurar' no instante em que a excitação dispara: contração forte, curta e imediata, seguida de soltura igualmente rápida." },
+        { "tipo": "passos", "itens": [
+          "Logo depois da última repetição lenta, sem pausa longa, contraia forte por 1 segundo: um aperto seco, para cima.",
+          "Solte por completo por 1 segundo. A soltura tem de ser tão rápida quanto a contração.",
+          "Repita em sequência, no ritmo de um relógio: contrai, solta, contrai, solta. Respire normal o tempo todo, sem travar o ar.",
+          "Feche a sequência e vá direto para o Kegel reverso."
+        ] },
+        { "tipo": "topicos", "itens": [
+          "Semanas 1–2: ainda não. Primeiro a técnica do lento.",
+          "Semanas 3–4: 10 repetições (1 segundo contrai / 1 segundo solta) no fim de cada série de Kegel lento.",
+          "Semanas 5–8: 15 a 20 repetições no fim de cada série.",
+          "Semanas 9–12: 15 a 20 repetições no fim de cada série."
+        ] },
+        { "tipo": "topicos", "itens": [
+          "Está certo se cada contração tem começo e fim claros, como um piscar, e não vira um tremor contínuo.",
+          "Está certo se a última repetição ainda é forte. Se a força cair antes de terminar, encerre a sequência ali e anote o número.",
+          "Está certo se glúteos e barriga não entram no ritmo; só o períneo pulsa.",
+          "Está certo se você não prendeu o ar em nenhum momento."
+        ] },
+        { "tipo": "atencao", "texto": "Erros comuns: fazer rápido demais e perder a soltura entre uma e outra, o que vira uma contração longa e tensa; usar força máxima com o corpo todo; contar repetições em vez de qualidade; e fazer as rápidas em dias em que o lento já saiu fraco. Qualidade acima de quantidade, sem exceção." },
+        { "tipo": "dica", "texto": "Se as rápidas viram tremor, reduza para 5 e faça cada uma com a pausa de 1 segundo bem marcada. Melhor 5 limpas que 20 borradas." }
+      ]
+    },
+    {
+      "titulo": "5. Quando avançar, quando voltar: a ficha e o checklist de progressão",
+      "blocos": [
+        { "tipo": "paragrafo", "texto": "A regra de progressão é uma só: você só avança de fase quando completa a dose atual 5 dias na semana sem a contração enfraquecer antes do fim da série. Não é o calendário que decide, é a qualidade. Se a semana 4 acabou e você ainda não fechou 5 dias limpos com 5 segundos, fica mais uma semana. Ninguém está contando." },
+        { "tipo": "paragrafo", "texto": "E existe o outro lado: fazer demais. Os sinais são claros: você fica mais rápido em vez de mais lento, sente o períneo tenso ou 'ligado' fora do treino, tem desconforto ou peso na região, ou a ereção perde firmeza. É assoalho pélvico tenso demais. A resposta não é insistir: volte uma fase, aumente o Kegel reverso (10 segundos de soltura em vez de 5) e a respiração diafragmática, e só retome quando a região voltar a ficar solta. Dor não se treina." },
+        { "tipo": "exemplo", "texto": "André, 42, Porto Alegre, perfil tenso, resolveu 'adiantar' e fazia 5 séries por dia de 15 repetições, apertando com força máxima. Na terceira semana estava mais rápido do que no começo e com sensação de peso no períneo. Cortou o Kegel por uma semana, ficou só com reverso e respiração, e voltou às 3 séries de contração média com o reverso de 10 segundos no fim de cada uma. Na semana 8 conseguiu pela primeira vez frear no 7 com uma contração e uma expiração longa. O que mudou o jogo não foi a força; foi aprender a soltar." },
+        { "tipo": "topicos", "itens": [
+          "**Ficha do Bloco A, semanas 1–2 (deitado, 3 vezes ao dia):** Kegel lento 3 s / 3 s · 10 rep; contrações rápidas ainda não; Kegel reverso 5–10 s · 10 rep depois da série.",
+          "**Semanas 3–4 (sentado ou em pé, 3 vezes ao dia):** Kegel lento 5 s / 5 s · 10–15 rep; rápidas 10 rep (1 s / 1 s) no fim; reverso 5–10 s · 10 rep.",
+          "**Semanas 5–8 (sentado ou em pé, 3 vezes ao dia):** Kegel lento 10 s / 10 s · 10–15 rep; rápidas 15–20 rep no fim; reverso 5–10 s · 10 rep.",
+          "**Semanas 9–12 (manutenção, 2 vezes ao dia):** Kegel lento 10 s / 10 s · 10–15 rep; rápidas 15–20 rep no fim; reverso 5–10 s · 10 rep.",
+          "**Tempo por bloco:** 3 a 4 minutos. Três blocos por dia (dois a partir da semana 9), mais a respiração e o quadril dos próximos capítulos, fecham os 10 a 12 minutos diários."
+        ] },
+        { "tipo": "checklist", "itens": [
+          "Fiz a dose completa da fase em pelo menos 5 dias desta semana.",
+          "Em nenhuma série a contração enfraqueceu antes do fim.",
+          "Não fiquei mais rápido na masturbação ou no sexo esta semana.",
+          "Não senti tensão, peso ou desconforto no períneo fora do treino.",
+          "Fiz o Kegel reverso depois de todas as séries.",
+          "Fechei o checklist 'estou contraindo certo?' do capítulo 3 sem dúvida.",
+          "Marquei os 6 acima: avanço de fase quando ela terminar. Faltou algum: repito a semana. Fiquei mais rápido ou senti tensão: volto uma fase e aumento reverso e respiração."
+        ] }
+      ]
+    }
+  ],
+  "resumo": [
+    "O Bloco A treina resistência (contrações lentas, de 3 a 10 segundos) e velocidade (contrações rápidas de 1 segundo), sempre fechado pela soltura do Kegel reverso.",
+    "Semanas 1–2: deitado, 3 s / 3 s, 10 repetições, 3 vezes ao dia. A partir da semana 3: sentado ou em pé, 5 s / 5 s, e as rápidas entram.",
+    "Semanas 5–8: 10 s / 10 s e 15 a 20 rápidas. Semanas 9–12: mesma dose, 2 vezes ao dia.",
+    "Só avança quem completa a dose 5 dias na semana sem enfraquecer. Ficar mais rápido, tensão ou desconforto é sinal de excesso: volta uma fase e aumenta o soltar.",
+    "Contração média, limpa e com respiração vale mais que força máxima com tudo em volta ajudando."
+  ],
+  "acao_agora": [
+    "Copie a ficha do Bloco A no bloco de notas ou tire uma foto dela (2 minutos).",
+    "Faça hoje o primeiro bloco da fase 1: 10 Kegel lentos de 3 segundos deitado e 10 Kegel reversos (4 minutos).",
+    "Escolha os gatilhos dos três blocos do dia (acordar, almoço, deitar) e coloque dois lembretes no celular (3 minutos).",
+    "Anote a linha de registro do dia com os blocos feitos e a tensão de 1 a 5 (30 segundos)."
+  ]
+}
