@@ -1,0 +1,128 @@
+{
+  "titulo": "Bloco C: Mobilidade do quadril",
+  "abertura": "O assoalho pélvico não trabalha sozinho. Ele está preso à pelve, e à pelve estão presos os músculos da parte interna da coxa, da frente do quadril e do bumbum. Quando esses músculos encurtam, puxam a pelve, e o assoalho pélvico vai junto: fica em tensão o dia inteiro sem você fazer nada.\n\nEste bloco tem três alongamentos, 3 a 4 vezes por semana, cerca de 10 minutos. Não é para forçar; é para ensinar o quadril a abrir e o períneo a soltar dentro dessa abertura. No fim, a rotina completa em ordem, com tempo e respiração.",
+  "secoes": [
+    {
+      "titulo": "Por que quadril duro atrapalha",
+      "blocos": [
+        { "tipo": "paragrafo", "texto": "Três grupos importam aqui. Os adutores, na parte interna da coxa, encurtam em quem passa o dia sentado com as pernas fechadas. Os flexores do quadril, na frente, encurtam com qualquer hora de cadeira: ficam em posição encolhida o dia inteiro. Os glúteos ficam apertados e, ao mesmo tempo, preguiçosos. Todos se ligam à pelve, e uma pelve puxada para a frente ou travada deixa o assoalho pélvico esticado e tenso, o mesmo quadro de hipertonia do capítulo 5." },
+        { "tipo": "paragrafo", "texto": "No sexo, esses músculos são os que mais trabalham. Se já chegam curtos, contraem forte, e essa contração vai direto para o períneo. A experiência prática de treino é consistente: quem solta o quadril sente as pernas menos travadas na cama e a excitação subindo com menos pressa. É também o que torna possível, no capítulo 8, escolher posições em que o corpo fica solto." },
+        { "tipo": "topicos", "itens": [
+          "Você não consegue agachar fundo com os calcanhares no chão.",
+          "Sentado com as solas dos pés juntas, os joelhos ficam altos e a virilha puxa.",
+          "A lombar arqueia quando você fica em pé depois de muito tempo sentado.",
+          "Você aperta os glúteos sem perceber, em pé ou sentado."
+        ] },
+        { "tipo": "atencao", "texto": "Alongar puxa; não dói. Puxar é a tensão que cede aos poucos com a respiração. Dor aguda, fisgada no joelho ou formigamento na perna são sinal de parar. Dor não se treina." }
+      ]
+    },
+    {
+      "titulo": "6. Agachamento profundo",
+      "blocos": [
+        { "tipo": "imagem", "arquivo": "07-agachamento.png", "texto": "Agachamento profundo: calcanhares no chão, joelhos para fora, tronco ereto." },
+        { "tipo": "paragrafo", "texto": "É a posição em que o assoalho pélvico fica mais longo e mais solto; por isso ela abre a rotina." },
+        { "tipo": "passos", "itens": [
+          "Pés um pouco mais abertos que os ombros, pontas levemente para fora.",
+          "Desça devagar até o quadril ficar perto dos calcanhares. Joelhos apontando para fora, na direção dos pés.",
+          "Tronco ereto, peito aberto. Mãos juntas à frente do peito, cotovelos empurrando de leve os joelhos para fora.",
+          "Respire fundo na posição: a barriga sobe na inspiração e o períneo desce. Expire sem apertar nada.",
+          "Fique 1 a 2 minutos. Para subir, apoie as mãos nos joelhos."
+        ] },
+        { "tipo": "topicos", "itens": [
+          "Semanas 1–2: 1–2 min · 2 rep · 3–4× por semana.",
+          "Semanas 3–4: igual.",
+          "Semanas 5–8: igual.",
+          "Semanas 9–12: igual. Depois da semana 12, é o alongamento que mais vale manter."
+        ] },
+        { "tipo": "topicos", "itens": [
+          "Calcanhares no chão ou no apoio, peso no pé inteiro.",
+          "Joelhos não caem para dentro; coluna longa, sem arredondar demais.",
+          "A respiração chega à barriga e o períneo fica na sensação do Kegel reverso.",
+          "Puxa na parte interna da coxa e no tornozelo, não no joelho."
+        ] },
+        { "tipo": "atencao", "texto": "Erros comuns: joelhos para dentro; calcanhares levantados com o peso na ponta do pé; prender o ar; descer com pressa. Se os calcanhares levantam, apoie-os num livro ou numa toalha dobrada, ou segure em algo firme à sua frente, como o batente de uma porta. Se o joelho doer, desça menos e use mais apoio." },
+        { "tipo": "dica", "texto": "Use a posição no dia a dia: amarrar o tênis, pegar algo no chão, esperar a água ferver. Cada minuto agachado conta." }
+      ]
+    },
+    {
+      "titulo": "7. Borboleta",
+      "blocos": [
+        { "tipo": "imagem", "arquivo": "08-borboleta.png", "texto": "Borboleta: solas dos pés juntas, joelhos caindo para os lados com o próprio peso." },
+        { "tipo": "passos", "itens": [
+          "Sente no chão, solas dos pés unidas, calcanhares a uns 20 ou 30 centímetros do quadril.",
+          "Mãos nos tornozelos ou nos joelhos. Coluna longa, sentado sobre os ossos do bumbum; se a lombar arredondar, sente numa almofada.",
+          "Deixe os joelhos caírem para os lados com o próprio peso.",
+          "Inspire pela barriga; na expiração, deixe os joelhos afundarem um pouco mais, sem empurrar.",
+          "Fique 1 a 2 minutos."
+        ] },
+        { "tipo": "topicos", "itens": [
+          "Semanas 1–2: 1–2 min · 2 rep · 3–4× por semana.",
+          "Semanas 3–4: igual.",
+          "Semanas 5–8: igual.",
+          "Semanas 9–12: igual."
+        ] },
+        { "tipo": "topicos", "itens": [
+          "Puxa na parte interna da coxa e na virilha, não no joelho.",
+          "Os joelhos descem um pouco mais a cada semana, sem você forçar.",
+          "Ombros e mandíbula soltos; o períneo acompanha a respiração."
+        ] },
+        { "tipo": "atencao", "texto": "Erros comuns: empurrar os joelhos com as mãos ou com os cotovelos (o adutor reage contraindo e você perde o alongamento); arredondar a lombar para parecer que desceu mais; trazer os pés perto demais do corpo, o que joga a tensão para o joelho." },
+        { "tipo": "dica", "texto": "Encoste as costas na parede se a coluna cansar. O alongamento é no quadril, não na lombar." }
+      ]
+    },
+    {
+      "titulo": "8. Alongamento do flexor do quadril",
+      "blocos": [
+        { "tipo": "imagem", "arquivo": "09-flexor-quadril.png", "texto": "Flexor do quadril: ajoelhado, uma perna à frente, quadril avançando com o tronco ereto." },
+        { "tipo": "passos", "itens": [
+          "Ajoelhe com o joelho direito no chão (almofada embaixo) e o pé esquerdo à frente, plantado.",
+          "Tronco ereto. Contraia de leve o glúteo direito: isso encaixa a pelve e coloca o alongamento no lugar certo.",
+          "Leve o quadril para a frente até sentir esticar a frente do quadril e da coxa direita.",
+          "Inspire pela barriga; na expiração, avance um dedo a mais.",
+          "1 minuto. Troque de lado. Duas voltas."
+        ] },
+        { "tipo": "topicos", "itens": [
+          "Semanas 1–2: 1 min por lado · 2 rep · 3–4× por semana.",
+          "Semanas 3–4: igual.",
+          "Semanas 5–8: igual.",
+          "Semanas 9–12: igual."
+        ] },
+        { "tipo": "topicos", "itens": [
+          "A sensação está na frente do quadril da perna de trás, não na lombar.",
+          "Tronco reto e glúteo de trás levemente ativo.",
+          "O joelho da frente fica em cima do pé; a respiração continua livre."
+        ] },
+        { "tipo": "atencao", "texto": "Erros comuns: inclinar o tronco para a frente, o que tira o alongamento do lugar; arquear a lombar em vez de avançar o quadril; soltar o glúteo de trás. Se a lombar reclamar, avance menos e contraia o glúteo um pouco mais." },
+        { "tipo": "dica", "texto": "Nos dias de muitas horas sentado, se tiver que cortar um dos três, corte outro. Este é o que desfaz a cadeira." }
+      ]
+    },
+    {
+      "titulo": "A rotina de 10 minutos e quando dói",
+      "blocos": [
+        { "tipo": "paragrafo", "texto": "Ordem, tempo e respiração. Em todos, a mesma respiração do capítulo 5: 4 segundos entrando pela barriga, 6 saindo, o períneo descendo na inspiração. Faça depois do banho quente ou antes de dormir, quando o músculo cede mais." },
+        { "tipo": "passos", "itens": [
+          "0:00 a 1:00. Agachamento profundo, 1ª volta: 6 respirações completas.",
+          "1:00 a 2:00. Borboleta, 1ª volta.",
+          "2:00 a 4:00. Flexor do quadril, 1 minuto de cada lado.",
+          "4:00 a 5:00. Agachamento profundo, 2ª volta.",
+          "5:00 a 6:00. Borboleta, 2ª volta.",
+          "6:00 a 8:00. Flexor do quadril, 2ª volta, 1 minuto de cada lado.",
+          "8:00 a 10:00. Nas semanas 1–2, estique para 2 minutos os dois alongamentos que mais puxam. A partir da semana 3, esses 2 minutos são da prancha com respiração (capítulo 7)."
+        ] },
+        { "tipo": "paragrafo", "texto": "Quando dói: joelho no agachamento, menos profundidade, calcanhares mais altos no apoio, mãos seguras em algo. Joelho na borboleta, pés mais longe do corpo. Lombar no flexor, avance menos e firme o glúteo. Lombar no agachamento, segure em algo e deixe o tronco mais vertical. Se com essas trocas a dor continuar por 2 semanas, aparecer fora do exercício ou vier com formigamento, pare e procure um fisioterapeuta." },
+        { "tipo": "exemplo", "texto": "Renato, 42, Porto Alegre: corria três vezes por semana e nunca alongava. Não descia no agachamento sem levantar os calcanhares e sentia a virilha puxar na borboleta com os joelhos a um palmo do chão. Perfil misto no questionário. Começou com um livro sob os calcanhares e almofada na borboleta. Na semana 6 agachava com o pé inteiro no chão e notou que as pernas paravam de travar no sexo; na semana 8 já escolhia posições com as pernas soltas. Caso composto, nome trocado." }
+      ]
+    }
+  ],
+  "resumo": [
+    "Adutores, flexores do quadril e glúteos encurtados puxam a pelve e deixam o assoalho pélvico tenso o dia inteiro.",
+    "Três alongamentos, 1 a 2 minutos cada, 2 voltas, 3 a 4 vezes por semana; o flexor é 1 minuto por lado.",
+    "A respiração é a mesma do capítulo 5: o quadril cede na expiração, não na força.",
+    "Puxar é normal; dor no joelho ou na lombar pede adaptação, e dor que persiste pede um fisioterapeuta."
+  ],
+  "acao_agora": [
+    "Teste o agachamento profundo agora e veja se os calcanhares ficam no chão; se não, separe um livro para apoiá-los (2 minutos).",
+    "Faça a rotina de 10 minutos completa hoje, depois do banho (10 minutos).",
+    "Marque no calendário os 3 ou 4 dias da semana em que ela vai acontecer (1 minuto)."
+  ]
+}
