@@ -70,11 +70,16 @@ const h3 = (texto) =>
     children: [new TextRun({ text: texto, bold: true, size: 24, color: T.primaria })],
   });
 
+// Cada lista numerada recebe uma instância própria; sem isso o Word continua
+// a contagem de um capítulo para o outro (passo 120, 121…).
+let instanciaNumerada = 0;
+
 function lista(itens, referencia) {
+  const instance = referencia === 'passos' ? ++instanciaNumerada : undefined;
   return itens.map(
     (t) =>
       new Paragraph({
-        numbering: { reference: referencia, level: 0 },
+        numbering: { reference: referencia, level: 0, instance },
         spacing: { after: 80, line: 300 },
         children: negritos(t),
       }),
