@@ -50,6 +50,7 @@ Opções úteis:
 | Opção | Quando usar |
 |---|---|
 | `--idioma es-MX` ou `--idioma en-US` | Versão para México/LatAm ou EUA/Europa (muda idioma, moeda e plataformas citadas) |
+| `--nicho saude` | Guia de treino ou saúde em vez de renda extra: muda a persona do autor, o que ele pesquisa (estudos, doses, sinais de alerta) e o aviso legal ("não substitui avaliação médica") |
 | `--capitulos 10` | Livro maior (6 a 12) |
 | `--autor "Nome"` | Nome na capa |
 | `--rapido` | Sem a revisão de editor: metade do custo, texto um pouco menos polido |
@@ -82,6 +83,24 @@ Teste sem custo primeiro: `npm run simular`.
 - Texto genérico ou com número errado → o problema quase sempre é o tema
   amplo demais. Especifique: em vez de "renda extra", "renda extra
   vendendo marmitas fit para academias em cidades médias".
+
+## Montar o Word a partir de JSON (livros revisados ou com imagens)
+
+Quando o texto já existe em JSON (porque você revisou capítulo a capítulo,
+ou porque o livro foi escrito à mão, como o `produtos/controle-total/`),
+não precisa da API:
+
+```powershell
+node montar.mjs --pasta ..\produtos\controle-total\pt-BR
+```
+
+A pasta precisa ter `livro.json` (idioma, autor, marca, cor, capa),
+`esboco.json`, `capitulos.json` e, se quiser, `vendas.json`. As imagens
+ficam em `imagens/` (PNG ou JPEG) e entram no texto com um bloco
+`{ "tipo": "imagem", "arquivo": "nome.png", "texto": "legenda" }`. Sai
+`ebook.docx` e `ebook.md` (e `vendas.md`, `isca-digital.md`,
+`capa-canva.md` quando há `vendas.json`). Com `--pdf` ele também gera um
+PDF de conferência, se o LibreOffice estiver instalado.
 
 ## Como funciona por dentro
 

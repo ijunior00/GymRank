@@ -6,6 +6,7 @@ import {
   Document,
   Footer,
   HeadingLevel,
+  ImageRun,
   LevelFormat,
   PageBreak,
   PageNumber,
@@ -28,6 +29,9 @@ const LINHA = 'D8D4E0';
 const LETTER = { width: 12240, height: 15840 };
 const MARGEM = 1300;
 
+// Cor principal do livro. O padrão é o roxo; montarDocx troca por livro.cor.
+const T = { primaria: ROXO, primariaClara: ROXO_CLARO };
+
 const paragrafo = (texto, extra = {}) =>
   new Paragraph({
     spacing: { after: 140, line: 312 },
@@ -49,7 +53,7 @@ const h1 = (texto) =>
   new Paragraph({
     heading: HeadingLevel.HEADING_1,
     spacing: { before: 0, after: 200 },
-    children: [new TextRun({ text: texto, bold: true, size: 40, color: ROXO })],
+    children: [new TextRun({ text: texto, bold: true, size: 40, color: T.primaria })],
   });
 
 const h2 = (texto) =>
@@ -63,7 +67,7 @@ const h3 = (texto) =>
   new Paragraph({
     heading: HeadingLevel.HEADING_3,
     spacing: { before: 240, after: 80 },
-    children: [new TextRun({ text: texto, bold: true, size: 24, color: ROXO })],
+    children: [new TextRun({ text: texto, bold: true, size: 24, color: T.primaria })],
   });
 
 function lista(itens, referencia) {
@@ -93,7 +97,7 @@ function caixa(rotulo, texto, fundo) {
     spacing: { before: 120, after: 180, line: 300 },
     shading: { type: ShadingType.CLEAR, fill: fundo, color: 'auto' },
     border: {
-      left: { style: BorderStyle.SINGLE, size: 24, color: ROXO },
+      left: { style: BorderStyle.SINGLE, size: 24, color: T.primaria },
     },
     indent: { left: 200, right: 200 },
     children: [new TextRun({ text: `${rotulo}: `, bold: true, size: 22 }), ...negritos(texto)],
@@ -107,8 +111,71 @@ const citacao = (texto) =>
     children: [new TextRun({ text: `“${texto}”`, italics: true, size: 22, color: CINZA })],
   });
 
-function bloco(b, r) {
+/** Largura, altura e tipo de um PNG ou JPEG, lendo só o cabeçalho. */
+function dimensoes(buf) {
+  if (buf[0] === 0x89 && buf[1] === 0x50) {
+    return { width: buf.readUInt32BE(16), height: buf.readUInt32BE(20), type: 'png' };
+  }
+  if (buf[0] === 0xff && buf[1] === 0xd8) {
+    let i = 2;
+    while (i + 9 < buf.length) {
+      if (buf[i] !== 0xff) {
+        i++;
+        continue;
+      }
+      const marcador = buf[i + 1];
+      const inicioDeQuadro = marcador >= 0xc0 && marcador <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(marcador);
+      if (inicioDeQuadro) return { height: buf.readUInt16BE(i + 5), width: buf.readUInt16BE(i + 7), type: 'jpg' };
+      i += 2 + buf.readUInt16BE(i + 2);
+    }
+  }
+  throw new Error('A imagem precisa ser PNG ou JPEG.');
+}
+
+const LARGURA_MAX_PX = 560; // ≈ 5,8 polegadas a 96 dpi: cabe na página Letter com as margens
+
+/** Imagem centralizada com legenda opcional. `ctx.imagens[arquivo]` é o Buffer do arquivo. */
+function imagem(arquivo, legenda, ctx, { larguraPx = LARGURA_MAX_PX, alturaPx = 700 } = {}) {
+  const data = ctx.imagens?.[arquivo];
+  if (!data) return [caixa('Imagem', `falta o arquivo ${arquivo} na pasta imagens/`, AMARELO_CLARO)];
+  const d = dimensoes(data);
+  let width = Math.min(larguraPx, d.width);
+  let height = Math.round((d.height / d.width) * width);
+  if (height > alturaPx) {
+    height = alturaPx;
+    width = Math.round((d.width / d.height) * height);
+  }
+  const saida = [
+    new Paragraph({
+      alignment: AlignmentType.CENTER,
+      spacing: { before: 160, after: legenda ? 60 : 200 },
+      keepNext: Boolean(legenda),
+      children: [
+        new ImageRun({
+          type: d.type,
+          data,
+          transformation: { width, height },
+          altText: { title: arquivo, description: legenda || arquivo, name: arquivo },
+        }),
+      ],
+    }),
+  ];
+  if (legenda) {
+    saida.push(
+      new Paragraph({
+        alignment: AlignmentType.CENTER,
+        spacing: { after: 220 },
+        children: [new TextRun({ text: legenda, italics: true, size: 18, color: CINZA })],
+      }),
+    );
+  }
+  return saida;
+}
+
+function bloco(b, r, ctx = {}) {
   switch (b.tipo) {
+    case 'imagem':
+      return imagem(b.arquivo, b.texto, ctx, { larguraPx: b.largura ?? LARGURA_MAX_PX });
     case 'paragrafo':
       return [paragrafo(b.texto ?? '')];
     case 'topicos':
@@ -120,7 +187,7 @@ function bloco(b, r) {
     case 'dica':
       return [caixa(r.dica, b.texto ?? '', VERDE_CLARO)];
     case 'exemplo':
-      return [caixa(r.exemplo, b.texto ?? '', ROXO_CLARO)];
+      return [caixa(r.exemplo, b.texto ?? '', T.primariaClara)];
     case 'atencao':
       return [caixa(r.atencao, b.texto ?? '', VERMELHO_CLARO)];
     case 'citacao':
@@ -137,7 +204,13 @@ const ROTULOS_CAIXA = {
 };
 
 /**
- * @param {object} livro { idioma, esboco, capitulos: [EsquemaCapitulo], autor, ano }
+ * @param {object} livro {
+ *   idioma, esboco, capitulos: [EsquemaCapitulo], autor, ano,
+ *   marca?: linha pequena no topo da capa,
+ *   imagens?: { 'arquivo.png': Buffer }, capa?: nome da imagem da capa,
+ *   cor?: hex da cor principal (sem #), corClara?: hex do fundo das caixas de exemplo,
+ *   aviso?: texto do aviso legal (padrão: o do idioma)
+ * }
  * @returns {Promise<Buffer>}
  */
 export async function montarDocx(livro) {
@@ -145,17 +218,32 @@ export async function montarDocx(livro) {
   const L = IDIOMAS[idioma].rotulos;
   const R = ROTULOS_CAIXA[idioma];
   const ano = livro.ano ?? new Date().getFullYear();
+  const aviso = livro.aviso ?? L.aviso;
+  T.primaria = livro.cor ?? ROXO;
+  T.primariaClara = livro.corClara ?? ROXO_CLARO;
+  const ctx = { imagens: livro.imagens ?? {} };
+  const temCapa = Boolean(livro.capa && ctx.imagens[livro.capa]);
 
   const capa = [
-    new Paragraph({ spacing: { before: 3200 }, children: [] }),
+    new Paragraph({ spacing: { before: temCapa ? 300 : 3200 }, children: [] }),
+    ...(livro.marca
+      ? [
+          new Paragraph({
+            alignment: AlignmentType.CENTER,
+            spacing: { after: 240 },
+            children: [new TextRun({ text: livro.marca.toUpperCase(), size: 22, color: CINZA, characterSpacing: 60 })],
+          }),
+        ]
+      : []),
+    ...(temCapa ? imagem(livro.capa, null, ctx, { larguraPx: 600, alturaPx: 470 }) : []),
     new Paragraph({
       alignment: AlignmentType.CENTER,
-      spacing: { after: 240 },
-      children: [new TextRun({ text: esboco.titulo_escolhido, bold: true, size: 64, color: ROXO })],
+      spacing: { before: temCapa ? 200 : 0, after: 240 },
+      children: [new TextRun({ text: esboco.titulo_escolhido, bold: true, size: 64, color: T.primaria })],
     }),
     new Paragraph({
       alignment: AlignmentType.CENTER,
-      spacing: { after: 1200 },
+      spacing: { after: temCapa ? 500 : 1200 },
       children: [new TextRun({ text: esboco.subtitulo_escolhido, size: 30, color: CINZA })],
     }),
     new Paragraph({
@@ -182,7 +270,7 @@ export async function montarDocx(livro) {
       ],
       'topicos',
     ),
-    new Paragraph({ spacing: { before: 200 }, children: [new TextRun({ text: L.aviso, italics: true, size: 18, color: CINZA })] }),
+    new Paragraph({ spacing: { before: 200 }, children: [new TextRun({ text: aviso, italics: true, size: 18, color: CINZA })] }),
     new Paragraph({ children: [new PageBreak()] }),
     h1(L.sumario),
     new TableOfContents(L.sumario, { hyperlink: true, headingStyleRange: '1-2' }),
@@ -195,7 +283,7 @@ export async function montarDocx(livro) {
     for (const p of String(c.abertura).split(/\n+/).filter(Boolean)) corpo.push(paragrafo(p));
     for (const s of c.secoes) {
       corpo.push(h2(s.titulo));
-      for (const b of s.blocos) corpo.push(...bloco(b, R));
+      for (const b of s.blocos) corpo.push(...bloco(b, R, ctx));
     }
     corpo.push(h3(L.resumo));
     corpo.push(...lista(c.resumo, 'topicos'));
@@ -209,7 +297,7 @@ export async function montarDocx(livro) {
     bonus.push(h2(b.nome));
     for (const p of String(b.descricao).split(/\n+/).filter(Boolean)) bonus.push(paragrafo(p));
   }
-  bonus.push(new Paragraph({ spacing: { before: 400 }, children: [new TextRun({ text: L.aviso, italics: true, size: 18, color: CINZA })] }));
+  bonus.push(new Paragraph({ spacing: { before: 400 }, children: [new TextRun({ text: aviso, italics: true, size: 18, color: CINZA })] }));
 
   const doc = new Document({
     creator: autor,
@@ -218,9 +306,9 @@ export async function montarDocx(livro) {
     styles: {
       default: { document: { run: { font: 'Calibri', size: 22 } } },
       paragraphStyles: [
-        { id: 'Heading1', name: 'Heading 1', basedOn: 'Normal', next: 'Normal', quickFormat: true, run: { bold: true, size: 40, color: ROXO, font: 'Calibri' }, paragraph: { spacing: { after: 200 } } },
+        { id: 'Heading1', name: 'Heading 1', basedOn: 'Normal', next: 'Normal', quickFormat: true, run: { bold: true, size: 40, color: T.primaria, font: 'Calibri' }, paragraph: { spacing: { after: 200 } } },
         { id: 'Heading2', name: 'Heading 2', basedOn: 'Normal', next: 'Normal', quickFormat: true, run: { bold: true, size: 28, font: 'Calibri' }, paragraph: { spacing: { before: 320, after: 120 } } },
-        { id: 'Heading3', name: 'Heading 3', basedOn: 'Normal', next: 'Normal', quickFormat: true, run: { bold: true, size: 24, color: ROXO, font: 'Calibri' } },
+        { id: 'Heading3', name: 'Heading 3', basedOn: 'Normal', next: 'Normal', quickFormat: true, run: { bold: true, size: 24, color: T.primaria, font: 'Calibri' } },
       ],
     },
     numbering: {

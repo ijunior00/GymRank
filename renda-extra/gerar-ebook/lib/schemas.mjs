@@ -48,6 +48,20 @@ export const EsquemaCapitulo = z.object({
   acao_agora: z.array(z.string()).describe('2 a 4 tarefas concretas para fazer hoje, com tempo estimado'),
 });
 
+// Para livros montados a partir de JSON escrito à mão (montar.mjs): aceita
+// também blocos de imagem e não exige texto/itens em todo bloco.
+const BlocoLocal = z.object({
+  tipo: z.enum([...Bloco.shape.tipo.options, 'imagem']),
+  texto: z.string().nullable().optional().describe('Para paragrafo/dica/exemplo/atencao/citacao; legenda da imagem'),
+  itens: z.array(z.string()).nullable().optional().describe('Para topicos/passos/checklist'),
+  arquivo: z.string().optional().describe('Para imagem: nome do arquivo dentro de imagens/'),
+  largura: z.number().optional().describe('Para imagem: largura em px (máx. 560)'),
+});
+
+export const EsquemaCapituloLocal = EsquemaCapitulo.extend({
+  secoes: z.array(z.object({ titulo: z.string(), blocos: z.array(BlocoLocal) })),
+});
+
 export const EsquemaRevisao = z.object({
   melhorias: z.array(z.string()).describe('O que o editor mudou e por quê'),
   capitulo: EsquemaCapitulo,

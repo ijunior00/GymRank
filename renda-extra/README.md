@@ -323,7 +323,48 @@ CPF e endereço do Brasil.
 3. **Conta bancária** que recebe: a do México, no mesmo nome do cadastro
    da Hotmart.
 
-## 11. O que fazer hoje
+## 11. Produto zero: "Controle em 12 Semanas" (marca Controle Total)
+
+Antes do primeiro e-book de renda extra, existe um produto pronto para
+testar a máquina inteira (conta na Hotmart, checkout, e-mails): o guia
+ilustrado de treino do assoalho pélvico masculino, em português e
+espanhol, na pasta `produtos/controle-total/`. É **outro nicho e outra
+marca** (saúde masculina, não renda extra), e isso muda três coisas:
+
+| | Renda extra | Controle Total |
+|---|---|---|
+| Onde vender | Hotmart PT/ES, depois Gumroad/KDP | Hotmart PT/ES (categoria Saúde e Esportes) + Amazon KDP desde o início |
+| De onde vem o tráfego | TikTok/Reels orgânico, depois anúncio | YouTube (Shorts e vídeos educativos), busca na Amazon, afiliados da Hotmart. **Meta e TikTok Ads não aceitam anúncio de "durar mais"**; conteúdo orgânico só com linguagem de saúde |
+| O que nunca prometer | ganho em dinheiro | cura, minutos, "nunca mais"; sempre "não substitui avaliação médica" |
+
+O que tem na pasta:
+
+| Onde | O que é |
+|---|---|
+| `produtos/controle-total/guia-de-estilo.md` | Fonte única de verdade: tom, doses, números que podem ser citados, imagens |
+| `produtos/controle-total/pesquisa.md` | Evidência científica com fontes, concorrentes e preços reais, regras das plataformas |
+| `produtos/controle-total/pt-BR/` e `es-MX/` | `esboco.json`, `capitulos/` (um JSON por capítulo), `vendas.json`, `livro.json` e os arquivos gerados: `ebook.docx`, `ebook.md`, `vendas.md`, `isca-digital.md`, `capa-canva.md` |
+| `produtos/controle-total/imagens/` | As 12 ilustrações (sem texto, iguais nas duas edições) e o script que as desenha |
+| `produtos/controle-total/verificar.py` | Confere os capítulos contra o guia (palavras proibidas, doses, imagens) |
+
+Para regerar o Word depois de editar um capítulo (no Terminal, dentro de
+`renda-extra/gerar-ebook`):
+
+```powershell
+node montar.mjs --pasta ..\produtos\controle-total\pt-BR
+```
+
+Para trocar uma ilustração (por exemplo, por uma gerada por IA), salve o
+novo PNG **com o mesmo nome** em `imagens/` e rode o comando acima. O
+texto não muda.
+
+Atenção ao nome: a pesquisa achou produtos concorrentes chamados
+"Controle Total" e "Control Total" na Hotmart e na Amazon. Por isso o
+título principal é **"Controle em 12 Semanas"** e a marca aparece pequena.
+Se quiser evitar confusão de vez, troque a marca em `livro.json` das duas
+edições e regere.
+
+## 12. O que fazer hoje
 
 1. Escolher o nome da marca (item 10.1).
 2. Abrir o Terminal e rodar o teste do gerador (`gerar-ebook/README.md`,

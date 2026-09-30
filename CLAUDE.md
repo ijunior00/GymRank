@@ -34,10 +34,12 @@ caminho.
 
 Não é parte do app. É o projeto paralelo do dono para vender e-books de
 renda extra (Hotmart etc.): o plano de negócio está em
-`renda-extra/README.md` e o gerador de e-books com a API do Claude em
-`renda-extra/gerar-ebook/`. As regras técnicas abaixo não se aplicam a
-essa pasta; o cuidado com a chave da API (nunca em arquivo versionado,
-nunca em conversa) se aplica em dobro.
+`renda-extra/README.md`, o gerador de e-books com a API do Claude em
+`renda-extra/gerar-ebook/` e os livros prontos em `renda-extra/produtos/`
+(cada um com um `guia-de-estilo.md` que é a fonte de verdade do texto).
+As regras técnicas abaixo não se aplicam a essa pasta; o cuidado com a
+chave da API (nunca em arquivo versionado, nunca em conversa) se aplica
+em dobro.
 
 ## O projeto em uma frase
 
