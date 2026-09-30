@@ -1,95 +1,167 @@
 {
   "titulo": "Con tu pareja: equipo, no público",
-  "abertura": "Hasta aquí el entrenamiento fue tuyo: músculo, respiración, ritmo. Este capítulo es sobre la persona del otro lado de la cama y sobre un engrane que ningún Kegel resuelve por sí solo: la ansiedad de desempeño. Crece en el silencio.\n\nLa propuesta es sacar a tu pareja del papel de público, que evalúa, y ponerla en el papel de equipo, que juega contigo. Eso pide una conversación de pocos minutos, con ropa y fuera de la recámara, y algunos acuerdos. Nada aquí supone cómo va a reaccionar ella: el guion sirve para que tú hables con claridad; la respuesta es de ella.",
+  "abertura": "Hasta aquí el entrenamiento fue tuyo: músculo, respiración, ritmo. Este capítulo es sobre la persona del otro lado de la cama y sobre un engranaje que ningún Kegel resuelve por sí solo: la ansiedad de desempeño. Crece en el silencio.\n\nLa propuesta es sacar a tu pareja del papel de público, que evalúa, y ponerla en el papel de equipo, que juega contigo. Eso pide una conversación de pocos minutos, con ropa y fuera de la recámara, y algunos acuerdos. Nada aquí supone cómo va a reaccionar ella: el guion sirve para que tú hables con claridad; la respuesta es de ella.",
   "secoes": [
     {
       "titulo": "1. Por qué hablar cambia el juego",
       "blocos": [
-        { "tipo": "paragrafo", "texto": "El capítulo 1 enumeró cuatro engranes. Tres los entrenas solo. El cuarto, la ansiedad, tiene un combustible específico: la sensación de estar siendo evaluado. Cuando entras a la recámara pensando \"no puedo fallar otra vez\", el cuerpo entra en alerta, la respiración se sube al pecho y el piso pélvico se endurece. Todo eso acelera (capítulo 5)." },
-        { "tipo": "paragrafo", "texto": "Mientras ella no sabe, tú tienes que esconderlo, y esconder exige vigilar. Vigilar tu propio cuerpo durante el sexo es lo contrario de lo que enseña el parar y seguir, que es sentir y nombrar el nivel de excitación. Hablar quita de la mesa el peso que estaba saboteando el entrenamiento." },
-        { "tipo": "paragrafo", "texto": "Lo que ella piensa suele ser distinto de lo que tú imaginas. En la experiencia práctica de entrenamiento, la queja que más aparece del otro lado no es el cronómetro. Es la distancia: terminas, te cierras, pides perdón o te volteas para el otro lado. Ella lo lee como desinterés, o como culpa suya." },
-        { "tipo": "atencao", "texto": "Mucha gente que se cree \"precoz\" está en el rango común. En el estudio de Waldinger (2005), con 500 parejas y cronómetro durante 4 semanas, la mediana fue de 5.4 minutos, con una variación enorme. Contárselo a ella saca la conversación del terreno del defecto." }
+        {
+          "tipo": "paragrafo",
+          "texto": "El capítulo 1 enumeró cuatro engranajes. Tres los entrenas solo. El cuarto, la ansiedad, tiene un combustible específico: la sensación de estar siendo evaluado. Cuando entras a la recámara pensando \"no puedo fallar otra vez\", el cuerpo entra en alerta, la respiración se sube al pecho y el piso pélvico se endurece. Todo eso acelera (capítulo 5)."
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Mientras ella no sabe, tú tienes que esconderlo, y esconder exige vigilar. Vigilar tu propio cuerpo durante el sexo es lo contrario de lo que enseña el parar y seguir, que es sentir y nombrar el nivel de excitación. Hablar quita de la mesa el peso que estaba saboteando el entrenamiento."
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Lo que ella piensa suele ser distinto de lo que tú imaginas. En la experiencia práctica de entrenamiento, la queja que más aparece del otro lado no es el cronómetro. Es la distancia: terminas, te cierras, pides perdón o te volteas para el otro lado. Ella lo lee como desinterés, o como culpa suya."
+        },
+        {
+          "tipo": "atencao",
+          "texto": "Mucha gente que se cree \"precoz\" está en el rango común. En el estudio de Waldinger (2005), con 500 parejas y cronómetro durante 4 semanas, la mediana fue de 5.4 minutos, con una variación enorme. Contárselo a ella saca la conversación del terreno del defecto."
+        }
       ]
     },
     {
       "titulo": "2. El guion de 5 frases",
       "blocos": [
-        { "tipo": "paragrafo", "texto": "Fuera de la recámara, con ropa, sin prisa: el sillón, una caminata, el coche estacionado. Nunca justo después del sexo ni en medio de un pleito. Cinco frases bastan; el resto es escuchar." },
-        { "tipo": "passos", "itens": [
-          "\"Quiero platicarte algo que me ha estado molestando desde hace un tiempo, y no tiene que ver contigo.\"",
-          "\"Termino más rápido de lo que quisiera, y me preocupo tanto por eso que ya ni lo disfruto bien.\"",
-          "\"Empecé un entrenamiento de 12 semanas para eso, de músculo y respiración, como diez minutos al día.\"",
-          "\"No necesito que hagas nada diferente ahorita. Solo quería que lo supieras, porque esconderlo lo estaba empeorando.\"",
-          "\"En unas semanas te voy a pedir un favor sencillo, y cuando llegue el momento te explico.\""
-        ] },
-        { "tipo": "paragrafo", "texto": "Lo que no hay que decir:" },
-        { "tipo": "topicos", "itens": [
-          "\"Perdón\" más de una vez. La pone en el papel de quien perdona.",
-          "\"Es que tú me excitas demasiado.\" Suena a halago, pero le pasa la responsabilidad a ella.",
-          "Cualquier promesa de tiempo, y cualquier comparación con relaciones anteriores.",
-          "Demasiado detalle técnico. Ella no necesita saber qué es el Kegel inverso; necesita saber que hay un plan."
-        ] },
-        { "tipo": "paragrafo", "texto": "Las cuatro preguntas que suelen venir después:" },
-        { "tipo": "topicos", "itens": [
-          "\"¿Es por mí? ¿Ya no te atraigo?\" Respuesta: \"No. Es al revés: entre más me importa, más ansioso me pongo. Esto viene desde antes de ti, es de mi cuerpo, y se puede entrenar.\"",
-          "\"¿Necesitas ir al médico?\" Respuesta: \"Es un entrenamiento de músculo y respiración, parecido a una fisioterapia. Si aparece alguna señal de alerta, voy con el médico y te cuento.\"",
-          "\"¿Qué quieres que haga?\" Respuesta: \"Ahorita, nada diferente. En unas semanas te voy a pedir que pares cuando yo te haga una señal. Nada más.\"",
-          "\"¿Por qué no me lo habías dicho?\" Respuesta: \"Por pena. Preferí llegar con un plan en vez de llegar solo con el problema. Debí decírtelo antes.\""
-        ] },
-        { "tipo": "dica", "texto": "Si te trabas en el momento, lee la primera frase desde el celular. Después de la primera, las demás salen solas." }
+        {
+          "tipo": "paragrafo",
+          "texto": "Fuera de la recámara, con ropa, sin prisa: el sillón, una caminata, el coche estacionado. Nunca justo después del sexo ni en medio de un pleito. Cinco frases bastan; el resto es escuchar."
+        },
+        {
+          "tipo": "passos",
+          "itens": [
+            "\"Quiero platicarte algo que me ha estado molestando desde hace un tiempo, y no tiene que ver contigo.\"",
+            "\"Termino más rápido de lo que quisiera, y me preocupo tanto por eso que ya ni lo disfruto bien.\"",
+            "\"Empecé un entrenamiento de 12 semanas para eso, de músculo y respiración, como diez minutos al día.\"",
+            "\"No necesito que hagas nada diferente ahorita. Solo quería que lo supieras, porque esconderlo lo estaba empeorando.\"",
+            "\"En unas semanas te voy a pedir un favor sencillo, y cuando llegue el momento te explico.\""
+          ]
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Lo que no hay que decir:"
+        },
+        {
+          "tipo": "topicos",
+          "itens": [
+            "\"Perdón\" más de una vez. La pone en el papel de quien perdona.",
+            "\"Es que tú me excitas demasiado.\" Suena a halago, pero le pasa la responsabilidad a ella.",
+            "Cualquier promesa de tiempo, y cualquier comparación con relaciones anteriores.",
+            "Demasiado detalle técnico. Ella no necesita saber qué es el Kegel inverso; necesita saber que hay un plan."
+          ]
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Las cuatro preguntas que suelen venir después:"
+        },
+        {
+          "tipo": "topicos",
+          "itens": [
+            "\"¿Es por mí? ¿Ya no te atraigo?\" Respuesta: \"No. Es al revés: entre más me importa, más ansioso me pongo. Esto viene desde antes de ti, es de mi cuerpo, y se puede entrenar.\"",
+            "\"¿Necesitas ir al médico?\" Respuesta: \"Es un entrenamiento de músculo y respiración, parecido a una fisioterapia. Si aparece alguna señal de alerta, voy con el médico y te cuento.\"",
+            "\"¿Qué quieres que haga?\" Respuesta: \"Ahorita, nada diferente. En unas semanas te voy a pedir que pares cuando yo te haga una señal. Nada más.\"",
+            "\"¿Por qué no me lo habías dicho?\" Respuesta: \"Por pena. Preferí llegar con un plan en vez de llegar solo con el problema. Debí decírtelo antes.\""
+          ]
+        },
+        {
+          "tipo": "dica",
+          "texto": "Si te trabas en el momento, lee la primera frase desde el celular. Después de la primera, las demás salen solas."
+        }
       ]
     },
     {
       "titulo": "3. Ella dentro del entrenamiento: a partir de la semana 5",
       "blocos": [
-        { "tipo": "paragrafo", "texto": "En las primeras cuatro semanas el entrenamiento es solo tuyo: todavía estás aprendiendo a encontrar el músculo, a soltar y a nombrar la excitación. A partir de la semana 5, cuando la contracción ya es lo bastante fuerte para servir de freno (capítulo 8), una de las 2 a 3 sesiones semanales de parar y seguir puede ser en pareja. La diferencia es que quien para es ella, con tu señal, y eso entrena algo que solo no puedes entrenar: confiar en que la pausa va a llegar sin que tú lo controles todo." },
-        { "tipo": "passos", "itens": [
-          "Acuerden fuera de la recámara el día, la señal y la única regla: cuando tú hagas la señal, ella para y espera, sin preguntar nada.",
-          "Elijan una señal que no suene a alarma: una palabra corta y neutra (\"pausa\", \"espera\") o un toque, como la mano en su hombro.",
-          "Las primeras veces, el estímulo es con la mano de ella, sin penetración; la penetración con frenos solo en la semana 9 (capítulo 8).",
-          "Tú sigues la escala en silencio. En el 7, haces la señal. Ella para. Tú contraes, exhalas largo y esperas a que baje dos puntos. Haces la señal otra vez y ella retoma. Repitan 3 a 4 veces.",
-          "Terminar no es la meta. Después, un minuto de plática sobre qué funcionó de la señal. Sin calificación, sin tiempo."
-        ] },
-        { "tipo": "atencao", "texto": "El papel de ella es parar, no evaluar. Si la sesión se convierte en comentarios sobre el desempeño, de cualquiera de los dos, ciérrenla y regresen al entrenamiento a solas por una semana." }
+        {
+          "tipo": "paragrafo",
+          "texto": "En las primeras cuatro semanas el entrenamiento es solo tuyo: todavía estás aprendiendo a encontrar el músculo, a soltar y a nombrar la excitación. A partir de la semana 5, cuando la contracción ya es lo bastante fuerte para servir de freno (capítulo 8), una de las 2 a 3 sesiones semanales de parar y seguir puede ser en pareja. La diferencia es que quien para es ella, con tu señal, y eso entrena algo que solo no puedes entrenar: confiar en que la pausa va a llegar sin que tú lo controles todo."
+        },
+        {
+          "tipo": "passos",
+          "itens": [
+            "Acuerden fuera de la recámara el día, la señal y la única regla: cuando tú hagas la señal, ella para y espera, sin preguntar nada.",
+            "Elijan una señal que no suene a alarma: una palabra corta y neutra (\"pausa\", \"espera\") o un toque, como la mano en su hombro.",
+            "Las primeras veces, el estímulo es con la mano de ella, sin penetración; la penetración con frenos solo en la semana 9 (capítulo 8).",
+            "Tú sigues la escala en silencio. En el 7, haces la señal. Ella para. Tú contraes, exhalas largo y esperas a que baje dos puntos. Haces la señal otra vez y ella retoma. Repitan 3 a 4 veces.",
+            "Terminar no es la meta. Después, un minuto de plática sobre qué funcionó de la señal. Sin calificación, sin tiempo."
+          ]
+        },
+        {
+          "tipo": "atencao",
+          "texto": "El papel de ella es parar, no evaluar. Si la sesión se convierte en comentarios sobre el desempeño, de cualquiera de los dos, ciérrenla y regresen al entrenamiento a solas por una semana."
+        }
       ]
     },
     {
       "titulo": "4. Cuando pasa rápido: el guion de 3 frases",
       "blocos": [
-        { "tipo": "paragrafo", "texto": "Va a pasar, sobre todo en las primeras semanas y en las primeras relaciones de la semana 9. Lo que decide si esa noche ayuda o estorba es lo que haces justo después." },
-        { "tipo": "passos", "itens": [
-          "\"Fue rápido. No pasa nada.\" Con calma, mirándola. Sin disculpas. Es una constatación, no una confesión.",
-          "\"Ven acá.\" Y tú sigues: besos, abrazo, manos. Su placer no depende de tu tiempo, y se lo demuestras quedándote presente.",
-          "\"Al rato lo intentamos otra vez, si quieres.\" La segunda relación de la noche suele ser más larga (capítulo 8). Sin presión si ella no quiere."
-        ] },
-        { "tipo": "paragrafo", "texto": "El cariño vale más que la disculpa porque la disculpa convierte el sexo en una prueba de desempeño y a la pareja en jurado. En la experiencia práctica de entrenamiento, quien atraviesa una noche rápida sin drama llega a la semana 9 con menos ansiedad." },
-        { "tipo": "exemplo", "texto": "Rodrigo, 34, Guadalajara: llevaba tres años con su pareja y evitaba el sexo en las semanas de más trabajo para no \"fallar\". Tardó hasta la semana 3 en hablar, en el sillón, un domingo, con el guion. La primera pregunta de ella fue si era por su culpa. En la semana 5, un toque en el brazo se volvió la señal de pausa; en la semana 6 llegó la primera señal de control, más conciencia del punto 7. En la semana 8 él decía que el mayor cambio no era el tiempo, era haber dejado de vigilar su propio cuerpo." }
+        {
+          "tipo": "paragrafo",
+          "texto": "Va a pasar, sobre todo en las primeras semanas y en las primeras relaciones de la semana 9. Lo que decide si esa noche ayuda o estorba es lo que haces justo después."
+        },
+        {
+          "tipo": "passos",
+          "itens": [
+            "\"Fue rápido. No pasa nada.\" Con calma, mirándola. Sin disculpas. Es una constatación, no una confesión.",
+            "\"Ven acá.\" Y tú sigues: besos, abrazo, manos. Su placer no depende de tu tiempo, y se lo demuestras quedándote presente.",
+            "\"Al rato lo intentamos otra vez, si quieres.\" La segunda relación de la noche suele ser más larga (capítulo 8). Sin presión si ella no quiere."
+          ]
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "El cariño vale más que la disculpa porque la disculpa convierte el sexo en una prueba de desempeño y a la pareja en jurado. En la experiencia práctica de entrenamiento, quien atraviesa una noche rápida sin drama llega a la semana 9 con menos ansiedad."
+        },
+        {
+          "tipo": "exemplo",
+          "texto": "Rodrigo, 34, Guadalajara: llevaba tres años con su pareja y evitaba el sexo en las semanas de más trabajo para no \"fallar\". Tardó hasta la semana 3 en hablar, en el sillón, un domingo, con el guion. La primera pregunta de ella fue si era por su culpa. En la semana 5, un toque en el brazo se volvió la señal de pausa; en la semana 6 llegó la primera señal de control, más conciencia del punto 7. En la semana 8 él decía que el mayor cambio no era el tiempo, era haber dejado de vigilar su propio cuerpo."
+        }
       ]
     },
     {
       "titulo": "5. Lo que deciden los dos y el acuerdo de 12 semanas",
       "blocos": [
-        { "tipo": "paragrafo", "texto": "Algunos factores dependen de los dos. Ponlos sobre la mesa junto con el plan." },
-        { "tipo": "topicos", "itens": [
-          "Alcohol. Parece que relaja, pero empeora la lectura de la excitación y el control del freno. Acuerden qué vale antes del sexo; menos es mejor.",
-          "Frecuencia. Mucho tiempo sin sexo hace que la primera relación sea más rápida; la práctica lo muestra de forma consistente. El sexo regular es parte del entrenamiento.",
-          "Pornografía acelerada. Si uno de los dos la usa como calentamiento, ese ritmo se mete a la cama. Durante las 12 semanas, fuera.",
-          "Pleitos que se llevan a la cama. Cuerpo en alerta es cuerpo rápido. Resuélvanlo antes o pospónganlo."
-        ] },
-        { "tipo": "paragrafo", "texto": "Cuando el problema es de la relación y no del músculo: eres rápido solo con ella, y eso empezó junto con una mala racha entre ustedes; los dos evitan el sexo y evitan hablar de esto; toda conversación termina en reclamo; hay un resentimiento viejo que nadie ha tocado. El Kegel sigue siendo útil, pero no es lo que lo resuelve. Para proponer un terapeuta sexual o de pareja sin que suene a diagnóstico: \"No es para arreglarte a ti ni a mí. Es para que hablemos de esto con alguien que se dedica a esto todos los días, y ver qué cambia.\" El capítulo 11 vuelve a eso." },
-        { "tipo": "paragrafo", "texto": "El acuerdo de 12 semanas. Léanlo juntos, ajusten lo que quieran y guárdenlo en el celular." },
-        { "tipo": "checklist", "itens": [
-          "Hablamos con ropa y fuera de la recámara, y el tema no se convierte en pleito.",
-          "Sin cronómetro y sin la pregunta \"cuánto duró\" durante las 12 semanas.",
-          "Sexo regular cuando se pueda, sin presión de ningún lado.",
-          "Señal acordada: ______ (palabra o toque). Cuando yo haga la señal, ella para y espera sin hablar.",
-          "A partir de la semana 5, una sesión de parar y seguir en pareja por semana.",
-          "A partir de la semana 9, una relación por semana enfocada en dos frenos, sin meta de tiempo.",
-          "Cuando pase rápido: sin disculpas; cariño y, si los dos quieren, segunda vez.",
-          "Alcohol antes del sexo: acordamos ______. Los pleitos no se van a la cama.",
-          "Si después de las 12 semanas la tensión entre nosotros sigue, buscamos juntos un terapeuta sexual o de pareja."
-        ] },
-        { "tipo": "dica", "texto": "No hace falta firmar nada. Hace falta recordar el acuerdo los días en que te den ganas de volver a esconderlo." }
+        {
+          "tipo": "paragrafo",
+          "texto": "Algunos factores dependen de los dos. Ponlos sobre la mesa junto con el plan."
+        },
+        {
+          "tipo": "topicos",
+          "itens": [
+            "Alcohol. Parece que relaja, pero empeora la lectura de la excitación y el control del freno. Acuerden qué vale antes del sexo; menos es mejor.",
+            "Frecuencia. Mucho tiempo sin sexo hace que la primera relación sea más rápida; la práctica lo muestra de forma consistente. El sexo regular es parte del entrenamiento.",
+            "Pornografía acelerada. Si uno de los dos la usa como calentamiento, ese ritmo se mete a la cama. Durante las 12 semanas, fuera.",
+            "Pleitos que se llevan a la cama. Cuerpo en alerta es cuerpo rápido. Resuélvanlo antes o pospónganlo."
+          ]
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Cuando el problema es de la relación y no del músculo: eres rápido solo con ella, y eso empezó junto con una mala racha entre ustedes; los dos evitan el sexo y evitan hablar de esto; toda conversación termina en reclamo; hay un resentimiento viejo que nadie ha tocado. El Kegel sigue siendo útil, pero no es lo que lo resuelve. Para proponer un terapeuta sexual o de pareja sin que suene a diagnóstico: \"No es para arreglarte a ti ni a mí. Es para que hablemos de esto con alguien que se dedica a esto todos los días, y ver qué cambia.\" El capítulo 11 vuelve a eso."
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "El acuerdo de 12 semanas. Léanlo juntos, ajusten lo que quieran y guárdenlo en el celular."
+        },
+        {
+          "tipo": "checklist",
+          "itens": [
+            "Hablamos con ropa y fuera de la recámara, y el tema no se convierte en pleito.",
+            "Sin cronómetro y sin la pregunta \"cuánto duró\" durante las 12 semanas.",
+            "Sexo regular cuando se pueda, sin presión de ningún lado.",
+            "Señal acordada: ______ (palabra o toque). Cuando yo haga la señal, ella para y espera sin hablar.",
+            "A partir de la semana 5, una sesión de parar y seguir en pareja por semana.",
+            "A partir de la semana 9, una relación por semana enfocada en dos frenos, sin meta de tiempo.",
+            "Cuando pase rápido: sin disculpas; cariño y, si los dos quieren, segunda vez.",
+            "Alcohol antes del sexo: acordamos ______. Los pleitos no se van a la cama.",
+            "Si después de las 12 semanas la tensión entre nosotros sigue, buscamos juntos un terapeuta sexual o de pareja."
+          ]
+        },
+        {
+          "tipo": "dica",
+          "texto": "No hace falta firmar nada. Hace falta recordar el acuerdo los días en que te den ganas de volver a esconderlo."
+        }
       ]
     }
   ],

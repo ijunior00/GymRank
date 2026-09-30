@@ -208,6 +208,25 @@ const ROTULOS_CAIXA = {
   'en-US': { dica: 'Tip', exemplo: 'Real example', atencao: 'Watch out' },
 };
 
+// As três linhas de "Como usar este e-book", por idioma.
+const COMO_USAR = {
+  'pt-BR': (L, n) => [
+    `${L.capitulo} 1 → ${L.capitulo} ${n}: cada um termina com "${L.acao}", tarefas para hoje.`,
+    '☐ = checklist para marcar. Imprima ou copie para o celular.',
+    `${L.bonus}: modelos e planos prontos no final.`,
+  ],
+  'es-MX': (L, n) => [
+    `${L.capitulo} 1 → ${L.capitulo} ${n}: cada uno termina con "${L.acao}", tareas para hoy.`,
+    '☐ = lista para marcar. Imprímela o cópiala en tu celular.',
+    `${L.bonus}: plantillas y planes listos al final.`,
+  ],
+  'en-US': (L, n) => [
+    `${L.capitulo} 1 → ${L.capitulo} ${n}: each one ends with "${L.acao}", tasks for today.`,
+    '☐ = checklist to tick. Print it or copy it to your phone.',
+    `${L.bonus}: ready-made templates and plans at the end.`,
+  ],
+};
+
 /**
  * @param {object} livro {
  *   idioma, esboco, capitulos: [EsquemaCapitulo], autor, ano,
@@ -267,14 +286,7 @@ export async function montarDocx(livro) {
     paragrafo(esboco.promessa, { run: { bold: true } }),
     paragrafo(esboco.publico),
     h2(L.comoUsar),
-    ...lista(
-      [
-        `${L.capitulo} 1 → ${L.capitulo} ${capitulos.length}: cada um termina com "${L.acao}", tarefas para hoje.`,
-        `☐ = checklist para marcar. Imprima ou copie para o celular.`,
-        `${L.bonus}: modelos e planos prontos no final.`,
-      ],
-      'topicos',
-    ),
+    ...lista(COMO_USAR[idioma](L, capitulos.length), 'topicos'),
     new Paragraph({ spacing: { before: 200 }, children: [new TextRun({ text: aviso, italics: true, size: 18, color: CINZA })] }),
     new Paragraph({ children: [new PageBreak()] }),
     h1(L.sumario),
