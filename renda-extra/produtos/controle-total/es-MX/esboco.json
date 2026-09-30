@@ -1,0 +1,180 @@
+{
+  "titulos": [
+    { "titulo": "Control en 12 Semanas", "subtitulo": "Entrenamiento del piso pélvico para durar más · Guía ilustrada", "por_que_converte": "plazo concreto + método (entrenamiento) + promesa que pasa las reglas de las plataformas" },
+    { "titulo": "Durar Más Empieza en el Músculo", "subtitulo": "12 semanas de entrenamiento del piso pélvico, respiración y ritmo", "por_que_converte": "mecanismo sorprendente + plazo" },
+    { "titulo": "El Entrenamiento que Nadie Te Enseñó", "subtitulo": "Piso pélvico, respiración y la técnica de parar y seguir en 12 semanas", "por_que_converte": "curiosidad + lista de lo que trae adentro" },
+    { "titulo": "Control sin Pastillas", "subtitulo": "El programa de 12 semanas basado en fisioterapia del piso pélvico", "por_que_converte": "objeción respondida en el título" },
+    { "titulo": "10 Minutos al Día para Durar Más", "subtitulo": "Guía ilustrada de 12 semanas", "por_que_converte": "barrera de tiempo eliminada" }
+  ],
+  "titulo_escolhido": "Control en 12 Semanas",
+  "subtitulo_escolhido": "Entrenamiento del piso pélvico para durar más · Guía ilustrada",
+  "promessa": "En 12 semanas, con 10 a 12 minutos al día, entrenas el músculo, la respiración y el ritmo que deciden el momento de la eyaculación, y sabes exactamente qué mantener después.",
+  "publico": "Hombres adultos que terminan antes de lo que quisieran, les da pena hablar de eso, ya intentaron 'pensar en otra cosa' y desconfían de las pastillas y de las promesas fáciles.",
+  "tom": "Entrenador experimentado que habla de igual a igual: directo, sin pena y sin vulgaridad, frases cortas, todo con dosis y con fuente.",
+  "capitulos": [
+    {
+      "numero": 1,
+      "titulo": "Entiende qué está pasando (y por qué se puede entrenar)",
+      "objetivo": "Entender en lenguaje sencillo por qué la eyaculación llega rápido, qué es común y qué no, y saber qué esperar de 12 semanas de entrenamiento.",
+      "pontos": [
+        "Qué es la eyaculación precoz según la definición de la ISSM (tipo 'de toda la vida' y tipo 'adquirido') y qué es común (mediana de 5.4 minutos, Waldinger 2005); del 20 al 30% se creen precoces, menos del 5% con el criterio estricto",
+        "Los cuatro engranajes: reflejo y excitación que sube rápido; piso pélvico tenso o débil; respiración corta y ansiedad; ritmo y hábito (masturbación apresurada)",
+        "Lo que la ciencia mostró: Pastore 2014 (con la honestidad de que fue en clínica, con aparatos y supervisión), Erkut 2025 (la respiración duplica el efecto y lo mantiene a 1 año), metaanálisis 2026 (seguro, benéfico, mejor combinado), Myers & Smith 2019",
+        "Por qué 'pensar en otra cosa', el alcohol y los anestésicos no resuelven; por qué parar y seguir por sí solo recae (50 a 60% y recaída) y por qué este programa junta músculo + respiración + técnica",
+        "Qué es esta guía (entrenamiento, 10 a 12 min/día, 12 semanas, 4 fases) y qué no es (no es tratamiento médico, no promete minutos); nota 'pareja' y 'casos compuestos'",
+        "Señales para ir con el médico antes de empezar: tipo adquirido repentino, disfunción eréctil al mismo tiempo, dolor, sangre en el semen, fiebre con síntomas urinarios, dolor pélvico; el dolor no se entrena"
+      ],
+      "entregavel": "Checklist '¿este programa es para mí?' (8 puntos) y lista 've con el médico antes si…' (6 puntos)"
+    },
+    {
+      "numero": 2,
+      "titulo": "Tu punto de partida: autoevaluación y metas realistas",
+      "objetivo": "Medir dónde estás hoy, descubrir tu perfil (tenso, débil, acelerado o mixto) y definir metas por fase que no dependan de un cronómetro en el sexo.",
+      "pontos": [
+        "Cómo medir el punto de partida sin convertir el sexo en un examen: 3 mediciones en la masturbación (tiempo hasta el punto de no retorno, ritmo, nivel de tensión), anotadas",
+        "Cuestionario de 12 preguntas con puntuación (sí = 1) en 4 grupos de 3: tensión (aprietas los glúteos, aguantas el aire, dolor lumbar/cadera dura), debilidad (goteo, dificultad para aguantar un gas, la erección pierde firmeza), aceleración (masturbación rápida, pornografía, llega antes de la penetración), ansiedad (evitas el sexo, piensas en el fracaso, alcohol para relajarte)",
+        "Qué cambia cada perfil en el entrenamiento: tenso = más Kegel inverso y respiración, menos volumen de Kegel en las 2 primeras semanas; débil = progresión normal; acelerado = parar y seguir desde la semana 3 con foco en el ritmo; ansioso = respiración 3× al día y capítulo 9 primero",
+        "La escala de excitación del 1 al 10 y el 'punto 7': aprender a nombrar el nivel es el comienzo del control",
+        "Metas por fase que tienen sentido: semana 4 (sentir y aislar el músculo, respirar sin aguantar el aire), semana 8 (hacer 3 pausas en parar y seguir sin pasarse del punto), semana 12 (aplicarlo en el sexo 1 vez por semana); nunca una meta en minutos",
+        "Cómo registrar en 30 segundos al día y por qué registrar duplica la constancia"
+      ],
+      "entregavel": "Ficha de autoevaluación (cuestionario de 12 preguntas con puntuación y lectura del perfil) y ficha de línea base (3 mediciones)"
+    },
+    {
+      "numero": 3,
+      "titulo": "Encuentra el músculo correcto",
+      "objetivo": "Ubicar el piso pélvico, contraer sin usar glúteos, abdomen ni respiración contenida, y sentir la diferencia entre contraer, soltar y pujar.",
+      "pontos": [
+        "Anatomía en lenguaje sencillo con la imagen 01-anatomia.png: la 'red' de músculos en la base de la pelvis, el periné, el bulboesponjoso, por qué participa en la eyaculación y en la erección",
+        "Tres pruebas para ubicarlo: aguantar las ganas de orinar (solo para encontrarlo, una vez, nunca como entrenamiento), aguantar un gas, ver la base del pene subir un poco frente al espejo",
+        "Contraer vs. pujar vs. soltar: las tres sensaciones, y por qué pujar hacia abajo es el error más peligroso",
+        "Respirar durante el ejercicio: exhala al contraer, inhala al soltar; nunca aguantar el aire",
+        "Errores clásicos (glúteos, abdomen, muslos, aguantar el aire, contraer demasiado fuerte, no soltar por completo) y cómo corregir cada uno",
+        "Primera sesión guiada de 5 minutos, acostado, con 10 contracciones de 3 segundos y 10 relajaciones de 5 segundos; presentación del Kegel inverso"
+      ],
+      "entregavel": "Checklist '¿estoy contrayendo bien?' (7 puntos) y la primera sesión guiada de 5 minutos en pasos"
+    },
+    {
+      "numero": 4,
+      "titulo": "Bloque A: Fortalecimiento (Kegel)",
+      "objetivo": "Ejecutar los tres ejercicios de fortalecimiento con la dosis correcta de cada fase y saber cuándo avanzar.",
+      "pontos": [
+        "Por qué fuerza Y resistencia: contracciones lentas (sostener en el momento justo por más tiempo) y rápidas (reflejo de 'sostener' cuando la excitación se dispara)",
+        "Ejercicio 1, Kegel lento acostado (imagen 02): esqueleto completo (cómo hacerlo, dosis por fase, cómo saber que va bien, errores comunes, consejo)",
+        "Ejercicio 2, Kegel lento sentado o de pie (imagen 03): esqueleto completo; dónde encajarlo en el día (coche, fila, escritorio) sin que nadie lo note",
+        "Ejercicio 3, contracciones rápidas (imagen 04): esqueleto completo; calidad por encima de cantidad",
+        "Regla de progresión (5 días a la semana sin que la contracción se debilite) y señales de que estás haciendo de más (tensión, volverte más rápido, molestia)",
+        "Ejemplo compuesto de alguien que exageró en el volumen y solo mejoró cuando incluyó el soltar"
+      ],
+      "entregavel": "Ficha de los tres ejercicios con dosis por fase (semanas 1–2, 3–4, 5–8, 9–12) y checklist de progresión"
+    },
+    {
+      "numero": 5,
+      "titulo": "Bloque B: Soltar y respirar",
+      "objetivo": "Aprender a relajar el piso pélvico y a usar la respiración diafragmática como freno, en el entrenamiento y en el sexo.",
+      "pontos": [
+        "Por qué demasiada tensión acelera: el piso pélvico hipertónico es causa común, y fortalecer sin soltar puede empeorar (el metaanálisis de 2026 habla de debilidad Y/O hipertonía)",
+        "Ejercicio 4, Kegel inverso (imagen 05): esqueleto completo; la sensación de 'empezar a orinar' y dejar que baje",
+        "Ejercicio 5, respiración diafragmática 4 s / 6 s (imagen 06): esqueleto completo; el diafragma y el piso pélvico se mueven juntos; el estudio de Erkut 2025 (2× al día, más mejora y mantenimiento a 1 año)",
+        "La rutina de 5 minutos, 2 veces al día (mañana y noche), paso a paso, con conteo",
+        "La respiración como freno durante el sexo: exhalar largo cuando la excitación pasa del 6, sin dejar de moverte; por qué la respiración corta en el pecho acelera",
+        "Escaneo de tensión de 60 segundos (mandíbula, hombros, abdomen, glúteos, periné) para hacer antes del sexo y a lo largo del día"
+      ],
+      "entregavel": "Rutina de respiración de 5 minutos en pasos y escaneo de tensión de 60 segundos en checklist"
+    },
+    {
+      "numero": 6,
+      "titulo": "Bloque C: Movilidad de cadera",
+      "objetivo": "Soltar aductores, flexores de cadera y glúteos, que jalan el piso pélvico, con tres ejercicios de 10 minutos, 3 a 4 veces por semana.",
+      "pontos": [
+        "Por qué la cadera dura estorba: los músculos del muslo y de la cadera se conectan con la pelvis; quien pasa el día sentado llega tenso al sexo",
+        "Ejercicio 6, sentadilla profunda (imagen 07): esqueleto completo; adaptación para quien levanta los talones (libro debajo, sostenerse de algo)",
+        "Ejercicio 7, mariposa (imagen 08): esqueleto completo; no empujar las rodillas",
+        "Ejercicio 8, estiramiento del flexor de cadera (imagen 09): esqueleto completo; tronco erguido, glúteo de la pierna de atrás ligeramente contraído",
+        "La rutina de 10 minutos, 3 a 4 veces por semana, y cómo encajarla después de bañarte o antes de dormir",
+        "Cuando duele la rodilla o la espalda baja: qué cambiar y cuándo acudir con un profesional"
+      ],
+      "entregavel": "Rutina de movilidad de 10 minutos (orden, tiempo y respiración) en pasos"
+    },
+    {
+      "numero": 7,
+      "titulo": "Bloque D: Core y coordinación",
+      "objetivo": "Coordinar piso pélvico, abdomen y respiración en un ejercicio de fuerza y llevar ese patrón a cualquier entrenamiento.",
+      "pontos": [
+        "El patrón 'exhala y contrae suave, inhala y suelta' y por qué protege el piso pélvico en cualquier esfuerzo",
+        "Ejercicio 9, plancha con respiración (imagen 10): esqueleto completo; nunca aguantar el aire ni pujar hacia abajo",
+        "Cómo aplicar el patrón en la sentadilla, en el levantamiento de pesas y al subir escaleras con carga; el error de la maniobra de Valsalva (aguantar el aire y hacer fuerza)",
+        "Para quien entrena en el gimnasio: qué cambia en el entrenamiento de piernas y abdomen durante las 12 semanas",
+        "Para quien no entrena nada: la plancha es suficiente, 3 veces por semana",
+        "Ejemplo compuesto de alguien que entrenaba pesado, aguantaba el aire y no entendía por qué se había vuelto más rápido"
+      ],
+      "entregavel": "Checklist 'antes de cualquier esfuerzo' (5 puntos) y la minirrutina de core de 5 minutos"
+    },
+    {
+      "numero": 8,
+      "titulo": "Bloque E: Llevarlo a la práctica",
+      "objetivo": "Entrenar parar y seguir con la escala de excitación, dominar las tres formas de frenar (pausa, contracción, ritmo) y aplicarlo en el sexo a partir de la semana 9.",
+      "pontos": [
+        "La escala del 1 al 10 y el punto 7: por qué el control ocurre entre el 6 y el 8, no en el 9",
+        "Ejercicio 10, parar y seguir (imagen 11): esqueleto completo; 3 a 4 pausas, contracción fuerte + exhalación larga hasta bajar dos puntos, retomar; a partir de la semana 3, 2 a 3 veces por semana; sin pornografía durante el entrenamiento",
+        "Las tres formas de frenar y cuándo usar cada una: pausa total, contracción + exhalación (a partir de la semana 5, cuando la contracción ya es fuerte), reducir el ritmo y cambiar de movimiento; la técnica del apretón de Masters y Johnson como recurso de emergencia",
+        "Ritmo y posiciones: movimientos más lentos y profundos en lugar de rápidos y cortos; posiciones en las que tú controlas el ritmo y estás menos tenso (acostado de lado, la pareja arriba contigo guiando el ritmo) y las que aceleran (mucha tensión de piernas y glúteos); sin descripción explícita",
+        "Atención: salir del pánico ('va a pasar') y volver a las sensaciones y a la respiración; qué hacer cuando se escapa (sin drama, seguir con cariño, retomar después)",
+        "Aliados simples: condón más grueso, lubricante, primera relación de la noche más corta y la segunda más larga; qué no usar como muleta (alcohol, anestésico sin orientación)",
+        "Protocolo de las primeras relaciones a partir de la semana 9: una vez por semana, acordado de antemano, con foco en aplicar 2 frenos, sin cronómetro"
+      ],
+      "entregavel": "Protocolo de parar y seguir en pasos (con la escala) y el 'plan de juego' de las primeras relaciones con frenos"
+    },
+    {
+      "numero": 9,
+      "titulo": "Con tu pareja: equipo, no público",
+      "objetivo": "Hablar del tema sin drama, convertir a tu pareja en aliada del entrenamiento y sacar la ansiedad de desempeño de la recámara.",
+      "pontos": [
+        "Por qué hablar cambia el juego: la ansiedad de desempeño es uno de los engranajes, y crece en el silencio; lo que la pareja normalmente piensa (y no es lo que imaginas)",
+        "Guion de conversación en 5 frases, para fuera de la recámara y con ropa: qué decir, qué no decir, cómo responder a las preguntas más comunes",
+        "Cómo involucrarla en el entrenamiento: parar y seguir de a dos a partir de la semana 5 (ella para cuando tú lo indicas), señales acordadas (una palabra o un toque), sin juzgar",
+        "Qué hacer cuando pasa rápido: el guion de 3 frases y por qué seguir con cariño vale más que pedir perdón",
+        "Factores que estorban y que los dos deciden juntos: alcohol, frecuencia muy baja (más tiempo sin sexo = más rápido), pornografía acelerada, pleitos llevados a la cama",
+        "Cuando el problema es de la relación y no del músculo: señales de que vale la pena un terapeuta sexual o de pareja, y cómo proponerlo"
+      ],
+      "entregavel": "Guion de conversación (5 frases + respuestas a las 4 preguntas más comunes) y el 'acuerdo de 12 semanas' en checklist"
+    },
+    {
+      "numero": 10,
+      "titulo": "El plan de 12 semanas",
+      "objetivo": "Tener el programa completo en un solo lugar: las 4 fases, la rutina diaria de 10 a 12 minutos, la rutina semanal, el registro semanal y las reglas para avanzar, retroceder y mantener.",
+      "pontos": [
+        "Las 4 fases y el objetivo de cada una: semanas 1–2 (base: sentir, soltar, respirar), 3–4 (progresión: sentado/de pie, rápidas, empieza parar y seguir), 5–8 (fuerza: 10 s, plancha, freno por contracción), 9–12 (mantenimiento y aplicación en el sexo)",
+        "La rutina diaria por horario: mañana (respiración 5 min + bloque 1), tarde (bloque 2), noche (bloque 3 + respiración 5 min), con los minutos de cada parte; total de 10 a 12 minutos",
+        "La rutina semanal: cadera 3 a 4×, plancha 3× (a partir de la semana 3), parar y seguir 2 a 3× (a partir de la semana 3), aplicación en el sexo 1× (a partir de la semana 9)",
+        "Registro semanal en checklist (7 días × las tareas del día) para copiar 12 veces o imprimir; la tarjeta de bolsillo con la rutina del día",
+        "Reglas: cuándo avanzar (5 días a la semana sin debilitarse), cuándo retroceder una fase (volverte más rápido, tensión, dolor), qué hacer si pierdes 1 día, 3 días o 2 semanas",
+        "Después de la semana 12: mantenimiento mínimo (Kegel 2× al día, respiración 1×, cadera 2× por semana) y señales de que hace falta reforzar"
+      ],
+      "entregavel": "Registro de 12 semanas (modelo de una semana en checklist con instrucción de repetir) y tarjeta de bolsillo de la rutina diaria"
+    },
+    {
+      "numero": 11,
+      "titulo": "Problemas comunes y preguntas frecuentes",
+      "objetivo": "Resolver por tu cuenta los atorones más comunes del programa y saber con claridad cuándo parar y acudir con un profesional.",
+      "pontos": [
+        "No siento el músculo / se cansa rápido / duele: causa probable y acción para cada uno",
+        "Me volví MÁS rápido desde que empecé: señal de tensión; suspender el Kegel por 1 semana, duplicar inverso y respiración, volver despacio",
+        "Semana 4 y nada cambió: revisar ejecución, volumen, sueño, alcohol y ansiedad; qué es normal esperar y cuándo reevaluar",
+        "Erección: por qué el mismo músculo ayuda a la erección y qué hacer si pierde firmeza durante parar y seguir",
+        "Masturbación, ritmo y pornografía: cómo entrenar sin 'enseñarle' al cuerpo a acelerar; frecuencia; cuándo el problema es el hábito y no el músculo",
+        "Condón, lubricante, edad, medicamentos en uso, cirugías y próstata: respuestas cortas",
+        "Opciones médicas que existen (dapoxetina, anestésicos tópicos, terapia sexual) presentadas como conversación para tener con el médico, con la evidencia de que la combinación con el entrenamiento es lo que da más resultado; nunca como recomendación",
+        "Cuándo parar y acudir con un profesional (repetir las señales de alerta) y cómo elegir: urólogo, fisioterapeuta de piso pélvico, terapeuta sexual",
+        "Lista de las fuentes citadas en el libro"
+      ],
+      "entregavel": "Guía de diagnóstico rápido 'problema → causa probable → qué hacer' (10 puntos en tópicos) y la lista de fuentes"
+    }
+  ],
+  "bonus": [
+    { "nome": "Registro de 12 semanas", "descricao": "El modelo semanal está en el capítulo 10. Copia la lista 12 veces en las notas del celular o imprime la página. Marca cada bloque hecho en el día; el domingo cuenta los días completos: con 5 o más, avanzas de fase cuando la fase termine." },
+    { "nome": "Tarjeta de bolsillo de la rutina diaria", "descricao": "También en el capítulo 10. Tómale una foto y déjala como favorita en la galería: mañana (respiración 5 min + 1 serie), tarde (1 serie), noche (1 serie + respiración 5 min)." },
+    { "nome": "Guion de conversación con la pareja", "descricao": "Capítulo 9. Cinco frases para hablar del tema con ropa y fuera de la recámara, más las respuestas a las cuatro preguntas que suelen venir después." },
+    { "nome": "Fuentes citadas", "descricao": "Serefoglu EC et al. An evidence-based unified definition of lifelong and acquired premature ejaculation (ISSM). J Sex Med, 2014.\nWaldinger MD et al. A multinational population survey of intravaginal ejaculation latency time. J Sex Med, 2005.\nPastore AL et al. Pelvic floor muscle rehabilitation for patients with lifelong premature ejaculation. Ther Adv Urol, 2014.\nErkut Ö et al. Diaphragmatic breathing added to behavioral therapy and pelvic floor muscle training in premature ejaculation: randomized trial. J Sex Med, 2025.\nMedrano-Sánchez EM et al. Physiotherapy for premature ejaculation: systematic review and meta-analysis. J Sex Med, 2026.\nMyers C, Smith M. Pelvic floor muscle training improves erectile dysfunction and premature ejaculation: a systematic review. Physiotherapy, 2019.\nLa Pera G, Nicastro A. A new treatment for premature ejaculation: the rehabilitation of the pelvic floor. J Sex Marital Ther, 1996.\nSemans JH. Premature ejaculation: a new approach. South Med J, 1956.\nMasters WH, Johnson VE. Human Sexual Inadequacy, 1970.\nShindel AW et al. Disorders of ejaculation: an AUA/SMSNA guideline. J Urol, 2022 (diretriz 2020).\nEAU Guidelines on Sexual and Reproductive Health, 2025.\nSociedade Brasileira de Urologia, Portal da Urologia: sangue no sêmen; doenças da próstata." }
+  ]
+}
