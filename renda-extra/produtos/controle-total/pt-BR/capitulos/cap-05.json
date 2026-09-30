@@ -24,14 +24,13 @@
         ] },
         { "tipo": "topicos", "itens": [
           "Semanas 1–2: 5–10 s de soltura · 10 rep · depois de cada série de Kegel lento.",
-          "Semanas 3–4: igual. A série agora termina com as rápidas; o reverso vem depois delas.",
+          "Semanas 3–4: igual, depois das rápidas.",
           "Semanas 5–8: igual. Com contrações de 10 segundos, a soltura completa importa ainda mais.",
-          "Semanas 9–12: igual. Fora do treino, o períneo solto vira o seu estado normal; é assim que ele deve estar no começo do sexo."
+          "Semanas 9–12: igual. Fora do treino, o períneo solto é o estado normal, e é assim que ele deve estar no começo do sexo."
         ] },
         { "tipo": "topicos", "itens": [
-          "O períneo e a base do pênis descem de leve, sem esforço visível.",
-          "A barriga está mole; glúteos e coxas continuam soltos.",
-          "Você sente a diferença entre o fim de uma contração e o chão completo da soltura: o reverso vai um pouco abaixo desse chão.",
+          "O períneo e a base do pênis descem de leve, sem esforço visível; barriga, glúteos e coxas continuam soltos.",
+          "Você sente a diferença entre o fim de uma contração e o chão da soltura: o reverso vai um pouco abaixo desse chão.",
           "Ao terminar a série, o períneo parece mais pesado ou mais quente, não cansado."
         ] },
         { "tipo": "atencao", "texto": "Erros comuns: empurrar para baixo com força, como no banheiro, o erro mais perigoso deste bloco porque sobrecarrega o assoalho pélvico; prender o ar durante a soltura; fazer o reverso apressado, só para cumprir tabela; apertar os glúteos para tentar soltar o períneo." },
@@ -42,7 +41,7 @@
       "titulo": "5. Respiração diafragmática",
       "blocos": [
         { "tipo": "imagem", "arquivo": "06-respiracao.png", "texto": "Inspira em 4 segundos, a barriga sobe e o períneo relaxa. Expira em 6, a barriga desce." },
-        { "tipo": "paragrafo", "texto": "O diafragma e o assoalho pélvico se movem juntos. Confira agora: mão sobre o períneo, por cima da roupa, e inspire fundo pela barriga. Ele desce um pouco. Expire: ele volta. Os dois são o teto e o chão da mesma caixa. Respiração curta e presa no peito faz o contrário: o diafragma quase não desce, o assoalho pélvico fica travado em cima e a excitação sobe sem nada segurando. É o padrão que a maioria dos homens tem no sexo sem perceber, e piora com a ansiedade." },
+        { "tipo": "paragrafo", "texto": "O diafragma e o assoalho pélvico se movem juntos. Confira agora: mão sobre o períneo, por cima da roupa, e inspire fundo pela barriga. Ele desce um pouco. Expire: ele volta. Respiração curta e presa no peito faz o contrário: o diafragma quase não desce, o assoalho pélvico fica travado em cima e a excitação sobe sem nada segurando. É o padrão que a maioria dos homens tem no sexo sem perceber, e piora com a ansiedade." },
         { "tipo": "paragrafo", "texto": "A evidência mais direta é de Erkut e colegas (2025, Journal of Sexual Medicine): um ensaio com 59 homens, 8 semanas de técnica comportamental mais treino do assoalho pélvico. O grupo que também fez respiração diafragmática 2 vezes por dia ganhou mais tempo (mediana de +283 segundos, contra +204 no grupo sem respiração) e foi o único que manteve o ganho um ano depois. Por isso a dose deste livro é 5 minutos, 2 vezes ao dia, do primeiro ao último dia." },
         { "tipo": "passos", "itens": [
           "Deite de costas nas primeiras semanas, ou sente com a coluna apoiada. Uma mão na barriga, outra no peito.",
@@ -59,8 +58,7 @@
         ] },
         { "tipo": "topicos", "itens": [
           "A mão da barriga sobe primeiro e mais que a do peito; os ombros não sobem.",
-          "A expiração é mais longa que a inspiração e termina sem esforço.",
-          "Depois de 2 ou 3 minutos, o coração desacelera e a mandíbula solta sozinha.",
+          "A expiração é mais longa que a inspiração e termina sem esforço; depois de 2 ou 3 minutos, a mandíbula solta sozinha.",
           "O períneo acompanha: desce na inspiração, volta na expiração, sem contração voluntária."
         ] },
         { "tipo": "atencao", "texto": "Erros comuns: encher o peito primeiro; expirar com força, esvaziando tudo de uma vez; prender o ar no fim da inspiração; contrair o períneo na expiração por hábito de Kegel (aqui ele só acompanha); fazer uma sessão de 10 minutos e pular a outra. O que o ensaio de 2025 testou foram duas sessões por dia." },

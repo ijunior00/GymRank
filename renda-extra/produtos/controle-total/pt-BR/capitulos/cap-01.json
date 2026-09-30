@@ -60,16 +60,16 @@
           "Aceito me medir contra mim mesmo, e não contra um número de minutos.",
           "Se algo doer ou piorar, paro e busco um profissional, em vez de insistir."
         ] },
-        { "tipo": "paragrafo", "texto": "Se marcou 6 ou mais, este programa é para você. Se marcou menos, leia a lista abaixo antes de decidir. Ela vale para todo mundo, mas principalmente para quem não marcou o segundo, o terceiro ou o quarto item." },
+        { "tipo": "paragrafo", "texto": "Se marcou 6 ou mais, este programa é para você. Se marcou menos, leia a lista abaixo antes de decidir. Ela vale para todo mundo, e principalmente para quem não marcou o segundo, o terceiro ou o quarto item." },
         { "tipo": "topicos", "itens": [
           "**Vá ao médico antes se** começou de repente, depois de anos normal. O tipo adquirido pede investigação de causas como disfunção erétil, prostatite, tireoide e sono.",
-          "**Vá ao médico antes se** tem dificuldade de ereção junto. O treino ajuda os dois, mas a disfunção erétil precisa ser avaliada por conta própria.",
+          "**Vá ao médico antes se** tem dificuldade de ereção junto. O treino ajuda os dois, mas a disfunção erétil precisa de avaliação própria.",
           "**Vá ao médico antes se** sente dor ao ejacular ou ao urinar.",
           "**Vá ao médico antes se** viu sangue no sêmen. Acima de 40 anos, investigar sempre.",
           "**Vá ao médico antes se** teve febre junto com sintomas urinários.",
           "**Vá ao médico antes se** tem dor pélvica que não passa."
         ] },
-        { "tipo": "atencao", "texto": "Uma regra que vale o livro inteiro: dor não se treina. Se doer durante ou depois de qualquer exercício, pare e busque um fisioterapeuta pélvico. E se, depois de 12 semanas bem feitas, nada tiver mudado, isso também é sinal para uma consulta, não para mais 12 semanas iguais." }
+        { "tipo": "atencao", "texto": "Uma regra que vale o livro inteiro: dor não se treina. Se doer durante ou depois de qualquer exercício, pare e busque um fisioterapeuta pélvico. E se, depois de 12 semanas bem feitas, nada tiver mudado, isso também é sinal para uma consulta." }
       ]
     }
   ],
