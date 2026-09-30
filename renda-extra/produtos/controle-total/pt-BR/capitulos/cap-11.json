@@ -1,39 +1,38 @@
 {
   "titulo": "Problemas comuns e perguntas frequentes",
-  "abertura": "Todo programa trava em algum ponto. O músculo não aparece, a série cansa antes do fim, a semana 4 chega e parece que nada mudou. A maior parte desses travamentos tem causa conhecida e ação simples, e é isso que a primeira parte deste capítulo resolve: problema, causa provável, o que fazer.\n\nA segunda parte é sobre o que este livro não faz. Existem opções médicas, existem sinais que pedem consulta antes de qualquer treino, e existe um jeito de escolher o profissional certo. Um treinador sabe onde termina o treino, e diz isso com a mesma clareza com que ensinou o Kegel.",
+  "abertura": "Todo programa trava em algum ponto: o músculo não aparece, a série cansa antes do fim, a semana 4 chega e parece que nada mudou. A maior parte desses travamentos tem causa conhecida e ação simples, e é isso que a primeira parte deste capítulo resolve.\n\nA segunda parte é sobre o que este livro não faz. Existem opções médicas, sinais que pedem consulta antes de qualquer treino e um jeito de escolher o profissional certo. Um treinador sabe onde termina o treino, e diz isso com a mesma clareza com que ensinou o Kegel.",
   "secoes": [
     {
       "titulo": "1. Guia rápido: problema, causa provável, o que fazer",
       "blocos": [
-        { "tipo": "paragrafo", "texto": "Procure o seu caso. Se dois se aplicam, resolva primeiro o que envolve dor ou tensão; o resto espera." },
+        { "tipo": "paragrafo", "texto": "Procure o seu caso. Se dois se aplicam, resolva primeiro o que envolve dor ou tensão." },
         { "tipo": "topicos", "itens": [
-          "Não sinto o músculo, ou não sei se estou contraindo o lugar certo. Causa provável: glúteo, abdômen ou coxa fazendo o trabalho, ou força demais escondendo a sensação. O que fazer: volte aos três testes do capítulo 3 (um deles é o espelho: a base do pênis sobe de leve), treine deitado por mais uma semana e contraia com metade da força que você acha que precisa. Consciência vem antes de força.",
-          "A contração enfraquece antes do fim da série. Causa provável: dose acima da sua fase, ou músculo pouco treinado, o que é normal no começo. O que fazer: fique em 10 repetições, não avance e conte no domingo. Só passa de fase com 5 dias na semana sem enfraquecer. Cansaço é diferente de dor.",
-          "Dói ou fica tenso depois de treinar (períneo, glúteo, lombar). Causa provável: assoalho pélvico tenso demais sendo fortalecido ainda mais, ou ar preso durante as séries. O que fazer: pare o Kegel de força por uma semana e faça só reverso e respiração. Se a dor continuar, fisioterapeuta pélvico. Dor não se treina.",
-          "Fiquei mais rápido depois que comecei. Causa provável: tensão. Músculo que já vive contraído dispara antes. O que fazer: corte o Kegel por uma semana, dobre o Kegel reverso e a respiração, e recomece uma fase abaixo da que estava, devagar. A meta-análise de Medrano-Sánchez e colegas (2026) lembra que fraqueza e hipertonia podem levar ao mesmo sintoma; o caminho é diferente.",
-          "Semana 4 e nada mudou. Causa provável: execução (glúteo, ar preso), volume errado para mais ou para menos, sono ruim, álcool, ansiedade sem a conversa do capítulo 9. O que fazer: passe pelo checklist \"estou contraindo certo?\" do capítulo 3, confira o tracker e ajuste uma coisa por vez. Os primeiros sinais esperados são consciência do músculo e do ponto 7 entre a 4ª e a 6ª semana, não tempo. Se na semana 6 nada, refaça o questionário do capítulo 2; se depois de 12 semanas bem feitas nada mudou, consulta.",
-          "Perco firmeza da ereção durante o para-e-continua. Causa provável: pausa longa demais, atenção presa no medo em vez de nas sensações, ou treino no fim do dia, cansado. O que fazer: encurte a pausa e, a partir da semana 5, use o freio por contração e expiração no lugar da pausa total; retome o estímulo assim que baixar dois pontos, não três. O mesmo músculo que você treina participa da ereção, e a revisão de Myers e Smith (2019) aponta benefício do treino também para disfunção erétil. Se a firmeza falha no sexo em geral, e não só no treino, é sinal de alerta: urologista.",
-          "Sozinho, não consigo treinar devagar; o corpo vai direto para o ritmo rápido. Causa provável: hábito. Anos de masturbação apressada, muitas vezes com pornografia, ensinaram o corpo a um ritmo. O que fazer: treino sem pornografia, com a escala, e frequência regular (nem abstinência longa, que acelera, nem várias vezes por dia). Se o problema é o hábito, o músculo ajuda menos do que o ritmo; dê mais peso ao para-e-continua e às posições lentas do capítulo 8.",
-          "Com preservativo é diferente, ou sem lubrificante fica pior. Causa provável: sensibilidade e atrito mudam a velocidade com que a excitação sobe. O que fazer: preservativo mais grosso e lubrificante são aliados legítimos (capítulo 8). Treine com o que você vai usar no sexo, para o corpo não estranhar.",
-          "Tenho mais de 40, tomo remédio de uso contínuo, operei ou tenho próstata em acompanhamento. Causa provável: nenhuma dessas condições impede o treino, mas cada uma muda uma coisa. O que fazer: idade não é impedimento; no estudo de La Pera e Nicastro (1996), 83% dos 18 homens conviviam com o quadro havia mais de 5 anos e 61% melhoraram com 15 a 20 sessões. Remédio de uso contínuo pode alterar a ejaculação para os dois lados; não mude nada por conta própria, leve a lista ao médico. Cirurgia pélvica ou de próstata e qualquer sintoma urinário: fale com o urologista antes de começar.",
-          "Não consigo manter a rotina; perco a tarde, depois o dia, depois a semana. Causa provável: falta de âncora, não falta de vontade. O que fazer: amarre cada bloco a algo que já acontece, alarme silencioso para a tarde, e nos dias ruins faça o mínimo, que é a respiração da noite e um bloco. As regras de dia perdido estão no capítulo 10."
+          "Não sinto o músculo, ou não sei se é o lugar certo. Causa provável: glúteo, abdômen ou coxa fazendo o trabalho, ou força demais escondendo a sensação. O que fazer: volte aos três testes do capítulo 3 (no espelho, a base do pênis sobe de leve), treine deitado por mais uma semana e contraia com metade da força. Consciência vem antes de força.",
+          "A contração enfraquece antes do fim da série. Causa provável: dose acima da sua fase, ou músculo pouco treinado, normal no começo. O que fazer: fique em 10 repetições, não avance e conte no domingo. Só passa de fase com 5 dias na semana sem enfraquecer. Cansaço é diferente de dor.",
+          "Dói ou fica tenso depois de treinar (períneo, glúteo, lombar). Causa provável: assoalho pélvico tenso demais sendo fortalecido ainda mais, ou ar preso nas séries. O que fazer: pare o Kegel de força por uma semana, só reverso e respiração. Se a dor continuar, fisioterapeuta pélvico. Dor não se treina.",
+          "Fiquei mais rápido depois que comecei. Causa provável: tensão; músculo que já vive contraído dispara antes. O que fazer: corte o Kegel por uma semana, dobre o reverso e a respiração e recomece uma fase abaixo (seção 2). A meta-análise de Medrano-Sánchez e colegas (2026) lembra que fraqueza e hipertonia podem levar ao mesmo sintoma; o caminho é diferente.",
+          "Semana 4 e nada mudou. Causa provável: execução (glúteo, ar preso), volume errado para mais ou para menos, sono ruim, álcool, ansiedade sem a conversa do capítulo 9. O que fazer: passe pelo checklist \"estou contraindo certo?\" do capítulo 3, confira o tracker e ajuste uma coisa por vez. Os sinais esperados entre a 4ª e a 6ª semana são consciência do músculo e do ponto 7, não tempo. Depois de 12 semanas bem feitas sem mudança: consulta.",
+          "Perco firmeza da ereção no para-e-continua. Causa provável: pausa longa demais, atenção presa no medo, ou treino no fim do dia, cansado. O que fazer: encurte a pausa e, a partir da semana 5, use o freio por contração e expiração no lugar da pausa total; retome assim que baixar dois pontos. O mesmo músculo participa da ereção, e a revisão de Myers e Smith (2019) aponta benefício do treino também para disfunção erétil. Se a firmeza falha no sexo em geral, é sinal de alerta: urologista.",
+          "Sozinho, não consigo treinar devagar; o corpo vai direto para o ritmo rápido. Causa provável: hábito. Anos de masturbação apressada, muitas vezes com pornografia, ensinaram um ritmo. O que fazer: treino sem pornografia, com a escala, e frequência regular (nem abstinência longa, que acelera, nem várias vezes por dia). Se o problema é o hábito, dê mais peso ao para-e-continua e às posições lentas do capítulo 8.",
+          "Com preservativo é diferente, ou sem lubrificante fica pior. Causa provável: sensibilidade e atrito mudam a velocidade com que a excitação sobe. O que fazer: preservativo mais grosso e lubrificante são aliados legítimos (capítulo 8). Treine com o que você vai usar no sexo.",
+          "Tenho mais de 40, tomo remédio de uso contínuo, operei ou tenho próstata em acompanhamento. Causa provável: nada disso impede o treino, mas cada item muda uma coisa. O que fazer: idade não é impedimento; no estudo de La Pera e Nicastro (1996), 83% dos 18 homens conviviam com o quadro havia mais de 5 anos e 61% melhoraram com 15 a 20 sessões. Remédio de uso contínuo pode alterar a ejaculação para os dois lados; não mude nada por conta própria, leve a lista ao médico. Cirurgia pélvica ou de próstata e qualquer sintoma urinário: urologista antes de começar.",
+          "Não consigo manter a rotina. Causa provável: falta de âncora, não de vontade. O que fazer: amarre cada bloco a algo que já acontece, alarme silencioso para a tarde e, nos dias ruins, o mínimo: a respiração da noite e um bloco. As regras de dia perdido estão no capítulo 10."
         ] }
       ]
     },
     {
       "titulo": "2. Os dois travamentos que mais aparecem",
       "blocos": [
-        { "tipo": "paragrafo", "texto": "Fiquei mais rápido. Isso assusta e costuma vir na semana 2 ou 3, de quem chegou tenso e começou forte. O erro é ler como \"preciso de mais força\". É o contrário. Um assoalho pélvico que já vive contraído não tem de onde contrair mais na hora de frear; ele só sobe o alerta. Uma semana só de soltura costuma bastar para o sinal sumir, e depois disso a progressão volta a fazer sentido." },
+        { "tipo": "paragrafo", "texto": "Fiquei mais rápido. Costuma vir na semana 2 ou 3, de quem chegou tenso e começou forte. O erro é ler como \"preciso de mais força\". É o contrário: um assoalho pélvico que já vive contraído não tem de onde contrair mais na hora de frear; ele só sobe o alerta. Uma semana só de soltura costuma bastar." },
         { "tipo": "passos", "itens": [
           "Dias 1 a 7: nenhum Kegel lento e nenhuma contração rápida.",
           "Kegel reverso em dobro: 2 séries de 10 solturas de 5 a 10 s em cada um dos três blocos.",
-          "Respiração diafragmática em dobro: 5 minutos, 4 vezes ao dia em vez de 2.",
-          "Quadril mantido, 3 a 4 vezes por semana, e o scan de tensão de 60 segundos do capítulo 5 antes de dormir.",
-          "Dia 8: recomece uma fase abaixo da que estava, com 10 repetições, e só avance pela regra dos 5 dias."
+          "Respiração diafragmática em dobro: 5 minutos, 4 vezes ao dia.",
+          "Quadril mantido, e o scan de tensão de 60 segundos do capítulo 5 antes de dormir.",
+          "Dia 8: recomece uma fase abaixo, com 10 repetições, e avance só pela regra dos 5 dias."
         ] },
-        { "tipo": "paragrafo", "texto": "Semana 4 e nada. Primeiro, o que é \"nada\". Se você já sente onde o músculo está, já consegue soltar sem empurrar e já nomeia o 6 e o 7 na escala, alguma coisa mudou, mesmo que o tempo não. Isso é o que se espera entre a 4ª e a 6ª semana; tempo vem depois, e nem sempre em linha reta. Se nem isso apareceu, a causa quase sempre está em uma das cinco: execução, volume, sono, álcool, ansiedade. Troque uma por semana e observe. Trocar as cinco de uma vez não te diz qual era." },
-        { "tipo": "exemplo", "texto": "Renato, 41, Recife: perfil tenso no questionário do capítulo 2, começou pulando para 5 s / 5 s porque 3 s parecia pouco. Na semana 3 estava mais rápido e com o glúteo dolorido. Cortou o Kegel por uma semana, dobrou reverso e respiração e recomeçou em 3 s / 3 s, deitado. Na semana 7 sentiu o ponto 7 com clareza pela primeira vez; na semana 11 aplicou o freio por contração no sexo duas vezes seguidas. Tempo, ele não mediu, porque o acordo com a parceira era sem cronômetro." },
-        { "tipo": "atencao", "texto": "Se em qualquer ponto aparecer dor, e não só tensão, a semana de soltura não substitui a consulta. Dor no períneo, no pênis ou ao urinar é assunto de urologista ou fisioterapeuta pélvico, não de ajuste de dose." }
+        { "tipo": "paragrafo", "texto": "Semana 4 e nada. Primeiro, o que é \"nada\". Se você já sente onde o músculo está, já solta sem empurrar e já nomeia o 6 e o 7 na escala, alguma coisa mudou, mesmo que o tempo não. É isso que se espera entre a 4ª e a 6ª semana; tempo vem depois, e nem sempre em linha reta. Se nem isso apareceu, a causa quase sempre é uma de cinco: execução, volume, sono, álcool, ansiedade. Troque uma por semana e observe. Trocar as cinco de uma vez não diz qual era." },
+        { "tipo": "exemplo", "texto": "Renato, 41, Recife: perfil tenso no capítulo 2, começou pulando para 5 s / 5 s porque 3 s parecia pouco. Na semana 3 estava mais rápido e com o glúteo dolorido. Cortou o Kegel por uma semana, dobrou reverso e respiração e recomeçou em 3 s / 3 s, deitado. Na semana 7 sentiu o ponto 7 com clareza pela primeira vez; na semana 11 aplicou o freio por contração no sexo duas vezes seguidas. Tempo, ele não mediu: o acordo com a parceira era sem cronômetro." }
       ]
     },
     {
@@ -42,11 +41,11 @@
         { "tipo": "paragrafo", "texto": "Este livro é treino. Mas quem desconfia de remédio merece saber o que existe, com a evidência na mesa, para conversar com o médico em vez de fugir dele. Nada abaixo é recomendação nem indicação de uso; é vocabulário para a consulta." },
         { "tipo": "topicos", "itens": [
           "Dapoxetina. Um remédio de uso oral. Na meta-análise de Medrano-Sánchez e colegas (2026, Journal of Sexual Medicine), com 6 estudos e 416 homens, ela foi um pouco melhor do que a fisioterapia do assoalho pélvico sozinha; a combinação das duas foi o melhor resultado. Se cabe no seu caso, e como, é decisão do médico.",
-          "Anestésicos tópicos. Cremes ou sprays que reduzem a sensibilidade do pênis. Sem orientação, tiram sensação de quem não deveria perder e mascaram justamente o que o treino quer que você aprenda a sentir; com orientação, são uma opção que o médico conhece bem. \"Os cremes funcionam?\" é uma das perguntas mais frequentes que homens fazem em público a médicos; leve para a consulta.",
-          "Terapia sexual. Sozinho ou com o casal. Aparece na diretriz da AUA/SMSNA (2020) ao lado do remédio e da técnica: combinar abordagem comportamental com medicamento pode ser mais eficaz do que cada um sozinho. Se a ansiedade ou o casal pesam mais que o músculo (capítulo 9), é por aqui."
+          "Anestésicos tópicos. Cremes ou sprays que reduzem a sensibilidade do pênis. Sem orientação, mascaram justamente o que o treino quer que você aprenda a sentir; com orientação, são uma opção que o médico conhece. \"Os cremes funcionam?\" é uma das perguntas que homens mais fazem em público a médicos; leve para a consulta.",
+          "Terapia sexual, sozinho ou com o casal. A diretriz AUA/SMSNA (2020) diz que combinar abordagem comportamental com medicamento pode ser mais eficaz do que cada um sozinho. Se a ansiedade ou o casal pesam mais que o músculo (capítulo 9), é por aqui."
         ] },
-        { "tipo": "paragrafo", "texto": "A leitura honesta da evidência: fisioterapia do assoalho pélvico é segura e benéfica; o remédio sozinho foi um pouco melhor; juntos, os dois foram melhores ainda. Se você tem uma receita na gaveta que nunca usou, não é este livro que vai dizer o que fazer com ela. É o médico, e agora você tem o que perguntar." },
-        { "tipo": "atencao", "texto": "Álcool e anestésico sem orientação não são opções médicas; são muletas que atrapalham a leitura do ponto 7. O capítulo 8 já disse; fica repetido." }
+        { "tipo": "paragrafo", "texto": "A leitura honesta da evidência: fisioterapia do assoalho pélvico é segura e benéfica; o remédio sozinho foi um pouco melhor; juntos, melhores ainda. Se você tem uma receita na gaveta que nunca usou, não é este livro que vai dizer o que fazer com ela. É o médico, e agora você tem o que perguntar." },
+        { "tipo": "atencao", "texto": "Álcool e anestésico sem orientação não são opções médicas; são muletas que atrapalham a leitura do ponto 7." }
       ]
     },
     {
@@ -63,19 +62,19 @@
           "Nenhuma mudança depois de 12 semanas bem feitas.",
           "E a regra geral: dor não se treina. Se doer, pare e procure um fisioterapeuta pélvico."
         ] },
-        { "tipo": "paragrafo", "texto": "Qual profissional para cada situação." },
+        { "tipo": "paragrafo", "texto": "Qual profissional para cada situação:" },
         { "tipo": "topicos", "itens": [
-          "Urologista: tipo adquirido, dificuldade de ereção junto, dor, sangue, febre, sintomas urinários, remédios em uso, próstata. É também quem conversa sobre dapoxetina e anestésicos. A diretriz AUA/SMSNA (2020) pede investigação de causas na ejaculação precoce adquirida: disfunção erétil, prostatite, tireoide, sono.",
-          "Fisioterapeuta pélvico: dor ou tensão que não cede com o reverso, não conseguir achar o músculo depois de 2 semanas, e quem quer o que o estudo de Pastore e colegas (2014) teve: supervisão, biofeedback e eletroestimulação em clínica, 3 vezes por semana por 12 semanas, com 33 dos 40 homens ganhando controle e o tempo médio subindo de cerca de 30 segundos para cerca de 2,5 minutos. Em casa, o programa segue os mesmos músculos e princípios, sem garantia de repetir esses números.",
+          "Urologista: tipo adquirido, ereção, dor, sangue, febre, sintomas urinários, remédios em uso, próstata. É quem conversa sobre dapoxetina e anestésicos. A diretriz AUA/SMSNA (2020) pede investigação de causas na ejaculação precoce adquirida: disfunção erétil, prostatite, tireoide, sono.",
+          "Fisioterapeuta pélvico: dor ou tensão que não cede com o reverso, não achar o músculo depois de 2 semanas, ou querer o que o estudo de Pastore e colegas (2014) teve: supervisão, biofeedback e eletroestimulação em clínica, 3 vezes por semana por 12 semanas, com 33 dos 40 homens ganhando controle e o tempo médio subindo de cerca de 30 segundos para cerca de 2,5 minutos. Em casa, o programa segue os mesmos músculos e princípios, sem garantia de repetir esses números.",
           "Terapeuta sexual ou de casal: evitação, ansiedade que não baixa com a conversa do capítulo 9, ressentimento no casal, ejaculação rápida só com uma pessoa específica."
         ] },
-        { "tipo": "dica", "texto": "Como falar na consulta, em uma frase: \"Tenho ejaculação precoce desde sempre (ou: há tantos meses), estou fazendo treino de assoalho pélvico há tantas semanas, e quero saber se há algo a investigar e se faz sentido combinar com outra abordagem.\" Sem rodeio. O médico ouve isso toda semana." }
+        { "tipo": "dica", "texto": "Como falar na consulta: \"Tenho ejaculação precoce desde sempre (ou: há tantos meses), estou fazendo treino de assoalho pélvico há tantas semanas, e quero saber se há algo a investigar e se faz sentido combinar com outra abordagem.\" O médico ouve isso toda semana." }
       ]
     },
     {
       "titulo": "5. Fontes citadas",
       "blocos": [
-        { "tipo": "paragrafo", "texto": "Tudo o que este livro afirma com número veio de uma destas fontes. Elas estão aqui para você conferir, ou para levar ao seu médico." },
+        { "tipo": "paragrafo", "texto": "Tudo o que este livro afirma com número veio de uma destas fontes. Estão aqui para você conferir, ou para levar ao seu médico." },
         { "tipo": "topicos", "itens": [
           "Serefoglu EC et al. An evidence-based unified definition of lifelong and acquired premature ejaculation (ISSM). J Sex Med, 2014.",
           "Waldinger MD et al. A multinational population survey of intravaginal ejaculation latency time. J Sex Med, 2005.",
@@ -96,7 +95,6 @@
   "resumo": [
     "A maioria dos travamentos é execução, dose ou tensão, e cada um tem uma ação simples.",
     "Ficar mais rápido é sinal de tensão: uma semana só de soltura e respiração, depois uma fase abaixo.",
-    "Os sinais esperados entre a 4ª e a 6ª semana são consciência, não minutos; 12 semanas bem feitas sem mudança pedem consulta.",
     "Dapoxetina, anestésicos tópicos e terapia sexual existem; a evidência diz que combinar com o treino é o que dá mais resultado, e quem decide é o médico.",
     "Os sinais de alerta pausam o treino; dor não se treina."
   ],
