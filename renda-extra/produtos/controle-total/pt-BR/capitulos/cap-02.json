@@ -1,6 +1,6 @@
 {
   "titulo": "Seu ponto de partida: autoavaliação e metas realistas",
-  "abertura": "Todo treino sério começa com uma medição. Ninguém entra na academia e carrega peso sem saber quanto levanta hoje. Com o assoalho pélvico é igual, com uma diferença: a medição não pode virar cronômetro na mesa de cabeceira. Sexo com relógio é sexo com plateia, e plateia é uma das engrenagens que você quer desligar.\n\nNeste capítulo você vai medir três coisas sozinho, responder a 12 perguntas para descobrir o seu perfil, aprender a escala de excitação de 1 a 10 e definir metas que fazem sentido para cada fase. Leva uns 20 minutos hoje e 30 segundos por dia daqui para a frente.",
+  "abertura": "Todo treino sério começa com uma medição. Ninguém entra na academia e carrega peso sem saber quanto levanta hoje. Com o assoalho pélvico é igual, com uma diferença: a medição não pode virar cronômetro na mesa de cabeceira. Sexo com relógio é sexo com plateia, e plateia é uma das engrenagens que você quer desligar.\n\nNeste capítulo você vai medir três coisas sozinho, responder a 12 perguntas para descobrir o seu perfil, aprender a escala de excitação de 1 a 10 e definir metas por fase. Leva uns 20 minutos hoje e 30 segundos por dia daqui para a frente.",
   "secoes": [
     {
       "titulo": "1. Meça o ponto de partida sem transformar o sexo em prova",
@@ -49,44 +49,42 @@
           "D3. Já bebi antes do sexo para relaxar ou para durar mais."
         ] },
         { "tipo": "topicos", "itens": [
-          "**Leitura.** 2 ou 3 pontos no grupo A: perfil tenso. No B: perfil fraco. No C: perfil acelerado. No D: perfil ansioso.",
-          "Dois grupos com 2 ou mais: perfil misto; siga os ajustes dos dois.",
-          "Nenhum grupo com 2 ou mais: siga a progressão normal, como o perfil fraco.",
-          "Anote a pontuação de cada grupo (A ___ B ___ C ___ D ___). Você vai responder de novo na semana 12."
+          "**Leitura.** 2 ou 3 pontos no grupo A: perfil tenso. No B: fraco. No C: acelerado. No D: ansioso.",
+          "Dois grupos com 2 ou mais: perfil misto; siga os ajustes dos dois. Nenhum grupo com 2 ou mais: progressão normal, como o perfil fraco.",
+          "Anote a pontuação (A ___ B ___ C ___ D ___). Você vai responder de novo na semana 12."
         ] }
       ]
     },
     {
       "titulo": "3. O que cada perfil muda no treino",
       "blocos": [
-        { "tipo": "paragrafo", "texto": "O programa é o mesmo para todos: os 10 exercícios, as 4 fases, a rotina de 10 a 12 minutos. O perfil só muda a ênfase nas primeiras semanas. Na experiência prática de treino, é esse ajuste inicial que separa quem sente o músculo na semana 4 de quem desiste dizendo que 'Kegel não funciona'." },
+        { "tipo": "paragrafo", "texto": "O programa é o mesmo para todos: os 10 exercícios, as 4 fases, a rotina de 10 a 12 minutos. O perfil só muda a ênfase nas primeiras semanas. Na experiência prática de treino, é esse ajuste que separa quem sente o músculo na semana 4 de quem desiste dizendo que 'Kegel não funciona'." },
         { "tipo": "topicos", "itens": [
           "**Tenso.** Nas semanas 1–2, faça 2 séries de Kegel lento ao dia em vez de 3, e depois de cada uma o Kegel reverso com 10 segundos de soltura, não 5. Respiração diafragmática 2 vezes ao dia, sem faltar. Se ficar mais rápido em vez de mais lento, corte o Kegel por alguns dias e mantenha só reverso e respiração. A partir da semana 3, dose normal.",
-          "**Fraco.** Progressão normal, com a ficha de doses do capítulo 4 como está. Sua atenção principal é não avançar de fase antes de completar 5 dias na semana sem a contração enfraquecer.",
-          "**Acelerado.** Dose normal de Kegel, e o para-e-continua entra na semana 3, 2 a 3 vezes por semana, com foco em ritmo: movimentos lentos, sem vídeo, nomeando o nível da escala em voz baixa. Seu treino principal é reeducar o padrão, não só o músculo.",
-          "**Ansioso.** Respiração diafragmática 3 vezes ao dia (5 minutos cada) em vez de 2, e leia o capítulo 9 antes do 4. Falar com a parceira tira a plateia do quarto, e sem plateia o resto do treino rende mais."
+          "**Fraco.** Progressão normal, com a ficha de doses do capítulo 4. Sua atenção principal é não avançar de fase antes de completar 5 dias na semana sem a contração enfraquecer.",
+          "**Acelerado.** Dose normal de Kegel, e o para-e-continua entra na semana 3, 2 a 3 vezes por semana, com foco em ritmo: movimentos lentos, sem vídeo, nomeando o nível da escala em voz baixa. Seu treino principal é reeducar o padrão.",
+          "**Ansioso.** Respiração diafragmática 3 vezes ao dia (5 minutos cada) em vez de 2, e leia o capítulo 9 antes do 4. Falar com a parceira tira a plateia do quarto."
         ] },
-        { "tipo": "exemplo", "texto": "Marcos, 38, Belo Horizonte: 3 pontos em tensão, 2 em ansiedade. Trabalhava sentado o dia todo, prendia o ar e apertava o glúteo perto do fim. Começou com 2 séries por dia e o reverso de 10 segundos. Na semana 5 disse pela primeira vez que sentia o períneo 'descer' ao soltar, e na medição da semana 8 o tempo até o ponto de não retorno tinha subido. Modesto, mas na direção certa." }
+        { "tipo": "exemplo", "texto": "Marcos, 38, Belo Horizonte: 3 pontos em tensão, 2 em ansiedade. Trabalhava sentado o dia todo, prendia o ar e apertava o glúteo perto do fim. Começou com 2 séries por dia e o reverso de 10 segundos. Na semana 5 disse pela primeira vez que sentia o períneo 'descer' ao soltar; na medição da semana 8, o tempo até o ponto de não retorno tinha subido. Modesto, mas na direção certa." }
       ]
     },
     {
       "titulo": "4. A escala de 1 a 10 e o ponto 7",
       "blocos": [
-        { "tipo": "paragrafo", "texto": "A escala é a ferramenta mais simples e mais importante do livro. De 1 a 10, onde 1 é sem excitação e 10 é a ejaculação. O 9 é o ponto de não retorno, quando o reflexo já disparou. O 8 é o aviso de que está muito perto. E o 7 é o ponto em que você ainda decide: dá para frear com respiração, contração, pausa ou mudança de ritmo. Quem termina rápido costuma pular do 5 para o 9 sem notar o 7 passando." },
+        { "tipo": "paragrafo", "texto": "A escala é a ferramenta mais simples e mais importante do livro. De 1 a 10, onde 1 é sem excitação e 10 é a ejaculação. O 9 é o ponto de não retorno. O 7 é o ponto em que você ainda decide: dá para frear com respiração, contração, pausa ou mudança de ritmo. Quem termina rápido costuma pular do 5 para o 9 sem notar o 7 passando." },
         { "tipo": "topicos", "itens": [
           "1 a 3: começo, corpo aquecendo, respiração normal, sem urgência.",
           "4 a 6: prazer claro, a respiração começa a mudar. É onde você quer passar a maior parte do tempo.",
-          "7: a urgência começa, o pulso acelera, coxas e glúteos pedem para apertar. Este é o ponto do freio.",
+          "7: a urgência começa, o pulso acelera, coxas e glúteos pedem para apertar. É o ponto do freio.",
           "8: muito perto; ainda dá para pausar, com pouca margem.",
-          "9: ponto de não retorno; segurar não adianta mais.",
-          "10: ejaculação."
+          "9: ponto de não retorno. 10: ejaculação."
         ] },
         { "tipo": "passos", "itens": [
           "Nas próximas medições de baseline, diga o número em voz baixa a cada 30 segundos, mais ou menos. Só nomear; não tente segurar.",
           "Note qual número veio antes do 9. Se você falou 5 e depois já era 9, a sua tarefa das próximas semanas é achar o 7.",
           "Anote na ficha: 'último número que percebi antes do 9: ___'. É o seu segundo baseline."
         ] },
-        { "tipo": "dica", "texto": "Nomear o nível é o começo do controle. Você não freia o que não percebe, e perceber é treinável: cada vez que nomeia, o cérebro marca a sensação. Entre a 4ª e a 6ª semana, o 7 costuma passar a ter cara." }
+        { "tipo": "dica", "texto": "Nomear o nível é o começo do controle. Você não freia o que não percebe, e perceber é treinável. Entre a 4ª e a 6ª semana, o 7 costuma passar a ter cara." }
       ]
     },
     {
@@ -98,7 +96,7 @@
           "**Semana 8:** fazer 3 pausas no para-e-continua sem passar do ponto de não retorno; frear com contração e expiração no 7; completar a dose da fase 5 dias na semana.",
           "**Semana 12:** aplicar dois freios no sexo pelo menos 1 vez por semana; repetir a ficha de baseline e o questionário; saber o que manter depois."
         ] },
-        { "tipo": "paragrafo", "texto": "O registro leva 30 segundos por dia. No mesmo bloco de notas da ficha, escreva uma linha: data, quais blocos fez (manhã, tarde, noite), tensão do dia de 1 a 5 e uma observação curta, se tiver. Na experiência prática de treino, quem registra chega ao fim das 12 semanas; quem confia na memória some na terceira semana sem perceber que sumiu. O registro é o que faz você notar que a semana 6 está diferente da semana 1." },
+        { "tipo": "paragrafo", "texto": "O registro leva 30 segundos por dia. No mesmo bloco de notas da ficha, escreva uma linha: data, quais blocos fez (manhã, tarde, noite), tensão do dia de 1 a 5 e uma observação curta, se tiver. Na experiência prática de treino, quem registra chega ao fim das 12 semanas; quem confia na memória some na terceira semana sem perceber. O registro é o que faz você notar que a semana 6 está diferente da semana 1." },
         { "tipo": "exemplo", "texto": "Uma linha de registro: 'ter 14/10 · manhã sim · tarde sim · noite não · tensão 3 · senti o períneo subir no terceiro Kegel'." }
       ]
     }
@@ -106,7 +104,7 @@
   "resumo": [
     "Meça o ponto de partida na masturbação, em 3 dias, sem vídeo: tempo até o ponto de não retorno, ritmo de 1 a 5 e tensão de 1 a 5.",
     "Responda às 12 perguntas; o grupo com mais pontos (tenso, fraco, acelerado, ansioso) define a ênfase das primeiras semanas.",
-    "Tenso: menos volume de Kegel e mais soltura e respiração. Acelerado: para-e-continua desde a semana 3 com foco em ritmo. Ansioso: respiração 3 vezes ao dia e capítulo 9 antes.",
+    "Tenso: menos Kegel e mais soltura e respiração. Acelerado: para-e-continua desde a semana 3, com foco em ritmo. Ansioso: respiração 3 vezes ao dia e capítulo 9 antes.",
     "A escala de 1 a 10 e o ponto 7: nomear o nível é o começo do controle.",
     "Metas por fase são de habilidade, nunca em minutos; registre em 30 segundos por dia."
   ],
