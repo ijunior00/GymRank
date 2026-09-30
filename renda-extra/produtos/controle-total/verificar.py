@@ -25,7 +25,8 @@ PROIBIDAS = {
 EXCECOES = [r"não (é|promete|existe|garante|é uma) (cura|garantid)", r"nada de (cura|garant)", r"no (es|promete|existe|garantiza) (una )?(cura|garant)",
             r"(sem|sin) (promessa|promesa) de cura", r"\"cura\"", r"'cura'", r"«cura»", r"cura[^.]{0,40}(não|no) (existe|é o objetivo)"]
 
-MIN_PALAVRAS, MAX_PALAVRAS = 1200, 2000
+# Contagem sobre o JSON inteiro (inclui chaves e sintaxe): ~15% acima do texto real.
+MIN_PALAVRAS, MAX_PALAVRAS = 1300, 2600
 
 
 def textos(cap):
