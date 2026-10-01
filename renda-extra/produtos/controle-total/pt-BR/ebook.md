@@ -197,7 +197,7 @@ Você vai localizar o músculo com três testes, aprender a diferença entre con
 
 ### 1. A rede na base da pelve
 
-![O assoalho pélvico visto de lado: uma rede de músculos entre o púbis e o cóccix. A seta mostra a direção da contração, para cima e para dentro.](imagens/01-anatomia.png)
+![O assoalho pélvico visto de lado: uma rede de músculos entre o púbis e o cóccix. A seta mostra a direção da contração, para cima e para dentro.](imagens/01-anatomia.jpg)
 
 Pense na pelve como uma bacia de osso, aberta embaixo. O que fecha essa abertura é o assoalho pélvico: uma rede de músculos em camadas, presa na frente ao púbis, atrás ao cóccix e nos lados aos ossos em que você senta. Ela sustenta bexiga, intestino e próstata, e é atravessada pela uretra e pelo ânus. Quando contrai, sobe e fecha; quando relaxa, desce e abre.
 
@@ -298,7 +298,7 @@ Os programas de fisioterapia estudados, como o italiano de 2014 de Pastore e col
 
 ### 2. Exercício 1. Kegel lento deitado
 
-![Deitado de costas, joelhos dobrados, pés no chão. A seta pequena no períneo mostra a contração: para cima.](imagens/02-kegel-deitado.png)
+![Deitado de costas, joelhos dobrados, pés no chão. A seta pequena no períneo mostra a contração: para cima.](imagens/02-kegel-deitado.jpg)
 
 É a posição da fase 1 (semanas 1–2). Sem a gravidade contra, você sente melhor e erra menos. Comece sempre por aqui, mesmo que já tenha feito Kegel antes.
 
@@ -323,7 +323,7 @@ Os programas de fisioterapia estudados, como o italiano de 2014 de Pastore e col
 
 ### 3. Exercício 2. Kegel lento sentado ou em pé
 
-![Sentado em uma cadeira, coluna ereta, pés no chão. A seta mostra a contração para cima, agora contra a gravidade.](imagens/03-kegel-sentado.png)
+![Sentado num banco, coluna ereta, pés no chão. Serve qualquer cadeira firme. A seta mostra a contração para cima, agora contra a gravidade.](imagens/03-kegel-sentado.jpg)
 
 A partir da semana 3, o mesmo movimento com a gravidade contra. É mais difícil e mais parecido com a posição em que você vai precisar do músculo. Dá para fazer no carro, na mesa do trabalho ou na fila; ninguém percebe.
 
@@ -349,7 +349,7 @@ A partir da semana 3, o mesmo movimento com a gravidade contra. É mais difícil
 
 ### 4. Exercício 3. Contrações rápidas
 
-![Em pé, três setas curtas para cima: contrai forte 1 segundo, solta 1 segundo, em sequência.](imagens/04-contracoes-rapidas.png)
+![Em pé, três setas curtas para cima: contrai forte 1 segundo, solta 1 segundo, em sequência.](imagens/04-contracoes-rapidas.jpg)
 
 Entram na semana 3, no fim de cada série de Kegel lento. Treinam o reflexo de 'segurar' no instante em que a excitação dispara: contração forte, curta e imediata, seguida de soltura igualmente rápida.
 
@@ -423,7 +423,7 @@ No sexo, o assoalho pélvico se contrai junto com a excitação. Se ele já vive
 
 ### 4. Kegel reverso (soltar)
 
-![Deitado, a região do períneo desce de leve. É deixar cair, não empurrar.](imagens/05-kegel-reverso.png)
+![De quatro apoios, como na foto, ou deitado de costas, como nos passos: a região do períneo desce de leve. É deixar cair, não empurrar.](imagens/05-kegel-reverso.jpg)
 
 1. Deite de costas, joelhos dobrados, pés no chão, uma mão na barriga.
 2. Inspire pelo nariz e deixe a barriga subir. Junto com ela, relaxe o abdômen e o períneo como se fosse iniciar o xixi, deixando a região descer.
@@ -442,11 +442,11 @@ No sexo, o assoalho pélvico se contrai junto com a excitação. Se ele já vive
 
 ⚠️ Erros comuns: empurrar para baixo com força, como no banheiro, o erro mais perigoso deste bloco porque sobrecarrega o assoalho pélvico; prender o ar; fazer o reverso apressado, só para cumprir tabela; apertar os glúteos para tentar soltar o períneo.
 
-💡 Se não consegue sentir a soltura, faça uma contração leve de 2 segundos e então solte. A diferença fica óbvia. Com o tempo você vai direto ao soltar.
+💡 Se não consegue sentir a soltura, faça uma contração leve de 2 segundos e então solte. A diferença fica óbvia. Com o tempo você vai direto ao soltar. Se deitado ainda não sair, experimente de quatro apoios, como na foto: com o quadril acima do tronco, a gravidade ajuda o períneo a descer.
 
 ### 5. Respiração diafragmática
 
-![Inspira em 4 segundos, a barriga sobe e o períneo relaxa. Expira em 6, a barriga desce.](imagens/06-respiracao.png)
+![Inspira em 4 segundos, a barriga sobe e o períneo relaxa. Expira em 6, a barriga desce.](imagens/06-respiracao.jpg)
 
 O diafragma e o assoalho pélvico se movem juntos. Confira agora: mão sobre o períneo, por cima da roupa, e inspire fundo pela barriga. Ele desce um pouco. Expire: ele volta. Respiração curta e presa no peito faz o contrário: o diafragma quase não desce, o assoalho pélvico fica travado em cima e a excitação sobe sem nada segurando.
 
@@ -535,13 +535,13 @@ O que esperar: nas duas primeiras semanas a descida do agachamento fica menos as
 
 ### 6. Agachamento profundo
 
-![Agachamento profundo: calcanhares no chão, joelhos para fora, tronco ereto.](imagens/07-agachamento.png)
+![Agachamento: calcanhares no chão, tronco ereto. Desça o quanto conseguir; com a prática, o quadril chega perto dos calcanhares.](imagens/07-agachamento.jpg)
 
 É a posição em que o assoalho pélvico fica mais longo e mais solto; por isso ela abre a rotina.
 
 1. Pés um pouco mais abertos que os ombros, pontas levemente para fora.
 2. Desça devagar até o quadril ficar perto dos calcanhares. Joelhos apontando para fora, na direção dos pés.
-3. Tronco ereto, peito aberto. Mãos juntas à frente do peito, cotovelos empurrando de leve os joelhos para fora.
+3. Tronco ereto, peito aberto. Braços estendidos à frente, como na foto, ajudam no equilíbrio; quando já descer fundo, junte as mãos à frente do peito e use os cotovelos para empurrar de leve os joelhos para fora.
 4. Respire fundo na posição: a barriga sobe na inspiração e o períneo desce. Expire sem apertar nada.
 5. Fique 1 a 2 minutos. Para subir, apoie as mãos nos joelhos.
 
@@ -563,7 +563,7 @@ Se nem com apoio você chega embaixo, comece sentado num banquinho baixo ou num 
 
 ### 7. Borboleta
 
-![Borboleta: solas dos pés juntas, joelhos caindo para os lados com o próprio peso.](imagens/08-borboleta.png)
+![Borboleta: solas dos pés juntas, joelhos caindo para os lados com o próprio peso.](imagens/08-borboleta.jpg)
 
 1. Sente no chão, solas dos pés unidas, calcanhares a uns 20 ou 30 centímetros do quadril.
 2. Mãos nos tornozelos ou nos joelhos. Coluna longa, sentado sobre os ossos do bumbum; se a lombar arredondar, sente numa almofada.
@@ -588,7 +588,7 @@ Se nem com apoio você chega embaixo, comece sentado num banquinho baixo ou num 
 
 ### 8. Alongamento do flexor do quadril
 
-![Flexor do quadril: ajoelhado, uma perna à frente, quadril avançando com o tronco ereto.](imagens/09-flexor-quadril.png)
+![Flexor do quadril: ajoelhado, uma perna à frente, quadril avançando com o tronco ereto.](imagens/09-flexor-quadril.jpg)
 
 1. Ajoelhe com o joelho direito no chão (almofada embaixo) e o pé esquerdo à frente, plantado.
 2. Tronco ereto. Contraia de leve o glúteo direito: isso encaixa a pelve e coloca o alongamento no lugar certo.
@@ -668,9 +668,9 @@ Este é o bloco mais fácil de pular, porque prancha parece coisa de academia e 
 
 ### 9. Prancha com respiração
 
-![Prancha nos antebraços, corpo reto. Na expiração, períneo e abdômen contraem de leve.](imagens/10-prancha.png)
+![Prancha com os braços estendidos, corpo reto. Na expiração, períneo e abdômen contraem de leve. Nos antebraços, o padrão é o mesmo.](imagens/10-prancha.jpg)
 
-1. Antebraços no chão, cotovelos embaixo dos ombros, pontas dos pés no chão.
+1. Mãos no chão embaixo dos ombros e braços estendidos, como na foto. Se o punho doer, apoie os antebraços com os cotovelos embaixo dos ombros. Pontas dos pés no chão.
 2. Corpo em linha reta da cabeça ao calcanhar. Olhar para o chão, um palmo à frente das mãos.
 3. Inspire pelo nariz soltando o assoalho pélvico; a barriga expande de leve.
 4. Expire pela boca e contraia de leve o períneo junto com o abdômen, como se fechasse um zíper de baixo para cima.
@@ -683,7 +683,7 @@ Este é o bloco mais fácil de pular, porque prancha parece coisa de academia e 
 - Semanas 9–12: igual.
 
 - Quadril nem alto nem caído; lombar sem dor.
-- Cotovelos sob os ombros e pescoço na linha do corpo, sem peso na nuca.
+- Mãos ou cotovelos sob os ombros e pescoço na linha do corpo, sem peso na nuca.
 - Você mantém os 4 segundos entrando e 6 saindo sem travar.
 - O períneo sobe de leve na expiração e desce na inspiração; tremor no abdômen é normal.
 - Depois da série, o períneo solta sozinho na primeira inspiração; se fica apertado, você segurou demais.

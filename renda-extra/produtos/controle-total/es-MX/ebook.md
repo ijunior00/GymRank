@@ -197,7 +197,7 @@ Vas a ubicar el músculo con tres pruebas, aprender la diferencia entre contraer
 
 ### 1. La red en la base de la pelvis
 
-![El piso pélvico visto de lado: una red de músculos entre el pubis y el coxis. La flecha muestra la dirección de la contracción, hacia arriba y hacia adentro.](imagens/01-anatomia.png)
+![El piso pélvico visto de lado: una red de músculos entre el pubis y el coxis. La flecha muestra la dirección de la contracción, hacia arriba y hacia adentro.](imagens/01-anatomia.jpg)
 
 Piensa en la pelvis como una cuenca de hueso, abierta por abajo. Lo que cierra esa abertura es el piso pélvico: una red de músculos en capas, sujeta al frente al pubis, atrás al coxis y a los lados a los huesos sobre los que te sientas. Sostiene la vejiga, el intestino y la próstata, y la atraviesan la uretra y el ano. Cuando se contrae, sube y cierra; cuando se relaja, baja y abre.
 
@@ -298,7 +298,7 @@ Los programas de fisioterapia estudiados, como el italiano de 2014 de Pastore y 
 
 ### 2. Ejercicio 1. Kegel lento acostado
 
-![Acostado boca arriba, rodillas dobladas, pies en el piso. La flecha pequeña en el periné muestra la contracción: hacia arriba.](imagens/02-kegel-deitado.png)
+![Acostado boca arriba, rodillas dobladas, pies en el piso. La flecha pequeña en el periné muestra la contracción: hacia arriba.](imagens/02-kegel-deitado.jpg)
 
 Es la posición de la fase 1 (semanas 1–2). Sin la gravedad en contra, sientes mejor y te equivocas menos. Empieza siempre por aquí, aunque ya hayas hecho Kegel antes.
 
@@ -323,7 +323,7 @@ Es la posición de la fase 1 (semanas 1–2). Sin la gravedad en contra, sientes
 
 ### 3. Ejercicio 2. Kegel lento sentado o de pie
 
-![Sentado en una silla, columna erguida, pies en el piso. La flecha muestra la contracción hacia arriba, ahora contra la gravedad.](imagens/03-kegel-sentado.png)
+![Sentado en un banco, columna erguida, pies en el piso. Sirve cualquier silla firme. La flecha muestra la contracción hacia arriba, ahora contra la gravedad.](imagens/03-kegel-sentado.jpg)
 
 A partir de la semana 3, el mismo movimiento con la gravedad en contra. Es más difícil y se parece más a la posición en la que vas a necesitar el músculo. Se puede hacer en el coche, en el escritorio o en la fila; nadie se da cuenta.
 
@@ -349,7 +349,7 @@ A partir de la semana 3, el mismo movimiento con la gravedad en contra. Es más 
 
 ### 4. Ejercicio 3. Contracciones rápidas
 
-![De pie, tres flechas cortas hacia arriba: contrae fuerte 1 segundo, suelta 1 segundo, en secuencia.](imagens/04-contracoes-rapidas.png)
+![De pie, tres flechas cortas hacia arriba: contrae fuerte 1 segundo, suelta 1 segundo, en secuencia.](imagens/04-contracoes-rapidas.jpg)
 
 Entran en la semana 3, al final de cada serie de Kegel lento. Entrenan el reflejo de 'sostener' en el instante en que la excitación se dispara: contracción fuerte, corta e inmediata, seguida de una soltura igual de rápida.
 
@@ -423,7 +423,7 @@ En el sexo, el piso pélvico se contrae junto con la excitación. Si ya vive con
 
 ### 4. Kegel inverso (soltar)
 
-![Acostado, la región del periné baja un poco. Es dejar caer, no pujar.](imagens/05-kegel-reverso.png)
+![En cuatro puntos, como en la foto, o acostado boca arriba, como en los pasos: la región del periné baja un poco. Es dejar caer, no pujar.](imagens/05-kegel-reverso.jpg)
 
 1. Acuéstate boca arriba, rodillas dobladas, pies en el piso, una mano en el abdomen.
 2. Inhala por la nariz y deja que el abdomen suba. Con ese movimiento, relaja el vientre y el periné como si fueras a empezar a orinar, dejando que la región baje.
@@ -442,11 +442,11 @@ En el sexo, el piso pélvico se contrae junto con la excitación. Si ya vive con
 
 ⚠️ Errores comunes: pujar hacia abajo con fuerza, como en el baño, el error más peligroso de este bloque porque sobrecarga el piso pélvico; aguantar el aire; hacer el inverso a las prisas, solo por cumplir; apretar los glúteos para intentar soltar el periné.
 
-💡 Si no logras sentir la soltura, haz una contracción ligera de 2 segundos y luego suelta. La diferencia se vuelve obvia. Con el tiempo irás directo al soltar.
+💡 Si no logras sentir la soltura, haz una contracción ligera de 2 segundos y luego suelta. La diferencia se vuelve obvia. Con el tiempo irás directo al soltar. Si acostado todavía no sale, prueba en cuatro puntos, como en la foto: con la cadera más arriba que el tronco, la gravedad ayuda a que el periné baje.
 
 ### 5. Respiración diafragmática
 
-![Inhala en 4 segundos, el abdomen sube y el periné se relaja. Exhala en 6, el abdomen baja.](imagens/06-respiracao.png)
+![Inhala en 4 segundos, el abdomen sube y el periné se relaja. Exhala en 6, el abdomen baja.](imagens/06-respiracao.jpg)
 
 El diafragma y el piso pélvico se mueven juntos. Compruébalo ahora: mano sobre el periné, por encima de la ropa, e inhala profundo con el abdomen. Baja un poco. Exhala: regresa. La respiración corta y contenida en el pecho hace lo contrario: el diafragma casi no baja, el piso pélvico se queda trabado arriba y la excitación sube sin nada que la frene.
 
@@ -535,13 +535,13 @@ Qué esperar: en las dos primeras semanas la bajada de la sentadilla da menos mi
 
 ### 6. Sentadilla profunda
 
-![Sentadilla profunda: talones en el piso, rodillas hacia afuera, tronco erguido.](imagens/07-agachamento.png)
+![Sentadilla: talones en el piso, tronco erguido. Baja lo que puedas; con la práctica, la cadera llega cerca de los talones.](imagens/07-agachamento.jpg)
 
 Es la posición en la que el piso pélvico queda más largo y más suelto; por eso abre la rutina.
 
 1. Pies un poco más abiertos que los hombros, puntas ligeramente hacia afuera.
 2. Baja despacio hasta que la cadera quede cerca de los talones. Rodillas apuntando hacia afuera, en dirección de los pies.
-3. Tronco erguido, pecho abierto. Manos juntas frente al pecho, codos empujando suavemente las rodillas hacia afuera.
+3. Tronco erguido, pecho abierto. Los brazos estirados al frente, como en la foto, ayudan al equilibrio; cuando ya bajes profundo, junta las manos frente al pecho y usa los codos para empujar suavemente las rodillas hacia afuera.
 4. Respira profundo en la posición: el abdomen sube en la inhalación y el periné baja. Exhala sin apretar nada.
 5. Quédate 1 a 2 minutos. Para subir, apoya las manos en las rodillas.
 
@@ -563,7 +563,7 @@ Si ni con apoyo llegas abajo, empieza sentado en un banco bajo o en un escalón,
 
 ### 7. Mariposa
 
-![Mariposa: plantas de los pies juntas, rodillas cayendo hacia los lados con su propio peso.](imagens/08-borboleta.png)
+![Mariposa: plantas de los pies juntas, rodillas cayendo hacia los lados con su propio peso.](imagens/08-borboleta.jpg)
 
 1. Siéntate en el piso, plantas de los pies unidas, talones a unos 20 o 30 centímetros de la cadera.
 2. Manos en los tobillos o en las rodillas. Columna larga, sentado sobre los huesos de los glúteos; si la zona lumbar se redondea, siéntate sobre un cojín.
@@ -588,7 +588,7 @@ Es común que un lado baje más que el otro. No fuerces el lado duro para iguala
 
 ### 8. Estiramiento del flexor de cadera
 
-![Flexor de cadera: hincado, una pierna al frente, la cadera avanzando con el tronco erguido.](imagens/09-flexor-quadril.png)
+![Flexor de cadera: hincado, una pierna al frente, la cadera avanzando con el tronco erguido.](imagens/09-flexor-quadril.jpg)
 
 1. Híncate con la rodilla derecha en el piso (un cojín debajo) y el pie izquierdo al frente, bien plantado.
 2. Tronco erguido. Contrae ligeramente el glúteo derecho: eso acomoda la pelvis y pone el estiramiento en el lugar correcto.
@@ -668,9 +668,9 @@ Este es el bloque más fácil de saltarse, porque la plancha parece cosa de gimn
 
 ### 9. Plancha con respiración
 
-![Plancha sobre los antebrazos, cuerpo recto. En la exhalación, periné y abdomen contraen suave.](imagens/10-prancha.png)
+![Plancha con los brazos estirados, cuerpo recto. En la exhalación, periné y abdomen contraen suave. Sobre los antebrazos, el patrón es el mismo.](imagens/10-prancha.jpg)
 
-1. Antebrazos en el piso, codos debajo de los hombros, puntas de los pies en el piso.
+1. Manos en el piso debajo de los hombros y brazos estirados, como en la foto. Si te duele la muñeca, apoya los antebrazos con los codos debajo de los hombros. Puntas de los pies en el piso.
 2. Cuerpo en línea recta de la cabeza a los talones. Mirada al piso, una cuarta adelante de las manos.
 3. Inhala por la nariz soltando el piso pélvico; el abdomen se expande ligeramente.
 4. Exhala por la boca y contrae suave el periné junto con el abdomen, como si subieras un cierre de abajo hacia arriba.
@@ -683,7 +683,7 @@ Este es el bloque más fácil de saltarse, porque la plancha parece cosa de gimn
 - Semanas 9–12: igual.
 
 - Cadera ni alta ni caída; zona lumbar sin dolor.
-- Codos bajo los hombros y cuello en línea con el cuerpo, sin peso en la nuca.
+- Manos o codos bajo los hombros y cuello en línea con el cuerpo, sin peso en la nuca.
 - Mantienes los 4 segundos entrando y 6 saliendo sin trabarte.
 - El periné sube suave en la exhalación y baja en la inhalación; el temblor en el abdomen es normal.
 - Después de la serie, el periné se suelta solo en la primera inhalación; si se queda apretado, sostuviste de más.

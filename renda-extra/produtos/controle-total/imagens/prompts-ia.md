@@ -1,5 +1,8 @@
 # Pedidos para gerar as fotos do "Controle em 12 Semanas"
 
+O livro já usa as fotos da folha que você mandou, ampliadas. Use estes
+pedidos só se um dia quiser trocar por fotos novas, em alta resolução.
+
 São **9 imagens**. A capa e o gráfico do para-e-continua continuam como
 estão: a capa sem corpo passa mais fácil na Hotmart e na Amazon, e o
 gráfico é um gráfico.

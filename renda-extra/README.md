@@ -354,9 +354,12 @@ Para regerar o Word depois de editar um capítulo (no Terminal, dentro de
 node montar.mjs --pasta ..\produtos\controle-total\pt-BR
 ```
 
-Para trocar uma ilustração (por exemplo, por uma gerada por IA), salve o
-novo PNG **com o mesmo nome** em `imagens/` e rode o comando acima. O
-texto não muda.
+As fotos do modelo vêm da folha de imagens que você mandou: cada uma foi
+recortada, ampliada e encaixada no padrão do livro. Para trocar uma foto
+por outra melhor, salve a nova em `imagens/fotos/`, aponte para ela em
+`imagens/montar_fotos.py`, rode esse script e depois o comando acima.
+Os pedidos para gerar fotos novas em alta resolução estão em
+`imagens/prompts-ia.md`.
 
 Atenção ao nome: a pesquisa achou produtos concorrentes chamados
 "Controle Total" e "Control Total" na Hotmart e na Amazon. Por isso o

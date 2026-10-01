@@ -68,20 +68,25 @@ Começou de repente depois de anos normal (tipo adquirido); dificuldade de ereç
 
 ## Imagens (arquivos em `../imagens/`, sem texto dentro, iguais para PT e ES)
 
+As fotos do modelo vêm da folha que o dono mandou (`imagens/fotos/folha-modelo.jpg`),
+recortadas e ampliadas 4x; `imagens/montar_fotos.py` encaixa cada uma no cartão do
+livro e desenha as setas que faltam. Capa e gráfico continuam de `imagens/desenhar.py`.
+Quando a foto mostra uma variação, o texto diz "como na foto" e mantém a outra opção.
+
 | Arquivo | O que mostra | Capítulo |
 |---|---|---|
-| 00-capa.png | arte da capa | capa |
-| 01-anatomia.png | assoalho pélvico como "rede" na base da pelve, vista lateral, seta de contração para cima | 3 |
-| 02-kegel-deitado.png | deitado de costas, joelhos dobrados, pés no chão, seta pequena para cima no períneo | 4 |
-| 03-kegel-sentado.png | sentado em cadeira, coluna ereta, seta para cima | 4 |
-| 04-contracoes-rapidas.png | em pé, três setas curtas para cima | 4 |
-| 05-kegel-reverso.png | deitado, seta suave para baixo (soltar) | 5 |
-| 06-respiracao.png | deitado, mão na barriga, seta de inspiração (barriga sobe) e de expiração | 5 |
-| 07-agachamento.png | agachamento profundo, calcanhares no chão, joelhos para fora | 6 |
-| 08-borboleta.png | sentado, solas dos pés juntas, joelhos para os lados | 6 |
-| 09-flexor-quadril.png | ajoelhado com uma perna à frente, quadril avançando | 6 |
-| 10-prancha.png | prancha nos antebraços, corpo reto, seta de expiração | 7 |
-| 11-para-e-continua.png | curva de excitação com o "ponto 7", três pausas e o ponto de não retorno | 8 |
+| 00-capa.png | arte da capa (desenho) | capa |
+| 01-anatomia.jpg | modelo em pé com a pelve desenhada por cima, a "rede" vermelha e setas para cima | 3 |
+| 02-kegel-deitado.jpg | deitado de costas, joelhos dobrados, seta coral para cima no períneo | 4 |
+| 03-kegel-sentado.jpg | sentado num banco, coluna ereta, seta para cima | 4 |
+| 04-contracoes-rapidas.jpg | em pé, de lado, setas curtas na altura do quadril | 4 |
+| 05-kegel-reverso.jpg | de quatro apoios, seta para baixo (soltar); o texto ensina deitado e cita esta posição como alternativa | 5 |
+| 06-respiracao.jpg | deitado, setas de inspiração e expiração sobre a barriga | 5 |
+| 07-agachamento.jpg | agachamento com braços estendidos à frente, calcanhares no chão | 6 |
+| 08-borboleta.jpg | sentado, solas dos pés juntas, joelhos para os lados | 6 |
+| 09-flexor-quadril.jpg | ajoelhado com uma perna à frente, mãos no quadril, seta para a frente | 6 |
+| 10-prancha.jpg | prancha com os braços estendidos; o texto aceita também nos antebraços | 7 |
+| 11-para-e-continua.png | curva de excitação com o "ponto 7", três pausas e o ponto de não retorno (desenho) | 8 |
 
 ## Formato JSON de um capítulo (exato)
 

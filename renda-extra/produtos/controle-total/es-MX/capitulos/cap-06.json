@@ -5,123 +5,222 @@
     {
       "titulo": "Por qué una cadera dura estorba",
       "blocos": [
-        { "tipo": "paragrafo", "texto": "Tres grupos importan aquí. Los aductores, en la parte interna del muslo, se acortan en quien pasa el día sentado con las piernas cerradas. Los flexores de cadera, al frente, se acortan con cualquier hora de silla: se quedan en posición encogida todo el día. Los glúteos quedan apretados y, al mismo tiempo, dormidos. Todos se conectan con la pelvis, y una pelvis jalada hacia el frente o trabada deja el piso pélvico estirado y tenso, el mismo cuadro de hipertonía del capítulo 5." },
-        { "tipo": "paragrafo", "texto": "En el sexo, esos músculos son los que más trabajan. Si ya llegan cortos, contraen fuerte, y esa contracción va directo al periné. La experiencia práctica de entrenamiento es consistente: quien suelta la cadera siente las piernas menos trabadas en la cama y la excitación subiendo con menos prisa. Es también lo que hace posible, en el capítulo 8, elegir posiciones en las que el cuerpo queda suelto." },
-        { "tipo": "paragrafo", "texto": "Qué esperar: en las dos primeras semanas la bajada de la sentadilla da menos miedo; alrededor de la semana 6 mucha gente apoya el talón en el piso por primera vez. Es lento, y así es. El estiramiento responde a la frecuencia, no a la fuerza, y por eso la dosis es 3 a 4 veces por semana hasta el final. Las señales de abajo muestran si tu cadera está entre las que más necesitan este bloque:" },
-        { "tipo": "topicos", "itens": [
-          "No puedes hacer una sentadilla profunda con los talones en el piso.",
-          "Sentado con las plantas de los pies juntas, las rodillas quedan altas y la ingle jala.",
-          "La zona lumbar se arquea cuando te pones de pie después de mucho tiempo sentado.",
-          "Aprietas los glúteos sin darte cuenta, de pie o sentado."
-        ] },
-        { "tipo": "atencao", "texto": "Estirar jala; no duele. Jalar es la tensión que cede poco a poco con la respiración. Dolor agudo, punzada en la rodilla u hormigueo en la pierna son señal de parar. El dolor no se entrena." }
+        {
+          "tipo": "paragrafo",
+          "texto": "Tres grupos importan aquí. Los aductores, en la parte interna del muslo, se acortan en quien pasa el día sentado con las piernas cerradas. Los flexores de cadera, al frente, se acortan con cualquier hora de silla: se quedan en posición encogida todo el día. Los glúteos quedan apretados y, al mismo tiempo, dormidos. Todos se conectan con la pelvis, y una pelvis jalada hacia el frente o trabada deja el piso pélvico estirado y tenso, el mismo cuadro de hipertonía del capítulo 5."
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "En el sexo, esos músculos son los que más trabajan. Si ya llegan cortos, contraen fuerte, y esa contracción va directo al periné. La experiencia práctica de entrenamiento es consistente: quien suelta la cadera siente las piernas menos trabadas en la cama y la excitación subiendo con menos prisa. Es también lo que hace posible, en el capítulo 8, elegir posiciones en las que el cuerpo queda suelto."
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Qué esperar: en las dos primeras semanas la bajada de la sentadilla da menos miedo; alrededor de la semana 6 mucha gente apoya el talón en el piso por primera vez. Es lento, y así es. El estiramiento responde a la frecuencia, no a la fuerza, y por eso la dosis es 3 a 4 veces por semana hasta el final. Las señales de abajo muestran si tu cadera está entre las que más necesitan este bloque:"
+        },
+        {
+          "tipo": "topicos",
+          "itens": [
+            "No puedes hacer una sentadilla profunda con los talones en el piso.",
+            "Sentado con las plantas de los pies juntas, las rodillas quedan altas y la ingle jala.",
+            "La zona lumbar se arquea cuando te pones de pie después de mucho tiempo sentado.",
+            "Aprietas los glúteos sin darte cuenta, de pie o sentado."
+          ]
+        },
+        {
+          "tipo": "atencao",
+          "texto": "Estirar jala; no duele. Jalar es la tensión que cede poco a poco con la respiración. Dolor agudo, punzada en la rodilla u hormigueo en la pierna son señal de parar. El dolor no se entrena."
+        }
       ]
     },
     {
       "titulo": "6. Sentadilla profunda",
       "blocos": [
-        { "tipo": "imagem", "arquivo": "07-agachamento.png", "texto": "Sentadilla profunda: talones en el piso, rodillas hacia afuera, tronco erguido." },
-        { "tipo": "paragrafo", "texto": "Es la posición en la que el piso pélvico queda más largo y más suelto; por eso abre la rutina." },
-        { "tipo": "passos", "itens": [
-          "Pies un poco más abiertos que los hombros, puntas ligeramente hacia afuera.",
-          "Baja despacio hasta que la cadera quede cerca de los talones. Rodillas apuntando hacia afuera, en dirección de los pies.",
-          "Tronco erguido, pecho abierto. Manos juntas frente al pecho, codos empujando suavemente las rodillas hacia afuera.",
-          "Respira profundo en la posición: el abdomen sube en la inhalación y el periné baja. Exhala sin apretar nada.",
-          "Quédate 1 a 2 minutos. Para subir, apoya las manos en las rodillas."
-        ] },
-        { "tipo": "topicos", "itens": [
-          "Semanas 1–2: 1–2 min · 2 rep · 3–4× por semana.",
-          "Semanas 3–4: igual.",
-          "Semanas 5–8: igual.",
-          "Semanas 9–12: igual. Después de la semana 12, es el estiramiento que más vale la pena mantener."
-        ] },
-        { "tipo": "topicos", "itens": [
-          "Talones en el piso o en el apoyo, peso en todo el pie.",
-          "Las rodillas no se van hacia adentro; columna larga, sin redondearla de más.",
-          "La respiración llega al abdomen y el periné se queda en la sensación del Kegel inverso.",
-          "Jala en la parte interna del muslo y en el tobillo, no en la rodilla."
-        ] },
-        { "tipo": "atencao", "texto": "Errores comunes: rodillas hacia adentro; talones despegados con el peso en la punta del pie; aguantar el aire; bajar con prisa. Si los talones se despegan, apóyalos en un libro o en una toalla doblada, o sujétate de algo firme frente a ti, como el marco de una puerta. Si la rodilla duele, baja menos y usa más apoyo." },
-        { "tipo": "paragrafo", "texto": "Si ni con apoyo llegas abajo, empieza sentado en un banco bajo o en un escalón, con los pies en la posición de la sentadilla, y respira ahí 1 a 2 minutos. Cada semana, un apoyo más bajo. La meta es la posición sin apoyo, pero el estiramiento ya ocurre en el camino." },
-        { "tipo": "dica", "texto": "Usa la posición en el día a día: amarrarte los tenis, recoger algo del piso, esperar a que hierva el agua. Cada minuto en cuclillas cuenta." }
+        {
+          "tipo": "imagem",
+          "arquivo": "07-agachamento.jpg",
+          "texto": "Sentadilla: talones en el piso, tronco erguido. Baja lo que puedas; con la práctica, la cadera llega cerca de los talones."
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Es la posición en la que el piso pélvico queda más largo y más suelto; por eso abre la rutina."
+        },
+        {
+          "tipo": "passos",
+          "itens": [
+            "Pies un poco más abiertos que los hombros, puntas ligeramente hacia afuera.",
+            "Baja despacio hasta que la cadera quede cerca de los talones. Rodillas apuntando hacia afuera, en dirección de los pies.",
+            "Tronco erguido, pecho abierto. Los brazos estirados al frente, como en la foto, ayudan al equilibrio; cuando ya bajes profundo, junta las manos frente al pecho y usa los codos para empujar suavemente las rodillas hacia afuera.",
+            "Respira profundo en la posición: el abdomen sube en la inhalación y el periné baja. Exhala sin apretar nada.",
+            "Quédate 1 a 2 minutos. Para subir, apoya las manos en las rodillas."
+          ]
+        },
+        {
+          "tipo": "topicos",
+          "itens": [
+            "Semanas 1–2: 1–2 min · 2 rep · 3–4× por semana.",
+            "Semanas 3–4: igual.",
+            "Semanas 5–8: igual.",
+            "Semanas 9–12: igual. Después de la semana 12, es el estiramiento que más vale la pena mantener."
+          ]
+        },
+        {
+          "tipo": "topicos",
+          "itens": [
+            "Talones en el piso o en el apoyo, peso en todo el pie.",
+            "Las rodillas no se van hacia adentro; columna larga, sin redondearla de más.",
+            "La respiración llega al abdomen y el periné se queda en la sensación del Kegel inverso.",
+            "Jala en la parte interna del muslo y en el tobillo, no en la rodilla."
+          ]
+        },
+        {
+          "tipo": "atencao",
+          "texto": "Errores comunes: rodillas hacia adentro; talones despegados con el peso en la punta del pie; aguantar el aire; bajar con prisa. Si los talones se despegan, apóyalos en un libro o en una toalla doblada, o sujétate de algo firme frente a ti, como el marco de una puerta. Si la rodilla duele, baja menos y usa más apoyo."
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Si ni con apoyo llegas abajo, empieza sentado en un banco bajo o en un escalón, con los pies en la posición de la sentadilla, y respira ahí 1 a 2 minutos. Cada semana, un apoyo más bajo. La meta es la posición sin apoyo, pero el estiramiento ya ocurre en el camino."
+        },
+        {
+          "tipo": "dica",
+          "texto": "Usa la posición en el día a día: amarrarte los tenis, recoger algo del piso, esperar a que hierva el agua. Cada minuto en cuclillas cuenta."
+        }
       ]
     },
     {
       "titulo": "7. Mariposa",
       "blocos": [
-        { "tipo": "imagem", "arquivo": "08-borboleta.png", "texto": "Mariposa: plantas de los pies juntas, rodillas cayendo hacia los lados con su propio peso." },
-        { "tipo": "passos", "itens": [
-          "Siéntate en el piso, plantas de los pies unidas, talones a unos 20 o 30 centímetros de la cadera.",
-          "Manos en los tobillos o en las rodillas. Columna larga, sentado sobre los huesos de los glúteos; si la zona lumbar se redondea, siéntate sobre un cojín.",
-          "Deja que las rodillas caigan hacia los lados con su propio peso.",
-          "Inhala con el abdomen; en la exhalación, deja que las rodillas se hundan un poco más, sin empujar.",
-          "Quédate 1 a 2 minutos."
-        ] },
-        { "tipo": "topicos", "itens": [
-          "Semanas 1–2: 1–2 min · 2 rep · 3–4× por semana.",
-          "Semanas 3–4: igual.",
-          "Semanas 5–8: igual.",
-          "Semanas 9–12: igual."
-        ] },
-        { "tipo": "topicos", "itens": [
-          "Jala en la parte interna del muslo y en la ingle, no en la rodilla.",
-          "Las rodillas bajan un poco más cada semana, sin que fuerces.",
-          "Hombros y mandíbula sueltos; el periné acompaña la respiración."
-        ] },
-        { "tipo": "atencao", "texto": "Errores comunes: empujar las rodillas con las manos o con los codos (el aductor reacciona contrayéndose y pierdes el estiramiento); redondear la zona lumbar para aparentar que bajaste más; acercar demasiado los pies al cuerpo, lo que manda la tensión a la rodilla." },
-        { "tipo": "paragrafo", "texto": "Es común que un lado baje más que el otro. No fuerces el lado duro para igualar; dale la misma respiración y el mismo tiempo, y la diferencia se reduce sola a lo largo de las semanas. Cuando las rodillas ya llegan cerca del piso, inclina el tronco hacia el frente desde la cadera, columna larga, para profundizar." },
-        { "tipo": "dica", "texto": "Recarga la espalda en la pared si la columna se cansa. El estiramiento es en la cadera, no en la zona lumbar." }
+        {
+          "tipo": "imagem",
+          "arquivo": "08-borboleta.jpg",
+          "texto": "Mariposa: plantas de los pies juntas, rodillas cayendo hacia los lados con su propio peso."
+        },
+        {
+          "tipo": "passos",
+          "itens": [
+            "Siéntate en el piso, plantas de los pies unidas, talones a unos 20 o 30 centímetros de la cadera.",
+            "Manos en los tobillos o en las rodillas. Columna larga, sentado sobre los huesos de los glúteos; si la zona lumbar se redondea, siéntate sobre un cojín.",
+            "Deja que las rodillas caigan hacia los lados con su propio peso.",
+            "Inhala con el abdomen; en la exhalación, deja que las rodillas se hundan un poco más, sin empujar.",
+            "Quédate 1 a 2 minutos."
+          ]
+        },
+        {
+          "tipo": "topicos",
+          "itens": [
+            "Semanas 1–2: 1–2 min · 2 rep · 3–4× por semana.",
+            "Semanas 3–4: igual.",
+            "Semanas 5–8: igual.",
+            "Semanas 9–12: igual."
+          ]
+        },
+        {
+          "tipo": "topicos",
+          "itens": [
+            "Jala en la parte interna del muslo y en la ingle, no en la rodilla.",
+            "Las rodillas bajan un poco más cada semana, sin que fuerces.",
+            "Hombros y mandíbula sueltos; el periné acompaña la respiración."
+          ]
+        },
+        {
+          "tipo": "atencao",
+          "texto": "Errores comunes: empujar las rodillas con las manos o con los codos (el aductor reacciona contrayéndose y pierdes el estiramiento); redondear la zona lumbar para aparentar que bajaste más; acercar demasiado los pies al cuerpo, lo que manda la tensión a la rodilla."
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Es común que un lado baje más que el otro. No fuerces el lado duro para igualar; dale la misma respiración y el mismo tiempo, y la diferencia se reduce sola a lo largo de las semanas. Cuando las rodillas ya llegan cerca del piso, inclina el tronco hacia el frente desde la cadera, columna larga, para profundizar."
+        },
+        {
+          "tipo": "dica",
+          "texto": "Recarga la espalda en la pared si la columna se cansa. El estiramiento es en la cadera, no en la zona lumbar."
+        }
       ]
     },
     {
       "titulo": "8. Estiramiento del flexor de cadera",
       "blocos": [
-        { "tipo": "imagem", "arquivo": "09-flexor-quadril.png", "texto": "Flexor de cadera: hincado, una pierna al frente, la cadera avanzando con el tronco erguido." },
-        { "tipo": "passos", "itens": [
-          "Híncate con la rodilla derecha en el piso (un cojín debajo) y el pie izquierdo al frente, bien plantado.",
-          "Tronco erguido. Contrae ligeramente el glúteo derecho: eso acomoda la pelvis y pone el estiramiento en el lugar correcto.",
-          "Lleva la cadera hacia el frente hasta sentir que se estira el frente de la cadera y del muslo derecho.",
-          "Inhala con el abdomen; en la exhalación, avanza un dedo más.",
-          "1 minuto. Cambia de lado. Dos vueltas."
-        ] },
-        { "tipo": "topicos", "itens": [
-          "Semanas 1–2: 1 min por lado · 2 rep · 3–4× por semana.",
-          "Semanas 3–4: igual.",
-          "Semanas 5–8: igual.",
-          "Semanas 9–12: igual."
-        ] },
-        { "tipo": "topicos", "itens": [
-          "La sensación está en el frente de la cadera de la pierna de atrás, no en la zona lumbar.",
-          "Tronco recto y glúteo de atrás ligeramente activo.",
-          "La rodilla de adelante queda encima del pie; la respiración sigue libre."
-        ] },
-        { "tipo": "atencao", "texto": "Errores comunes: inclinar el tronco hacia el frente, lo que saca el estiramiento de su lugar; arquear la zona lumbar en vez de avanzar la cadera; soltar el glúteo de atrás. Si la zona lumbar se queja, avanza menos y contrae el glúteo un poco más." },
-        { "tipo": "paragrafo", "texto": "Si hincarte duele aun con cojín, hazlo de pie: un paso largo al frente, pie de atrás apoyado en el piso o en un escalón bajo, rodilla de atrás casi estirada, glúteo de atrás firme, cadera avanzando. La sensación es la misma; la rodilla queda fuera." },
-        { "tipo": "dica", "texto": "En los días de muchas horas sentado, si tienes que quitar uno de los tres, quita otro. Este es el que deshace la silla." }
+        {
+          "tipo": "imagem",
+          "arquivo": "09-flexor-quadril.jpg",
+          "texto": "Flexor de cadera: hincado, una pierna al frente, la cadera avanzando con el tronco erguido."
+        },
+        {
+          "tipo": "passos",
+          "itens": [
+            "Híncate con la rodilla derecha en el piso (un cojín debajo) y el pie izquierdo al frente, bien plantado.",
+            "Tronco erguido. Contrae ligeramente el glúteo derecho: eso acomoda la pelvis y pone el estiramiento en el lugar correcto.",
+            "Lleva la cadera hacia el frente hasta sentir que se estira el frente de la cadera y del muslo derecho.",
+            "Inhala con el abdomen; en la exhalación, avanza un dedo más.",
+            "1 minuto. Cambia de lado. Dos vueltas."
+          ]
+        },
+        {
+          "tipo": "topicos",
+          "itens": [
+            "Semanas 1–2: 1 min por lado · 2 rep · 3–4× por semana.",
+            "Semanas 3–4: igual.",
+            "Semanas 5–8: igual.",
+            "Semanas 9–12: igual."
+          ]
+        },
+        {
+          "tipo": "topicos",
+          "itens": [
+            "La sensación está en el frente de la cadera de la pierna de atrás, no en la zona lumbar.",
+            "Tronco recto y glúteo de atrás ligeramente activo.",
+            "La rodilla de adelante queda encima del pie; la respiración sigue libre."
+          ]
+        },
+        {
+          "tipo": "atencao",
+          "texto": "Errores comunes: inclinar el tronco hacia el frente, lo que saca el estiramiento de su lugar; arquear la zona lumbar en vez de avanzar la cadera; soltar el glúteo de atrás. Si la zona lumbar se queja, avanza menos y contrae el glúteo un poco más."
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Si hincarte duele aun con cojín, hazlo de pie: un paso largo al frente, pie de atrás apoyado en el piso o en un escalón bajo, rodilla de atrás casi estirada, glúteo de atrás firme, cadera avanzando. La sensación es la misma; la rodilla queda fuera."
+        },
+        {
+          "tipo": "dica",
+          "texto": "En los días de muchas horas sentado, si tienes que quitar uno de los tres, quita otro. Este es el que deshace la silla."
+        }
       ]
     },
     {
       "titulo": "La rutina de 10 minutos y cuándo duele",
       "blocos": [
-        { "tipo": "paragrafo", "texto": "Orden, tiempo y respiración. En todos, la misma respiración del capítulo 5: 4 segundos entrando por el abdomen, 6 saliendo, el periné bajando en la inhalación. Hazla después del baño caliente o antes de dormir, cuando el músculo cede más." },
-        { "tipo": "passos", "itens": [
-          "0:00 a 1:00. Sentadilla profunda, 1ª vuelta: 6 respiraciones completas.",
-          "1:00 a 2:00. Mariposa, 1ª vuelta.",
-          "2:00 a 4:00. Flexor de cadera, 1 minuto de cada lado.",
-          "4:00 a 5:00. Sentadilla profunda, 2ª vuelta.",
-          "5:00 a 6:00. Mariposa, 2ª vuelta.",
-          "6:00 a 8:00. Flexor de cadera, 2ª vuelta, 1 minuto de cada lado.",
-          "8:00 a 10:00. En las semanas 1–2, alarga a 2 minutos los dos estiramientos que más jalan. A partir de la semana 3, esos 2 minutos se convierten en la plancha con respiración (capítulo 7); con los descansos, la rutina cierra en poco más de 10 minutos."
-        ] },
-        { "tipo": "paragrafo", "texto": "Dónde encajarla: después del baño caliente, antes de dormir junto con la respiración de la noche, o justo después del entrenamiento de pierna, cuando la cadera ya está caliente. Elige un horario fijo; el estiramiento que depende de que sobre tiempo no ocurre. Cuando duele, cambia antes de parar:" },
-        { "tipo": "topicos", "itens": [
-          "Rodilla en la sentadilla: menos profundidad, talones más altos en el apoyo, manos sujetas de algo.",
-          "Rodilla en la mariposa: pies más lejos del cuerpo, un cojín bajo cada rodilla.",
-          "Zona lumbar en el flexor: avanza menos y aprieta más el glúteo de atrás.",
-          "Zona lumbar en la sentadilla: sujétate de algo al frente y deja el tronco más vertical.",
-          "Si con esos cambios el dolor sigue por 2 semanas, aparece fuera del ejercicio o viene con hormigueo en la pierna, para y acude con un fisioterapeuta."
-        ] },
-        { "tipo": "exemplo", "texto": "Sergio, 42, Querétaro: corría tres veces por semana y nunca estiraba. No bajaba en la sentadilla sin despegar los talones y sentía que la ingle jalaba en la mariposa con las rodillas a una cuarta del piso. Perfil mixto en el cuestionario. Empezó con un libro bajo los talones y un cojín en la mariposa. En la semana 6 hacía la sentadilla con todo el pie en el piso y notó que las piernas dejaban de trabarse en el sexo; en la semana 8 ya elegía posiciones con las piernas sueltas. Caso compuesto, con nombre cambiado." }
+        {
+          "tipo": "paragrafo",
+          "texto": "Orden, tiempo y respiración. En todos, la misma respiración del capítulo 5: 4 segundos entrando por el abdomen, 6 saliendo, el periné bajando en la inhalación. Hazla después del baño caliente o antes de dormir, cuando el músculo cede más."
+        },
+        {
+          "tipo": "passos",
+          "itens": [
+            "0:00 a 1:00. Sentadilla profunda, 1ª vuelta: 6 respiraciones completas.",
+            "1:00 a 2:00. Mariposa, 1ª vuelta.",
+            "2:00 a 4:00. Flexor de cadera, 1 minuto de cada lado.",
+            "4:00 a 5:00. Sentadilla profunda, 2ª vuelta.",
+            "5:00 a 6:00. Mariposa, 2ª vuelta.",
+            "6:00 a 8:00. Flexor de cadera, 2ª vuelta, 1 minuto de cada lado.",
+            "8:00 a 10:00. En las semanas 1–2, alarga a 2 minutos los dos estiramientos que más jalan. A partir de la semana 3, esos 2 minutos se convierten en la plancha con respiración (capítulo 7); con los descansos, la rutina cierra en poco más de 10 minutos."
+          ]
+        },
+        {
+          "tipo": "paragrafo",
+          "texto": "Dónde encajarla: después del baño caliente, antes de dormir junto con la respiración de la noche, o justo después del entrenamiento de pierna, cuando la cadera ya está caliente. Elige un horario fijo; el estiramiento que depende de que sobre tiempo no ocurre. Cuando duele, cambia antes de parar:"
+        },
+        {
+          "tipo": "topicos",
+          "itens": [
+            "Rodilla en la sentadilla: menos profundidad, talones más altos en el apoyo, manos sujetas de algo.",
+            "Rodilla en la mariposa: pies más lejos del cuerpo, un cojín bajo cada rodilla.",
+            "Zona lumbar en el flexor: avanza menos y aprieta más el glúteo de atrás.",
+            "Zona lumbar en la sentadilla: sujétate de algo al frente y deja el tronco más vertical.",
+            "Si con esos cambios el dolor sigue por 2 semanas, aparece fuera del ejercicio o viene con hormigueo en la pierna, para y acude con un fisioterapeuta."
+          ]
+        },
+        {
+          "tipo": "exemplo",
+          "texto": "Sergio, 42, Querétaro: corría tres veces por semana y nunca estiraba. No bajaba en la sentadilla sin despegar los talones y sentía que la ingle jalaba en la mariposa con las rodillas a una cuarta del piso. Perfil mixto en el cuestionario. Empezó con un libro bajo los talones y un cojín en la mariposa. En la semana 6 hacía la sentadilla con todo el pie en el piso y notó que las piernas dejaban de trabarse en el sexo; en la semana 8 ya elegía posiciones con las piernas sueltas. Caso compuesto, con nombre cambiado."
+        }
       ]
     }
   ],
